@@ -6,327 +6,347 @@
   <title>Htoo &amp; May — Wedding Invitation</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Montserrat:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <!-- ── ENVELOPE SCENE ── -->
+  <!-- ═══════════════════════════════════════════
+       ENVELOPE SCENE
+  ═══════════════════════════════════════════ -->
   <div id="envelope-scene">
-    <div id="envelope" class="envelope">
-      <div class="envelope__back"></div>
-      <div class="envelope__letter-wrap">
-        <div class="envelope__letter-preview">
-          <span class="script-sm">Htoo &amp; May</span>
+    <div class="env-bg-stripes"></div>
+    <div id="envelope" role="button" tabindex="0" aria-label="Open your wedding invitation">
+      <!-- back panel -->
+      <div class="env-back"></div>
+      <!-- letter inside -->
+      <div class="env-letter">
+        <div class="env-letter-content">
+          <p class="env-letter-names">Htoo &amp; May</p>
+          <p class="env-letter-date">October 2025 · Tokyo</p>
         </div>
       </div>
-      <div class="envelope__flap"></div>
-      <div class="envelope__seal">
-        <div class="envelope__seal-inner">H&amp;M</div>
+      <!-- front V-folds -->
+      <div class="env-fold env-fold-left"></div>
+      <div class="env-fold env-fold-right"></div>
+      <div class="env-fold env-fold-bottom"></div>
+      <!-- flap -->
+      <div class="env-flap">
+        <div class="env-seal">
+          <span>H&amp;M</span>
+        </div>
       </div>
-      <div class="envelope__front-bottom"></div>
-      <div class="envelope__front-left"></div>
-      <div class="envelope__front-right"></div>
     </div>
-    <p class="envelope__hint" id="envelope-hint">
-      <span>— tap to open your invitation —</span>
-    </p>
+    <p class="env-hint">— tap to open your invitation —</p>
   </div>
 
-  <!-- ── MAIN INVITATION ── -->
+  <!-- ═══════════════════════════════════════════
+       INVITATION
+  ═══════════════════════════════════════════ -->
   <main id="invitation" aria-hidden="true">
 
-    <!-- HERO -->
+    <!-- ── HERO ── -->
     <section class="hero" id="hero">
-      <div class="hero__bg">
-        <img src="images/hero-watercolor.jpg" alt="" class="hero__img" />
-        <div class="hero__overlay"></div>
-      </div>
-      <div class="hero__floral-top">
-        <img src="images/floral-arch-top.png" alt="" />
-      </div>
-      <div class="hero__content reveal">
+      <div class="hero-stripes"></div>
+      <div class="hero-content reveal">
+        <!-- locket / monogram -->
+        <div class="locket-wrap">
+          <img src="images/hero-locket.png" alt="" class="locket-img" />
+          <div class="locket-fallback">
+            <span class="locket-monogram">H &amp; M</span>
+          </div>
+        </div>
+
         <p class="label-caps">Together with their families</p>
-        <h1 class="names">
-          <span class="name-line">Htoo</span>
-          <span class="ampersand">&amp;</span>
-          <span class="name-line">May</span>
-        </h1>
-        <p class="invite-line">joyfully invite you to celebrate their wedding</p>
-        <div class="date-badge">
-          <span class="date-day">Saturday</span>
-          <span class="date-full">The Twenty-Fifth of October</span>
-          <span class="date-year">Two Thousand &amp; Twenty-Five</span>
+        <h1 class="hero-tagline">From this day forward</h1>
+
+        <h2 class="couple-names">Htoo <span class="amp">&amp;</span> May</h2>
+        <p class="hero-date">25 · October · 2025</p>
+
+        <!-- countdown -->
+        <div class="countdown" id="countdown">
+          <div class="countdown-item">
+            <span class="countdown-num" id="cd-days">—</span>
+            <span class="countdown-label">Days</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-num" id="cd-hours">—</span>
+            <span class="countdown-label">Hours</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-num" id="cd-mins">—</span>
+            <span class="countdown-label">Minutes</span>
+          </div>
         </div>
-        <div class="scroll-hint">
-          <span></span>
-          <p>scroll</p>
-        </div>
-      </div>
-      <div class="hero__floral-bottom">
-        <img src="images/floral-arch-bottom.png" alt="" />
+
+        <p class="hero-sub">We would love to celebrate the most special day of our lives with you.</p>
       </div>
     </section>
 
-    <!-- DIVIDER -->
-    <div class="divider-wrap reveal">
-      <img src="images/divider-floral.png" alt="" class="divider-floral" />
-    </div>
-
-    <!-- CEREMONY DETAILS -->
-    <section class="section details-section reveal" id="details">
-      <div class="section__inner">
-        <p class="label-caps">Ceremony &amp; Celebration</p>
-        <h2 class="section__title script">The Details</h2>
-
-        <div class="details-grid">
-          <div class="detail-card reveal-child">
-            <div class="detail-icon">◇</div>
-            <h3>Ceremony</h3>
-            <p>4:00 PM</p>
-            <p class="muted">Doors open at 3:30 PM</p>
-          </div>
-          <div class="detail-card reveal-child">
-            <div class="detail-icon">◇</div>
-            <h3>Reception</h3>
-            <p>6:00 PM</p>
-            <p class="muted">Dinner &amp; dancing to follow</p>
-          </div>
-          <div class="detail-card reveal-child">
-            <div class="detail-icon">◇</div>
-            <h3>Venue</h3>
-            <p>Tokyo, Japan</p>
-            <p class="muted">Full details shared with confirmed guests</p>
-          </div>
-        </div>
-
-        <div class="venue-note reveal-child">
-          <img src="images/floral-sprig.png" alt="" class="sprig-img" />
-          <p>
-            We are so excited to celebrate this day with you.
-            Once you RSVP, we will send the full venue address and all the details
-            you need to join us for this special occasion.
-          </p>
-          <img src="images/floral-sprig.png" alt="" class="sprig-img sprig-flip" />
+    <!-- ── COUPLE ILLUSTRATION ── -->
+    <section class="couple-painting-section">
+      <div class="couple-painting reveal">
+        <img src="images/hero-couple-painting.png" alt="Htoo and May" class="couple-img" />
+        <!-- fallback decorative text if no image -->
+        <div class="couple-painting-fallback">
+          <p class="label-caps">Our Story</p>
+          <p class="couple-painting-quote">"The best love is the kind that awakens the soul."</p>
         </div>
       </div>
     </section>
 
-    <!-- DIVIDER -->
-    <div class="divider-wrap reveal">
-      <img src="images/divider-floral.png" alt="" class="divider-floral" />
+    <!-- ── BOW DIVIDER ── -->
+    <div class="bow-divider reveal">
+      <img src="images/bow-ribbon.png" alt="" class="bow-img" />
+      <div class="bow-fallback"></div>
     </div>
 
-    <!-- OUR STORY -->
-    <section class="section story-section" id="story">
-      <div class="section__inner">
-        <p class="label-caps">How it all began</p>
-        <h2 class="section__title script">Our Story</h2>
-        <div class="story-grid">
-          <div class="story-image reveal">
-            <img src="images/couple-portrait.jpg" alt="Htoo and May" />
-          </div>
-          <div class="story-text reveal">
-            <p>
-              What began as an ordinary day turned into the beginning of something
-              extraordinary. From that first meeting, we knew there was something
-              rare and beautiful growing between us.
-            </p>
-            <p>
-              Through the seasons — the cherry blossoms, the summer festivals,
-              the crisp autumn air — our love grew deeper with every shared moment.
-            </p>
-            <p>
-              Now, we can't wait to begin the greatest adventure of our lives,
-              and we want you — our dearest family and friends — right there
-              beside us.
-            </p>
-            <div class="story-signature">
-              <span class="script">Htoo &amp; May</span>
-            </div>
+    <!-- ── DETAILS — CEREMONY ── -->
+    <section class="section details-section" id="ceremony">
+      <div class="section-inner">
+        <p class="label-caps">Everything you need to know</p>
+        <h2 class="section-title">Ceremony</h2>
+
+        <p class="detail-sub-label">The ceremony will take place at</p>
+        <h3 class="venue-name">Venue to be announced</h3>
+        <p class="venue-time">16:00</p>
+        <p class="venue-time-note">Doors open at 15:30</p>
+
+        <div class="venue-painting reveal">
+          <img src="images/venue-ceremony.jpg" alt="Ceremony venue" />
+          <div class="venue-painting-fallback">
+            <p>Ceremony Venue</p>
+            <p class="label-caps">Tokyo, Japan</p>
           </div>
         </div>
+
+        <p class="venue-note-text">
+          Full venue details will be shared with guests who confirm attendance.<br/>
+          We can't wait to welcome you!
+        </p>
       </div>
     </section>
 
-    <!-- DIVIDER -->
-    <div class="divider-wrap reveal">
-      <img src="images/divider-floral.png" alt="" class="divider-floral" />
+    <!-- ── BOW DIVIDER ── -->
+    <div class="bow-divider reveal">
+      <img src="images/bow-ribbon.png" alt="" class="bow-img" />
+      <div class="bow-fallback"></div>
     </div>
 
-    <!-- GETTING THERE / TRANSPORT -->
-    <section class="section transport-section reveal" id="transport">
-      <div class="section__inner">
-        <p class="label-caps">Getting There</p>
-        <h2 class="section__title script">Transportation</h2>
-        <div class="transport-intro">
-          <p>
-            We are arranging <strong>complimentary buses</strong> from several
-            convenient locations around Tokyo. Whether you are staying near
-            Shinjuku or elsewhere, we want to make getting there effortless for you.
-          </p>
-        </div>
+    <!-- ── DETAILS — RECEPTION ── -->
+    <section class="section details-section" id="reception">
+      <div class="section-inner">
+        <p class="detail-sub-label">The reception will take place at</p>
+        <h2 class="section-title">Reception</h2>
+        <p class="venue-time">18:30</p>
 
-        <div class="bus-stops reveal-child">
-          <div class="bus-stop-card">
-            <div class="bus-icon">🚌</div>
-            <h3>Shinjuku Area</h3>
-            <p>Shinjuku Station (West Exit)</p>
-            <p class="muted">Departure time to be confirmed</p>
-          </div>
-          <div class="bus-stop-card">
-            <div class="bus-icon">🚌</div>
-            <h3>Other Stations</h3>
-            <p>Additional pickup points available</p>
-            <p class="muted">Let us know your preferred location in the RSVP</p>
+        <div class="venue-painting reveal">
+          <img src="images/venue-reception.jpg" alt="Reception venue" />
+          <div class="venue-painting-fallback">
+            <p>Reception Venue</p>
+            <p class="label-caps">Tokyo, Japan</p>
           </div>
         </div>
 
-        <div class="transport-note reveal-child">
-          <p>
-            Please let us know your arrival preference and any bus requests
-            in the RSVP form below. The more we know, the better we can plan
-            for everyone's comfort.
-          </p>
-        </div>
+        <p class="venue-note-text">
+          Dinner, dancing, and a night to remember.<br/>
+          We'll send you all the details once you've RSVP'd.
+        </p>
+
+        <p class="date-line">Saturday · 25 October 2025</p>
       </div>
     </section>
 
-    <!-- DIVIDER -->
-    <div class="divider-wrap reveal">
-      <img src="images/divider-floral.png" alt="" class="divider-floral" />
+    <!-- ── BOW DIVIDER ── -->
+    <div class="bow-divider reveal">
+      <img src="images/bow-ribbon.png" alt="" class="bow-img" />
+      <div class="bow-fallback"></div>
     </div>
 
-    <!-- RSVP -->
+    <!-- ── GETTING THERE ── -->
+    <section class="section transport-section" id="transport">
+      <div class="section-inner">
+        <p class="label-caps">Getting there</p>
+        <h2 class="section-title">Transportation</h2>
+
+        <div class="transport-painting reveal">
+          <img src="images/decoration-bus.png" alt="" class="transport-deco" />
+        </div>
+
+        <p class="transport-intro">
+          We are arranging <strong>complimentary wedding buses</strong> from major
+          stations around Tokyo. Please let us know your preference so we can plan accordingly.
+        </p>
+
+        <div class="bus-cards reveal">
+          <div class="bus-card">
+            <p class="bus-icon">🚌</p>
+            <h3 class="bus-title">Shinjuku Area</h3>
+            <p class="bus-detail">Shinjuku Station (West Exit)</p>
+            <p class="bus-detail">Shinjuku Station (South Exit)</p>
+            <p class="label-caps" style="margin-top:0.75rem;">Departure time to be confirmed</p>
+          </div>
+          <div class="bus-card">
+            <p class="bus-icon">📍</p>
+            <h3 class="bus-title">Other Stations</h3>
+            <p class="bus-detail">Additional pickup points available</p>
+            <p class="bus-detail">Let us know your preferred location</p>
+            <p class="label-caps" style="margin-top:0.75rem;">We'll do our best to accommodate</p>
+          </div>
+        </div>
+
+        <p class="transport-note">
+          Please indicate your arrival preference and bus request in the RSVP below.
+          No hesitation — just tell us where you are and we'll take care of the rest.
+        </p>
+      </div>
+    </section>
+
+    <!-- ── BOW DIVIDER ── -->
+    <div class="bow-divider reveal">
+      <img src="images/bow-ribbon.png" alt="" class="bow-img" />
+      <div class="bow-fallback"></div>
+    </div>
+
+    <!-- ── RSVP ── -->
     <section class="section rsvp-section" id="rsvp">
-      <div class="rsvp-bg">
-        <img src="images/rsvp-watercolor-bg.jpg" alt="" />
-        <div class="rsvp-overlay"></div>
-      </div>
-      <div class="section__inner rsvp-inner">
-        <p class="label-caps" style="color: var(--gold)">Please respond</p>
-        <h2 class="section__title script" style="color: var(--cream)">RSVP</h2>
+      <div class="section-inner">
 
-        <div class="rsvp-deadline reveal-child">
-          <p>Kindly reply by <strong>30th June 2025</strong>.</p>
-          <p class="muted-light">If you have any special circumstances, please don't hesitate to reach out to us directly.</p>
+        <h2 class="section-title rsvp-title">RSVP</h2>
+
+        <!-- swan illustration -->
+        <div class="rsvp-illustration reveal">
+          <img src="images/rsvp-swans.png" alt="" class="swans-img" />
+          <div class="swans-fallback">
+            <span class="swans-monogram">H &amp; M</span>
+            <p class="swans-date">25.10.2025</p>
+          </div>
         </div>
 
-        <form class="rsvp-form reveal" id="rsvp-form" novalidate>
+        <p class="rsvp-note">
+          Please note that this invitation is exclusively for you.<br/>
+          Kindly reply by <strong>30th June 2025</strong>.
+        </p>
+        <p class="rsvp-note-small">
+          If you have a special situation, please don't hesitate to reach out to us directly — we're flexible.
+        </p>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label for="name">Your Full Name <span class="req">*</span></label>
-              <input type="text" id="name" name="name" placeholder="e.g. Tanaka Yuki" required />
-            </div>
-            <div class="form-group">
-              <label for="guests">Number of Guests <span class="req">*</span></label>
-              <input type="number" id="guests" name="guests" min="1" max="6" value="1" required />
-            </div>
-          </div>
+        <!-- FORM -->
+        <form class="rsvp-form" id="rsvp-form" novalidate>
 
-          <div class="form-group">
-            <label for="guest-names">Guest Name(s)</label>
-            <input type="text" id="guest-names" name="guest_names" placeholder="Names of additional guests (if any)" />
-          </div>
-
-          <div class="form-group">
-            <label>Will you be attending? <span class="req">*</span></label>
-            <div class="radio-group">
-              <label class="radio-label">
+          <div class="form-field">
+            <label>Will you attend? <span class="req">*</span></label>
+            <div class="radio-row">
+              <label class="radio-opt">
                 <input type="radio" name="attendance" value="yes" required />
-                <span class="radio-custom"></span>
-                Joyfully accepts
+                <span class="radio-circle"></span>
+                Yes, I'll be there
               </label>
-              <label class="radio-label">
+              <label class="radio-opt">
                 <input type="radio" name="attendance" value="no" />
-                <span class="radio-custom"></span>
-                Regretfully declines
+                <span class="radio-circle"></span>
+                I'm sorry, I can't make it
               </label>
             </div>
           </div>
 
-          <div class="form-group" id="transport-group">
-            <label>How will you be arriving?</label>
-            <div class="radio-group">
-              <label class="radio-label">
-                <input type="radio" name="transport" value="bus" id="transport-bus" />
-                <span class="radio-custom"></span>
+          <div class="form-field">
+            <label for="fname">Full Name <span class="req">*</span></label>
+            <input type="text" id="fname" name="name" placeholder="Your full name" required />
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-field">
+              <label for="num-guests">Number of Guests <span class="req">*</span></label>
+              <input type="number" id="num-guests" name="guests" min="1" max="8" value="1" required />
+            </div>
+            <div class="form-field">
+              <label for="guest-names">Guest Name(s)</label>
+              <input type="text" id="guest-names" name="guest_names" placeholder="Names of other guests" />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label>How will you arrive?</label>
+            <div class="radio-row radio-col">
+              <label class="radio-opt">
+                <input type="radio" name="transport" value="bus" id="opt-bus" />
+                <span class="radio-circle"></span>
                 I'd like to take the wedding bus
               </label>
-              <label class="radio-label">
+              <label class="radio-opt">
                 <input type="radio" name="transport" value="own" />
-                <span class="radio-custom"></span>
+                <span class="radio-circle"></span>
                 Own transport / taxi
               </label>
-              <label class="radio-label">
+              <label class="radio-opt">
                 <input type="radio" name="transport" value="other" />
-                <span class="radio-custom"></span>
+                <span class="radio-circle"></span>
                 Other — I'll let you know
               </label>
             </div>
           </div>
 
-          <div class="form-group" id="bus-group" style="display:none;">
-            <label for="bus-station">Which station would you prefer to board from?</label>
+          <!-- Bus station (shown when bus is selected) -->
+          <div class="form-field" id="bus-station-field" style="display:none;">
+            <label for="bus-station">Preferred bus pickup station</label>
             <select id="bus-station" name="bus_station">
               <option value="">— Please select —</option>
               <option value="shinjuku-west">Shinjuku Station (West Exit)</option>
               <option value="shinjuku-south">Shinjuku Station (South Exit)</option>
-              <option value="other-station">Other — please specify below</option>
+              <option value="other">Other location — please note below</option>
             </select>
           </div>
 
-          <div class="form-group">
+          <div class="form-field">
             <label for="dietary">Dietary Requirements</label>
-            <input type="text" id="dietary" name="dietary" placeholder="e.g. vegetarian, nut allergy, halal…" />
+            <input type="text" id="dietary" name="dietary" placeholder="e.g. vegetarian, halal, nut allergy…" />
           </div>
 
-          <div class="form-group">
-            <label for="message">A message for us <span class="muted-label">(optional)</span></label>
-            <textarea id="message" name="message" rows="4" placeholder="We'd love to hear from you…"></textarea>
+          <div class="form-field">
+            <label for="message">A note for us <span class="form-opt">(optional)</span></label>
+            <textarea id="message" name="message" rows="3" placeholder="We'd love to hear from you…"></textarea>
           </div>
 
-          <div class="form-group">
-            <label for="email">Your Email <span class="req">*</span></label>
-            <input type="email" id="email" name="email" placeholder="we'll send you the venue details here" required />
+          <div class="form-field">
+            <label for="email">Email Address <span class="req">*</span></label>
+            <input type="email" id="email" name="email" placeholder="We'll send venue details here" required />
           </div>
 
           <div class="form-submit">
-            <button type="submit" class="btn-submit">
-              <span class="btn-text">Send with Love</span>
-              <span class="btn-loading" style="display:none;">Sending…</span>
+            <button type="submit" class="btn-rsvp">
+              <span class="btn-label">Send with Love</span>
+              <span class="btn-loading" hidden>Sending…</span>
             </button>
           </div>
 
         </form>
 
-        <div class="rsvp-success" id="rsvp-success" style="display:none;">
-          <div class="success-icon">✦</div>
-          <h3 class="script" style="color:var(--cream); font-size:2.5rem;">Thank You!</h3>
-          <p style="color:var(--cream-dim);">
-            We've received your RSVP and we are so happy you'll be joining us.
-            We'll be in touch with all the details very soon.
-          </p>
-          <p style="color: var(--gold); margin-top: 1rem;">
-            With love, Htoo &amp; May ♡
-          </p>
+        <!-- Success state -->
+        <div class="rsvp-success" id="rsvp-success" hidden>
+          <div class="success-ring">✦</div>
+          <h3 class="section-title" style="margin-bottom:0.5rem;">Thank You!</h3>
+          <p class="rsvp-note">We've received your RSVP and are so happy you'll be joining us.<br/>We'll be in touch with all the details very soon.</p>
+          <p class="rsvp-note" style="margin-top:1rem;"><strong>With love, Htoo &amp; May ♡</strong></p>
         </div>
 
       </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- ── FOOTER ── -->
     <footer class="site-footer">
-      <div class="footer-floral">
-        <img src="images/floral-footer.png" alt="" />
+      <div class="footer-deco">
+        <img src="images/footer-deco.png" alt="" />
       </div>
       <div class="footer-content">
-        <h2 class="script footer-names">Htoo &amp; May</h2>
-        <p class="footer-date">25 · October · 2025</p>
-        <p class="footer-tagline">With love and gratitude for sharing this day with us.</p>
-        <div class="footer-divider">✦ ✦ ✦</div>
-        <p class="footer-small">Questions? Reach us at <a href="mailto:the.studioeternelle@gmail.com">the.studioeternelle@gmail.com</a></p>
+        <h2 class="footer-names">Htoo &amp; May</h2>
+        <p class="footer-date">Saturday · 25 October 2025 · Tokyo</p>
+        <p class="footer-line">With gratitude and love for celebrating this day with us.</p>
+        <p class="footer-dots">✦ &nbsp; ✦ &nbsp; ✦</p>
+        <p class="footer-contact">
+          Questions? Email us at
+          <a href="mailto:the.studioeternelle@gmail.com">the.studioeternelle@gmail.com</a>
+        </p>
       </div>
     </footer>
 

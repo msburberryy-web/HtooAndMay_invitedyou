@@ -1,183 +1,160 @@
 (function () {
   'use strict';
 
-  const envelope      = document.getElementById('envelope');
-  const envelopeScene = document.getElementById('envelope-scene');
-  const invitation    = document.getElementById('invitation');
-  const hint          = document.getElementById('envelope-hint');
+  // ── WEDDING DATE ─────────────────────────────
+  const WEDDING = new Date('2025-10-25T16:00:00+09:00');
 
+  // ── ENVELOPE ─────────────────────────────────
+  const scene    = document.getElementById('envelope-scene');
+  const envelope = document.getElementById('envelope');
+  const invitation = document.getElementById('invitation');
   let opened = false;
 
   function openEnvelope() {
     if (opened) return;
     opened = true;
 
-    hint.style.opacity = '0';
+    document.querySelector('.env-hint').style.opacity = '0';
     envelope.classList.add('open');
 
-    // After envelope animation, fade out scene and reveal invitation
     setTimeout(() => {
-      envelopeScene.classList.add('hidden');
+      scene.classList.add('gone');
       invitation.removeAttribute('aria-hidden');
       invitation.classList.add('visible');
       document.body.style.overflowY = 'auto';
-      // Kick reveal observer after invitation is visible
-      triggerInitialReveal();
-    }, 1600);
+      initReveal();
+    }, 1800);
   }
 
   envelope.addEventListener('click', openEnvelope);
-  envelope.addEventListener('keydown', (e) => {
+  envelope.addEventListener('keydown', e => {
     if (e.key === 'Enter' || e.key === ' ') openEnvelope();
   });
-  envelope.setAttribute('tabindex', '0');
-  envelope.setAttribute('role', 'button');
-  envelope.setAttribute('aria-label', 'Open your wedding invitation');
 
-  // Prevent scrolling while envelope is visible
   document.body.style.overflow = 'hidden';
 
-  // ── Scroll reveal ────────────────────────────
-  function setupRevealObserver() {
-    const targets = document.querySelectorAll('.reveal, .reveal-child');
+  // ── COUNTDOWN ────────────────────────────────
+  function updateCountdown() {
+    const now  = new Date();
+    const diff = WEDDING - now;
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
+    if (diff <= 0) {
+      document.getElementById('countdown').innerHTML =
+        '<p class="label-caps" style="letter-spacing:.3em;">Today is the day! ♡</p>';
+      return;
+    }
+
+    const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+    document.getElementById('cd-days').textContent  = days;
+    document.getElementById('cd-hours').textContent = hours;
+    document.getElementById('cd-mins').textContent  = String(mins).padStart(2, '0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 30000);
+
+  // ── SCROLL REVEAL ────────────────────────────
+  function initReveal() {
+    const els = document.querySelectorAll('.reveal');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
-          const el = entry.target;
-          const delay = el.classList.contains('reveal-child')
-            ? (Array.from(el.parentElement.querySelectorAll('.reveal-child')).indexOf(el)) * 120
-            : 0;
-          setTimeout(() => el.classList.add('visible'), delay);
-          observer.unobserve(el);
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
 
-    targets.forEach(el => observer.observe(el));
+    els.forEach(el => observer.observe(el));
+
+    // Hero reveals immediately
+    const heroContent = document.querySelector('.hero-content');
+    if (heroContent) setTimeout(() => heroContent.classList.add('visible'), 300);
   }
 
-  function triggerInitialReveal() {
-    setupRevealObserver();
-    // Hero content is always visible immediately
-    const heroContent = document.querySelector('.hero__content');
-    if (heroContent) {
-      setTimeout(() => heroContent.classList.add('visible'), 200);
-    }
-  }
-
-  // ── Bus station toggle ───────────────────────
-  const transportRadios = document.querySelectorAll('input[name="transport"]');
-  const busGroup = document.getElementById('bus-group');
-
-  transportRadios.forEach(radio => {
+  // ── BUS STATION TOGGLE ───────────────────────
+  document.querySelectorAll('input[name="transport"]').forEach(radio => {
     radio.addEventListener('change', () => {
-      if (radio.value === 'bus' && radio.checked) {
-        busGroup.style.display = 'flex';
-      } else if (radio.value !== 'bus') {
-        busGroup.style.display = 'none';
-      }
+      const busField = document.getElementById('bus-station-field');
+      busField.style.display = radio.value === 'bus' && radio.checked ? 'flex' : 'none';
     });
   });
 
-  // ── RSVP Form submission ─────────────────────
+  // ── RSVP FORM ────────────────────────────────
   const form       = document.getElementById('rsvp-form');
-  const successMsg = document.getElementById('rsvp-success');
+  const successDiv = document.getElementById('rsvp-success');
 
-  if (form) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    clearErrors();
+    if (!validate()) return;
 
-      if (!validateForm()) return;
+    const btnLabel   = form.querySelector('.btn-label');
+    const btnLoading = form.querySelector('.btn-loading');
+    btnLabel.hidden   = true;
+    btnLoading.hidden = false;
 
-      const btnText    = form.querySelector('.btn-text');
-      const btnLoading = form.querySelector('.btn-loading');
-      btnText.style.display    = 'none';
-      btnLoading.style.display = 'inline';
-
-      const data = new FormData(form);
-      const payload = Object.fromEntries(data.entries());
-
-      try {
-        // Replace YOUR_FORM_ID with your Formspree endpoint
-        const endpoint = form.dataset.endpoint || '#';
-
-        if (endpoint === '#') {
-          // Demo mode — simulate success after short delay
-          await new Promise(r => setTimeout(r, 900));
-        } else {
-          const res = await fetch(endpoint, {
-            method: 'POST',
-            headers: { 'Accept': 'application/json' },
-            body: JSON.stringify(payload),
-          });
-          if (!res.ok) throw new Error('Submission failed');
-        }
-
-        form.style.display = 'none';
-        successMsg.style.display = 'block';
-
-      } catch (err) {
-        btnText.style.display    = 'inline';
-        btnLoading.style.display = 'none';
-        showFormError('Something went wrong. Please try again or email us directly.');
+    try {
+      const endpoint = form.dataset.endpoint;
+      if (endpoint) {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify(Object.fromEntries(new FormData(form))),
+        });
+        if (!res.ok) throw new Error('error');
+      } else {
+        // Demo: simulate delay
+        await new Promise(r => setTimeout(r, 800));
       }
-    });
-  }
 
-  function validateForm() {
-    clearFormErrors();
-    let valid = true;
-
-    const name = document.getElementById('name');
-    if (!name.value.trim()) {
-      showFieldError(name, 'Please enter your name');
-      valid = false;
+      form.hidden       = true;
+      successDiv.hidden = false;
+    } catch {
+      btnLabel.hidden   = false;
+      btnLoading.hidden = true;
+      addFormError('Something went wrong. Please email us directly.');
     }
+  });
 
-    const attendance = form.querySelector('input[name="attendance"]:checked');
-    if (!attendance) {
-      const group = form.querySelector('.radio-group');
-      showFieldError(group, 'Please let us know if you can attend');
-      valid = false;
-    }
+  function validate() {
+    let ok = true;
+    const name = document.getElementById('fname');
+    if (!name.value.trim()) { fieldError(name, 'Please enter your name'); ok = false; }
 
     const email = document.getElementById('email');
     if (!email.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-      showFieldError(email, 'Please enter a valid email address');
-      valid = false;
+      fieldError(email, 'Please enter a valid email address'); ok = false;
     }
 
-    return valid;
+    if (!form.querySelector('input[name="attendance"]:checked')) {
+      fieldError(form.querySelector('.radio-row'), 'Please let us know if you can attend'); ok = false;
+    }
+    return ok;
   }
 
-  function showFieldError(el, msg) {
-    const err = document.createElement('span');
-    err.className = 'field-error';
-    err.style.cssText = 'color:#e07a6a;font-size:0.8rem;font-style:italic;margin-top:0.2rem;display:block';
-    err.textContent = msg;
-    el.closest('.form-group').appendChild(err);
+  function fieldError(el, msg) {
+    const span = document.createElement('span');
+    span.className = 'field-error';
+    span.textContent = msg;
+    el.closest('.form-field').appendChild(span);
   }
 
-  function showFormError(msg) {
-    const err = document.createElement('p');
-    err.style.cssText = 'color:#e07a6a;text-align:center;font-style:italic;margin-top:1rem;';
-    err.textContent = msg;
-    form.appendChild(err);
-    setTimeout(() => err.remove(), 6000);
+  function addFormError(msg) {
+    const p = Object.assign(document.createElement('p'), {
+      className: 'field-error',
+      textContent: msg,
+      style: 'text-align:center;margin-top:1rem;'
+    });
+    form.appendChild(p);
+    setTimeout(() => p.remove(), 6000);
   }
 
-  function clearFormErrors() {
+  function clearErrors() {
     form.querySelectorAll('.field-error').forEach(e => e.remove());
-  }
-
-  // ── Smooth parallax for hero bg ──────────────
-  const heroBg = document.querySelector('.hero__bg');
-  if (heroBg && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
-    window.addEventListener('scroll', () => {
-      const scrolled = window.scrollY;
-      heroBg.style.transform = `translateY(${scrolled * 0.35}px)`;
-    }, { passive: true });
   }
 
 })();
