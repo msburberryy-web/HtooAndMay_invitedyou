@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Htoo &amp; May — Wedding Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  /* ─── CSS CUSTOM PROPERTIES ─────────────────────────────── */
+  :root {
+    --ivory:        #f5f0e8;
+    --ivory-dark:   #ede5d0;
+    --parchment:    #e8dcc8;
+    --gold:         #b8934a;
+    --gold-light:   #d4aa6a;
+    --gold-pale:    #f0e4c0;
+    --burgundy:     #6b2d3e;
+    --forest:       #2d4a3e;
+    --forest-mid:   #3d6455;
+    --sage:         #7a9e8e;
+    --mist:         #c8d8d0;
+    --charcoal:     #2a2420;
+    --warm-brown:   #5c3d2e;
+    --seal-red:     #8b1a1a;
+    --ease-luxury:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-silky:   cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  /* ─── RESET & BASE ───────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ivory);
+    font-family: 'EB Garamond', Georgia, serif;
+    color: var(--charcoal);
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* ─── PHASE 1: ENVELOPE SCENE ───────────────────────────── */
+  #envelope-scene {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(ellipse at 50% 40%, #f8f2e4 0%, #ede0c4 40%, #dfd0b0 100%);
+    transition: opacity 0.8s var(--ease-silky), transform 0.8s var(--ease-silky);
+  }
+  #envelope-scene.portal-out {
+    animation: portal-zoom 1.4s var(--ease-silky) forwards;
+  }
+  @keyframes portal-zoom {
+    0%   { opacity: 1; transform: scale(1); }
+    60%  { opacity: 1; transform: scale(8); }
+    100% { opacity: 0; transform: scale(8); pointer-events: none; }
+  }
+
+  /* Paper texture overlay */
+  #envelope-scene::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  .env-hint {
+    margin-top: 2rem;
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--warm-brown);
+    opacity: 0.7;
+    letter-spacing: 0.08em;
+    animation: hint-pulse 3s ease-in-out infinite;
+    transition: opacity 0.4s;
+  }
+  #envelope-scene.opening .env-hint { opacity: 0; }
+  @keyframes hint-pulse {
+    0%, 100% { opacity: 0.5; transform: translateY(0); }
+    50%       { opacity: 0.9; transform: translateY(-3px); }
+  }
+
+  /* ─── ENVELOPE COMPONENT ─────────────────────────────────── */
+  #envelope-wrap {
+    position: relative;
+    width: min(320px, 86vw);
+    cursor: pointer;
+    transform-style: preserve-3d;
+    perspective: 1200px;
+    filter: drop-shadow(0 20px 60px rgba(90,60,20,0.25));
+    transition: filter 0.3s;
+  }
+  #envelope-wrap:hover { filter: drop-shadow(0 28px 80px rgba(90,60,20,0.38)); }
+  #envelope-wrap:hover .env-body { transform: translateY(-4px); }
+
+  /* envelope body */
+  .env-body {
+    width: 100%;
+    aspect-ratio: 1.6 / 1;
+    background: linear-gradient(160deg, #f7edd8 0%, #eddfc0 60%, #e0d0a8 100%);
+    border-radius: 4px;
+    position: relative;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.6),
+      0 2px 8px rgba(90,60,20,0.15);
+    transition: transform 0.4s var(--ease-luxury);
+    overflow: visible;
+  }
+
+  /* envelope flap (top triangle) */
+  .env-flap {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 50%;
+    background: linear-gradient(180deg, #eddfc0 0%, #e4d3a8 100%);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top center;
+    transform: rotateX(0deg);
+    transition: transform 0.7s var(--ease-luxury);
+    z-index: 3;
+    border-radius: 4px 4px 0 0;
+  }
+  .env-flap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, transparent 60%);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+  }
+
+  /* fold lines (decorative) */
+  .env-fold-left {
+    position: absolute;
+    top: 50%; left: 0; bottom: 0;
+    width: 50%;
+    background: linear-gradient(135deg, #e8d9b5 0%, #dccb9e 100%);
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+    z-index: 1;
+  }
+  .env-fold-right {
+    position: absolute;
+    top: 50%; right: 0; bottom: 0;
+    width: 50%;
+    background: linear-gradient(225deg, #e8d9b5 0%, #dccb9e 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+    z-index: 1;
+  }
+  .env-fold-bottom {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 52%;
+    background: linear-gradient(180deg, #e0d0a8 0%, #eddfc0 100%);
+    clip-path: polygon(0 100%, 50% 0, 100% 100%);
+    z-index: 2;
+  }
+
+  /* wax seal */
+  .env-seal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, calc(-50% + 4px));
+    width: 52px;
+    height: 52px;
+    z-index: 10;
+    transition: opacity 0.5s, transform 0.5s var(--ease-spring);
+  }
+  .seal-circle {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 35%, #b03030 0%, #8b1a1a 55%, #6b1010 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+      0 3px 12px rgba(100,10,10,0.5),
+      inset 0 1px 3px rgba(255,255,255,0.2),
+      inset 0 -2px 4px rgba(0,0,0,0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  .seal-circle::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(200,100,100,0.4);
+  }
+  .seal-circle::after {
+    content: '';
+    position: absolute;
+    top: 8px; left: 14px;
+    width: 14px; height: 10px;
+    background: radial-gradient(ellipse, rgba(255,255,255,0.25), transparent);
+    border-radius: 50%;
+  }
+  .seal-text {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    color: rgba(255,235,200,0.95);
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+  }
+  /* wax drip details */
+  .seal-drip {
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 18px; height: 10px;
+    background: radial-gradient(ellipse, #8b1a1a, #6b1010);
+    border-radius: 0 0 50% 50%;
+    opacity: 0.8;
+  }
+
+  /* Opening state */
+  #envelope-wrap.opening .env-flap {
+    transform: rotateX(-170deg);
+  }
+  #envelope-wrap.opening .env-seal {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 4px)) scale(0.5);
+  }
+
+  /* ─── BOTANICAL SPROUTS ──────────────────────────────────── */
+  .botanicals {
+    position: absolute;
+    bottom: 48%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 280px;
+    height: 140px;
+    pointer-events: none;
+    z-index: 5;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  #envelope-wrap.opening .botanicals { opacity: 1; }
+
+  .stem {
+    position: absolute;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--forest-mid), var(--forest));
+    border-radius: 2px;
+    transform-origin: bottom center;
+    transform: scaleY(0);
+  }
+  #envelope-wrap.blooming .stem { animation: grow-stem 0.6s var(--ease-spring) forwards; }
+  @keyframes grow-stem {
+    from { transform: scaleY(0); }
+    to   { transform: scaleY(1); }
+  }
+
+  .leaf {
+    position: absolute;
+    background: var(--forest-mid);
+    border-radius: 50% 50% 50% 0;
+    transform-origin: bottom left;
+    transform: scale(0) rotate(-30deg);
+    opacity: 0;
+  }
+  .leaf.right {
+    border-radius: 50% 50% 0 50%;
+    transform-origin: bottom right;
+    transform: scale(0) rotate(30deg);
+  }
+  #envelope-wrap.blooming .leaf {
+    animation: bloom-leaf 0.5s var(--ease-spring) forwards;
+  }
+  @keyframes bloom-leaf {
+    from { transform: scale(0) rotate(-30deg); opacity: 0; }
+    to   { transform: scale(1) rotate(-15deg); opacity: 1; }
+  }
+  #envelope-wrap.blooming .leaf.right {
+    animation: bloom-leaf-r 0.5s var(--ease-spring) forwards;
+  }
+  @keyframes bloom-leaf-r {
+    from { transform: scale(0) rotate(30deg); opacity: 0; }
+    to   { transform: scale(1) rotate(15deg); opacity: 1; }
+  }
+
+  .blossom {
+    position: absolute;
+    font-size: 1.2rem;
+    transform: scale(0);
+    opacity: 0;
+    transform-origin: bottom center;
+  }
+  #envelope-wrap.blooming .blossom {
+    animation: bloom-flower 0.5s var(--ease-spring) forwards;
+  }
+  @keyframes bloom-flower {
+    from { transform: scale(0) translateY(10px); opacity: 0; }
+    to   { transform: scale(1) translateY(0); opacity: 1; }
+  }
+
+  /* sway after bloom */
+  #envelope-wrap.swaying .stem   { animation: sway-stem 3s ease-in-out infinite alternate; }
+  #envelope-wrap.swaying .blossom { animation: sway-bloom 2.5s ease-in-out infinite alternate; }
+  @keyframes sway-stem  { from { transform: scaleY(1) rotate(-2deg); } to { transform: scaleY(1) rotate(2deg); } }
+  @keyframes sway-bloom { from { transform: scale(1) rotate(-4deg); } to { transform: scale(1) rotate(4deg); } }
+
+  /* ─── MAIN WORLD ─────────────────────────────────────────── */
+  #main-world {
+    position: fixed;
+    inset: 0;
+    opacity: 0;
+    transform: scale(1.15);
+    transition: opacity 1.2s var(--ease-luxury), transform 1.4s var(--ease-luxury);
+    pointer-events: none;
+    z-index: 10;
+    overflow: hidden;
+  }
+  #main-world.revealed {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: all;
+  }
+
+  /* ─── SKY / MOUNTAIN BACKGROUND ─────────────────────────── */
+  .sky-layer {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 0%, #d4c8b4 0%, #c0b49a 30%, #b0a488 60%, #9a9078 100%);
+  }
+
+  /* Mist layers */
+  .mist-layer {
+    position: absolute;
+    left: -20%;
+    right: -20%;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at 50% 100%, rgba(240,235,225,0.7) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* SVG mountain range */
+  .mountain-svg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
+
+  /* Floating particles */
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: drift linear infinite;
+  }
+  @keyframes drift {
+    0%   { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 0.6; }
+    100% { transform: translateY(-120px) translateX(30px) rotate(360deg); opacity: 0; }
+  }
+
+  /* Falling leaves */
+  .falling-leaf {
+    position: absolute;
+    font-size: 1rem;
+    pointer-events: none;
+    animation: fall-leaf linear infinite;
+    opacity: 0;
+  }
+  @keyframes fall-leaf {
+    0%   { transform: translateY(-20px) rotate(0deg) translateX(0); opacity: 0; }
+    5%   { opacity: 0.7; }
+    95%  { opacity: 0.5; }
+    100% { transform: translateY(100vh) rotate(720deg) translateX(60px); opacity: 0; }
+  }
+
+  /* ─── STONE TERRACE ──────────────────────────────────────── */
+  .terrace-area {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 42%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 0;
+  }
+
+  .stone-floor {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 28%;
+    background: linear-gradient(180deg, #8a7e6e 0%, #7a6e5e 40%, #6a5e50 100%);
+    box-shadow: inset 0 4px 20px rgba(0,0,0,0.2);
+  }
+  .stone-floor::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 60px,
+      rgba(0,0,0,0.05) 60px,
+      rgba(0,0,0,0.05) 61px
+    ), repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 20px,
+      rgba(0,0,0,0.04) 20px,
+      rgba(0,0,0,0.04) 21px
+    );
+  }
+  .stone-balustrade {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 18px;
+    background: linear-gradient(180deg, #a09282 0%, #8a7e6e 100%);
+    border-radius: 2px;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.15);
+  }
+
+  /* ─── FURNITURE SVG SCENE ────────────────────────────────── */
+  .furniture-scene {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(600px, 98vw);
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .furniture-svg-wrap {
+    position: relative;
+    width: 100%;
+    padding-bottom: 4%;
+  }
+
+  /* ─── QUEST BUTTON ───────────────────────────────────────── */
+  #quest-btn {
+    position: absolute;
+    top: 18%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    cursor: pointer;
+    animation: float-btn 3s ease-in-out infinite;
+    opacity: 0;
+    transition: opacity 0.8s var(--ease-luxury) 0.6s;
+  }
+  #main-world.revealed #quest-btn { opacity: 1; }
+  @keyframes float-btn {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(-8px); }
+  }
+
+  .quest-board {
+    position: relative;
+    background: linear-gradient(160deg, #2d2018 0%, #1e1510 100%);
+    border: 2px solid var(--gold);
+    border-radius: 6px;
+    padding: 12px 28px 14px;
+    box-shadow:
+      0 8px 32px rgba(0,0,0,0.5),
+      inset 0 1px 0 rgba(180,140,60,0.3),
+      0 0 0 1px rgba(180,140,60,0.15);
+    text-align: center;
+    min-width: 200px;
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+  .quest-board:hover {
+    box-shadow:
+      0 12px 48px rgba(0,0,0,0.6),
+      inset 0 1px 0 rgba(200,160,80,0.4),
+      0 0 20px rgba(184,147,74,0.3);
+    transform: scale(1.03);
+  }
+  .quest-board::before, .quest-board::after {
+    content: '❧';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.1rem;
+    color: var(--gold);
+    opacity: 0.7;
+  }
+  .quest-board::before { left: 10px; }
+  .quest-board::after  { right: 10px; transform: translateY(-50%) scaleX(-1); }
+
+  .quest-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.22em;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    opacity: 0.8;
+  }
+  .quest-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--gold-pale);
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+  }
+  .quest-label-mm {
+    font-family: 'EB Garamond', serif;
+    font-size: 0.85rem;
+    color: rgba(240,228,192,0.7);
+    margin-top: 2px;
+    font-style: italic;
+  }
+
+  /* Hanging chains */
+  .quest-chain {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .chain-link {
+    width: 2px; height: 20px;
+    background: linear-gradient(180deg, var(--gold), var(--gold-light));
+    border-radius: 1px;
+    opacity: 0.7;
+  }
+
+  /* ─── GRAND HALL MODAL ───────────────────────────────────── */
+  #hall-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 15, 10, 0.75);
+    backdrop-filter: blur(6px);
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s var(--ease-luxury);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  #hall-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  #hall-modal {
+    background: linear-gradient(160deg, var(--ivory) 0%, var(--parchment) 100%);
+    width: min(680px, 100%);
+    max-height: 88vh;
+    border-radius: 16px 16px 0 0;
+    overflow-y: auto;
+    transform: translateY(100%);
+    transition: transform 0.6s var(--ease-spring);
+    position: relative;
+    border-top: 3px solid var(--gold);
+    box-shadow: 0 -20px 80px rgba(0,0,0,0.4);
+  }
+  #hall-overlay.open #hall-modal {
+    transform: translateY(0);
+  }
+
+  /* Modal scrollbar */
+  #hall-modal::-webkit-scrollbar { width: 4px; }
+  #hall-modal::-webkit-scrollbar-track { background: transparent; }
+  #hall-modal::-webkit-scrollbar-thumb { background: var(--gold-light); border-radius: 2px; }
+
+  .modal-drag-handle {
+    width: 40px; height: 4px;
+    background: var(--gold-light);
+    border-radius: 2px;
+    margin: 16px auto 0;
+    opacity: 0.5;
+  }
+
+  .modal-header {
+    padding: 20px 32px 16px;
+    text-align: center;
+    border-bottom: 1px solid rgba(184,147,74,0.2);
+    position: relative;
+  }
+  .modal-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .modal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    font-weight: 300;
+    color: var(--charcoal);
+    line-height: 1.1;
+  }
+  .modal-subtitle {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--warm-brown);
+    margin-top: 4px;
+  }
+  .modal-close {
+    position: absolute;
+    top: 16px; right: 20px;
+    width: 32px; height: 32px;
+    border: 1.5px solid rgba(184,147,74,0.4);
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: var(--warm-brown);
+    transition: all 0.2s;
+  }
+  .modal-close:hover {
+    background: var(--gold);
+    color: white;
+    border-color: var(--gold);
+  }
+
+  .modal-body { padding: 24px 32px 40px; }
+
+  /* ─── TIMELINE ───────────────────────────────────────────── */
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 36px;
+    margin-bottom: 40px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px; top: 6px; bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, var(--gold-light), transparent);
+  }
+
+  .tl-item {
+    position: relative;
+    margin-bottom: 24px;
+    opacity: 0;
+    transform: translateX(-12px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+  .tl-item.visible { opacity: 1; transform: translateX(0); }
+
+  .tl-dot {
+    position: absolute;
+    left: -29px; top: 4px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 0 3px var(--ivory), 0 0 0 4px rgba(184,147,74,0.3);
+  }
+  .tl-time {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    margin-bottom: 2px;
+  }
+  .tl-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--charcoal);
+    line-height: 1.2;
+  }
+  .tl-desc {
+    font-family: 'EB Garamond', serif;
+    font-size: 0.9rem;
+    color: var(--warm-brown);
+    font-style: italic;
+    margin-top: 2px;
+    line-height: 1.5;
+  }
+
+  /* ─── VENUE CARDS ────────────────────────────────────────── */
+  .venue-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  @media (max-width: 480px) { .venue-grid { grid-template-columns: 1fr; } }
+
+  .venue-card {
+    background: linear-gradient(160deg, rgba(255,250,240,0.8) 0%, rgba(235,220,195,0.6) 100%);
+    border: 1px solid rgba(184,147,74,0.25);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s var(--ease-spring), box-shadow 0.3s;
+  }
+  .venue-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(90,60,20,0.15);
+  }
+  .venue-icon {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .venue-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--charcoal);
+    margin-bottom: 4px;
+  }
+  .venue-card-detail {
+    font-family: 'EB Garamond', serif;
+    font-size: 0.85rem;
+    color: var(--warm-brown);
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  /* ─── DRESS CODE BADGE ───────────────────────────────────── */
+  .dress-band {
+    background: linear-gradient(90deg, var(--forest), var(--forest-mid));
+    border-radius: 8px;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .dress-icon { font-size: 2rem; }
+  .dress-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.22em;
+    color: var(--mist);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .dress-detail {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    color: #e8f0ec;
+    font-style: italic;
+  }
+
+  /* ─── RSVP STRIP ─────────────────────────────────────────── */
+  .rsvp-strip {
+    background: linear-gradient(160deg, var(--burgundy) 0%, #4a1e2a 100%);
+    border-radius: 10px;
+    padding: 20px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s var(--ease-spring), box-shadow 0.3s;
+    border: 1px solid rgba(180,80,100,0.3);
+  }
+  .rsvp-strip:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 40px rgba(100,20,40,0.4);
+  }
+  .rsvp-strip-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.28em;
+    color: rgba(240,200,210,0.7);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .rsvp-strip-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: #f5d0dc;
+    font-weight: 300;
+  }
+  .rsvp-deadline {
+    font-family: 'EB Garamond', serif;
+    font-size: 0.85rem;
+    color: rgba(230,170,190,0.7);
+    font-style: italic;
+    margin-top: 4px;
+  }
+
+  /* ─── COUPLE NAMES OVERLAY ───────────────────────────────── */
+  .world-title-area {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 90%;
+    pointer-events: none;
+    z-index: 20;
+  }
+  .world-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(0.5rem, 1.5vw, 0.7rem);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(200,180,140,0.8);
+    margin-bottom: 8px;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.3);
+  }
+  .world-names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 8vw, 4.5rem);
+    font-weight: 300;
+    color: rgba(250,245,235,0.95);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    text-shadow:
+      0 2px 20px rgba(0,0,0,0.3),
+      0 0 60px rgba(200,160,80,0.1);
+  }
+  .world-amp {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--gold-light);
+    font-size: 0.75em;
+    margin: 0 0.15em;
+  }
+  .world-date {
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(0.75rem, 2vw, 1rem);
+    color: rgba(220,200,160,0.8);
+    letter-spacing: 0.2em;
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+  /* ─── DECORATIVE GOLD DIVIDER ────────────────────────────── */
+  .gold-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+    opacity: 0.5;
+  }
+  .gold-divider::before, .gold-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .gold-divider span {
+    font-size: 0.7rem;
+    color: var(--gold);
+  }
+
+  /* ─── FIREFLIES ──────────────────────────────────────────── */
+  .firefly {
+    position: absolute;
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: #ffe066;
+    box-shadow: 0 0 6px 2px rgba(255,220,80,0.6);
+    animation: firefly-drift linear infinite;
+    pointer-events: none;
+  }
+  @keyframes firefly-drift {
+    0%   { opacity: 0; transform: translate(0, 0); }
+    10%  { opacity: 1; }
+    50%  { opacity: 0.5; }
+    90%  { opacity: 1; }
+    100% { opacity: 0; transform: translate(var(--dx), var(--dy)); }
+  }
+
+  /* ─── SCROLLBAR ──────────────────────────────────────────── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--gold-light); border-radius: 2px; }
+
+  /* ─── RESPONSIVE ─────────────────────────────────────────── */
+  @media (max-width: 640px) {
+    .modal-body { padding: 20px 20px 40px; }
+    .modal-header { padding: 16px 20px 14px; }
+  }
+
+  /* Loading fade in */
+  body { animation: page-in 0.6s ease both; }
+  @keyframes page-in { from { opacity: 0; } to { opacity: 1; } }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     PHASE 1 — ENVELOPE SCENE
+═══════════════════════════════════════════════════════════ -->
+<div id="envelope-scene">
+  <div id="envelope-wrap" role="button" tabindex="0" aria-label="Open your wedding invitation">
+
+    <!-- Botanical elements that sprout from envelope -->
+    <div class="botanicals" id="botanicals">
+      <!-- Center tall stem -->
+      <div class="stem" style="left:50%;height:90px;animation-delay:0s">
+        <div class="blossom" style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);animation-delay:0.5s">🌸</div>
+        <div class="leaf" style="position:absolute;top:20px;left:2px;width:22px;height:14px;animation-delay:0.3s"></div>
+        <div class="leaf right" style="position:absolute;top:20px;right:2px;width:22px;height:14px;animation-delay:0.35s"></div>
+      </div>
+      <!-- Left stem -->
+      <div class="stem" style="left:35%;height:65px;animation-delay:0.15s">
+        <div class="blossom" style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:0.9rem;animation-delay:0.6s">🌿</div>
+        <div class="leaf" style="position:absolute;top:16px;left:2px;width:18px;height:11px;animation-delay:0.45s"></div>
+      </div>
+      <!-- Right stem -->
+      <div class="stem" style="left:65%;height:70px;animation-delay:0.1s">
+        <div class="blossom" style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:0.9rem;animation-delay:0.65s">🌺</div>
+        <div class="leaf right" style="position:absolute;top:18px;right:2px;width:18px;height:11px;animation-delay:0.4s"></div>
+      </div>
+      <!-- Far left vine -->
+      <div class="stem" style="left:22%;height:45px;animation-delay:0.25s">
+        <div class="blossom" style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-size:0.75rem;animation-delay:0.7s">🍃</div>
+      </div>
+      <!-- Far right vine -->
+      <div class="stem" style="left:78%;height:50px;animation-delay:0.2s">
+        <div class="blossom" style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-size:0.75rem;animation-delay:0.72s">🍂</div>
+      </div>
+    </div>
+
+    <!-- Envelope body -->
+    <div class="env-body">
+      <div class="env-flap">
+        <div class="env-seal">
+          <div class="seal-circle">
+            <span class="seal-text">H♡M</span>
+          </div>
+          <div class="seal-drip"></div>
+        </div>
+      </div>
+      <div class="env-fold-left"></div>
+      <div class="env-fold-right"></div>
+      <div class="env-fold-bottom"></div>
+
+      <!-- Letter peeking out -->
+      <div style="position:absolute;inset:8px;bottom:12px;background:linear-gradient(180deg,#faf5e8,#f5edda);border-radius:2px;display:flex;align-items:center;justify-content:center;z-index:0;box-shadow:inset 0 0 12px rgba(180,140,60,0.08)">
+        <div style="text-align:center;padding:8px">
+          <p style="font-family:'Cinzel',serif;font-size:0.5rem;letter-spacing:0.28em;color:var(--gold);text-transform:uppercase;margin-bottom:4px">Wedding Invitation</p>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--charcoal);font-weight:500">Htoo &amp; May</p>
+          <p style="font-family:'EB Garamond',serif;font-size:0.65rem;color:var(--warm-brown);font-style:italic;margin-top:2px">16 · October · 2025</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <p class="env-hint" id="env-hint">— tap to open your invitation —</p>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     PHASE 2 — MAIN MOUNTAIN WORLD
+═══════════════════════════════════════════════════════════ -->
+<div id="main-world">
+
+  <!-- Sky gradient background -->
+  <div class="sky-layer"></div>
+
+  <!-- Sun glow -->
+  <div style="position:absolute;top:-10%;left:50%;transform:translateX(-50%);width:60%;height:50%;background:radial-gradient(ellipse at 50% 30%,rgba(255,230,150,0.18) 0%,transparent 70%);pointer-events:none"></div>
+
+  <!-- Falling autumn leaves -->
+  <div id="leaves-container"></div>
+
+  <!-- Fireflies -->
+  <div id="firefly-container"></div>
+
+  <!-- Mountain SVG layers -->
+  <svg class="mountain-svg" viewBox="0 0 1440 600" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="sky-grad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#b8aa94"/>
+        <stop offset="100%" stop-color="#9a9078"/>
+      </linearGradient>
+      <linearGradient id="mtn-far" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#7a8878"/>
+        <stop offset="100%" stop-color="#6a7868"/>
+      </linearGradient>
+      <linearGradient id="mtn-mid" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#586858"/>
+        <stop offset="100%" stop-color="#485848"/>
+      </linearGradient>
+      <linearGradient id="mtn-near" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#3d5248"/>
+        <stop offset="100%" stop-color="#2d3e38"/>
+      </linearGradient>
+      <linearGradient id="mist-grad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="rgba(220,210,195,0)" />
+        <stop offset="50%" stop-color="rgba(220,210,195,0.55)"/>
+        <stop offset="100%" stop-color="rgba(220,210,195,0)"/>
+      </linearGradient>
+      <filter id="blur-soft">
+        <feGaussianBlur stdDeviation="8"/>
+      </filter>
+    </defs>
+
+    <!-- Farthest mountains (blue/grey) -->
+    <path d="M0,420 Q80,310 180,340 Q260,370 340,290 Q420,210 500,260 Q580,310 660,250 Q740,190 820,240 Q900,290 980,230 Q1060,170 1140,220 Q1220,270 1300,210 Q1380,150 1440,190 L1440,600 L0,600 Z"
+          fill="url(#mtn-far)" opacity="0.5" filter="url(#blur-soft)"/>
+
+    <!-- Mid mountains -->
+    <path d="M0,480 Q120,380 240,400 Q360,420 440,350 Q520,280 620,320 Q720,360 820,300 Q920,240 1020,280 Q1120,320 1200,270 Q1280,220 1380,260 L1440,280 L1440,600 L0,600 Z"
+          fill="url(#mtn-mid)" opacity="0.6"/>
+
+    <!-- Mist band -->
+    <rect x="0" y="320" width="1440" height="120" fill="url(#mist-grad)" opacity="0.6"/>
+
+    <!-- Near hills -->
+    <path d="M0,540 Q180,460 360,490 Q540,520 720,470 Q900,420 1080,460 Q1260,500 1440,470 L1440,600 L0,600 Z"
+          fill="url(#mtn-near)" opacity="0.85"/>
+
+    <!-- Trees on near hills (silhouette) -->
+    <g fill="#243028" opacity="0.9">
+      <!-- Left tree cluster -->
+      <polygon points="60,510 75,480 90,510"/>
+      <polygon points="75,515 92,478 109,515"/>
+      <polygon points="92,512 105,485 118,512"/>
+      <rect x="82" y="510" width="5" height="18"/>
+      <polygon points="140,505 157,470 174,505"/>
+      <polygon points="160,508 175,474 190,508"/>
+      <rect x="166" y="505" width="4" height="15"/>
+
+      <!-- Right tree cluster -->
+      <polygon points="1260,505 1275,472 1290,505"/>
+      <polygon points="1278,508 1295,470 1312,508"/>
+      <polygon points="1296,506 1310,476 1324,506"/>
+      <rect x="1282" y="505" width="5" height="18"/>
+      <polygon points="1330,503 1348,466 1366,503"/>
+      <polygon points="1350,507 1366,472 1382,507"/>
+      <rect x="1355" y="503" width="4" height="15"/>
+    </g>
+
+    <!-- Stone terrace floor -->
+    <rect x="0" y="555" width="1440" height="45" fill="#7a6e5e"/>
+    <line x1="0" y1="556" x2="1440" y2="556" stroke="#9a8e7e" stroke-width="1.5"/>
+    <!-- Stone tile lines -->
+    <line x1="0" y1="570" x2="1440" y2="570" stroke="rgba(0,0,0,0.06)" stroke-width="0.8"/>
+    <line x1="0" y1="584" x2="1440" y2="584" stroke="rgba(0,0,0,0.06)" stroke-width="0.8"/>
+  </svg>
+
+  <!-- Couple names overlay -->
+  <div class="world-title-area">
+    <p class="world-eyebrow">Together with their families</p>
+    <h1 class="world-names">Htoo <span class="world-amp">&amp;</span> May</h1>
+    <p class="world-date">Thursday · 16 October 2025 · Amanda Hills, Atsugi</p>
+  </div>
+
+  <!-- TERRACE FURNITURE SVG -->
+  <div class="terrace-area">
+    <div class="furniture-scene">
+      <div class="furniture-svg-wrap">
+        <svg viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block">
+          <defs>
+            <linearGradient id="wood-dark" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#2c1a10"/>
+              <stop offset="100%" stop-color="#1a0e08"/>
+            </linearGradient>
+            <linearGradient id="velvet-l" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#3d6050"/>
+              <stop offset="100%" stop-color="#2d4a3e"/>
+            </linearGradient>
+            <linearGradient id="velvet-r" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#3d6050"/>
+              <stop offset="100%" stop-color="#2d4a3e"/>
+            </linearGradient>
+            <linearGradient id="table-wood" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#3a2218"/>
+              <stop offset="100%" stop-color="#281508"/>
+            </linearGradient>
+            <linearGradient id="umbrella-stripe" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%"   stop-color="#8b1a1a"/>
+              <stop offset="25%"  stop-color="#f5f0e8"/>
+              <stop offset="50%"  stop-color="#8b1a1a"/>
+              <stop offset="75%"  stop-color="#f5f0e8"/>
+              <stop offset="100%" stop-color="#8b1a1a"/>
+            </linearGradient>
+          </defs>
+
+          <!-- ── UMBRELLA (far right) ──────────────────── -->
+          <!-- pole -->
+          <rect x="480" y="28" width="4" height="175" rx="2" fill="#3a2218"/>
+          <!-- canopy ribs -->
+          <line x1="482" y1="38" x2="420" y2="95" stroke="#5a3020" stroke-width="1.5" opacity="0.6"/>
+          <line x1="482" y1="38" x2="440" y2="85" stroke="#5a3020" stroke-width="1.5" opacity="0.6"/>
+          <line x1="482" y1="38" x2="460" y2="78" stroke="#5a3020" stroke-width="1.5" opacity="0.6"/>
+          <line x1="482" y1="38" x2="500" y2="78" stroke="#5a3020" stroke-width="1.5" opacity="0.6"/>
+          <line x1="482" y1="38" x2="520" y2="85" stroke="#5a3020" stroke-width="1.5" opacity="0.6"/>
+          <line x1="482" y1="38" x2="540" y2="95" stroke="#5a3020" stroke-width="1.5" opacity="0.6"/>
+          <!-- canopy fill -->
+          <path d="M418,97 Q430,60 482,30 Q534,60 546,97 Q510,115 482,112 Q454,115 418,97 Z"
+                fill="url(#umbrella-stripe)" opacity="0.92"/>
+          <!-- canopy edge scallop -->
+          <path d="M418,97 Q432,108 446,100 Q460,92 474,103 Q482,110 490,103 Q504,92 518,100 Q532,108 546,97"
+                fill="none" stroke="#5a3020" stroke-width="1.5" opacity="0.7"/>
+          <!-- top finial -->
+          <circle cx="482" cy="28" r="5" fill="#b8934a"/>
+
+          <!-- ── TABLE (center) ──────────────────────── -->
+          <!-- tabletop -->
+          <rect x="236" y="118" width="128" height="10" rx="3" fill="url(#table-wood)"/>
+          <rect x="236" y="118" width="128" height="3" rx="2" fill="rgba(255,255,255,0.08)"/>
+          <!-- carved apron -->
+          <rect x="245" y="128" width="110" height="8" rx="2" fill="#281508"/>
+          <!-- decorative carved detail -->
+          <path d="M270,131 Q300,126 330,131" fill="none" stroke="rgba(180,140,60,0.3)" stroke-width="1"/>
+          <!-- legs -->
+          <rect x="248" y="136" width="8" height="58" rx="3" fill="url(#wood-dark)"/>
+          <rect x="344" y="136" width="8" height="58" rx="3" fill="url(#wood-dark)"/>
+          <!-- cross brace -->
+          <rect x="252" y="162" width="100" height="4" rx="2" fill="#1a0e08"/>
+          <!-- feet -->
+          <ellipse cx="252" cy="194" rx="6" ry="3" fill="#0e0806"/>
+          <ellipse cx="348" cy="194" rx="6" ry="3" fill="#0e0806"/>
+
+          <!-- RING PILLOW on table -->
+          <rect x="278" y="106" width="44" height="14" rx="7" fill="#c8a882" opacity="0.95"/>
+          <rect x="280" y="108" width="40" height="10" rx="5" fill="#d4b898" opacity="0.7"/>
+          <!-- rings -->
+          <circle cx="293" cy="110" r="5" fill="none" stroke="#b8934a" stroke-width="2.5"/>
+          <circle cx="307" cy="110" r="5" fill="none" stroke="#b8934a" stroke-width="2.5"/>
+          <circle cx="300" cy="112" r="2" fill="#b8934a" opacity="0.5"/>
+
+          <!-- CHAMPAGNE GLASSES on table -->
+          <!-- Glass 1 -->
+          <path d="M320,118 L314,138 L326,138 Z" fill="rgba(200,230,240,0.45)" stroke="rgba(150,200,220,0.6)" stroke-width="0.8"/>
+          <rect x="319" y="138" width="2" height="8" fill="rgba(150,200,220,0.5)"/>
+          <rect x="315" y="146" width="10" height="2" rx="1" fill="rgba(150,200,220,0.4)"/>
+          <!-- champagne shimmer -->
+          <path d="M315,131 Q320,129 326,131" fill="none" stroke="rgba(220,190,80,0.5)" stroke-width="0.8"/>
+          <!-- Glass 2 -->
+          <path d="M332,118 L326,138 L338,138 Z" fill="rgba(200,230,240,0.45)" stroke="rgba(150,200,220,0.6)" stroke-width="0.8"/>
+          <rect x="331" y="138" width="2" height="8" fill="rgba(150,200,220,0.5)"/>
+          <rect x="327" y="146" width="10" height="2" rx="1" fill="rgba(150,200,220,0.4)"/>
+          <path d="M327,131 Q332,129 338,131" fill="none" stroke="rgba(220,190,80,0.5)" stroke-width="0.8"/>
+
+          <!-- ── LEFT ARMCHAIR ──────────────────────── -->
+          <!-- back -->
+          <rect x="98" y="88" width="84" height="80" rx="8" fill="url(#wood-dark)"/>
+          <rect x="104" y="93" width="72" height="68" rx="5" fill="url(#velvet-l)"/>
+          <!-- velvet texture lines -->
+          <line x1="108" y1="100" x2="108" y2="155" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <line x1="120" y1="98" x2="120" y2="157" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <line x1="132" y1="96" x2="132" y2="158" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <line x1="144" y1="96" x2="144" y2="158" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <line x1="156" y1="98" x2="156" y2="157" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <line x1="168" y1="100" x2="168" y2="155" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <!-- seat -->
+          <rect x="94" y="155" width="92" height="22" rx="5" fill="url(#wood-dark)"/>
+          <rect x="98" y="156" width="84" height="16" rx="4" fill="url(#velvet-l)"/>
+          <!-- armrests -->
+          <rect x="88" y="118" width="14" height="58" rx="5" fill="url(#wood-dark)"/>
+          <rect x="178" y="118" width="14" height="58" rx="5" fill="url(#wood-dark)"/>
+          <rect x="88" y="115" width="14" height="7" rx="3" fill="#3a2218"/>
+          <rect x="178" y="115" width="14" height="7" rx="3" fill="#3a2218"/>
+          <!-- legs -->
+          <rect x="96"  y="177" width="10" height="30" rx="4" fill="url(#wood-dark)"/>
+          <rect x="174" y="177" width="10" height="30" rx="4" fill="url(#wood-dark)"/>
+          <rect x="101" y="195" width="78" height="5" rx="2" fill="#1a0e08"/>
+
+          <!-- ── RIGHT ARMCHAIR ─────────────────────── -->
+          <!-- back -->
+          <rect x="418" y="88" width="84" height="80" rx="8" fill="url(#wood-dark)"/>
+          <rect x="424" y="93" width="72" height="68" rx="5" fill="url(#velvet-r)"/>
+          <!-- velvet texture lines -->
+          <line x1="428" y1="100" x2="428" y2="155" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <line x1="440" y1="98" x2="440" y2="157" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <line x1="452" y1="96" x2="452" y2="158" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <line x1="464" y1="96" x2="464" y2="158" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <line x1="476" y1="98" x2="476" y2="157" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <line x1="488" y1="100" x2="488" y2="155" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <!-- seat -->
+          <rect x="414" y="155" width="92" height="22" rx="5" fill="url(#wood-dark)"/>
+          <rect x="418" y="156" width="84" height="16" rx="4" fill="url(#velvet-r)"/>
+          <!-- armrests -->
+          <rect x="408" y="118" width="14" height="58" rx="5" fill="url(#wood-dark)"/>
+          <rect x="498" y="118" width="14" height="58" rx="5" fill="url(#wood-dark)"/>
+          <rect x="408" y="115" width="14" height="7" rx="3" fill="#3a2218"/>
+          <rect x="498" y="115" width="14" height="7" rx="3" fill="#3a2218"/>
+          <!-- legs -->
+          <rect x="416" y="177" width="10" height="30" rx="4" fill="url(#wood-dark)"/>
+          <rect x="494" y="177" width="10" height="30" rx="4" fill="url(#wood-dark)"/>
+          <rect x="421" y="195" width="78" height="5" rx="2" fill="#1a0e08"/>
+
+          <!-- ground shadows -->
+          <ellipse cx="140" cy="207" rx="46" ry="6" fill="rgba(0,0,0,0.18)"/>
+          <ellipse cx="300" cy="200" rx="64" ry="5" fill="rgba(0,0,0,0.12)"/>
+          <ellipse cx="460" cy="207" rx="46" ry="6" fill="rgba(0,0,0,0.18)"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUEST / ENTER HALL BUTTON -->
+  <button id="quest-btn" onclick="openHall()" aria-label="Open Grand Hall invitation">
+    <div class="quest-chain"><div class="chain-link"></div><div class="chain-link"></div><div class="chain-link"></div></div>
+    <div class="quest-board">
+      <p class="quest-eyebrow">✦ Wedding Invitation ✦</p>
+      <p class="quest-label">Enter Grand Hall</p>
+      <p class="quest-label-mm">ကြည့်ရှုရန်</p>
+    </div>
+  </button>
+
+</div><!-- /main-world -->
+
+
+<!-- ═══════════════════════════════════════════════════════
+     GRAND HALL MODAL
+═══════════════════════════════════════════════════════════ -->
+<div id="hall-overlay" role="dialog" aria-modal="true" aria-label="Grand Hall — Wedding Details" onclick="overlayClose(event)">
+  <div id="hall-modal">
+    <div class="modal-drag-handle"></div>
+
+    <div class="modal-header">
+      <p class="modal-eyebrow">✦ &nbsp; The Grand Hall &nbsp; ✦</p>
+      <h2 class="modal-title">Htoo <span style="font-style:italic;color:var(--gold);">&amp;</span> May</h2>
+      <p class="modal-subtitle">Thursday, 16th October 2025</p>
+      <button class="modal-close" onclick="closeHall()" aria-label="Close">✕</button>
+    </div>
+
+    <div class="modal-body">
+
+      <!-- TIMELINE -->
+      <p class="section-label">✦ &nbsp; Event Timeline &nbsp; ✦</p>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <p class="tl-time">15 : 30</p>
+          <p class="tl-title">Doors Open</p>
+          <p class="tl-desc">Guests are welcomed to Amanda Hills. Find your seat, enjoy welcome drinks and garden views.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <p class="tl-time">16 : 00</p>
+          <p class="tl-title">Ceremony Begins</p>
+          <p class="tl-desc">The exchange of vows under the open sky. Please be seated before this time.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <p class="tl-time">17 : 00</p>
+          <p class="tl-title">Cocktail Hour &amp; Garden Stroll</p>
+          <p class="tl-desc">Celebrate with champagne, canapés, and golden-hour photographs across the terrace.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <p class="tl-time">18 : 30</p>
+          <p class="tl-title">Reception Dinner</p>
+          <p class="tl-desc">A seated dinner as the mountains glow with dusk. Toasts, laughter, and the first dance.</p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <p class="tl-time">21 : 00</p>
+          <p class="tl-title">Dancing &amp; Celebration</p>
+          <p class="tl-desc">The evening opens to music and dancing under lantern light. We celebrate until midnight.</p>
+        </div>
+      </div>
+
+      <div class="gold-divider"><span>❧</span></div>
+
+      <!-- VENUE CARDS -->
+      <p class="section-label" style="margin-top:28px">✦ &nbsp; Venue &amp; Details &nbsp; ✦</p>
+      <div class="venue-grid">
+        <div class="venue-card">
+          <span class="venue-icon">🏔️</span>
+          <p class="venue-card-title">Amanda Hills</p>
+          <p class="venue-card-detail">Atsugi, Kanagawa<br/>Nestled in the Tanzawa Mountains</p>
+        </div>
+        <div class="venue-card">
+          <span class="venue-icon">🚌</span>
+          <p class="venue-card-title">Complimentary Buses</p>
+          <p class="venue-card-detail">From Shinjuku Station<br/>West &amp; South exits · Times TBC</p>
+        </div>
+        <div class="venue-card">
+          <span class="venue-icon">🍽️</span>
+          <p class="venue-card-title">Dinner &amp; Reception</p>
+          <p class="venue-card-detail">Full seated dinner provided<br/>Please note dietary needs in RSVP</p>
+        </div>
+        <div class="venue-card">
+          <span class="venue-icon">📍</span>
+          <p class="venue-card-title">Accommodation</p>
+          <p class="venue-card-detail">Nearby hotel recommendations<br/>sent to confirmed guests</p>
+        </div>
+      </div>
+
+      <div class="gold-divider"><span>❧</span></div>
+
+      <!-- DRESS CODE -->
+      <div class="dress-band" style="margin-top:28px">
+        <span class="dress-icon">🎩</span>
+        <div>
+          <p class="dress-title">Dress Code</p>
+          <p class="dress-detail">Black Tie Optional &nbsp;·&nbsp; Autumn garden elegance<br/>
+            <span style="font-size:0.85rem;opacity:0.8">Earthy tones, jewel colours — burgundy, forest, gold</span></p>
+        </div>
+      </div>
+
+      <!-- RSVP CTA -->
+      <div class="rsvp-strip" onclick="closeHall()">
+        <p class="rsvp-strip-label">✦ &nbsp; Kindly reply by 30th June 2025 &nbsp; ✦</p>
+        <p class="rsvp-strip-title">RSVP with Love →</p>
+        <p class="rsvp-deadline">Reach us at the.studioeternelle@gmail.com</p>
+      </div>
+
+      <!-- Footer note -->
+      <div style="text-align:center;margin-top:28px">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;color:var(--warm-brown)">With gratitude &amp; love,</p>
+        <p style="font-family:'Cinzel',serif;font-size:0.75rem;letter-spacing:0.25em;color:var(--gold);margin-top:4px">Htoo &amp; May</p>
+        <p style="font-family:'EB Garamond',serif;font-size:0.85rem;color:var(--warm-brown);margin-top:8px;opacity:0.7;font-style:italic">✦ &nbsp; ✦ &nbsp; ✦</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════════════════ -->
+<script>
+  // ── State ─────────────────────────────────────────────
+  const envWrap  = document.getElementById('envelope-wrap');
+  const envScene = document.getElementById('envelope-scene');
+  const mainWorld = document.getElementById('main-world');
+  const hallOverlay = document.getElementById('hall-overlay');
+  let opened = false;
+
+  // ── Envelope open sequence ────────────────────────────
+  function openEnvelope() {
+    if (opened) return;
+    opened = true;
+
+    envScene.classList.add('opening');
+    envWrap.classList.add('opening');
+
+    // Blooming after flap lifts
+    setTimeout(() => {
+      envWrap.classList.add('blooming');
+    }, 500);
+
+    // Swaying after bloom
+    setTimeout(() => {
+      envWrap.classList.add('swaying');
+    }, 1200);
+
+    // Portal zoom after 1.8s
+    setTimeout(() => {
+      envScene.classList.add('portal-out');
+    }, 1800);
+
+    // Reveal main world
+    setTimeout(() => {
+      mainWorld.classList.add('revealed');
+      envScene.style.pointerEvents = 'none';
+    }, 2400);
+
+    // Remove envelope from DOM
+    setTimeout(() => {
+      envScene.style.display = 'none';
+    }, 3200);
+  }
+
+  // Clicks and keyboard
+  envWrap.addEventListener('click', openEnvelope);
+  envWrap.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openEnvelope(); });
+
+  // ── Grand Hall modal ──────────────────────────────────
+  function openHall() {
+    hallOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+
+    // Animate timeline items in
+    setTimeout(() => {
+      document.querySelectorAll('.tl-item').forEach((el, i) => {
+        setTimeout(() => el.classList.add('visible'), i * 120);
+      });
+    }, 400);
+  }
+
+  function closeHall() {
+    hallOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function overlayClose(e) {
+    if (e.target === hallOverlay) closeHall();
+  }
+
+  // Keyboard escape
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeHall(); });
+
+  // ── Falling autumn leaves ─────────────────────────────
+  function spawnLeaves() {
+    const container = document.getElementById('leaves-container');
+    const emojis = ['🍂','🍁','🍃','🌿'];
+    for (let i = 0; i < 14; i++) {
+      const el = document.createElement('div');
+      el.className = 'falling-leaf';
+      el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      el.style.cssText = `
+        left: ${Math.random() * 100}%;
+        top: -30px;
+        font-size: ${0.6 + Math.random() * 0.8}rem;
+        animation-duration: ${8 + Math.random() * 14}s;
+        animation-delay: ${Math.random() * 12}s;
+        opacity: 0;
+      `;
+      container.appendChild(el);
+    }
+  }
+
+  // ── Fireflies ─────────────────────────────────────────
+  function spawnFireflies() {
+    const container = document.getElementById('firefly-container');
+    for (let i = 0; i < 12; i++) {
+      const el = document.createElement('div');
+      el.className = 'firefly';
+      const dx = (Math.random() - 0.5) * 120;
+      const dy = -(40 + Math.random() * 80);
+      el.style.cssText = `
+        left: ${10 + Math.random() * 80}%;
+        bottom: ${20 + Math.random() * 40}%;
+        --dx: ${dx}px;
+        --dy: ${dy}px;
+        animation-duration: ${4 + Math.random() * 6}s;
+        animation-delay: ${Math.random() * 8}s;
+      `;
+      container.appendChild(el);
+    }
+  }
+
+  spawnLeaves();
+  spawnFireflies();
+
+  // ── Intersection observer for timeline items ──────────
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.tl-item').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
