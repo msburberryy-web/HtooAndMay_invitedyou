@@ -2,7 +2,7 @@
   'use strict';
 
   // ── WEDDING DATE ─────────────────────────────
-  const WEDDING = new Date('2025-10-25T16:00:00+09:00');
+  const WEDDING = new Date('2025-10-16T16:00:00+09:00');
 
   // ── ENVELOPE ─────────────────────────────────
   const scene    = document.getElementById('envelope-scene');

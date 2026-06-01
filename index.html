@@ -11,71 +11,72 @@
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════════
+  <!-- ═══════════════════════════════════
        ENVELOPE SCENE
-  ═══════════════════════════════════════════ -->
+  ═══════════════════════════════════════ -->
   <div id="envelope-scene">
-    <div class="env-bg-stripes"></div>
+    <img src="images/bg-envelope.jpg" alt="" class="env-bg-img" />
+    <div class="env-bg-tint"></div>
+
     <div id="envelope" role="button" tabindex="0" aria-label="Open your wedding invitation">
-      <!-- back panel -->
       <div class="env-back"></div>
-      <!-- letter inside -->
       <div class="env-letter">
         <div class="env-letter-content">
           <p class="env-letter-names">Htoo &amp; May</p>
-          <p class="env-letter-date">October 2025 · Tokyo</p>
+          <p class="env-letter-sub">16 · October · 2025</p>
+          <p class="env-letter-sub">Amanda Hills, Atsugi</p>
         </div>
       </div>
-      <!-- front V-folds -->
       <div class="env-fold env-fold-left"></div>
       <div class="env-fold env-fold-right"></div>
       <div class="env-fold env-fold-bottom"></div>
-      <!-- flap -->
       <div class="env-flap">
-        <div class="env-seal">
-          <span>H&amp;M</span>
-        </div>
+        <div class="env-seal"><span>H&amp;M</span></div>
       </div>
     </div>
     <p class="env-hint">— tap to open your invitation —</p>
   </div>
 
-  <!-- ═══════════════════════════════════════════
+  <!-- ═══════════════════════════════════
        INVITATION
-  ═══════════════════════════════════════════ -->
+  ═══════════════════════════════════════ -->
   <main id="invitation" aria-hidden="true">
 
-    <!-- ── HERO ── -->
+    <!-- ONE TALL BACKGROUND IMAGE — all sections sit on top of this -->
+    <div class="page-bg">
+      <img src="images/bg-main.jpg" alt="" class="page-bg-img" />
+    </div>
+
+    <!-- ═══════ HERO ═══════ -->
     <section class="hero" id="hero">
-      <div class="hero-stripes"></div>
+
+      <!-- Floating PNG decorations — left & right of hero -->
+      <img src="images/png-maple-left.png"  alt="" class="deco deco-maple-left" />
+      <img src="images/png-crane-right.png" alt="" class="deco deco-crane-right" />
+
       <div class="hero-content reveal">
-        <!-- locket / monogram -->
         <div class="locket-wrap">
-          <img src="images/hero-locket.png" alt="" class="locket-img" />
-          <div class="locket-fallback">
-            <span class="locket-monogram">H &amp; M</span>
-          </div>
+          <img src="images/png-locket.png" alt="" class="locket-img" />
+          <div class="locket-css">H &amp; M</div>
         </div>
 
         <p class="label-caps">Together with their families</p>
         <h1 class="hero-tagline">From this day forward</h1>
-
         <h2 class="couple-names">Htoo <span class="amp">&amp;</span> May</h2>
-        <p class="hero-date">25 · October · 2025</p>
+        <p class="hero-date">16 · October · 2025</p>
 
-        <!-- countdown -->
         <div class="countdown" id="countdown">
-          <div class="countdown-item">
-            <span class="countdown-num" id="cd-days">—</span>
-            <span class="countdown-label">Days</span>
+          <div class="cd-item">
+            <span class="cd-num" id="cd-days">—</span>
+            <span class="cd-label">Days</span>
           </div>
-          <div class="countdown-item">
-            <span class="countdown-num" id="cd-hours">—</span>
-            <span class="countdown-label">Hours</span>
+          <div class="cd-item">
+            <span class="cd-num" id="cd-hours">—</span>
+            <span class="cd-label">Hours</span>
           </div>
-          <div class="countdown-item">
-            <span class="countdown-num" id="cd-mins">—</span>
-            <span class="countdown-label">Minutes</span>
+          <div class="cd-item">
+            <span class="cd-num" id="cd-mins">—</span>
+            <span class="cd-label">Minutes</span>
           </div>
         </div>
 
@@ -83,99 +84,88 @@
       </div>
     </section>
 
-    <!-- ── COUPLE ILLUSTRATION ── -->
-    <section class="couple-painting-section">
-      <div class="couple-painting reveal">
-        <img src="images/hero-couple-painting.png" alt="Htoo and May" class="couple-img" />
-        <!-- fallback decorative text if no image -->
-        <div class="couple-painting-fallback">
-          <p class="label-caps">Our Story</p>
-          <p class="couple-painting-quote">"The best love is the kind that awakens the soul."</p>
-        </div>
-      </div>
+    <!-- ═══════ COUPLE ILLUSTRATION ═══════ -->
+    <section class="couple-section">
+      <!-- This PNG is the full illustrated scene of the couple at Amanda Hills -->
+      <img src="images/png-couple-scene.png" alt="Htoo and May at Amanda Hills" class="couple-scene-img reveal" />
     </section>
 
-    <!-- ── BOW DIVIDER ── -->
+    <!-- ═══════ BOW DIVIDER ═══════ -->
     <div class="bow-divider reveal">
-      <img src="images/bow-ribbon.png" alt="" class="bow-img" />
-      <div class="bow-fallback"></div>
+      <img src="images/png-bow.png" alt="" />
     </div>
 
-    <!-- ── DETAILS — CEREMONY ── -->
-    <section class="section details-section" id="ceremony">
+    <!-- ═══════ CEREMONY ═══════ -->
+    <section class="section" id="ceremony">
+
+      <img src="images/png-leaves-left.png"  alt="" class="deco deco-leaves-left" />
+      <img src="images/png-leaves-right.png" alt="" class="deco deco-leaves-right" />
+
       <div class="section-inner">
         <p class="label-caps">Everything you need to know</p>
         <h2 class="section-title">Ceremony</h2>
-
-        <p class="detail-sub-label">The ceremony will take place at</p>
-        <h3 class="venue-name">Venue to be announced</h3>
+        <p class="detail-label">The ceremony will take place at</p>
+        <h3 class="venue-name">Amanda Hills</h3>
+        <p class="venue-sub">Atsugi, Kanagawa</p>
         <p class="venue-time">16:00</p>
         <p class="venue-time-note">Doors open at 15:30</p>
 
         <div class="venue-painting reveal">
           <img src="images/venue-ceremony.jpg" alt="Ceremony venue" />
-          <div class="venue-painting-fallback">
-            <p>Ceremony Venue</p>
-            <p class="label-caps">Tokyo, Japan</p>
-          </div>
         </div>
 
-        <p class="venue-note-text">
-          Full venue details will be shared with guests who confirm attendance.<br/>
-          We can't wait to welcome you!
+        <p class="venue-note">
+          We are nestled in the heart of the mountains on a beautiful hill.<br/>
+          Full venue details will be sent to all confirmed guests.
         </p>
       </div>
     </section>
 
-    <!-- ── BOW DIVIDER ── -->
+    <!-- ═══════ BOW DIVIDER ═══════ -->
     <div class="bow-divider reveal">
-      <img src="images/bow-ribbon.png" alt="" class="bow-img" />
-      <div class="bow-fallback"></div>
+      <img src="images/png-bow.png" alt="" />
     </div>
 
-    <!-- ── DETAILS — RECEPTION ── -->
-    <section class="section details-section" id="reception">
+    <!-- ═══════ RECEPTION ═══════ -->
+    <section class="section" id="reception">
+
+      <img src="images/png-fans-left.png"  alt="" class="deco deco-fans-left" />
+      <img src="images/png-rings-right.png" alt="" class="deco deco-rings-right" />
+
       <div class="section-inner">
-        <p class="detail-sub-label">The reception will take place at</p>
+        <p class="detail-label">The celebration continues at</p>
         <h2 class="section-title">Reception</h2>
         <p class="venue-time">18:30</p>
 
         <div class="venue-painting reveal">
           <img src="images/venue-reception.jpg" alt="Reception venue" />
-          <div class="venue-painting-fallback">
-            <p>Reception Venue</p>
-            <p class="label-caps">Tokyo, Japan</p>
-          </div>
         </div>
 
-        <p class="venue-note-text">
-          Dinner, dancing, and a night to remember.<br/>
+        <p class="venue-note">
+          Dinner, toasts, and dancing as the sun sets over the mountains.<br/>
           We'll send you all the details once you've RSVP'd.
         </p>
-
-        <p class="date-line">Saturday · 25 October 2025</p>
+        <p class="date-line">Thursday · 16 October 2025</p>
       </div>
     </section>
 
-    <!-- ── BOW DIVIDER ── -->
+    <!-- ═══════ BOW DIVIDER ═══════ -->
     <div class="bow-divider reveal">
-      <img src="images/bow-ribbon.png" alt="" class="bow-img" />
-      <div class="bow-fallback"></div>
+      <img src="images/png-bow.png" alt="" />
     </div>
 
-    <!-- ── GETTING THERE ── -->
-    <section class="section transport-section" id="transport">
+    <!-- ═══════ TRANSPORT ═══════ -->
+    <section class="section" id="transport">
+
+      <img src="images/png-bus-deco.png" alt="" class="deco deco-bus" />
+
       <div class="section-inner">
         <p class="label-caps">Getting there</p>
         <h2 class="section-title">Transportation</h2>
 
-        <div class="transport-painting reveal">
-          <img src="images/decoration-bus.png" alt="" class="transport-deco" />
-        </div>
-
-        <p class="transport-intro">
+        <p class="intro-text">
           We are arranging <strong>complimentary wedding buses</strong> from major
-          stations around Tokyo. Please let us know your preference so we can plan accordingly.
+          stations around Tokyo. Please let us know your preference so we can plan for everyone.
         </p>
 
         <div class="bus-cards reveal">
@@ -184,54 +174,45 @@
             <h3 class="bus-title">Shinjuku Area</h3>
             <p class="bus-detail">Shinjuku Station (West Exit)</p>
             <p class="bus-detail">Shinjuku Station (South Exit)</p>
-            <p class="label-caps" style="margin-top:0.75rem;">Departure time to be confirmed</p>
+            <p class="label-caps" style="margin-top:0.75rem;">Departure time TBC</p>
           </div>
           <div class="bus-card">
             <p class="bus-icon">📍</p>
             <h3 class="bus-title">Other Stations</h3>
             <p class="bus-detail">Additional pickup points available</p>
-            <p class="bus-detail">Let us know your preferred location</p>
-            <p class="label-caps" style="margin-top:0.75rem;">We'll do our best to accommodate</p>
+            <p class="bus-detail">Tell us your preferred location</p>
+            <p class="label-caps" style="margin-top:0.75rem;">We'll do our best</p>
           </div>
         </div>
 
         <p class="transport-note">
-          Please indicate your arrival preference and bus request in the RSVP below.
-          No hesitation — just tell us where you are and we'll take care of the rest.
+          No hesitation — just let us know where you'll be and we'll arrange it.
+          Please indicate your bus preference in the RSVP below.
         </p>
       </div>
     </section>
 
-    <!-- ── BOW DIVIDER ── -->
+    <!-- ═══════ BOW DIVIDER ═══════ -->
     <div class="bow-divider reveal">
-      <img src="images/bow-ribbon.png" alt="" class="bow-img" />
-      <div class="bow-fallback"></div>
+      <img src="images/png-bow.png" alt="" />
     </div>
 
-    <!-- ── RSVP ── -->
-    <section class="section rsvp-section" id="rsvp">
+    <!-- ═══════ RSVP ═══════ -->
+    <section class="section" id="rsvp">
+
+      <img src="images/png-swans.png" alt="" class="deco deco-swans-top" />
+
       <div class="section-inner">
-
-        <h2 class="section-title rsvp-title">RSVP</h2>
-
-        <!-- swan illustration -->
-        <div class="rsvp-illustration reveal">
-          <img src="images/rsvp-swans.png" alt="" class="swans-img" />
-          <div class="swans-fallback">
-            <span class="swans-monogram">H &amp; M</span>
-            <p class="swans-date">25.10.2025</p>
-          </div>
-        </div>
+        <h2 class="section-title">RSVP</h2>
 
         <p class="rsvp-note">
-          Please note that this invitation is exclusively for you.<br/>
-          Kindly reply by <strong>30th June 2025</strong>.
+          Kindly reply by <strong>30th June 2025</strong>.<br/>
+          This invitation is exclusively for you.
         </p>
         <p class="rsvp-note-small">
-          If you have a special situation, please don't hesitate to reach out to us directly — we're flexible.
+          If you have a special situation, please reach out to us directly — we're flexible.
         </p>
 
-        <!-- FORM -->
         <form class="rsvp-form" id="rsvp-form" novalidate>
 
           <div class="form-field">
@@ -239,13 +220,11 @@
             <div class="radio-row">
               <label class="radio-opt">
                 <input type="radio" name="attendance" value="yes" required />
-                <span class="radio-circle"></span>
-                Yes, I'll be there
+                <span class="radio-dot"></span>Yes, I'll be there
               </label>
               <label class="radio-opt">
                 <input type="radio" name="attendance" value="no" />
-                <span class="radio-circle"></span>
-                I'm sorry, I can't make it
+                <span class="radio-dot"></span>I'm sorry, I can't make it
               </label>
             </div>
           </div>
@@ -262,39 +241,35 @@
             </div>
             <div class="form-field">
               <label for="guest-names">Guest Name(s)</label>
-              <input type="text" id="guest-names" name="guest_names" placeholder="Names of other guests" />
+              <input type="text" id="guest-names" name="guest_names" placeholder="Other guest names" />
             </div>
           </div>
 
           <div class="form-field">
             <label>How will you arrive?</label>
-            <div class="radio-row radio-col">
+            <div class="radio-col">
               <label class="radio-opt">
                 <input type="radio" name="transport" value="bus" id="opt-bus" />
-                <span class="radio-circle"></span>
-                I'd like to take the wedding bus
+                <span class="radio-dot"></span>I'd like to take the wedding bus
               </label>
               <label class="radio-opt">
                 <input type="radio" name="transport" value="own" />
-                <span class="radio-circle"></span>
-                Own transport / taxi
+                <span class="radio-dot"></span>Own transport / taxi
               </label>
               <label class="radio-opt">
                 <input type="radio" name="transport" value="other" />
-                <span class="radio-circle"></span>
-                Other — I'll let you know
+                <span class="radio-dot"></span>Other — I'll let you know
               </label>
             </div>
           </div>
 
-          <!-- Bus station (shown when bus is selected) -->
           <div class="form-field" id="bus-station-field" style="display:none;">
-            <label for="bus-station">Preferred bus pickup station</label>
+            <label for="bus-station">Preferred pickup station</label>
             <select id="bus-station" name="bus_station">
               <option value="">— Please select —</option>
               <option value="shinjuku-west">Shinjuku Station (West Exit)</option>
               <option value="shinjuku-south">Shinjuku Station (South Exit)</option>
-              <option value="other">Other location — please note below</option>
+              <option value="other">Other — I'll note below</option>
             </select>
           </div>
 
@@ -322,32 +297,27 @@
 
         </form>
 
-        <!-- Success state -->
         <div class="rsvp-success" id="rsvp-success" hidden>
-          <div class="success-ring">✦</div>
-          <h3 class="section-title" style="margin-bottom:0.5rem;">Thank You!</h3>
-          <p class="rsvp-note">We've received your RSVP and are so happy you'll be joining us.<br/>We'll be in touch with all the details very soon.</p>
+          <p class="success-star">✦</p>
+          <h3 class="section-title">Thank You!</h3>
+          <p class="rsvp-note">We're so happy you'll be joining us.<br/>We'll be in touch with all the details very soon.</p>
           <p class="rsvp-note" style="margin-top:1rem;"><strong>With love, Htoo &amp; May ♡</strong></p>
         </div>
 
       </div>
     </section>
 
-    <!-- ── FOOTER ── -->
+    <!-- ═══════ FOOTER ═══════ -->
     <footer class="site-footer">
-      <div class="footer-deco">
-        <img src="images/footer-deco.png" alt="" />
-      </div>
-      <div class="footer-content">
-        <h2 class="footer-names">Htoo &amp; May</h2>
-        <p class="footer-date">Saturday · 25 October 2025 · Tokyo</p>
-        <p class="footer-line">With gratitude and love for celebrating this day with us.</p>
-        <p class="footer-dots">✦ &nbsp; ✦ &nbsp; ✦</p>
-        <p class="footer-contact">
-          Questions? Email us at
-          <a href="mailto:the.studioeternelle@gmail.com">the.studioeternelle@gmail.com</a>
-        </p>
-      </div>
+      <img src="images/png-footer-flowers.png" alt="" class="footer-flowers" />
+      <h2 class="footer-names">Htoo &amp; May</h2>
+      <p class="footer-date">Thursday · 16 October 2025</p>
+      <p class="footer-venue">Amanda Hills, Atsugi, Kanagawa</p>
+      <p class="footer-line">With gratitude and love for celebrating this day with us.</p>
+      <p class="footer-dots">✦ &nbsp; ✦ &nbsp; ✦</p>
+      <p class="footer-contact">
+        Questions? <a href="mailto:the.studioeternelle@gmail.com">the.studioeternelle@gmail.com</a>
+      </p>
     </footer>
 
   </main>
