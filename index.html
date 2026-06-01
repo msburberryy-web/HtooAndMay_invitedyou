@@ -11,6 +11,23 @@
 </head>
 <body>
 
+  <!-- ── AUDIO ── -->
+  <!-- Drop your audio files into the audio/ folder:
+       audio/piano.mp3  — soft ambient piano loop
+       audio/birds.mp3  — gentle birds/nature ambience  -->
+  <audio id="audio-piano" loop preload="none">
+    <source src="audio/piano.mp3" type="audio/mpeg" />
+  </audio>
+  <audio id="audio-birds" loop preload="none">
+    <source src="audio/birds.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- Floating music toggle button -->
+  <button id="music-btn" class="music-btn" aria-label="Toggle music" title="Toggle music">
+    <span class="music-icon music-icon-on">♪</span>
+    <span class="music-icon music-icon-off" hidden>♩</span>
+  </button>
+
   <!-- ═══════════════════════════════════
        ENVELOPE SCENE
   ═══════════════════════════════════════ -->

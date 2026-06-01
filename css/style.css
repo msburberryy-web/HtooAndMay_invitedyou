@@ -602,6 +602,49 @@ img { display: block; max-width: 100%; }
 .footer-contact a:hover { text-decoration: underline; }
 
 /* ─────────────────────────────────────────────
+   MUSIC BUTTON
+───────────────────────────────────────────── */
+.music-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 800;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(74,107,158,0.35);
+  background: rgba(245,240,232,0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(74,107,158,0.18);
+  transition: transform 0.2s ease, background 0.2s ease;
+  padding: 0;
+}
+.music-btn:hover { transform: scale(1.1); background: rgba(245,240,232,0.98); }
+
+.music-icon {
+  font-size: 1.3rem;
+  color: var(--blue);
+  line-height: 1;
+  animation: none;
+}
+.music-icon-on  { display: block; }
+.music-icon-off { display: none;  }
+
+/* Spin animation when music is playing */
+.music-btn.playing .music-icon-on {
+  animation: note-pulse 1.8s ease-in-out infinite;
+}
+@keyframes note-pulse {
+  0%, 100% { transform: scale(1) rotate(-5deg);  opacity: 1; }
+  50%       { transform: scale(1.15) rotate(5deg); opacity: 0.8; }
+}
+
+/* ─────────────────────────────────────────────
    RESPONSIVE
 ───────────────────────────────────────────── */
 @media (max-width: 600px) {

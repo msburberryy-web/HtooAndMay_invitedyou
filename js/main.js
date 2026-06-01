@@ -4,9 +4,89 @@
   // ── WEDDING DATE ─────────────────────────────
   const WEDDING = new Date('2025-10-16T16:00:00+09:00');
 
+  // ── AUDIO SETUP ──────────────────────────────
+  const audioPiano = document.getElementById('audio-piano');
+  const audioBirds = document.getElementById('audio-birds');
+  const musicBtn   = document.getElementById('music-btn');
+  const iconOn     = musicBtn.querySelector('.music-icon-on');
+  const iconOff    = musicBtn.querySelector('.music-icon-off');
+  let musicEnabled = false;   // starts off; turns on after envelope opens
+  let musicStarted = false;
+
+  // Volume levels
+  audioPiano.volume = 0.55;
+  audioBirds.volume = 0.30;
+
+  function fadeIn(audio, targetVol, duration) {
+    audio.volume = 0;
+    audio.play().catch(() => {}); // swallow autoplay errors
+    const step = targetVol / (duration / 50);
+    const timer = setInterval(() => {
+      if (audio.volume + step >= targetVol) {
+        audio.volume = targetVol;
+        clearInterval(timer);
+      } else {
+        audio.volume += step;
+      }
+    }, 50);
+  }
+
+  function fadeOut(audio, duration) {
+    const start = audio.volume;
+    const step  = start / (duration / 50);
+    const timer = setInterval(() => {
+      if (audio.volume - step <= 0) {
+        audio.volume = 0;
+        audio.pause();
+        clearInterval(timer);
+      } else {
+        audio.volume -= step;
+      }
+    }, 50);
+  }
+
+  function startMusic() {
+    if (musicStarted) return;
+    musicStarted = true;
+    // Birds come in first, piano follows
+    fadeIn(audioBirds, 0.30, 2000);
+    setTimeout(() => fadeIn(audioPiano, 0.55, 3000), 1200);
+    musicEnabled = true;
+    musicBtn.classList.add('playing');
+    iconOn.hidden  = false;
+    iconOff.hidden = true;
+  }
+
+  function toggleMusic() {
+    if (musicEnabled) {
+      fadeOut(audioPiano, 1000);
+      fadeOut(audioBirds, 1000);
+      musicEnabled = false;
+      musicBtn.classList.remove('playing');
+      iconOn.hidden  = true;
+      iconOff.hidden = false;
+    } else {
+      fadeIn(audioPiano, 0.55, 1500);
+      fadeIn(audioBirds, 0.30, 1500);
+      musicEnabled = true;
+      musicBtn.classList.add('playing');
+      iconOn.hidden  = false;
+      iconOff.hidden = true;
+      musicStarted   = true;
+    }
+  }
+
+  musicBtn.addEventListener('click', () => {
+    if (!musicStarted) {
+      startMusic();
+    } else {
+      toggleMusic();
+    }
+  });
+
   // ── ENVELOPE ─────────────────────────────────
-  const scene    = document.getElementById('envelope-scene');
-  const envelope = document.getElementById('envelope');
+  const scene      = document.getElementById('envelope-scene');
+  const envelope   = document.getElementById('envelope');
   const invitation = document.getElementById('invitation');
   let opened = false;
 
@@ -16,6 +96,9 @@
 
     document.querySelector('.env-hint').style.opacity = '0';
     envelope.classList.add('open');
+
+    // Start music on envelope open (user gesture = autoplay allowed)
+    setTimeout(() => startMusic(), 400);
 
     setTimeout(() => {
       scene.classList.add('gone');
@@ -35,19 +118,15 @@
 
   // ── COUNTDOWN ────────────────────────────────
   function updateCountdown() {
-    const now  = new Date();
-    const diff = WEDDING - now;
-
+    const diff = WEDDING - new Date();
     if (diff <= 0) {
       document.getElementById('countdown').innerHTML =
-        '<p class="label-caps" style="letter-spacing:.3em;">Today is the day! ♡</p>';
+        '<p class="label-caps" style="letter-spacing:.3em;padding:1rem 0;">Today is the day! ♡</p>';
       return;
     }
-
-    const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-
+    const days  = Math.floor(diff / 864e5);
+    const hours = Math.floor((diff % 864e5) / 36e5);
+    const mins  = Math.floor((diff % 36e5) / 6e4);
     document.getElementById('cd-days').textContent  = days;
     document.getElementById('cd-hours').textContent = hours;
     document.getElementById('cd-mins').textContent  = String(mins).padStart(2, '0');
@@ -55,10 +134,8 @@
   updateCountdown();
   setInterval(updateCountdown, 30000);
 
-  // ── SCROLL REVEAL ────────────────────────────
+  // ── SCROLL REVEAL ─────────────────────────────
   function initReveal() {
-    const els = document.querySelectorAll('.reveal');
-
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -68,9 +145,9 @@
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
 
-    els.forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Hero reveals immediately
+    // Hero content reveals immediately
     const heroContent = document.querySelector('.hero-content');
     if (heroContent) setTimeout(() => heroContent.classList.add('visible'), 300);
   }
@@ -78,8 +155,8 @@
   // ── BUS STATION TOGGLE ───────────────────────
   document.querySelectorAll('input[name="transport"]').forEach(radio => {
     radio.addEventListener('change', () => {
-      const busField = document.getElementById('bus-station-field');
-      busField.style.display = radio.value === 'bus' && radio.checked ? 'flex' : 'none';
+      document.getElementById('bus-station-field').style.display =
+        radio.value === 'bus' && radio.checked ? 'flex' : 'none';
     });
   });
 
@@ -107,10 +184,8 @@
         });
         if (!res.ok) throw new Error('error');
       } else {
-        // Demo: simulate delay
-        await new Promise(r => setTimeout(r, 800));
+        await new Promise(r => setTimeout(r, 800)); // demo delay
       }
-
       form.hidden       = true;
       successDiv.hidden = false;
     } catch {
@@ -129,7 +204,6 @@
     if (!email.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
       fieldError(email, 'Please enter a valid email address'); ok = false;
     }
-
     if (!form.querySelector('input[name="attendance"]:checked')) {
       fieldError(form.querySelector('.radio-row'), 'Please let us know if you can attend'); ok = false;
     }
@@ -144,11 +218,11 @@
   }
 
   function addFormError(msg) {
-    const p = Object.assign(document.createElement('p'), {
-      className: 'field-error',
-      textContent: msg,
-      style: 'text-align:center;margin-top:1rem;'
-    });
+    const p = document.createElement('p');
+    p.className = 'field-error';
+    p.style.textAlign = 'center';
+    p.style.marginTop = '1rem';
+    p.textContent = msg;
     form.appendChild(p);
     setTimeout(() => p.remove(), 6000);
   }
