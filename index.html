@@ -411,7 +411,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 <button id="music" aria-label="Music on or off"><i></i><i></i><i></i><i></i></button>
 
 <div id="intro">
-  <video id="film" muted playsinline preload="auto"><source src="assets/video/intro.mp4" type="video/mp4"></video>
+  <video id="film" muted playsinline preload="auto"><source src="https://res.cloudinary.com/j3lgvkwu/video/upload/q_auto/intro_qcyf1i.mp4" type="video/mp4"></video>
   <div id="vidph"><p class="ph-label">Film</p>
     <p class="ph-title" data-t="filmPh">Your opening film plays here</p>
     <div class="bar"><i id="phbar"></i></div></div>
@@ -696,6 +696,25 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 </section>
 
 <script>
+// Strip near-white pixels from PNG so it floats on the dark background
+function removeWhiteBg(imgEl){
+  if(!imgEl)return;
+  const process=()=>{
+    try{
+      const c=document.createElement('canvas');
+      c.width=imgEl.naturalWidth;c.height=imgEl.naturalHeight;
+      const ctx=c.getContext('2d');ctx.drawImage(imgEl,0,0);
+      const id=ctx.getImageData(0,0,c.width,c.height),d=id.data;
+      for(let i=0;i<d.length;i+=4){
+        const w=Math.min(d[i],d[i+1],d[i+2]);
+        if(w>200)d[i+3]=Math.round(d[i+3]*(1-(w-200)/55));}
+      ctx.putImageData(id,0,0);
+      imgEl.src=c.toDataURL('image/png');
+    }catch(e){console.warn('white-bg removal:',e);}};
+  if(imgEl.complete&&imgEl.naturalWidth)process();
+  else imgEl.addEventListener('load',process,{once:true});}
+['monogram','endMono'].forEach(id=>removeWhiteBg(document.getElementById(id)));
+
 const T={en:{},
 ja:{filmPh:"ここにムービーが入ります",skip:"スキップ",announce:"結婚します。",
  announceBody:"大切な一日を、みなさんと一緒に過ごせたら嬉しいです。",
