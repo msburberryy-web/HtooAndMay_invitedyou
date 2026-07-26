@@ -79,12 +79,8 @@ body.locked{overflow:hidden;height:100vh}
 .mono-bg{position:absolute;inset:-14%;will-change:transform}
 .mono-bg svg,.mono-bg img{width:100%;height:100%;object-fit:cover}
 .mono-inner{position:relative;z-index:3;width:100%}
-#monogram{width:min(38vw,150px);height:auto;margin-bottom:2.2rem;will-change:transform}
-#monogram path,#monogram circle{fill:none;stroke:var(--gold);stroke-width:1.2;
-  stroke-dasharray:var(--len,600);stroke-dashoffset:var(--len,600)}
-.drawn #monogram path,.drawn #monogram circle{animation:draw 2.3s var(--ease) forwards}
-.drawn #monogram path:nth-of-type(2){animation-delay:.35s}
-.drawn #monogram circle{animation-delay:.7s}
+#monogram{width:min(38vw,150px);height:auto;margin-bottom:2.2rem;will-change:transform;opacity:0;transition:opacity 1.4s ease 0.9s}
+.drawn #monogram{opacity:1}
 @keyframes draw{to{stroke-dashoffset:0}}
 .announce{font-family:var(--serif);font-weight:200;font-size:clamp(1.6rem,7vw,2.4rem);
   line-height:1.3;margin:0 auto 1.2rem;max-width:18ch}
@@ -384,7 +380,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 @media (min-width:768px){.sc-outro{height:340vh}}
 .outro-pin{flex-direction:column;text-align:center;padding:0 var(--pad)}
 .outro-in{position:relative;z-index:4;width:100%;max-width:34rem}
-#endMono{width:min(34vw,140px);height:auto;margin:0 auto 2rem;display:block}
+#endMono{width:min(34vw,140px);height:auto;margin:0 auto 2rem;display:block;opacity:0;will-change:transform,opacity}
 #endMono path,#endMono circle{fill:none;stroke:var(--gold);stroke-width:1.4}
 #endEyebrow{opacity:0}
 #endHead{font-family:var(--serif);font-weight:200;font-size:clamp(1.7rem,7.4vw,2.7rem);
@@ -430,10 +426,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
       <path d="M0 850 Q280 780 580 830 T1000 810 L1000 1000 L0 1000Z" fill="#182A20"/></svg>
   </div>
   <div class="mono-inner">
-    <svg id="monogram" viewBox="0 0 200 200" data-fx="monogram" aria-label="M and H monogram">
-      <path d="M58 132 L58 74 L86 112 L114 74 L114 132"/>
-      <path d="M132 74 L132 132 M132 103 L166 103 M166 74 L166 132"/>
-      <circle cx="100" cy="100" r="76"/></svg>
+    <img id="monogram" src="assets/photos/monogram.png" data-fx="monogram" alt="Htoo &amp; May monogram">
     <h1 class="announce seq" data-t="announce">We're getting married.</h1>
     <p class="announce-body seq" data-t="announceBody">And we'd really love you there for it.</p>
     <div class="countdown seq" id="cd"></div>
@@ -694,10 +687,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 <section class="scene sc-outro" data-scene="outro">
   <div class="pin outro-pin">
     <div class="outro-in">
-      <svg id="endMono" viewBox="0 0 200 200" aria-hidden="true">
-        <path d="M58 132 L58 74 L86 112 L114 74 L114 132"/>
-        <path d="M132 74 L132 132 M132 103 L166 103 M166 74 L166 132"/>
-        <circle cx="100" cy="100" r="76"/></svg>
+      <img id="endMono" src="assets/photos/monogram.png" alt="" aria-hidden="true">
       <p class="eyebrow" id="endEyebrow" data-t="endEye">Forever after</p>
       <h2 id="endHead" data-t="endHead">Forever After Begins Here</h2>
       <p id="endMsg" data-t="endMsg">Thank you for being part of our story, our family, and our future. We can't wait to raise a glass with you.</p>
@@ -1118,7 +1108,7 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
     if(sc.kind==="outro"){
       const d=clamp(p/.42,0,1);
       endSegs.forEach(s=>{s.p.style.strokeDasharray=s.L;s.p.style.strokeDashoffset=s.L*(1-d);});
-      endMono.style.transform=`scale(${.8+d*.2})`;
+      endMono.style.transform=`scale(${.8+d*.2})`;endMono.style.opacity=d;
       endEyebrow.style.opacity=clamp((p-.34)/.14,0,1);
       const h=clamp((p-.42)/.16,0,1);
       endHead.style.opacity=h;endHead.style.transform=`translate3d(0,${(1-h)*26}px,0)`;vf(endHead,h);
