@@ -79,7 +79,7 @@ body.locked{overflow:hidden;height:100vh}
 .mono-bg{position:absolute;inset:-14%;will-change:transform}
 .mono-bg svg,.mono-bg img{width:100%;height:100%;object-fit:cover}
 .mono-inner{position:relative;z-index:3;width:100%}
-#monogram{width:min(38vw,150px);height:auto;margin-bottom:2.2rem;will-change:transform;opacity:0;transition:opacity 1.4s ease 0.9s}
+#monogram{width:min(38vw,150px);height:auto;margin-bottom:2.2rem;will-change:transform;opacity:0;transition:opacity 1.4s ease 0.9s;display:block;background:none}
 .drawn #monogram{opacity:1}
 @keyframes draw{to{stroke-dashoffset:0}}
 .announce{font-family:var(--serif);font-weight:200;font-size:clamp(1.6rem,7vw,2.4rem);
@@ -380,7 +380,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 @media (min-width:768px){.sc-outro{height:340vh}}
 .outro-pin{flex-direction:column;text-align:center;padding:0 var(--pad)}
 .outro-in{position:relative;z-index:4;width:100%;max-width:34rem}
-#endMono{width:min(34vw,140px);height:auto;margin:0 auto 2rem;display:block;opacity:0;will-change:transform,opacity}
+#endMono{width:min(34vw,140px);height:auto;margin:0 auto 2rem;display:block;opacity:0;will-change:transform,opacity;background:none}
 #endMono path,#endMono circle{fill:none;stroke:var(--gold);stroke-width:1.4}
 #endEyebrow{opacity:0}
 #endHead{font-family:var(--serif);font-weight:200;font-size:clamp(1.7rem,7.4vw,2.7rem);
