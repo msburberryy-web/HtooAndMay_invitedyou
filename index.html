@@ -543,16 +543,14 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
       <p class="k" data-t="evDateK">Date</p>
       <p class="v" data-t="evDateV" data-html>Friday 16 October 2026</p></div>
     <div class="day-rows">
-      <div class="day-row" data-y="0.20"><div class="day-row-in"><div class="day-time">13:00</div>
-        <div class="day-what"><span data-t="t1a">Check-in</span><small data-t="t1b">Get there, settle in, have a drink</small></div></div></div>
-      <div class="day-row" data-y="0.34"><div class="day-row-in"><div class="day-time">14:00</div>
-        <div class="day-what"><span data-t="t2a">Ceremony</span></div></div></div>
-      <div class="day-row" data-y="0.48"><div class="day-row-in"><div class="day-time">14:40</div>
-        <div class="day-what"><span data-t="t3a">Photos &amp; drinks</span></div></div></div>
-      <div class="day-row" data-y="0.62"><div class="day-row-in"><div class="day-time">15:00</div>
-        <div class="day-what"><span data-t="t4a">Dinner</span><small data-t="t4b">All together</small></div></div></div>
-      <div class="day-row" data-y="0.80"><div class="day-row-in"><div class="day-time">17:30</div>
-        <div class="day-what"><span data-t="t6a">Buses leave</span></div></div></div>
+      <div class="day-row" data-y="0.20"><div class="day-row-in"><div class="day-time">—</div>
+        <div class="day-what"><span data-t="dayBus">Bus departs</span><small data-t="dayBusSub">Time depends on your pickup station</small></div></div></div>
+      <div class="day-row" data-y="0.40"><div class="day-row-in"><div class="day-time">13:30</div>
+        <div class="day-what"><span data-t="dayRecep">Reception begins</span></div></div></div>
+      <div class="day-row" data-y="0.60"><div class="day-row-in"><div class="day-time">13:50</div>
+        <div class="day-what"><span data-t="dayGate">Gates close</span><small data-t="dayGateSub">Please be seated — ceremony begins in 10 minutes</small></div></div></div>
+      <div class="day-row" data-y="0.80"><div class="day-row-in"><div class="day-time">14:00</div>
+        <div class="day-what"><span data-t="dayCeremony">Ceremony</span></div></div></div>
     </div>
   </div>
 </section>
@@ -569,7 +567,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
       <button class="cal-card" id="calIcs">
         <span class="cal-top">Oct</span><span class="cal-day">16</span>
         <span class="cal-foot" data-t="calIcs">Add to calendar</span></button>
-      <p style="font-size:.72rem;color:var(--stone);margin:1.2rem 0 0" data-t="calNote">16 Oct 2026, 13:00–17:30 Japan time.</p>
+      <p style="font-size:.72rem;color:var(--stone);margin:1.2rem 0 0" data-t="calNote">Tap to add this day to your phone's calendar.</p>
     </article>
 
     <article class="card" data-card="1">
@@ -749,8 +747,8 @@ ja:{filmPh:"ここにムービーが入ります",skip:"スキップ",announce:"
  heartCap:"ずいぶん長いあいだ、遠く離れた半分どうしでした。",
  climbTitle:"のぼって、のぼって",climbP:"好きなものって、だいたい登った先にあるんですよね。",
  evDateK:"日にち",evDateV:"2026年10月16日（金）",recTitle:"その間の、いろいろ。",
- t1a:"受付",t1b:"着いたら、ゆっくりしていてください",t2a:"挙式",
- t3a:"写真とドリンク",t4a:"お食事",t4b:"みんなで",t6a:"バス出発",
+ dayBus:"バス出発",dayBusSub:"乗車地点によって出発時刻が異なります",
+ dayRecep:"受付開始",dayGate:"入場締切",dayGateSub:"式の10分前です。お席へどうぞ",dayCeremony:"挙式",
  saveEye:"日程",saveTitle:"2026年10月16日",saveSub:"金曜日・挙式は14時",
  dressEye:"服装",dressTitle:"ドレスコード",
  dressP:"かたくならずに。着たいものを着てきてください。色を合わせたい方は、この色たちです。",
@@ -767,7 +765,7 @@ ja:{filmPh:"ここにムービーが入ります",skip:"スキップ",announce:"
  h_food:"アレルギーや、苦手なもの",f_allergy:"アレルギー・苦手なもの",q_msg:"なにか一言もらえたら",
  h_msg:"任意です。ぜんぶ読みます",f_msg:"メッセージ",q_review:"これで合ってますか？",send:"送信",
  doneH:"ありがとう！",doneP:"受け取りました。丘の上で会いましょう。",
- calIcs:"カレンダーに追加",calNote:"2026年10月16日 13:00〜17:30（日本時間）",
+ calIcs:"カレンダーに追加",calNote:"タップして、この日をカレンダーに追加できます。",
  endEye:"これから",endHead:"ここから、はじまります",
  endMsg:"私たちの物語に、家族に、これからに加わってくれてありがとう。当日、一緒に乾杯しましょう。",
  endSig:"愛をこめて<br>トゥー &amp; メイ"}};
@@ -905,7 +903,7 @@ UNITS.forEach(u=>{rolls[u.k]=[...document.querySelectorAll(`#roll-${u.k} .roll-c
   setTimeout(cd,1000);})();
 
 const CAL={start:"20261016T040000Z",end:"20261016T083000Z",title:"May & Htoo — Wedding",
-  desc:"Check-in 13:00 JST. Ceremony 14:00 JST. Address on the wedding site."};
+  desc:"Reception begins 13:30 JST. Gates close 13:50. Ceremony 14:00 JST. Address on the wedding site."};
 document.getElementById("calIcs").onclick=()=>{
   const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//MayHtoo//Wedding//EN","CALSCALE:GREGORIAN",
     "BEGIN:VEVENT","UID:mayhtoo-16oct2026@wedding","DTSTAMP:20260101T000000Z","DTSTART:"+CAL.start,
