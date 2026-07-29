@@ -16,7 +16,6 @@
   --pad:clamp(1.25rem,6vw,3rem);--ease:cubic-bezier(.16,.84,.34,1)}
 html[lang="ja"]{--serif:"Shippori Mincho","Newsreader",serif}
 *{box-sizing:border-box}
-html{width:100%;overflow-x:hidden}
 body{margin:0;width:100%;background:var(--ink);color:var(--bone);font-family:var(--sans);font-weight:300;
   line-height:1.8;overflow-x:hidden;-webkit-font-smoothing:antialiased;overscroll-behavior-y:none}
 body.locked{overflow:hidden;height:100vh}
@@ -223,7 +222,7 @@ body.locked{overflow:hidden;height:100vh}
 /* ══════ CARD DECK — save the date / dress / getting there ══════ */
 .sc-cards{height:400vh}
 @media (min-width:768px){.sc-cards{height:460vh}}
-.cards-pin{overflow:visible;touch-action:pan-y;cursor:grab;user-select:none}
+.cards-pin{overflow-x:clip;overflow-y:visible;touch-action:pan-y;cursor:grab;user-select:none}
 .cards-pin:active{cursor:grabbing}
 .card{position:absolute;left:50%;top:50%;width:min(84vw,440px);
   transform:translate(-50%,-50%);will-change:transform,opacity;
