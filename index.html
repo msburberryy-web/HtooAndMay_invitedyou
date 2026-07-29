@@ -796,6 +796,33 @@ const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
 const lerp=(a,b,t)=>a+(b-a)*t;
 const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
 const mixRGB=(x,y,t)=>`rgb(${Math.round(lerp(x[0],y[0],t))},${Math.round(lerp(x[1],y[1],t))},${Math.round(lerp(x[2],y[2],t))})`;
+
+/* buttery wheel scroll — mouse/trackpad only. Touch keeps native scrolling
+   untouched (that's the pin/wait behavior we just fixed); "wheel" events
+   only fire for actual scroll wheels/trackpads, never for touch swipes, so
+   this can't reintroduce the touch regression. Eases each wheel tick toward
+   a target instead of jumping straight there, for the smoother feel. */
+if(!reduce){
+  let wsTarget=scrollY,wsTicking=false,wsLastSet=scrollY;
+  function wsMaxScroll(){return Math.max(0,document.body.scrollHeight-innerHeight);}
+  function wsTick(){
+    /* if scrollY has moved since the last frame WE set it, something else
+       (card-drag, keyboard, scrollbar) took over — hand off gracefully
+       instead of fighting it and dragging the page back to a stale target */
+    if(Math.abs(scrollY-wsLastSet)>1){wsTarget=scrollY;wsTicking=false;return;}
+    const diff=wsTarget-scrollY;
+    if(Math.abs(diff)<.5){scrollTo(0,wsTarget);wsTicking=false;return;}
+    const next=scrollY+diff*.16;
+    scrollTo(0,next);wsLastSet=next;
+    requestAnimationFrame(wsTick);}
+  addEventListener("wheel",e=>{
+    e.preventDefault();
+    if(!wsTicking)wsTarget=scrollY;
+    wsTarget=clamp(wsTarget+e.deltaY,0,wsMaxScroll());
+    wsLastSet=scrollY;
+    if(!wsTicking){wsTicking=true;requestAnimationFrame(wsTick);}},{passive:false});
+  addEventListener("resize",()=>{wsTarget=clamp(wsTarget,0,wsMaxScroll());},{passive:true});
+}
 const mix3=(a,b,c,t)=>t<.70?mixRGB(a,b,t/.70):mixRGB(b,c,(t-.70)/.30);
 const win=(p,a,b,f)=>clamp(Math.min((p-a)/f,(b-p)/f),0,1);
 const vf=(el,t)=>{el.style.fontVariationSettings=`"opsz" ${lerp(12,60,t)},"wght" ${lerp(200,420,t)}`;
