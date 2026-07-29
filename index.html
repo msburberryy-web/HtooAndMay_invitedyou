@@ -223,7 +223,7 @@ body.locked{overflow:hidden;height:100vh}
 /* ══════ CARD DECK — save the date / dress / getting there ══════ */
 .sc-cards{height:400vh}
 @media (min-width:768px){.sc-cards{height:460vh}}
-.cards-pin{overflow:visible;touch-action:none;cursor:grab;user-select:none}
+.cards-pin{overflow:visible;touch-action:pan-y;cursor:grab;user-select:none}
 .cards-pin:active{cursor:grabbing}
 .card{position:absolute;left:50%;top:50%;width:min(84vw,440px);
   transform:translate(-50%,-50%);will-change:transform,opacity;
@@ -1261,14 +1261,16 @@ qzNext.onclick=()=>{qi++;if(qi<QZ.length)renderQ();
     path.setAttribute('d',d);});
 })();
 
-/* drag/swipe the card deck sideways — maps horizontal drag to the scroll
-   position that drives it, so the bus route + dress scaling stay in sync.
-   touch-action is fully "none" here (see CSS) because "pan-y" lets the
-   browser start its own vertical scroll on the compositor thread before
-   our JS gets a chance to lock the gesture to one axis — that's what was
-   causing a sideways drag to also creep the page upward. With touch-action
-   disabled we own both axes ourselves, so a manual scrollBy + a small
-   momentum fling stand in for native vertical scrolling. */
+/* drag/swipe the card deck sideways.
+   Earlier attempts hijacked touch-action so JS could own vertical scroll
+   too, but that's what broke the "section pins, waits, only advances once
+   you're done" feel — a hand-rolled scrollBy can't fully replicate native
+   scroll physics. Fix: touch input is never intercepted mid-gesture, so
+   native scroll (and the pin/wait behavior) is exactly what it always was;
+   only once a touch gesture ends do we check if it was a clear, decisive
+   horizontal swipe and, if so, snap to the next/prev card afterward.
+   Mouse input has no such conflict (touch-action doesn't gate it), so
+   desktop keeps a live 1:1 click-drag. */
 (function(){
   const cardsScene=document.querySelector(".sc-cards"),cardsPin=document.querySelector(".cards-pin");
   if(!cardsScene||!cardsPin||!cards.length)return;
@@ -1278,41 +1280,44 @@ qzNext.onclick=()=>{qi++;if(qi<QZ.length)renderQ();
     const rect=cardsScene.getBoundingClientRect(),elTop=rect.top+scrollY;
     const pp=clamp(pos/(n-1),0,1);
     return elTop+pp*(cardsScene.offsetHeight-innerHeight);}
-  let down=false,axis=null,startX=0,startY=0,lastY=0,lastT=0,vY=0,startPos=0,flingId=null;
-  function stopFling(){if(flingId){cancelAnimationFrame(flingId);flingId=null;}}
+
+  let mDown=false,mAxis=null,mStartX=0,mStartY=0,mStartPos=0;
   cardsPin.addEventListener("pointerdown",e=>{
-    if(e.pointerType==="mouse"&&e.button!==0)return;
-    stopFling();
-    down=true;axis=null;startX=e.clientX;startY=e.clientY;lastY=e.clientY;
-    lastT=performance.now();vY=0;
-    startPos=progressOf(cardsScene)*(n-1);});
+    if(e.pointerType!=="mouse"||e.button!==0)return;
+    mDown=true;mAxis=null;mStartX=e.clientX;mStartY=e.clientY;
+    mStartPos=progressOf(cardsScene)*(n-1);});
   cardsPin.addEventListener("pointermove",e=>{
-    if(!down)return;
-    const dx=e.clientX-startX,dyTotal=e.clientY-startY;
-    if(axis===null){
-      if(Math.abs(dx)<6&&Math.abs(dyTotal)<6)return;
-      axis=Math.abs(dx)>Math.abs(dyTotal)?"x":"y";
-      try{cardsPin.setPointerCapture(e.pointerId);}catch(err){}}
+    if(!mDown||e.pointerType!=="mouse")return;
+    const dx=e.clientX-mStartX,dy=e.clientY-mStartY;
+    if(mAxis===null){
+      if(Math.abs(dx)<6&&Math.abs(dy)<6)return;
+      mAxis=Math.abs(dx)>Math.abs(dy)?"x":"y";
+      if(mAxis==="x")try{cardsPin.setPointerCapture(e.pointerId);}catch(err){}}
+    if(mAxis!=="x")return;
     e.preventDefault();
-    if(axis==="x"){
-      scrollTo(0,scrollYFor(clamp(startPos-dx/stepPx(),0,n-1)));
-    }else{
-      const now=performance.now(),dt=Math.max(1,now-lastT),dyStep=e.clientY-lastY;
-      scrollBy(0,-dyStep);
-      vY=dyStep/dt;lastY=e.clientY;lastT=now;}});
-  function endDrag(){
-    if(!down)return;down=false;
-    if(axis==="x"){
+    scrollTo(0,scrollYFor(clamp(mStartPos-dx/stepPx(),0,n-1)));});
+  function endMouseDrag(e){
+    if(!mDown||e.pointerType!=="mouse")return;
+    mDown=false;
+    if(mAxis==="x"){
       const raw=progressOf(cardsScene)*(n-1);
-      scrollTo({top:scrollYFor(Math.round(raw)),behavior:"smooth"});
-    }else if(axis==="y"&&Math.abs(vY)>.02){
-      let v=vY*16;
-      (function fling(){
-        scrollBy(0,-v);v*=.92;
-        flingId=Math.abs(v)>.5?requestAnimationFrame(fling):null;})();}
-    axis=null;}
-  cardsPin.addEventListener("pointerup",endDrag);
-  cardsPin.addEventListener("pointercancel",endDrag);
+      scrollTo({top:scrollYFor(Math.round(raw)),behavior:"smooth"});}
+    mAxis=null;}
+  cardsPin.addEventListener("pointerup",endMouseDrag);
+  cardsPin.addEventListener("pointercancel",endMouseDrag);
+
+  let tId=null,tStartX=0,tStartY=0,tStartPos=0,tStartT=0;
+  cardsPin.addEventListener("pointerdown",e=>{
+    if(e.pointerType!=="touch")return;
+    tId=e.pointerId;tStartX=e.clientX;tStartY=e.clientY;tStartT=performance.now();
+    tStartPos=progressOf(cardsScene)*(n-1);});
+  cardsPin.addEventListener("pointerup",e=>{
+    if(e.pointerType!=="touch"||e.pointerId!==tId)return;
+    tId=null;
+    const dx=e.clientX-tStartX,dy=e.clientY-tStartY,dt=performance.now()-tStartT;
+    if(dt>650||Math.abs(dx)<44||Math.abs(dx)<Math.abs(dy)*1.4)return;
+    const target=clamp(Math.round(tStartPos)+(dx<0?1:-1),0,n-1);
+    scrollTo({top:scrollYFor(target),behavior:"smooth"});});
 })();
 
 buildText();applyLang("en");
