@@ -286,15 +286,15 @@ body.locked{overflow:hidden;height:100vh}
 #gated.open{max-height:900px;opacity:1}
 
 /* ══════ QUIZ — pinned scroll scene ══════ */
-.sc-quiz{height:230vh}
-@media (min-width:768px){.sc-quiz{height:260vh}}
-.quiz-pin{flex-direction:column;background:radial-gradient(ellipse at 50% 40%,#1B2C22 0%,#0D1712 70%)}
+.sc-quiz{height:150vh}
+@media (min-width:768px){.sc-quiz{height:180vh}}
+.quiz-pin{flex-direction:column;background:radial-gradient(ellipse at 50% 40%,#1B2C22 0%,#0D1712 70%);transition:background .3s linear}
 .quiz-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
 .qz-orb{position:absolute;border-radius:50%;filter:blur(1px);will-change:transform,opacity}
-.qzo-a{width:200px;height:200px;left:-6%;top:12%;background:radial-gradient(circle,rgba(201,151,74,.4),transparent 70%)}
-.qzo-b{width:260px;height:260px;right:-10%;top:52%;background:radial-gradient(circle,rgba(140,145,136,.32),transparent 70%)}
-.qzo-c{width:150px;height:150px;left:8%;bottom:6%;background:radial-gradient(circle,rgba(201,151,74,.26),transparent 70%)}
-.qzo-d{width:170px;height:170px;right:14%;top:8%;background:radial-gradient(circle,rgba(63,86,71,.4),transparent 70%)}
+.qzo-a{width:260px;height:260px;left:-10%;top:10%;background:radial-gradient(circle,rgba(201,151,74,.55),transparent 70%)}
+.qzo-b{width:330px;height:330px;right:-14%;top:50%;background:radial-gradient(circle,rgba(160,168,176,.46),transparent 70%)}
+.qzo-c{width:190px;height:190px;left:6%;bottom:2%;background:radial-gradient(circle,rgba(201,151,74,.4),transparent 70%)}
+.qzo-d{width:220px;height:220px;right:10%;top:4%;background:radial-gradient(circle,rgba(63,86,71,.5),transparent 70%)}
 
 .qz-dots{display:flex;gap:.4rem;justify-content:center;margin-bottom:1.8rem}
 .qz-dot{width:26px;height:2px;background:rgba(242,239,233,.16);position:relative;overflow:hidden}
@@ -389,11 +389,14 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 .rs-done h3{font-family:var(--serif);font-weight:200;font-size:1.7rem;margin:0 0 .8rem}
 
 /* ══════ RSVP — pinned scroll scene ══════ */
-.sc-rsvp{height:340vh}
-@media (min-width:768px){.sc-rsvp{height:380vh}}
-.rsvp-pin{background:radial-gradient(ellipse at 50% 55%,#1B2C22 0%,#0D1712 72%)}
+.sc-rsvp{height:210vh}
+@media (min-width:768px){.sc-rsvp{height:240vh}}
+.rsvp-pin{background:radial-gradient(ellipse at 50% 55%,#1B2C22 0%,#0D1712 72%);transition:background .3s linear}
 .rsvp-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
 .rs-spark{position:absolute;border-radius:50%;background:#F8ECCB;will-change:transform,opacity}
+.rs-moon{position:absolute;top:0;left:50%;width:240px;height:240px;border-radius:50%;will-change:transform,opacity;
+  background:radial-gradient(circle,rgba(248,236,203,.9) 0%,rgba(201,151,74,.5) 42%,transparent 72%);
+  filter:blur(2px)}
 
 .sc-outro{height:300vh}
 @media (min-width:768px){.sc-outro{height:340vh}}
@@ -639,7 +642,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 
 <section class="scene sc-rsvp" data-scene="rsvp">
  <div class="pin rsvp-pin">
-  <div class="rsvp-bg" id="rsvpBg" aria-hidden="true"></div>
+  <div class="rsvp-bg" id="rsvpBg" aria-hidden="true"><div class="rs-moon" id="rsMoon"></div></div>
   <div class="wrap">
     <div class="sec-head"><p class="eyebrow" data-t="rsEye">Let us know</p>
       <h2 data-words data-fx="growbig" data-t="rsTitle">RSVP</h2></div>
@@ -1022,11 +1025,12 @@ for(let i=0;i<12;i++){
   BUBS.push({el:d,x:Math.random(),sp:.5+Math.random()*.9,ph:Math.random()*6.28,op:.12+Math.random()*.2});}
 
 const qzOrbs=[...document.querySelectorAll(".qz-orb")];
-const rsvpBg=document.getElementById("rsvpBg");
+const quizPin=document.querySelector(".quiz-pin"),rsvpPin=document.querySelector(".rsvp-pin");
+const rsvpBg=document.getElementById("rsvpBg"),rsMoon=document.getElementById("rsMoon");
 const RS_SPARKS=[];
-for(let i=0;i<16;i++){
+for(let i=0;i<22;i++){
   const d=document.createElement("div");d.className="rs-spark";
-  const sz=1.4+Math.random()*2.6;
+  const sz=2+Math.random()*3.6;
   d.style.width=sz+"px";d.style.height=sz+"px";
   d.style.left=(4+Math.random()*92)+"%";
   rsvpBg.appendChild(d);
@@ -1169,18 +1173,26 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
 
     if(sc.kind==="quiz"){
       qzOrbs.forEach((o,i)=>{
-        const amp=24+i*13,ph=i*1.7;
-        const y=(p-.5)*amp*2+Math.sin(p*6+ph)*11;
-        const x=Math.cos(p*4+ph)*15;
-        o.style.transform=`translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0) rotate(${(p*36*(i%2?1:-1)).toFixed(1)}deg)`;
-        o.style.opacity=(.28+.16*Math.sin(p*8+ph)).toFixed(3);});}
+        const amp=52+i*24,ph=i*1.7;
+        const y=(p-.5)*amp*2.6+Math.sin(p*6.28+ph)*20;
+        const x=Math.cos(p*3.4+ph)*46*(i%2?1:-1);
+        const sc2=1+Math.sin(p*6+ph)*.16;
+        o.style.transform=`translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0) rotate(${(p*70*(i%2?1:-1)).toFixed(1)}deg) scale(${sc2.toFixed(3)})`;
+        o.style.opacity=(.42+.28*Math.sin(p*8+ph)).toFixed(3);});
+      quizPin.style.background=`radial-gradient(ellipse at ${(50+Math.sin(p*6.28)*10).toFixed(1)}% 40%,`+
+        `${mixRGB([27,44,34],[30,42,58],p)} 0%,#0D1712 70%)`;}
 
     if(sc.kind==="rsvp"){
       const H=innerHeight,fade=clamp(p*4,0,1);
       RS_SPARKS.forEach(s=>{
         const yy=H*(1-((p*s.sp+s.y)%1));
         s.el.style.transform=`translate3d(0,${yy.toFixed(1)}px,0)`;
-        s.el.style.opacity=(fade*(.18+.55*Math.pow(Math.sin(p*10+s.ph)*.5+.5,2))).toFixed(3);});}
+        s.el.style.opacity=(fade*(.3+.65*Math.pow(Math.sin(p*10+s.ph)*.5+.5,2))).toFixed(3);});
+      const my=innerHeight*(.82-p*.68),mx=50+Math.sin(p*4.2)*14;
+      rsMoon.style.transform=`translate3d(-50%,${my.toFixed(1)}px,0) scale(${(.7+p*.5).toFixed(3)})`;
+      rsMoon.style.left=mx.toFixed(2)+"%";
+      rsMoon.style.opacity=clamp(p*3,0,1)*clamp((1.06-p)*3,0,1);
+      rsvpPin.style.background=`radial-gradient(ellipse at 50% 55%,${mixRGB([27,44,34],[42,40,58],p)} 0%,#0D1712 72%)`;}
   }
   requestAnimationFrame(frame);
 })(performance.now());
