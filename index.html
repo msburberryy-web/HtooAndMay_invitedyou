@@ -593,11 +593,11 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
     <article class="card" data-card="1">
       <p class="eyebrow" data-t="dressEye">What to wear</p>
       <h3 class="dress-h" id="dressH"><span class="drop"></span><span class="rest"></span></h3>
-      <p data-t="dressP">Nothing too formal. Wear what you feel good in — but if you want to match our colours, here they are.</p>
+      <p data-t="dressP">Nothing too formal — but if you'd like to match our palette, think champagne gold and warm browns. Gentlemen, black tie suits the evening perfectly.</p>
       <div class="swatches">
-        <div class="sw" style="background:#F2EFE9"></div><div class="sw" style="background:#CFC9BB"></div>
-        <div class="sw" style="background:#8C9188"></div><div class="sw" style="background:#C9974A"></div>
-        <div class="sw" style="background:#1F2D24"></div><div class="sw" style="background:#0D1712"></div></div>
+        <div class="sw" style="background:#E8D9B5"></div><div class="sw" style="background:#C9974A"></div>
+        <div class="sw" style="background:#8B5A3C"></div><div class="sw" style="background:#5C3A22"></div>
+        <div class="sw" style="background:#141414"></div></div>
     </article>
 
     <article class="card" data-card="2">
@@ -781,39 +781,39 @@ function removeWhiteBg(imgEl){
 ['monogram','endMono'].forEach(id=>removeWhiteBg(document.getElementById(id)));
 
 const T={en:{},
-ja:{filmPh:"ここにムービーが入ります",skip:"スキップ",announce:"結婚します。",
+ja:{filmPh:"ここに映像が流れます",skip:"スキップ",announce:"結婚することになりました。",
  announceBody:"大切な一日を、みなさんと一緒に過ごせたら嬉しいです。",
  cdD:"日",cdH:"時間",cdM:"分",cdS:"秒",welTitle:"ようこそ",
  welP1:"当日に必要なことは、ぜんぶこのページにまとめました。場所、行き方、一日の流れ。",
  welP2:"式場っぽくない場所を、ずっと探していました。ちょっと遠くて、行く価値のあるところ。",
  welP3:"見つかりました。早くお見せしたいです。",
- heartCap:"ずいぶん長いあいだ、遠く離れた半分どうしでした。",
- climbTitle:"のぼって、のぼって",climbP:"好きなものって、だいたい登った先にあるんですよね。",
- evDateK:"日にち",evDateV:"2026年10月16日（金）",recTitle:"その間の、いろいろ。",
+ heartCap:"長いあいだ、ふたつの心は遠く離れていました。",
+ climbTitle:"のぼって、のぼって",climbP:"好きなものは、たいてい登った先にありました。",
+ evDateK:"日にち",evDateV:"2026年10月16日（金）",recTitle:"そのあいだの日々。",
  dayBus:"バス出発",dayBusSub:"乗車地点によって出発時刻が異なります",
- dayRecep:"受付開始",dayGate:"入場締切",dayGateSub:"式の10分前です。お席へどうぞ",dayCeremony:"挙式",
+ dayRecep:"受付開始",dayGate:"入場締切",dayGateSub:"挙式10分前です。お席にご着席ください",dayCeremony:"挙式",
  saveEye:"日程",saveTitle:"2026年10月16日",saveSub:"金曜日・挙式は14時",
  dressEye:"服装",dressTitle:"ドレスコード",
- dressP:"かたくならずに。着たいものを着てきてください。色を合わせたい方は、この色たちです。",
+ dressP:"かたくなりすぎなくて大丈夫です。色を合わせていただけるなら、シャンパンゴールドやあたたかみのあるブラウン系がおすすめです。男性の方はブラックタイでお願いいたします。",
  transEye:"アクセス",transTitle:"送迎バス",transP:"バス3台が、それぞれ別の駅から出ます。帰りも同じ駅までお送りします。",
  busNote:"乗車地点は新宿・東京・池袋です。帰りのバスは宴の後に会場を出発します。詳しい時間は後日お伝えします。",
  gateMsg:"下記のフォームでお返事いただくと、乗車地点とバス時間が表示されます。",
- faqEye:"知っておいてほしいこと",faqTitle:"いくつかのご質問",
+ faqEye:"ご案内",faqTitle:"よくあるご質問",
  faqQ1:"会場へはどうやって行きますか？",
- faqA1:"会場は厚木エリアにあります。新宿駅から約48分です。新宿・東京駅・池袋から送迎バスが出ますが、1台につき27〜28名までとなりますので、ご利用の際はRSVPでお知らせください。",
- faqQ2:"会場の住所を教えてください",
- faqA2:"詳しいご住所は、RSVPをいただいた後にお伝えします。今のところは、厚木エリアだとお考えください。",
+ faqA1:"会場は厚木エリアにあり、新宿駅から電車で約48分です。新宿・東京・池袋から送迎バスをご用意していますが、各バス27〜28名までとなりますので、ご利用の際はRSVPにてお知らせください。",
+ faqQ2:"会場の住所は？",
+ faqA2:"詳しいご住所は、RSVPをいただいた後にお伝えします。今のところは、厚木エリアとだけお伝えしておきます。",
  faqQ3:"子供を連れて行ってもいいですか？",
- faqA3:"今回は大人だけの会とさせていただいております。会場に託児のスペースがないためです。もし難しいようでしたら、直接ご相談ください。できる限り対応いたします。",
- faqQ4:"食物アレルギーがある場合はどう伝えればいいですか？",
+ faqA3:"今回は大人だけの会とさせていただきます。会場に託児スペースがないためです。もし難しいようでしたら、直接ご相談ください。できる限り対応します。",
+ faqQ4:"食物アレルギーはどう伝えればいいですか？",
  faqA4:"下記のRSVPフォームに欄がありますので、「食べられないもの」にご記入ください。",
  quizEye:"ちょっとしたお楽しみ",quizTitle:"メイ？トゥー？",quizP:"6問だけ。どっちだと思うか押してください。",
  nameMay:"メイ",nameHtoo:"トゥー",next:"次へ",back:"戻る",rsEye:"お返事",rsTitle:"出欠",
- rsP:"2026年9月1日までにお願いします。お返事をもらえたら、乗車地点がここに表示されます。",
+ rsP:"2026年9月16日までにお願いします。お返事をもらえたら、乗車地点がここに表示されます。",
  q_attend:"来てもらえますか？",h_attend:"2026年10月16日",a_yes:"よろこんで！",a_no:"残念だけど…",
  q_name:"お名前は？",h_name:"席札に書くお名前です",f_name:"お名前",f_kana:"ふりがな（任意）",
  q_party:"何人で来ますか？",h_party:"ご自身を含めて",q_station:"どこから来ますか？",
- h_station:"バスを決めるためです",c_own:"自分で行きます",q_food:"食べられないものはありますか？",
+ h_station:"バスの手配のためです",c_own:"自分で行きます",q_food:"食べられないものはありますか？",
  h_food:"アレルギーや、苦手なもの",f_allergy:"アレルギー・苦手なもの",q_msg:"なにか一言もらえたら",
  h_msg:"任意です。ぜんぶ読みます",f_msg:"メッセージ",q_review:"これで合ってますか？",send:"送信",
  doneH:"ありがとう！",doneP:"受け取りました。丘の上で会いましょう。",
