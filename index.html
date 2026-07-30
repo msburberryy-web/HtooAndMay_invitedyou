@@ -239,6 +239,26 @@ body.locked{overflow:hidden;height:100vh}
   justify-content:center;z-index:30}
 .cd-dot{width:28px;height:2px;background:rgba(242,239,233,.18);transition:background .5s ease}
 .cd-dot.on{background:var(--gold)}
+
+/* ══════ FAQ — pinned scroll scene ══════ */
+.sc-faq{height:280vh}
+@media (min-width:768px){.sc-faq{height:320vh}}
+.faq-pin{background:radial-gradient(ellipse at 50% 46%,#1B2C22 0%,#0D1712 68%)}
+.faq-head{position:absolute;top:7vh;left:0;right:0;text-align:center;z-index:5;padding:0 var(--pad)}
+.faq-card{position:absolute;left:50%;top:54%;width:min(84vw,440px);
+  transform:translate(-50%,-50%);will-change:transform,opacity;
+  padding:2.4rem 1.8rem;border-radius:18px;text-align:center;
+  background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.03));
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(242,239,233,.16);box-shadow:0 18px 50px rgba(0,0,0,.4)}
+@media (min-width:768px){.faq-card{padding:2.8rem 2.4rem}}
+.faq-q{font-family:var(--serif);font-weight:200;font-size:clamp(1.25rem,5.4vw,1.6rem);
+  margin:0 0 1rem;line-height:1.32;color:var(--gold)}
+.faq-a{font-size:.92rem;color:var(--greige);line-height:1.7;margin:0}
+.faq-dots{position:absolute;bottom:9vh;left:0;right:0;display:flex;gap:.45rem;
+  justify-content:center;z-index:30}
+.fq-dot{width:28px;height:2px;background:rgba(242,239,233,.18);transition:background .5s ease}
+.fq-dot.on{background:var(--gold)}
 #cardBubbles{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .bub{position:absolute;border-radius:50%;will-change:transform,opacity;opacity:0}
 
@@ -614,6 +634,29 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
   </div>
 </section>
 
+<section class="scene sc-faq" data-scene="faq">
+  <div class="pin faq-pin">
+    <div class="faq-head"><p class="eyebrow" data-t="faqEye">Good to know</p>
+      <h2 data-t="faqTitle">A few questions</h2></div>
+
+    <div class="faq-card" data-faq="0">
+      <p class="faq-q" data-t="faqQ1">How do we get there?</p>
+      <p class="faq-a" data-t="faqA1">We're near Atsugi — about 48 minutes from Shinjuku Station. Shuttle buses run from Shinjuku, Tokyo Station and Ikebukuro; each one holds 27–28 people, so please let us know via RSVP if you'd like a seat.</p></div>
+    <div class="faq-card" data-faq="1">
+      <p class="faq-q" data-t="faqQ2">Where exactly is the venue?</p>
+      <p class="faq-a" data-t="faqA2">We'll send the full address once you've RSVP'd. For now, just know you're headed to the Atsugi area.</p></div>
+    <div class="faq-card" data-faq="2">
+      <p class="faq-q" data-t="faqQ3">Can we bring the kids?</p>
+      <p class="faq-a" data-t="faqA3">We've kept the day adults-only, mostly because the venue doesn't have anywhere set up for childcare. If that makes it difficult for you to join us, please reach out directly and we'll see what we can work out.</p></div>
+    <div class="faq-card" data-faq="3">
+      <p class="faq-q" data-t="faqQ4">I have a food allergy — how do I tell you?</p>
+      <p class="faq-a" data-t="faqA4">There's a spot for that in the RSVP form below — just fill in "Anything you can't eat?" and we'll take care of it.</p></div>
+
+    <div class="faq-dots" id="faqDots">
+      <span class="fq-dot on"></span><span class="fq-dot"></span><span class="fq-dot"></span><span class="fq-dot"></span></div>
+  </div>
+</section>
+
 <section class="scene sc-quiz" data-scene="quiz">
  <div class="pin quiz-pin">
   <div class="quiz-bg" aria-hidden="true">
@@ -755,6 +798,15 @@ ja:{filmPh:"ここにムービーが入ります",skip:"スキップ",announce:"
  transEye:"アクセス",transTitle:"送迎バス",transP:"バス3台が、それぞれ別の駅から出ます。帰りも同じ駅までお送りします。",
  busNote:"乗車地点は新宿・東京・池袋です。帰りのバスは宴の後に会場を出発します。詳しい時間は後日お伝えします。",
  gateMsg:"下記のフォームでお返事いただくと、乗車地点とバス時間が表示されます。",
+ faqEye:"知っておいてほしいこと",faqTitle:"いくつかのご質問",
+ faqQ1:"会場へはどうやって行きますか？",
+ faqA1:"会場は厚木エリアにあります。新宿駅から約48分です。新宿・東京駅・池袋から送迎バスが出ますが、1台につき27〜28名までとなりますので、ご利用の際はRSVPでお知らせください。",
+ faqQ2:"会場の住所を教えてください",
+ faqA2:"詳しいご住所は、RSVPをいただいた後にお伝えします。今のところは、厚木エリアだとお考えください。",
+ faqQ3:"子供を連れて行ってもいいですか？",
+ faqA3:"今回は大人だけの会とさせていただいております。会場に託児のスペースがないためです。もし難しいようでしたら、直接ご相談ください。できる限り対応いたします。",
+ faqQ4:"食物アレルギーがある場合はどう伝えればいいですか？",
+ faqA4:"下記のRSVPフォームに欄がありますので、「食べられないもの」にご記入ください。",
  quizEye:"ちょっとしたお楽しみ",quizTitle:"メイ？トゥー？",quizP:"6問だけ。どっちだと思うか押してください。",
  nameMay:"メイ",nameHtoo:"トゥー",next:"次へ",back:"戻る",rsEye:"お返事",rsTitle:"出欠",
  rsP:"2026年9月1日までにお願いします。お返事をもらえたら、乗車地点がここに表示されます。",
@@ -996,6 +1048,7 @@ const welBig=document.getElementById("welBig"),welBody=document.getElementById("
   jRail=document.getElementById("jRail"),trailBox=document.getElementById("trail"),
   fwBox=document.getElementById("fw"),jScene=document.querySelector(".sc-journey"),
   cards=[...document.querySelectorAll(".card")],cardDots=[...document.querySelectorAll(".cd-dot")],
+  faqCards=[...document.querySelectorAll(".faq-card")],faqDots=[...document.querySelectorAll(".fq-dot")],
   routePath=document.getElementById("routePath"),stops=[...document.querySelectorAll(".stop")],
   bus=document.getElementById("bus"),prog=document.getElementById("prog"),
   endMono=document.getElementById("endMono"),endEyebrow=document.getElementById("endEyebrow"),
@@ -1184,6 +1237,18 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
         const y=H*1.05-(p*b.sp+b.x)%1.25*H*1.25;
         b.el.style.transform=`translate3d(${Math.sin(p*5+b.ph)*24}px,${y}px,0)`;
         b.el.style.opacity=(b.op*clamp(p*3,0,1)*clamp((1-p)*3,0,1)).toFixed(3);});}
+
+    if(sc.kind==="faq"){
+      const n=faqCards.length,pos=p*(n-1);
+      const step=Math.min(innerWidth*.92,520);
+      faqCards.forEach((c,i)=>{
+        const d=i-pos, ad=Math.abs(d);
+        c.style.transform=`translate(-50%,-50%) translate3d(${d*step}px,${ad*ad*26}px,0)`+
+          ` rotate(${d*3.2}deg) scale(${clamp(1-ad*.16,.66,1)})`;
+        c.style.opacity=clamp(1-ad*.85,0,1);
+        c.style.zIndex=String(Math.round(30-ad*10));
+        c.style.pointerEvents=ad<.35?"auto":"none";});
+      faqDots.forEach((d,i)=>d.classList.toggle("on",Math.round(pos)===i));}
 
     if(sc.kind==="outro"){
       const d=clamp(p/.42,0,1);
