@@ -111,6 +111,8 @@ body.locked{overflow:hidden;height:100vh}
 .sec-head{text-align:center;margin-bottom:2.6rem}
 .eyebrow{font-size:.56rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin:0 0 .9rem}
 .sec h2{font-family:var(--serif);font-weight:200;font-size:clamp(1.75rem,7.5vw,2.5rem);margin:0;line-height:1.18}
+.quiz-fun{font-family:var(--sans);font-weight:400;font-size:clamp(1.15rem,4.6vw,1.5rem);
+  letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin:0 0 1rem}
 .sec p{font-size:.93rem;color:var(--greige);margin:0 0 1.1rem}
 .center{text-align:center}
 .scene{position:relative}
@@ -664,7 +666,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
     <div class="qz-orb qzo-c"></div><div class="qz-orb qzo-d"></div>
   </div>
   <div class="wrap">
-    <div class="sec-head"><p class="eyebrow" data-t="quizEye">Just for fun</p>
+    <div class="sec-head"><p class="quiz-fun" data-words data-fx="growbig" data-t="quizFun">Fun. Quiz. Time.</p>
       <h2 data-words data-fx="growbig" data-t="quizTitle">May or Htoo?</h2></div>
     <p class="center" style="margin-bottom:2.4rem" data-wipe data-t="quizP">Six questions. Tap whoever you think it is.</p>
     <div id="qzBox">
@@ -781,7 +783,7 @@ function removeWhiteBg(imgEl){
 ['monogram','endMono'].forEach(id=>removeWhiteBg(document.getElementById(id)));
 
 const T={en:{},
-ja:{filmPh:"ここに映像が流れます",skip:"スキップ",announce:"結婚することになりました。",
+ja:{filmPh:"ここに映像が流れます",skip:"スキップ",announce:"わたしたち、結婚します。",
  announceBody:"大切な一日を、みなさんと一緒に過ごせたら嬉しいです。",
  cdD:"日",cdH:"時間",cdM:"分",cdS:"秒",welTitle:"ようこそ",
  welP1:"当日に必要なことは、ぜんぶこのページにまとめました。場所、行き方、一日の流れ。",
@@ -794,20 +796,20 @@ ja:{filmPh:"ここに映像が流れます",skip:"スキップ",announce:"結婚
  dayRecep:"受付開始",dayGate:"入場締切",dayGateSub:"挙式10分前です。お席にご着席ください",dayCeremony:"挙式",
  saveEye:"日程",saveTitle:"2026年10月16日",saveSub:"金曜日・挙式は14時",
  dressEye:"服装",dressTitle:"ドレスコード",
- dressP:"かたくなりすぎなくて大丈夫です。色を合わせていただけるなら、シャンパンゴールドやあたたかみのあるブラウン系がおすすめです。男性の方はブラックタイでお願いいたします。",
+ dressP:"かたくなりすぎなくて大丈夫です。色を合わせたい人は、シャンパンゴールドやあたたかみのあるブラウン系がおすすめです。男性はブラックタイで、かっこよく決めてきてくださいね。",
  transEye:"アクセス",transTitle:"送迎バス",transP:"バス3台が、それぞれ別の駅から出ます。帰りも同じ駅までお送りします。",
  busNote:"乗車地点は新宿・東京・池袋です。帰りのバスは宴の後に会場を出発します。詳しい時間は後日お伝えします。",
  gateMsg:"下記のフォームでお返事いただくと、乗車地点とバス時間が表示されます。",
  faqEye:"ご案内",faqTitle:"よくあるご質問",
  faqQ1:"会場へはどうやって行きますか？",
- faqA1:"会場は厚木エリアにあり、新宿駅から電車で約48分です。新宿・東京・池袋から送迎バスをご用意していますが、各バス27〜28名までとなりますので、ご利用の際はRSVPにてお知らせください。",
+ faqA1:"会場は厚木エリアにあり、新宿駅から電車で約48分です。新宿・東京・池袋から送迎バスも出しますが、1台27〜28人までなので、乗りたい人はRSVPで教えてくださいね。",
  faqQ2:"会場の住所は？",
- faqA2:"詳しいご住所は、RSVPをいただいた後にお伝えします。今のところは、厚木エリアとだけお伝えしておきます。",
+ faqA2:"くわしい住所は、RSVPをもらったあとにお伝えします。今のところは、厚木エリアとだけ覚えておいてください。",
  faqQ3:"子供を連れて行ってもいいですか？",
- faqA3:"今回は大人だけの会とさせていただきます。会場に託児スペースがないためです。もし難しいようでしたら、直接ご相談ください。できる限り対応します。",
+ faqA3:"今回は大人だけでゆっくり過ごしたくて、大人限定にしています。会場に託児スペースがないのもあって。もし難しいときは、遠慮なく相談してくださいね。",
  faqQ4:"食物アレルギーはどう伝えればいいですか？",
  faqA4:"下記のRSVPフォームに欄がありますので、「食べられないもの」にご記入ください。",
- quizEye:"ちょっとしたお楽しみ",quizTitle:"メイ？トゥー？",quizP:"6問だけ。どっちだと思うか押してください。",
+ quizFun:"たのしい。クイズ。タイム。",quizTitle:"メイ？トゥー？",quizP:"6問だけ。どっちだと思うか押してください。",
  nameMay:"メイ",nameHtoo:"トゥー",next:"次へ",back:"戻る",rsEye:"お返事",rsTitle:"出欠",
  rsP:"2026年9月16日までにお願いします。お返事をもらえたら、乗車地点がここに表示されます。",
  q_attend:"来てもらえますか？",h_attend:"2026年10月16日",a_yes:"よろこんで！",a_no:"残念だけど…",
@@ -1105,6 +1107,7 @@ for(let i=0;i<12;i++){
 
 const qzOrbs=[...document.querySelectorAll(".qz-orb")];
 const quizPin=document.querySelector(".quiz-pin"),rsvpPin=document.querySelector(".rsvp-pin");
+const quizSecHead=document.querySelector(".sc-quiz .sec-head"),rsvpSecHead=document.querySelector(".sc-rsvp .sec-head");
 const rsvpBg=document.getElementById("rsvpBg"),rsMoon=document.getElementById("rsMoon");
 const RS_SPARKS=[];
 for(let i=0;i<22;i++){
@@ -1263,6 +1266,7 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
       endSig.style.opacity=sg;endSig.style.transform=`translate3d(0,${(1-sg)*20}px,0)`;}
 
     if(sc.kind==="quiz"){
+      if(quizSecHead)quizSecHead.classList.toggle("in",p>.02);
       qzOrbs.forEach((o,i)=>{
         const amp=52+i*24,ph=i*1.7;
         const y=(p-.5)*amp*2.6+Math.sin(p*6.28+ph)*20;
@@ -1274,6 +1278,7 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
         `${mixRGB([27,44,34],[30,42,58],p)} 0%,#0D1712 70%)`;}
 
     if(sc.kind==="rsvp"){
+      if(rsvpSecHead)rsvpSecHead.classList.toggle("in",p>.02);
       const H=innerHeight,fade=clamp(p*4,0,1);
       RS_SPARKS.forEach(s=>{
         const yy=H*(1-((p*s.sp+s.y)%1));
