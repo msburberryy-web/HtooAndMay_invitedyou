@@ -268,9 +268,12 @@ body.locked{overflow:hidden;height:100vh}
 #cardBubbles{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .bub{position:absolute;border-radius:50%;will-change:transform,opacity;opacity:0}
 
-.save-date{font-family:var(--serif);font-weight:200;font-size:clamp(2rem,9vw,3rem);
-  margin:0 0 .6rem;line-height:1.1;letter-spacing:-.01em}
-.save-sub{font-size:.82rem;color:var(--stone);letter-spacing:.2em;text-transform:uppercase;margin:0 0 2rem}
+.save-date{font-family:var(--serif);font-weight:200;line-height:1.1;letter-spacing:-.01em;
+  margin:0 0 1.6rem;display:flex;align-items:baseline;justify-content:center;gap:.03em;flex-wrap:wrap}
+.save-date .drop{font-size:clamp(3.2rem,15vw,4.6rem);font-weight:500;color:var(--gold);
+  line-height:.82;display:inline-block;will-change:transform}
+.save-date .rest{font-size:clamp(1.5rem,6vw,2rem)}
+.save-date.plain .rest{font-size:clamp(2rem,9vw,3rem)}
 .cal-card{position:relative;width:126px;margin:0 auto;padding:0 0 .9rem;background:rgba(242,239,233,.06);
   border:1px solid var(--line);border-radius:.35rem .35rem 1rem 1rem;cursor:pointer;
   font-family:var(--sans);display:block;overflow:hidden;transition:.35s var(--ease)}
@@ -601,8 +604,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 
     <article class="card" data-card="0">
       <p class="eyebrow" data-t="saveEye">Save the date</p>
-      <p class="save-date" data-t="saveTitle">16 October 2026</p>
-      <p class="save-sub" data-t="saveSub">Friday · ceremony at two</p>
+      <p class="save-date" id="saveH"><span class="drop"></span><span class="rest"></span></p>
       <button class="cal-card" id="calIcs">
         <span class="cal-top">Oct</span><span class="cal-day">16</span>
         <span class="cal-foot" data-t="calIcs">Add to calendar</span></button>
@@ -621,7 +623,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 
     <article class="card" data-card="2">
       <p class="eyebrow" data-t="transEye">Getting there</p>
-      <h3 data-t="transTitle">Transportation</h3>
+      <h3 class="dress-h" id="transH"><span class="drop"></span><span class="rest"></span></h3>
       <p data-t="transP">Three buses, leaving from three different stations, and they'll bring you back at the end.</p>
       <div class="route" id="routeBox">
         <svg viewBox="0 0 400 170" aria-hidden="true">
@@ -814,7 +816,7 @@ ja:{filmPh:"ここに映像が流れます",skip:"スキップ",announce:"わた
  evDateK:"日にち",evDateV:"2026年10月16日（金）",recTitle:"そのあいだの日々。",
  dayBus:"バス出発",dayBusSub:"乗車地点によって出発時刻が異なります",
  dayRecep:"受付開始",dayGate:"入場締切",dayGateSub:"挙式10分前です。お席にご着席ください",dayCeremony:"挙式",
- saveEye:"日程",saveTitle:"2026年10月16日",saveSub:"金曜日・挙式は14時",
+ saveEye:"日程",saveTitle:"2026年10月16日（金）",
  dressEye:"服装",dressTitle:"ドレスコード",
  dressP:"かたくなりすぎなくて大丈夫です。色を合わせたい人は、シャンパンゴールドやあたたかみのあるブラウン系がおすすめです。男性はブラックタイで、かっこよく決めてきてくださいね。",
  transEye:"アクセス",transTitle:"送迎バス",transP:"バス3台が、それぞれ別の駅から出ます。帰りも同じ駅までお送りします。",
@@ -861,6 +863,8 @@ ja:[{q:"先に「好き」って言ったのは？",a:1,n:"トゥーです。3�
 document.querySelectorAll("[data-t]").forEach(el=>{
   T.en[el.dataset.t]=el.hasAttribute("data-html")?el.innerHTML:el.textContent;});
 T.en.dressTitle="Dress Code";
+T.en.transTitle="Transportation";
+T.en.saveTitle="16 October 2026 (Friday)";
 let LANG="en";
 const tr=k=>(T[LANG]&&T[LANG][k])||T.en[k]||"";
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -912,10 +916,26 @@ function buildText(){
     const raw=p.dataset.raw||(p.dataset.raw=tr(p.dataset.t)||p.textContent.trim());
     p.innerHTML=raw.trim().split(/\s+/).map(w=>`<span class="ww">${w}</span>`).join(" ");});
   wipes=[...document.querySelectorAll("[data-wipe]")].map(el=>({el,words:[...el.querySelectorAll(".ww")],lit:-1}));}
+function setDropTitle(id,key,fallback){
+  const el=document.getElementById(id);if(!el)return;
+  const t=tr(key)||fallback;
+  el.querySelector(".drop").textContent=t.charAt(0);
+  el.querySelector(".rest").textContent=t.slice(1);}
+function setSaveDate(){
+  const el=document.getElementById("saveH");if(!el)return;
+  const t=tr("saveTitle")||"16 October 2026 (Friday)";
+  const dropEl=el.querySelector(".drop"),restEl=el.querySelector(".rest");
+  if(LANG==="en"){
+    const sp=t.indexOf(" ");
+    dropEl.textContent=sp>0?t.slice(0,sp):t;
+    restEl.textContent=sp>0?t.slice(sp+1):"";
+    el.classList.remove("plain");
+  }else{
+    dropEl.textContent="";restEl.textContent=t;el.classList.add("plain");}}
 function setDressTitle(){
-  const t=tr("dressTitle")||"Dress Code";
-  document.querySelector("#dressH .drop").textContent=t.charAt(0);
-  document.querySelector("#dressH .rest").textContent=t.slice(1);}
+  setDropTitle("dressH","dressTitle","Dress Code");
+  setDropTitle("transH","transTitle","Transportation");
+  setSaveDate();}
 function applyLang(l){
   LANG=l;document.documentElement.lang=l;
   document.querySelectorAll("[data-t]").forEach(el=>{
