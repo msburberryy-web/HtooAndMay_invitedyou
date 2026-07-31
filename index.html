@@ -80,8 +80,7 @@ body.locked{overflow:hidden;height:100vh}
 .mono-bg svg,.mono-bg img{width:100%;height:100%;object-fit:cover}
 .mono-logo-stage{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;pointer-events:none}
 .mono-inner{position:relative;z-index:3;width:100%;padding-top:calc(50svh + 5rem)}
-#monogram{width:min(38vw,150px);height:auto;will-change:transform;opacity:0;transition:opacity 1.4s ease 0.9s;display:block;background:none;
-  filter:drop-shadow(0 0 14px rgba(201,151,74,.55)) drop-shadow(0 0 34px rgba(201,151,74,.32))}
+#monogram{width:min(38vw,150px);height:auto;will-change:transform;opacity:0;transition:opacity 1.4s ease 0.9s;display:block;background:none}
 .drawn #monogram{opacity:1}
 @keyframes draw{to{stroke-dashoffset:0}}
 .announce{font-family:var(--serif);font-weight:200;font-size:clamp(1.6rem,7vw,2.4rem);
@@ -119,6 +118,7 @@ body.locked{overflow:hidden;height:100vh}
   font-size:clamp(1.9rem,9.5vw,3rem);opacity:0}
 .sec p{font-size:.93rem;color:var(--greige);margin:0 0 1.1rem}
 .center{text-align:center}
+.rs-deadline{font-size:1.15rem;font-weight:600;color:var(--gold);letter-spacing:.02em}
 .scene{position:relative}
 .pin{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .pin::before,.pin::after{content:"";position:absolute;left:0;right:0;height:16vh;z-index:20;pointer-events:none}
@@ -197,6 +197,7 @@ body.locked{overflow:hidden;height:100vh}
 #fw{position:absolute;inset:0;z-index:11;pointer-events:none}
 .fwp{position:absolute;width:4px;height:4px;border-radius:50%;transform:translate(-50%,-50%);
   will-change:transform,opacity;opacity:0}
+#heartFw{position:absolute;inset:0;z-index:16;pointer-events:none;overflow:hidden}
 .j-head{position:absolute;z-index:14;text-align:center;padding:0 10vw;max-width:32rem;will-change:transform,opacity}
 .j-head h3{font-family:var(--serif);font-size:clamp(1.9rem,8.4vw,3rem);margin:0 0 .6rem;
   line-height:1.1;text-shadow:0 2px 30px rgba(0,0,0,.5);will-change:font-variation-settings}
@@ -247,8 +248,8 @@ body.locked{overflow:hidden;height:100vh}
 .cd-dot.on{background:var(--gold)}
 
 /* ══════ FAQ — pinned scroll scene ══════ */
-.sc-faq{height:280vh}
-@media (min-width:768px){.sc-faq{height:320vh}}
+.sc-faq{height:440vh}
+@media (min-width:768px){.sc-faq{height:500vh}}
 .faq-pin{background:radial-gradient(ellipse at 50% 46%,#1B2C22 0%,#0D1712 68%)}
 .faq-head{position:absolute;top:7vh;left:0;right:0;text-align:center;z-index:5;padding:0 var(--pad)}
 .faq-card{position:absolute;left:50%;top:54%;width:min(84vw,440px);
@@ -276,7 +277,12 @@ body.locked{overflow:hidden;height:100vh}
 .save-date.plain .rest{font-size:clamp(2rem,9vw,3rem)}
 .cal-card{position:relative;width:126px;margin:0 auto;padding:0 0 .9rem;background:rgba(242,239,233,.06);
   border:1px solid var(--line);border-radius:.35rem .35rem 1rem 1rem;cursor:pointer;
-  font-family:var(--sans);display:block;overflow:hidden;transition:.35s var(--ease)}
+  font-family:var(--sans);display:block;overflow:hidden;transition:.35s var(--ease);
+  animation:calBeat 2.2s ease-in-out infinite}
+@keyframes calBeat{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(201,151,74,.4)}
+  8%{transform:scale(1.06);box-shadow:0 0 0 7px rgba(201,151,74,0)}
+  16%{transform:scale(1)}}
+@media (hover:hover){.cal-card:hover{animation-play-state:paused}}
 .cal-card::before,.cal-card::after{content:"";position:absolute;top:.45rem;width:5px;height:5px;
   border-radius:50%;background:#16241C;border:1px solid rgba(242,239,233,.3);z-index:2}
 .cal-card::before{left:34px}.cal-card::after{right:34px}
@@ -295,6 +301,7 @@ body.locked{overflow:hidden;height:100vh}
 .swatches{display:flex;gap:.55rem;justify-content:center;margin:1.6rem 0 0}
 .sw{width:clamp(34px,10vw,50px);height:clamp(34px,10vw,50px);border-radius:50%;
   box-shadow:inset 0 0 0 1px rgba(242,239,233,.1);will-change:transform}
+.sw-tie{display:flex;align-items:center;justify-content:center}
 
 .route{margin:1rem 0 1.4rem}
 .route svg{width:100%;height:auto;display:block;overflow:visible}
@@ -343,7 +350,7 @@ body.locked{overflow:hidden;height:100vh}
 .vs-side::before{content:"";position:absolute;inset:6% 2%;z-index:-1;border-radius:50%/44%;
   background:radial-gradient(ellipse at 50% 45%,rgba(242,239,233,.07) 0%,transparent 70%);
   box-shadow:inset 0 0 0 1px rgba(242,239,233,.12);transition:.45s var(--ease)}
-#qzBox .vs-side::before{border-radius:16px;inset:3% 5%;
+#qzBox .vs-side::before,[data-s="attend"] .vs-side::before{border-radius:16px;inset:3% 5%;
   background:linear-gradient(160deg,rgba(255,255,255,.14),rgba(255,255,255,.04));
   backdrop-filter:blur(12px) saturate(1.3);-webkit-backdrop-filter:blur(12px) saturate(1.3);
   box-shadow:inset 0 0 0 1px rgba(242,239,233,.18),0 10px 26px rgba(0,0,0,.28)}
@@ -356,6 +363,7 @@ body.locked{overflow:hidden;height:100vh}
 .vs-side .init{font-family:var(--serif);font-weight:200;font-size:clamp(2.6rem,13vw,3.6rem);
   line-height:1;color:var(--stone);transition:.45s var(--ease)}
 .vs-side .init img{width:clamp(60px,18vw,92px);height:auto;display:block;border-radius:50%/44%}
+.vs-side .init svg{width:clamp(28px,9vw,38px);height:auto;display:block;color:inherit}
 .vs-side .nm{font-size:.64rem;letter-spacing:.28em;text-transform:uppercase;color:var(--stone);transition:.45s var(--ease)}
 @media (hover:hover){.vs-side:hover:not(:disabled){transform:translateY(-5px)}
   .vs-side:hover:not(:disabled)::before{box-shadow:inset 0 0 0 1px rgba(201,151,74,.6)}
@@ -444,8 +452,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 @media (min-width:768px){.sc-outro{height:340vh}}
 .outro-pin{flex-direction:column;text-align:center;padding:0 var(--pad)}
 .outro-in{position:relative;z-index:4;width:100%;max-width:34rem}
-#endMono{width:min(34vw,140px);height:auto;margin:0 auto 2rem;display:block;opacity:0;will-change:transform,opacity;background:none;
-  filter:drop-shadow(0 0 14px rgba(201,151,74,.55)) drop-shadow(0 0 34px rgba(201,151,74,.32))}
+#endMono{width:min(34vw,140px);height:auto;margin:0 auto 2rem;display:block;opacity:0;will-change:transform,opacity;background:none}
 #endMono path,#endMono circle{fill:none;stroke:var(--gold);stroke-width:1.4}
 #endEyebrow{opacity:0}
 #endHead{font-family:var(--serif);font-weight:200;font-size:clamp(1.7rem,7.4vw,2.7rem);
@@ -472,7 +479,6 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
   <button class="lang-b on" data-lang="en" lang="en">EN</button><span class="lang-sep"></span>
   <button class="lang-b" data-lang="ja" lang="ja">日本語</button>
 </div>
-<audio id="bgm" loop preload="none"><source src="audio/piano.mp3" type="audio/mpeg"></audio>
 <button id="music" aria-label="Music on or off"><i></i><i></i><i></i><i></i></button>
 
 <div id="intro">
@@ -511,6 +517,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 
 <section class="scene sc-heart" data-scene="heart">
   <div class="pin heart-pin">
+    <div id="heartFw" aria-hidden="true"></div>
     <div class="heart-stage">
       <svg viewBox="0 0 200 180" aria-label="Two halves becoming one heart">
         <defs>
@@ -608,17 +615,20 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
       <button class="cal-card" id="calIcs">
         <span class="cal-top">Oct</span><span class="cal-day">16</span>
         <span class="cal-foot" data-t="calIcs">Add to calendar</span></button>
-      <p style="font-size:.72rem;color:var(--stone);margin:1.2rem 0 0" data-t="calNote">Tap to add this day to your phone's calendar.</p>
+      <p style="font-size:.86rem;font-weight:600;color:var(--gold);margin:1.2rem 0 0" data-t="calNote">Tap to add this day to your phone's calendar.</p>
     </article>
 
     <article class="card" data-card="1">
       <p class="eyebrow" data-t="dressEye">What to wear</p>
       <h3 class="dress-h" id="dressH"><span class="drop"></span><span class="rest"></span></h3>
-      <p data-t="dressP">Nothing too formal — but if you'd like to match our palette, think champagne gold and warm browns. Gentlemen, black tie suits the evening perfectly.</p>
+      <p data-t="dressP">Nothing too formal — but if you'd like to match our palette, think champagne, soft lemon, and warm browns. Gentlemen, black tie suits the evening perfectly.</p>
       <div class="swatches">
-        <div class="sw" style="background:#E8D9B5"></div><div class="sw" style="background:#C9974A"></div>
+        <div class="sw" style="background:#E8D9B5"></div><div class="sw" style="background:#F5E9A0"></div>
         <div class="sw" style="background:#8B5A3C"></div><div class="sw" style="background:#5C3A22"></div>
-        <div class="sw" style="background:#141414"></div></div>
+        <div class="sw sw-tie" style="background:#141414" aria-label="Black tie">
+          <svg viewBox="0 0 24 14" width="60%" height="60%"><path d="M1 2 L11 7 L1 12 Z" fill="#F2EFE9"/>
+            <path d="M23 2 L13 7 L23 12 Z" fill="#F2EFE9"/>
+            <rect x="10" y="4.5" width="4" height="5" rx="1" fill="#C9974A"/></svg></div></div>
     </article>
 
     <article class="card" data-card="2">
@@ -647,7 +657,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
         <div class="bus-row"><div class="bus-k">Bus B</div><div class="bus-v">東京 Tokyo Station<small>Leaves —:— · Returns ~18:00</small></div></div>
         <div class="bus-row"><div class="bus-k">Bus C</div><div class="bus-v">池袋 Ikebukuro<small>Leaves —:— · Returns ~18:00</small></div></div>
         <p class="gate-note" data-t="busNote">Pickup points are at Shinjuku, Tokyo Station and Ikebukuro. Return buses leave the venue after the party — exact times confirmed closer to the date.</p></div>
-      <p class="gate-note" id="gateMsg" data-t="gateMsg">RSVP below and we'll confirm your pickup point and bus time.</p>
+      <p class="gate-note" id="gateMsg" data-t="gateMsg">Choose your station in the RSVP below and we'll confirm your pickup point and bus time.</p>
     </article>
 
     <div class="cards-dots" id="cardsDots">
@@ -665,16 +675,29 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
       <p class="faq-a" data-t="faqA1">We're near Atsugi — about 48 minutes from Shinjuku Station. Shuttle buses run from Shinjuku, Tokyo Station and Ikebukuro; each one holds 27–28 people, so please let us know via RSVP if you'd like a seat.</p></div>
     <div class="faq-card" data-faq="1">
       <p class="faq-q" data-t="faqQ2">Where exactly is the venue?</p>
-      <p class="faq-a" data-t="faqA2">We'll send the full address once you've RSVP'd. For now, just know you're headed to the Atsugi area.</p></div>
+      <p class="faq-a" data-t="faqA2">We're keeping the exact address as a little surprise until you RSVP — think of it as the start of the adventure! For now, just know you're headed to the Atsugi area.</p></div>
     <div class="faq-card" data-faq="2">
       <p class="faq-q" data-t="faqQ3">Can we bring the kids?</p>
-      <p class="faq-a" data-t="faqA3">We've kept the day adults-only, mostly because the venue doesn't have anywhere set up for childcare. If that makes it difficult for you to join us, please reach out directly and we'll see what we can work out.</p></div>
+      <p class="faq-a" data-t="faqA3">This one's just for the grown-ups — our venue doesn't have space for little ones this time, so we're keeping it adults-only. If that's tricky for you, just reach out and we'll happily figure something out together.</p></div>
     <div class="faq-card" data-faq="3">
       <p class="faq-q" data-t="faqQ4">I have a food allergy — how do I tell you?</p>
       <p class="faq-a" data-t="faqA4">There's a spot for that in the RSVP form below — just fill in "Anything you can't eat?" and we'll take care of it.</p></div>
+    <div class="faq-card" data-faq="4">
+      <p class="faq-q" data-t="faqQ5">What time should I arrive?</p>
+      <p class="faq-a" data-t="faqA5">The ceremony begins at 14:00 — gates close at 13:50, so please plan to arrive a little before then.</p></div>
+    <div class="faq-card" data-faq="5">
+      <p class="faq-q" data-t="faqQ6">Is parking available?</p>
+      <p class="faq-a" data-t="faqA6">Yes, parking is available — just let us know in advance so we can plan for it.</p></div>
+    <div class="faq-card" data-faq="6">
+      <p class="faq-q" data-t="faqQ7">What should I wear?</p>
+      <p class="faq-a" data-t="faqA7">Check out the dress code section above.</p></div>
+    <div class="faq-card" data-faq="7">
+      <p class="faq-q" data-t="faqQ8">Can I bring a +1?</p>
+      <p class="faq-a" data-t="faqA8">We kindly ask that only those who received this invitation attend. If you're bringing a plus one, please add them in the RSVP form so we can seat you together.</p></div>
 
     <div class="faq-dots" id="faqDots">
-      <span class="fq-dot on"></span><span class="fq-dot"></span><span class="fq-dot"></span><span class="fq-dot"></span></div>
+      <span class="fq-dot on"></span><span class="fq-dot"></span><span class="fq-dot"></span><span class="fq-dot"></span>
+      <span class="fq-dot"></span><span class="fq-dot"></span><span class="fq-dot"></span><span class="fq-dot"></span></div>
   </div>
 </section>
 
@@ -712,16 +735,20 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
   <div class="wrap">
     <div class="sec-head"><p class="eyebrow" data-t="rsEye">Let us know</p>
       <h2 data-words data-fx="growbig" data-t="rsTitle">RSVP</h2></div>
-    <p class="center" style="margin-bottom:1rem" data-wipe data-t="rsP">By 20 September 2026. Once you reply, your bus pickup point shows up on this page.</p>
+    <p class="center rs-deadline" style="margin-bottom:1rem" data-wipe data-t="rsP">By 20 September 2026.</p>
     <div class="rs-card" id="rsCard">
       <div class="rs-track"><i id="rsBar"></i></div>
       <div class="rs-step on" data-s="attend">
         <p class="rs-q" data-t="q_attend">Can you make it?</p>
         <p class="rs-hint" data-t="h_attend">16 October 2026</p>
         <div class="vs">
-          <button class="vs-side" id="rsYes" type="button"><span class="init">✓</span><span class="nm" data-t="a_yes">Wouldn't miss it</span></button>
+          <button class="vs-side" id="rsYes" type="button"><span class="init">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3 L3 10.5 L10.5 13.5 L13.5 21 L21 3Z"/></svg></span>
+            <span class="nm" data-t="a_yes">Wouldn't miss it</span></button>
           <span class="vs-or">or</span>
-          <button class="vs-side" id="rsNo" type="button"><span class="init">·</span><span class="nm" data-t="a_no">Can't this time</span></button></div></div>
+          <button class="vs-side" id="rsNo" type="button"><span class="init">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11 L12 4 L20 11"/><path d="M6 10 V20 H18 V10"/></svg></span>
+            <span class="nm" data-t="a_no">Can't this time</span></button></div></div>
       <div class="rs-step" data-s="name">
         <p class="rs-q" data-t="q_name">What's your name?</p>
         <p class="rs-hint" data-t="h_name">However you'd like it on your place card</p>
@@ -818,23 +845,31 @@ ja:{filmPh:"ここに映像が流れます",skip:"スキップ",announce:"わた
  dayRecep:"受付開始",dayGate:"入場締切",dayGateSub:"挙式10分前です。お席にご着席ください",dayCeremony:"挙式",
  saveEye:"日程",saveTitle:"2026年10月16日（金）",
  dressEye:"服装",dressTitle:"ドレスコード",
- dressP:"かたくなりすぎなくて大丈夫です。色を合わせたい人は、シャンパンゴールドやあたたかみのあるブラウン系がおすすめです。男性はブラックタイで、かっこよく決めてきてくださいね。",
+ dressP:"かたくなりすぎなくて大丈夫です。色を合わせたい人は、シャンパンやレモンイエロー、あたたかみのあるブラウン系がおすすめです。男性はブラックタイで、かっこよく決めてきてくださいね。",
  transEye:"アクセス",transTitle:"送迎バス",transP:"バス3台が、それぞれ別の駅から出ます。帰りも同じ駅までお送りします。",
  busNote:"乗車地点は新宿・東京・池袋です。帰りのバスは宴の後に会場を出発します。詳しい時間は後日お伝えします。",
- gateMsg:"下記のフォームでお返事いただくと、乗車地点とバス時間が表示されます。",
+ gateMsg:"下記のRSVPでご希望の駅を選んでいただくと、乗車地点とバス時間をお知らせします。",
  faqEye:"ご案内",faqTitle:"よくあるご質問",
  faqQ1:"会場へはどうやって行きますか？",
  faqA1:"会場は厚木エリアにあり、新宿駅から電車で約48分です。新宿・東京・池袋から送迎バスも出しますが、1台27〜28人までなので、乗りたい人はRSVPで教えてくださいね。",
  faqQ2:"会場の住所は？",
- faqA2:"くわしい住所は、RSVPをもらったあとにお伝えします。今のところは、厚木エリアとだけ覚えておいてください。",
+ faqA2:"住所は、RSVPをいただいてからのお楽しみにさせてください。旅の始まりみたいで、ちょっとワクワクしませんか？今のところは、厚木エリアということだけ覚えておいてくださいね。",
  faqQ3:"子供を連れて行ってもいいですか？",
- faqA3:"今回は大人だけでゆっくり過ごしたくて、大人限定にしています。会場に託児スペースがないのもあって。もし難しいときは、遠慮なく相談してくださいね。",
+ faqA3:"今回は大人だけの特別な時間にしたくて、大人限定とさせていただきました。会場に託児スペースがないのもあります。もし難しいようでしたら、気軽にご相談くださいね。できる限り力になります。",
  faqQ4:"食物アレルギーはどう伝えればいいですか？",
  faqA4:"下記のRSVPフォームに欄がありますので、「食べられないもの」にご記入ください。",
+ faqQ5:"何時に到着すればいいですか？",
+ faqA5:"挙式は14時開始です。入場は13時50分までとなりますので、少し余裕を持ってお越しくださいね。",
+ faqQ6:"駐車場はありますか？",
+ faqA6:"はい、駐車場をご用意しています。事前に一言いただけると助かります。",
+ faqQ7:"服装はどうすればいいですか？",
+ faqA7:"上のドレスコードをご覧ください。",
+ faqQ8:"パートナーや友人を連れて行ってもいいですか？",
+ faqA8:"今回は、招待状をお受け取りいただいた方のみのご参加をお願いしております。同伴の方がいる場合は、RSVPフォームにご記入ください。お席を近くにご用意しますね。",
  quizFun1:"たのしい。",quizFun2:"クイズ。",quizFun3:"タイム。",
  quizTitle:"メイ？トゥー？",quizP:"6問だけ。どっちだと思うか押してください。",
  nameMay:"メイ",nameHtoo:"トゥー",next:"次へ",back:"戻る",rsEye:"お返事",rsTitle:"出欠",
- rsP:"2026年9月20日までにお願いします。お返事をもらえたら、乗車地点がここに表示されます。",
+ rsP:"2026年9月20日までにお願いします。",
  q_attend:"来てもらえますか？",h_attend:"2026年10月16日",a_yes:"よろこんで！",a_no:"残念だけど…",
  q_name:"お名前は？",h_name:"席札に書くお名前です",f_name:"お名前",f_kana:"ふりがな（任意）",
  q_party:"何人で来ますか？",h_party:"ご自身を含めて",q_station:"どこから来ますか？",
@@ -955,12 +990,33 @@ const io=new IntersectionObserver(es=>{es.forEach(e=>{
   {threshold:.12,rootMargin:"0px 0px -5% 0px"});
 document.querySelectorAll("[data-reveal]").forEach(el=>io.observe(el));
 
-const bgm=document.getElementById("bgm"),musicBtn=document.getElementById("music");
+/* gentle synthesized piano loop — no audio file needed */
+const musicBtn=document.getElementById("music");
+let actx=null,musicTimer=null,seqIdx=0;
+const PIANO_SEQ=[261.63,329.63,392.00,493.88,440.00,392.00,329.63,293.66];
+function pianoNote(freq,startTime,dur,vol){
+  const o=actx.createOscillator(),o2=actx.createOscillator(),g=actx.createGain(),g2=actx.createGain();
+  o.type="sine";o.frequency.value=freq;
+  o2.type="triangle";o2.frequency.value=freq*2;g2.gain.value=.16;
+  o2.connect(g2);g2.connect(g);o.connect(g);g.connect(actx.destination);
+  g.gain.setValueAtTime(0,startTime);
+  g.gain.linearRampToValueAtTime(vol,startTime+.03);
+  g.gain.exponentialRampToValueAtTime(.0001,startTime+dur);
+  o.start(startTime);o2.start(startTime);o.stop(startTime+dur+.05);o2.stop(startTime+dur+.05);}
+function scheduleNext(){
+  if(!actx)return;
+  pianoNote(PIANO_SEQ[seqIdx%PIANO_SEQ.length]/2,actx.currentTime+.05,2.3,.09);
+  seqIdx++;musicTimer=setTimeout(scheduleNext,1500);}
 musicBtn.onclick=()=>{
-  if(musicBtn.classList.contains("on")){bgm.pause();musicBtn.classList.remove("on");}
-  else{musicBtn.classList.add("on");
-    if(bgm.querySelector("source")){bgm.volume=.35;bgm.play().catch(()=>{});}
-    else console.log("Add <source src='assets/music.mp3'> to #bgm");}};
+  if(musicBtn.classList.contains("on")){
+    musicBtn.classList.remove("on");
+    if(musicTimer)clearTimeout(musicTimer);
+    if(actx)actx.suspend();
+  }else{
+    musicBtn.classList.add("on");
+    if(!actx)actx=new (window.AudioContext||window.webkitAudioContext)();
+    if(actx.state==="suspended")actx.resume();
+    scheduleNext();}};
 
 const intro=document.getElementById("intro"),film=document.getElementById("film"),
   vidph=document.getElementById("vidph"),phbar=document.getElementById("phbar"),
@@ -1060,7 +1116,7 @@ rsCard.querySelectorAll("[data-next]").forEach(b=>b.onclick=()=>{const key=flow[
 rsCard.querySelectorAll("[data-back]").forEach(b=>b.onclick=()=>{fi=Math.max(fi-1,0);showStep();});
 document.getElementById("pMinus").onclick=()=>{data.party=Math.max(1,data.party-1);
   document.getElementById("pCount").textContent=data.party;};
-document.getElementById("pPlus").onclick=()=>{data.party=Math.min(6,data.party+1);
+document.getElementById("pPlus").onclick=()=>{data.party=Math.min(3,data.party+1);
   document.getElementById("pCount").textContent=data.party;};
 document.querySelectorAll(".rs-chip").forEach(c=>c.onclick=()=>{
   document.querySelectorAll(".rs-chip").forEach(x=>x.classList.remove("on"));
@@ -1158,6 +1214,26 @@ function fwTick(now,W,H){const t=(now-fwStart)/FW_DUR;
       Math.sin(s.ang)*rad*s.r*e+bt*bt*rad*.6}px,0) scale(${1-bt*.55})`;
     s.el.style.opacity=Math.pow(1-bt,1.6);}}
 
+/* fireworks across the whole screen when the heart becomes one */
+const heartFwBox=document.getElementById("heartFw"),heartScene=document.querySelector(".sc-heart");
+const HFW=[],HFW_OFF=[.18,.5,.82,.32,.68],HFW_OY=[.22,.15,.24,.55,.55];
+for(let b=0;b<5;b++)for(let i=0;i<20;i++){
+  const d=document.createElement("div");d.className="fwp";
+  d.style.background=FWC[i%FWC.length];heartFwBox.appendChild(d);
+  HFW.push({el:d,burst:b,ang:(i/20)*Math.PI*2+b*.4,r:.5+Math.random()*.5,sp:.85+Math.random()*.35});}
+const HFW_DUR=2400;
+let heartFwArmed=true,heartFwStart=0,heartFwOn=false;
+function heartFwHide(){for(const s of HFW)s.el.style.opacity=0;}
+function heartFwTick(now,W,H){const t=(now-heartFwStart)/HFW_DUR;
+  if(t>=1){heartFwOn=false;heartFwHide();return;}
+  for(const s of HFW){const bt=clamp((t-s.burst*.09)/.66,0,1);
+    if(bt<=0||bt>=1){s.el.style.opacity=0;continue;}
+    const e=1-Math.pow(1-bt,2.4),rad=Math.min(W,H)*.30*s.sp;
+    s.el.style.left=(HFW_OFF[s.burst]*W)+"px";s.el.style.top=(HFW_OY[s.burst]*H)+"px";
+    s.el.style.transform=`translate(-50%,-50%) translate3d(${Math.cos(s.ang)*rad*s.r*e}px,${
+      Math.sin(s.ang)*rad*s.r*e+bt*bt*rad*.5}px,0) scale(${1-bt*.5})`;
+    s.el.style.opacity=Math.pow(1-bt,1.5);}}
+
 const BUBC=["#F2EFE9","#CFC9BB","#8C9188","#C9974A","#3E5647","#E0D2B4"];
 const BUBS=[];
 for(let i=0;i<12;i++){
@@ -1191,6 +1267,9 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
   const jr=jScene.getBoundingClientRect();
   if(jr.bottom<0||jr.top>innerHeight){fwArmed=true;if(fwOn){fwOn=false;fwHide();}}
   if(fwOn){const rr=jRail.getBoundingClientRect();fwTick(now,rr.width,rr.height);}
+  const hr=heartScene.getBoundingClientRect();
+  if(hr.bottom<0||hr.top>innerHeight){heartFwArmed=true;if(heartFwOn){heartFwOn=false;heartFwHide();}}
+  if(heartFwOn)heartFwTick(now,innerWidth,innerHeight);
   for(const el of pars){const r=el.getBoundingClientRect();
     if(r.bottom<0||r.top>innerHeight)continue;
     const v=(r.top+r.height/2-innerHeight/2)/innerHeight;
@@ -1237,7 +1316,8 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
       hnL.style.opacity=hnR.style.opacity=(.4+t*.6).toFixed(2);
       hAmp.style.opacity=clamp((t-.72)/.24,0,1);
       const co=clamp((p-.66)/.16,0,1);
-      hCap.style.opacity=co;hCap.style.transform=`translateY(${(1-co)*14}px)`;}
+      hCap.style.opacity=co;hCap.style.transform=`translateY(${(1-co)*14}px)`;
+      if(heartFwArmed&&t>=.98){heartFwArmed=false;heartFwOn=true;heartFwStart=now;}}
 
     if(sc.kind==="records"){
       const pan=lerp(innerWidth*.62,-REC_TOTAL+innerWidth*.38,p);
