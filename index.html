@@ -16,12 +16,27 @@
   --pad:clamp(1.25rem,6vw,3rem);--ease:cubic-bezier(.16,.84,.34,1)}
 html[lang="ja"]{--serif:"Shippori Mincho","Newsreader",serif}
 *{box-sizing:border-box}
-body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--sans);font-weight:300;
+body{margin:0;width:100%;background:var(--ink);color:var(--bone);font-family:var(--sans);font-weight:300;
   line-height:1.8;overflow-x:hidden;-webkit-font-smoothing:antialiased;overscroll-behavior-y:none}
 body.locked{overflow:hidden;height:100vh}
 .wrap{max-width:600px;margin:0 auto;padding:0 var(--pad);position:relative;z-index:4}
-#grain{position:fixed;inset:0;pointer-events:none;z-index:120;opacity:.05;mix-blend-mode:overlay;
+#bgphoto{position:fixed;inset:0;pointer-events:none;z-index:116;background-size:cover;background-position:center;
+  background-image:url("assets/photos/bg-mobile.jpg")}
+@media (min-width:768px){#bgphoto{background-image:url("assets/photos/bg-desktop.jpg")}}
+#grain{position:fixed;inset:0;pointer-events:none;z-index:120;opacity:.12;mix-blend-mode:overlay;
+  filter:sepia(.55) saturate(1.5) brightness(1.15);
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
+#paper{position:fixed;inset:0;pointer-events:none;z-index:117;opacity:.55;mix-blend-mode:soft-light;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.014' numOctaves='5' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 .82  0 0 0 0 .72  0 0 0 0 .54  0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='320' height='320' filter='url(%23p)'/%3E%3C/svg%3E")}
+#paintwash{position:fixed;inset:0;pointer-events:none;z-index:118;mix-blend-mode:hard-light;opacity:.62;
+  filter:url(#wc-edge);
+  background:
+    radial-gradient(ellipse 60% 42% at 12% 14%,rgba(201,151,74,.42),transparent 62%),
+    radial-gradient(ellipse 56% 46% at 90% 8%,rgba(120,158,144,.3),transparent 64%),
+    radial-gradient(ellipse 52% 58% at 22% 92%,rgba(196,140,130,.3),transparent 62%),
+    radial-gradient(ellipse 64% 52% at 96% 86%,rgba(172,128,80,.3),transparent 64%),
+    radial-gradient(ellipse 70% 70% at 50% 48%,rgba(201,151,74,.1),transparent 68%),
+    linear-gradient(155deg,rgba(18,28,23,.3),transparent 55%)}
 #vig{position:fixed;inset:0;pointer-events:none;z-index:119;
   background:radial-gradient(ellipse at 50% 45%,transparent 55%,rgba(0,0,0,.3) 100%)}
 .flag{position:fixed;z-index:200;top:0;left:0;right:0;padding:.4rem 1rem;font-size:.55rem;
@@ -75,16 +90,13 @@ body.locked{overflow:hidden;height:100vh}
   letter-spacing:.22em;text-transform:uppercase;padding:.8rem}
 
 .mono-sec{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;
-  justify-content:center;text-align:center;padding:5rem var(--pad) 4rem;overflow:hidden}
+  justify-content:flex-start;text-align:center;padding:5rem var(--pad) 4rem;overflow:hidden}
 .mono-bg{position:absolute;inset:-14%;will-change:transform}
 .mono-bg svg,.mono-bg img{width:100%;height:100%;object-fit:cover}
-.mono-inner{position:relative;z-index:3;width:100%}
-#monogram{width:min(38vw,150px);height:auto;margin-bottom:2.2rem;will-change:transform}
-#monogram path,#monogram circle{fill:none;stroke:var(--gold);stroke-width:1.2;
-  stroke-dasharray:var(--len,600);stroke-dashoffset:var(--len,600)}
-.drawn #monogram path,.drawn #monogram circle{animation:draw 2.3s var(--ease) forwards}
-.drawn #monogram path:nth-of-type(2){animation-delay:.35s}
-.drawn #monogram circle{animation-delay:.7s}
+.mono-logo-stage{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.mono-inner{position:relative;z-index:3;width:100%;padding-top:calc(50svh + 5rem)}
+#monogram{width:min(38vw,150px);height:auto;will-change:transform;opacity:0;transition:opacity 1.4s ease 0.9s;display:block;background:none}
+.drawn #monogram{opacity:1}
 @keyframes draw{to{stroke-dashoffset:0}}
 .announce{font-family:var(--serif);font-weight:200;font-size:clamp(1.6rem,7vw,2.4rem);
   line-height:1.3;margin:0 auto 1.2rem;max-width:18ch}
@@ -114,8 +126,14 @@ body.locked{overflow:hidden;height:100vh}
 .sec-head{text-align:center;margin-bottom:2.6rem}
 .eyebrow{font-size:.56rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin:0 0 .9rem}
 .sec h2{font-family:var(--serif);font-weight:200;font-size:clamp(1.75rem,7.5vw,2.5rem);margin:0;line-height:1.18}
+.quiz-fun-stage{position:relative;height:clamp(3.8rem,17vw,5.6rem);margin:2.2rem 0 .5rem;overflow:visible}
+.qf-word{position:absolute;left:50%;top:50%;transform:translate3d(-50%,-50%,0);
+  font-family:var(--sans);font-weight:700;text-transform:uppercase;letter-spacing:.02em;
+  color:var(--gold);white-space:nowrap;will-change:transform,opacity,filter;pointer-events:none;
+  font-size:clamp(1.9rem,9.5vw,3rem);opacity:0}
 .sec p{font-size:.93rem;color:var(--greige);margin:0 0 1.1rem}
 .center{text-align:center}
+.rs-deadline{font-size:1.15rem;font-weight:600;color:var(--gold);letter-spacing:.02em}
 .scene{position:relative}
 .pin{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .pin::before,.pin::after{content:"";position:absolute;left:0;right:0;height:16vh;z-index:20;pointer-events:none}
@@ -194,6 +212,7 @@ body.locked{overflow:hidden;height:100vh}
 #fw{position:absolute;inset:0;z-index:11;pointer-events:none}
 .fwp{position:absolute;width:4px;height:4px;border-radius:50%;transform:translate(-50%,-50%);
   will-change:transform,opacity;opacity:0}
+#heartFw{position:absolute;inset:0;z-index:16;pointer-events:none;overflow:hidden}
 .j-head{position:absolute;z-index:14;text-align:center;padding:0 10vw;max-width:32rem;will-change:transform,opacity}
 .j-head h3{font-family:var(--serif);font-size:clamp(1.9rem,8.4vw,3rem);margin:0 0 .6rem;
   line-height:1.1;text-shadow:0 2px 30px rgba(0,0,0,.5);will-change:font-variation-settings}
@@ -225,7 +244,8 @@ body.locked{overflow:hidden;height:100vh}
 /* ══════ CARD DECK — save the date / dress / getting there ══════ */
 .sc-cards{height:400vh}
 @media (min-width:768px){.sc-cards{height:460vh}}
-.cards-pin{overflow:visible}
+.cards-pin{overflow-x:clip;overflow-y:visible;touch-action:pan-y;cursor:grab;user-select:none}
+.cards-pin:active{cursor:grabbing}
 .card{position:absolute;left:50%;top:50%;width:min(84vw,440px);
   transform:translate(-50%,-50%);will-change:transform,opacity;
   padding:2.6rem 1.8rem 2.4rem;border-radius:18px;text-align:center;
@@ -241,15 +261,43 @@ body.locked{overflow:hidden;height:100vh}
   justify-content:center;z-index:30}
 .cd-dot{width:28px;height:2px;background:rgba(242,239,233,.18);transition:background .5s ease}
 .cd-dot.on{background:var(--gold)}
+
+/* ══════ FAQ — pinned scroll scene ══════ */
+.sc-faq{height:440vh}
+@media (min-width:768px){.sc-faq{height:500vh}}
+.faq-pin{background:radial-gradient(ellipse at 50% 46%,#1B2C22 0%,#0D1712 68%)}
+.faq-head{position:absolute;top:7vh;left:0;right:0;text-align:center;z-index:5;padding:0 var(--pad)}
+.faq-card{position:absolute;left:50%;top:54%;width:min(84vw,440px);
+  transform:translate(-50%,-50%);will-change:transform,opacity;
+  padding:2.4rem 1.8rem;border-radius:18px;text-align:center;
+  background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.03));
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(242,239,233,.16);box-shadow:0 18px 50px rgba(0,0,0,.4)}
+@media (min-width:768px){.faq-card{padding:2.8rem 2.4rem}}
+.faq-q{font-family:var(--serif);font-weight:200;font-size:clamp(1.25rem,5.4vw,1.6rem);
+  margin:0 0 1rem;line-height:1.32;color:var(--gold)}
+.faq-a{font-size:.92rem;color:var(--greige);line-height:1.7;margin:0}
+.faq-dots{position:absolute;bottom:9vh;left:0;right:0;display:flex;gap:.45rem;
+  justify-content:center;z-index:30}
+.fq-dot{width:28px;height:2px;background:rgba(242,239,233,.18);transition:background .5s ease}
+.fq-dot.on{background:var(--gold)}
 #cardBubbles{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .bub{position:absolute;border-radius:50%;will-change:transform,opacity;opacity:0}
 
-.save-date{font-family:var(--serif);font-weight:200;font-size:clamp(2rem,9vw,3rem);
-  margin:0 0 .6rem;line-height:1.1;letter-spacing:-.01em}
-.save-sub{font-size:.82rem;color:var(--stone);letter-spacing:.2em;text-transform:uppercase;margin:0 0 2rem}
+.save-date{font-family:var(--serif);font-weight:200;line-height:1.1;letter-spacing:-.01em;
+  margin:0 0 1.6rem;display:flex;align-items:baseline;justify-content:center;gap:.03em;flex-wrap:wrap}
+.save-date .drop{font-size:clamp(3.2rem,15vw,4.6rem);font-weight:500;color:var(--gold);
+  line-height:.82;display:inline-block;will-change:transform}
+.save-date .rest{font-size:clamp(1.5rem,6vw,2rem)}
+.save-date.plain .rest{font-size:clamp(2rem,9vw,3rem)}
 .cal-card{position:relative;width:126px;margin:0 auto;padding:0 0 .9rem;background:rgba(242,239,233,.06);
   border:1px solid var(--line);border-radius:.35rem .35rem 1rem 1rem;cursor:pointer;
-  font-family:var(--sans);display:block;overflow:hidden;transition:.35s var(--ease)}
+  font-family:var(--sans);display:block;overflow:hidden;transition:.35s var(--ease);
+  animation:calBeat 2.2s ease-in-out infinite}
+@keyframes calBeat{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(201,151,74,.4)}
+  8%{transform:scale(1.06);box-shadow:0 0 0 7px rgba(201,151,74,0)}
+  16%{transform:scale(1)}}
+@media (hover:hover){.cal-card:hover{animation-play-state:paused}}
 .cal-card::before,.cal-card::after{content:"";position:absolute;top:.45rem;width:5px;height:5px;
   border-radius:50%;background:#16241C;border:1px solid rgba(242,239,233,.3);z-index:2}
 .cal-card::before{left:34px}.cal-card::after{right:34px}
@@ -268,6 +316,7 @@ body.locked{overflow:hidden;height:100vh}
 .swatches{display:flex;gap:.55rem;justify-content:center;margin:1.6rem 0 0}
 .sw{width:clamp(34px,10vw,50px);height:clamp(34px,10vw,50px);border-radius:50%;
   box-shadow:inset 0 0 0 1px rgba(242,239,233,.1);will-change:transform}
+.sw-tie{display:flex;align-items:center;justify-content:center}
 
 .route{margin:1rem 0 1.4rem}
 .route svg{width:100%;height:auto;display:block;overflow:visible}
@@ -288,6 +337,17 @@ body.locked{overflow:hidden;height:100vh}
 #gated{max-height:0;opacity:0;overflow:hidden;transition:max-height 1.1s var(--ease),opacity .85s ease}
 #gated.open{max-height:900px;opacity:1}
 
+/* ══════ QUIZ — pinned scroll scene ══════ */
+.sc-quiz{height:200vh}
+@media (min-width:768px){.sc-quiz{height:230vh}}
+.quiz-pin{flex-direction:column;background:radial-gradient(ellipse at 50% 40%,#1B2C22 0%,#0D1712 70%);transition:background .3s linear}
+.quiz-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+.qz-orb{position:absolute;border-radius:50%;filter:blur(1px);will-change:transform,opacity}
+.qzo-a{width:260px;height:260px;left:-10%;top:10%;background:radial-gradient(circle,rgba(201,151,74,.55),transparent 70%)}
+.qzo-b{width:330px;height:330px;right:-14%;top:50%;background:radial-gradient(circle,rgba(160,168,176,.46),transparent 70%)}
+.qzo-c{width:190px;height:190px;left:6%;bottom:2%;background:radial-gradient(circle,rgba(201,151,74,.4),transparent 70%)}
+.qzo-d{width:220px;height:220px;right:10%;top:4%;background:radial-gradient(circle,rgba(63,86,71,.5),transparent 70%)}
+
 .qz-dots{display:flex;gap:.4rem;justify-content:center;margin-bottom:1.8rem}
 .qz-dot{width:26px;height:2px;background:rgba(242,239,233,.16);position:relative;overflow:hidden}
 .qz-dot i{display:block;height:100%;width:0;background:var(--gold);transition:width .7s var(--ease)}
@@ -299,12 +359,19 @@ body.locked{overflow:hidden;height:100vh}
 .vs{display:grid;grid-template-columns:1fr auto 1fr;gap:.5rem;align-items:center}
 .vs-or{font-family:var(--serif);font-style:italic;font-size:1rem;color:var(--stone);
   transition:transform .7s var(--ease),color .5s ease;will-change:transform}
-.vs-side{position:relative;border:0;background:none;cursor:pointer;padding:1.8rem .5rem 1.2rem;
+.vs-side{position:relative;border:0;background:none;cursor:pointer;padding:1.8rem .9rem 1.2rem;
   display:flex;flex-direction:column;align-items:center;gap:.7rem;font-family:var(--sans);
   transition:.45s var(--ease);min-height:152px}
+.vs-side .nm{padding:0 .3rem}
 .vs-side::before{content:"";position:absolute;inset:6% 2%;z-index:-1;border-radius:50%/44%;
   background:radial-gradient(ellipse at 50% 45%,rgba(242,239,233,.07) 0%,transparent 70%);
   box-shadow:inset 0 0 0 1px rgba(242,239,233,.12);transition:.45s var(--ease)}
+#qzBox .vs-side::before,[data-s="attend"] .vs-side::before,#njCard .vs-side::before{border-radius:16px;inset:3% 5%;
+  background:linear-gradient(160deg,rgba(255,255,255,.14),rgba(255,255,255,.04));
+  backdrop-filter:blur(12px) saturate(1.3);-webkit-backdrop-filter:blur(12px) saturate(1.3);
+  box-shadow:inset 0 0 0 1px rgba(242,239,233,.18),0 10px 26px rgba(0,0,0,.28)}
+#qzBox .vs-side.right::before{background:linear-gradient(160deg,rgba(201,151,74,.26),rgba(201,151,74,.07));
+  box-shadow:inset 0 0 0 1px var(--gold),0 10px 26px rgba(0,0,0,.28)}
 .ripple{position:absolute;left:50%;top:44%;width:40px;height:40px;margin:-20px 0 0 -20px;
   border-radius:50%;border:1px solid var(--gold);opacity:0;pointer-events:none}
 .vs-side.right .ripple{animation:rip 1.1s var(--ease) forwards}
@@ -312,6 +379,7 @@ body.locked{overflow:hidden;height:100vh}
 .vs-side .init{font-family:var(--serif);font-weight:200;font-size:clamp(2.6rem,13vw,3.6rem);
   line-height:1;color:var(--stone);transition:.45s var(--ease)}
 .vs-side .init img{width:clamp(60px,18vw,92px);height:auto;display:block;border-radius:50%/44%}
+.vs-side .init svg{width:clamp(28px,9vw,38px);height:auto;display:block;color:inherit}
 .vs-side .nm{font-size:.64rem;letter-spacing:.28em;text-transform:uppercase;color:var(--stone);transition:.45s var(--ease)}
 @media (hover:hover){.vs-side:hover:not(:disabled){transform:translateY(-5px)}
   .vs-side:hover:not(:disabled)::before{box-shadow:inset 0 0 0 1px rgba(201,151,74,.6)}
@@ -322,6 +390,12 @@ body.locked{overflow:hidden;height:100vh}
 .vs-side.right .init{color:var(--gold);transform:scale(1.14) rotate(-3deg)}
 .vs-side.right .nm{color:var(--gold)}
 .vs-side.miss{opacity:.28;transform:scale(.94)}
+.vs-side.confirmed{animation:yesPop .55s var(--ease)}
+.vs-side.confirmed::before{box-shadow:inset 0 0 0 1px var(--gold);
+  background:radial-gradient(ellipse at 50% 45%,rgba(201,151,74,.34) 0%,transparent 72%)}
+.vs-side.confirmed .init{color:var(--gold);transform:scale(1.22)}
+.vs-side.confirmed .nm{color:var(--gold)}
+@keyframes yesPop{0%{transform:scale(1)}40%{transform:scale(1.1)}100%{transform:scale(1)}}
 .qz-note{text-align:center;font-size:.88rem;color:var(--greige);margin:1.6rem 0 0;min-height:3.4em;
   opacity:0;transform:translateY(10px);transition:.6s var(--ease)}
 .qz-note.on{opacity:1;transform:none}
@@ -379,12 +453,24 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
   stroke-dasharray:40;stroke-dashoffset:40;animation:tick .9s var(--ease) .2s forwards}
 @keyframes tick{to{stroke-dashoffset:0}}
 .rs-done h3{font-family:var(--serif);font-weight:200;font-size:1.7rem;margin:0 0 .8rem}
+.nj-thanks{text-align:center;font-family:var(--serif);font-weight:200;font-size:1.3rem;
+  color:var(--gold);padding:1rem 0;animation:stepIn .65s var(--ease)}
+
+/* ══════ RSVP — pinned scroll scene ══════ */
+.sc-rsvp{height:210vh}
+@media (min-width:768px){.sc-rsvp{height:240vh}}
+.rsvp-pin{background:radial-gradient(ellipse at 50% 55%,#1B2C22 0%,#0D1712 72%);transition:background .3s linear}
+.rsvp-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+.rs-spark{position:absolute;border-radius:50%;background:#F8ECCB;will-change:transform,opacity}
+.rs-moon{position:absolute;top:0;left:50%;width:240px;height:240px;border-radius:50%;will-change:transform,opacity;
+  background:radial-gradient(circle,rgba(248,236,203,.9) 0%,rgba(201,151,74,.5) 42%,transparent 72%);
+  filter:blur(2px)}
 
 .sc-outro{height:300vh}
 @media (min-width:768px){.sc-outro{height:340vh}}
 .outro-pin{flex-direction:column;text-align:center;padding:0 var(--pad)}
 .outro-in{position:relative;z-index:4;width:100%;max-width:34rem}
-#endMono{width:min(34vw,140px);height:auto;margin:0 auto 2rem;display:block}
+#endMono{width:min(34vw,140px);height:auto;margin:0 auto 2rem;display:block;opacity:0;will-change:transform,opacity;background:none}
 #endMono path,#endMono circle{fill:none;stroke:var(--gold);stroke-width:1.4}
 #endEyebrow{opacity:0}
 #endHead{font-family:var(--serif);font-weight:200;font-size:clamp(1.7rem,7.4vw,2.7rem);
@@ -405,17 +491,22 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 </head>
 <body class="locked">
 
-<div id="grain"></div><div id="vig"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <filter id="wc-edge" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency=".012 .018" numOctaves="3" seed="7" result="wcn"/>
+    <feDisplacementMap in="SourceGraphic" in2="wcn" scale="70" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</defs></svg>
+<div id="bgphoto"></div><div id="paper"></div><div id="paintwash"></div><div id="vig"></div><div id="grain"></div>
 <div id="prog"></div>
 <div id="lang" role="group" aria-label="Language">
   <button class="lang-b on" data-lang="en" lang="en">EN</button><span class="lang-sep"></span>
   <button class="lang-b" data-lang="ja" lang="ja">日本語</button>
 </div>
-<audio id="bgm" loop preload="none"><source src="audio/piano.mp3" type="audio/mpeg"></audio>
 <button id="music" aria-label="Music on or off"><i></i><i></i><i></i><i></i></button>
 
 <div id="intro">
-  <video id="film" muted playsinline preload="auto"></video>
+  <video id="film" muted playsinline preload="auto"><source src="https://res.cloudinary.com/j3lgvkwu/video/upload/q_auto/intro_dkfc95.mp4" type="video/mp4"></video>
   <div id="vidph"><p class="ph-label">Film</p>
     <p class="ph-title" data-t="filmPh">Your opening film plays here</p>
     <div class="bar"><i id="phbar"></i></div></div>
@@ -429,11 +520,9 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
       <path d="M0 720 Q250 640 520 700 T1000 680 L1000 1000 L0 1000Z" fill="#14211A"/>
       <path d="M0 850 Q280 780 580 830 T1000 810 L1000 1000 L0 1000Z" fill="#182A20"/></svg>
   </div>
+  <div class="mono-logo-stage">
+    <img id="monogram" src="assets/photos/monogram.png" data-fx="monogram" alt="Htoo &amp; May monogram"></div>
   <div class="mono-inner">
-    <svg id="monogram" viewBox="0 0 200 200" data-fx="monogram" aria-label="M and H monogram">
-      <path d="M58 132 L58 74 L86 112 L114 74 L114 132"/>
-      <path d="M132 74 L132 132 M132 103 L166 103 M166 74 L166 132"/>
-      <circle cx="100" cy="100" r="76"/></svg>
     <h1 class="announce seq" data-t="announce">We're getting married.</h1>
     <p class="announce-body seq" data-t="announceBody">And we'd really love you there for it.</p>
     <div class="countdown seq" id="cd"></div>
@@ -452,6 +541,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 
 <section class="scene sc-heart" data-scene="heart">
   <div class="pin heart-pin">
+    <div id="heartFw" aria-hidden="true"></div>
     <div class="heart-stage">
       <svg viewBox="0 0 200 180" aria-label="Two halves becoming one heart">
         <defs>
@@ -463,13 +553,9 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
             <stop offset="0%" stop-color="#3A4A56"/><stop offset="100%" stop-color="#18242C"/></linearGradient>
         </defs>
         <g id="hGL" class="hg" clip-path="url(#clipL)">
-          <!-- REPLACE: <image href="assets/photos/may.jpg" x="0" y="0" width="200" height="180" preserveAspectRatio="xMidYMid slice"/> -->
-          <rect x="0" y="0" width="200" height="180" fill="url(#gL)"/>
-          <text class="hi" x="52" y="104" text-anchor="middle">M</text></g>
+          <image href="assets/photos/may.jpg" x="0" y="0" width="200" height="180" preserveAspectRatio="xMidYMid slice"/></g>
         <g id="hGR" class="hg" clip-path="url(#clipR)">
-          <!-- REPLACE: <image href="assets/photos/htoo.jpg" x="0" y="0" width="200" height="180" preserveAspectRatio="xMidYMid slice"/> -->
-          <rect x="0" y="0" width="200" height="180" fill="url(#gR)"/>
-          <text class="hi" x="148" y="104" text-anchor="middle">H</text></g>
+          <image href="assets/photos/htoo.jpg" x="0" y="0" width="200" height="180" preserveAspectRatio="xMidYMid slice"/></g>
         <path id="hOutline" d="M100 168 C46 132 4 100 4 60 C4 28 28 6 56 6 C76 6 92 16 100 30
           C108 16 124 6 144 6 C172 6 196 28 196 60 C196 100 154 132 100 168 Z"/>
       </svg>
@@ -487,15 +573,15 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
     <div class="rec"><div class="rec-inner"><div class="rec-vinyl"></div>
       <div class="rec-cover"><span>Photo</span></div><div class="rec-cap">Side A</div></div></div>
     <div class="rec"><div class="rec-inner"><div class="rec-vinyl"></div>
+      <div class="rec-cover"><span>Photo</span></div><div class="rec-cap">First meet</div></div></div>
+    <div class="rec"><div class="rec-inner"><div class="rec-vinyl"></div>
       <div class="rec-cover"><span>Photo</span></div><div class="rec-cap">First trip</div></div></div>
     <div class="rec"><div class="rec-inner"><div class="rec-vinyl"></div>
-      <div class="rec-cover"><span>Photo</span></div><div class="rec-cap">The tent</div></div></div>
+      <div class="rec-cover"><span>Photo</span></div><div class="rec-cap">Meeting family</div></div></div>
     <div class="rec"><div class="rec-inner"><div class="rec-vinyl"></div>
-      <div class="rec-cover"><span>Photo</span></div><div class="rec-cap">Tokyo</div></div></div>
+      <div class="rec-cover"><span>Photo</span></div><div class="rec-cap">The proposal</div></div></div>
     <div class="rec"><div class="rec-inner"><div class="rec-vinyl"></div>
-      <div class="rec-cover"><span>Photo</span></div><div class="rec-cap">The question</div></div></div>
-    <div class="rec"><div class="rec-inner"><div class="rec-vinyl"></div>
-      <div class="rec-cover"><span>Photo</span></div><div class="rec-cap">Yes</div></div></div>
+      <div class="rec-cover"><span>Photo</span></div><div class="rec-cap">Nikkah</div></div></div>
     <div class="rec"><div class="rec-inner"><div class="rec-vinyl"></div>
       <div class="rec-cover"><span>Photo</span></div><div class="rec-cap">Side B</div></div></div>
   </div><div class="rec-title"><p id="recTitle" data-t="recTitle">The years in between.</p></div></div>
@@ -512,18 +598,13 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
         <path d="M0 600 Q220 480 480 560 T880 530 T1000 590 L1000 1000 L0 1000Z"/></svg></div>
     <div class="layer" data-depth="0.38" data-c0="42,59,49" data-c1="80,60,40" data-c2="16,22,27">
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMax slice">
-        <path d="M0 710 Q200 620 460 680 T880 650 T1000 710 L1000 1000 L0 1000Z"/>
-        <path d="M120 700 l30 -100 l30 100Z"/><path d="M320 674 l34 -114 l34 114Z"/>
-        <path d="M680 666 l32 -108 l32 108Z"/><path d="M880 690 l28 -94 l28 94Z"/></svg></div>
+        <path d="M0,720 L1000,596 L1000,1000 L0,1000 Z"/></svg></div>
     <div class="layer" id="jVenue" data-depth="0.46" data-c0="30,44,35" data-c1="56,42,30" data-c2="11,16,20">
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMax slice">
-        <path d="M360 762 L360 640 L500 556 L640 640 L640 762Z"/>
-        <path d="M640 690 h180 v72 h-180Z"/><path d="M238 714 h122 v48 h-122Z"/></svg></div>
+        <path d="M0,840 C140,828 268,806 360,700 L360,682 L396,656 L396,612 L464,558 L464,480 L480,462 L500,426 L520,462 L536,480 L536,558 L604,612 L604,656 L640,682 L640,700 C732,806 860,828 1000,840 L1000,1000 L0,1000 Z"/></svg></div>
     <div class="layer" data-depth="0.56" data-c0="22,36,28" data-c1="42,32,22" data-c2="9,13,17">
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMax slice">
-        <path d="M0 850 Q240 770 540 830 T1000 840 L1000 1000 L0 1000Z"/>
-        <path d="M60 838 l36 -124 l36 124Z"/><path d="M380 818 l42 -142 l42 142Z"/>
-        <path d="M760 828 l38 -130 l38 130Z"/></svg></div>
+        <path d="M0,870 L1000,840 L1000,1000 L0,1000 Z"/></svg></div>
     <div id="jRail"><svg viewBox="0 0 100 1000" preserveAspectRatio="none">
       <path id="railGhost" d="M14 -30 C 4 140, 26 300, 13 450 S 2 700, 15 880 S 24 950, 19 1000"/>
       <path id="railPath" style="display:none" d="M14 -30 C 4 140, 26 300, 13 450 S 2 700, 15 880 S 24 950, 19 1000"/></svg></div>
@@ -535,16 +616,14 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
       <p class="k" data-t="evDateK">Date</p>
       <p class="v" data-t="evDateV" data-html>Friday 16 October 2026</p></div>
     <div class="day-rows">
-      <div class="day-row" data-y="0.20"><div class="day-row-in"><div class="day-time">13:00</div>
-        <div class="day-what"><span data-t="t1a">Check-in</span><small data-t="t1b">Get there, settle in, have a drink</small></div></div></div>
-      <div class="day-row" data-y="0.34"><div class="day-row-in"><div class="day-time">14:00</div>
-        <div class="day-what"><span data-t="t2a">Ceremony</span></div></div></div>
-      <div class="day-row" data-y="0.48"><div class="day-row-in"><div class="day-time">14:40</div>
-        <div class="day-what"><span data-t="t3a">Photos &amp; drinks</span></div></div></div>
-      <div class="day-row" data-y="0.62"><div class="day-row-in"><div class="day-time">15:00</div>
-        <div class="day-what"><span data-t="t4a">Dinner</span><small data-t="t4b">All together</small></div></div></div>
-      <div class="day-row" data-y="0.80"><div class="day-row-in"><div class="day-time">17:30</div>
-        <div class="day-what"><span data-t="t6a">Buses leave</span></div></div></div>
+      <div class="day-row" data-y="0.20"><div class="day-row-in"><div class="day-time">—</div>
+        <div class="day-what"><span data-t="dayBus">Bus departs</span><small data-t="dayBusSub">Time depends on your pickup station</small></div></div></div>
+      <div class="day-row" data-y="0.40"><div class="day-row-in"><div class="day-time">13:30</div>
+        <div class="day-what"><span data-t="dayRecep">Reception begins</span></div></div></div>
+      <div class="day-row" data-y="0.60"><div class="day-row-in"><div class="day-time">13:50</div>
+        <div class="day-what"><span data-t="dayGate">Gates close</span><small data-t="dayGateSub">Please be seated — ceremony begins in 10 minutes</small></div></div></div>
+      <div class="day-row" data-y="0.80"><div class="day-row-in"><div class="day-time">14:00</div>
+        <div class="day-what"><span data-t="dayCeremony">Ceremony</span></div></div></div>
     </div>
   </div>
 </section>
@@ -556,27 +635,29 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 
     <article class="card" data-card="0">
       <p class="eyebrow" data-t="saveEye">Save the date</p>
-      <p class="save-date" data-t="saveTitle">16 October 2026</p>
-      <p class="save-sub" data-t="saveSub">Friday · ceremony at two</p>
+      <p class="save-date" id="saveH"><span class="drop"></span><span class="rest"></span></p>
       <button class="cal-card" id="calIcs">
         <span class="cal-top">Oct</span><span class="cal-day">16</span>
         <span class="cal-foot" data-t="calIcs">Add to calendar</span></button>
-      <p style="font-size:.72rem;color:var(--stone);margin:1.2rem 0 0" data-t="calNote">16 Oct 2026, 13:00–17:30 Japan time.</p>
+      <p style="font-size:.86rem;font-weight:600;color:var(--gold);margin:1.2rem 0 0" data-t="calNote">Tap to add this day to your phone's calendar.</p>
     </article>
 
     <article class="card" data-card="1">
       <p class="eyebrow" data-t="dressEye">What to wear</p>
       <h3 class="dress-h" id="dressH"><span class="drop"></span><span class="rest"></span></h3>
-      <p data-t="dressP">Nothing too formal. Wear what you feel good in — but if you want to match our colours, here they are.</p>
+      <p data-t="dressP">Nothing too formal — but if you'd like to match our palette, think champagne, soft lemon, and warm browns. Gentlemen, black tie suits the evening perfectly.</p>
       <div class="swatches">
-        <div class="sw" style="background:#F2EFE9"></div><div class="sw" style="background:#CFC9BB"></div>
-        <div class="sw" style="background:#8C9188"></div><div class="sw" style="background:#C9974A"></div>
-        <div class="sw" style="background:#1F2D24"></div><div class="sw" style="background:#0D1712"></div></div>
+        <div class="sw" style="background:#C7E0C9"></div><div class="sw" style="background:#F5E9A0"></div>
+        <div class="sw" style="background:#8B5A3C"></div><div class="sw" style="background:#5C3A22"></div>
+        <div class="sw sw-tie" style="background:#F2EFE9" aria-label="Black tie">
+          <svg viewBox="0 0 24 14" width="60%" height="60%"><path d="M1 2 L11 7 L1 12 Z" fill="#141414"/>
+            <path d="M23 2 L13 7 L23 12 Z" fill="#141414"/>
+            <rect x="10" y="4.5" width="4" height="5" rx="1" fill="#C9974A"/></svg></div></div>
     </article>
 
     <article class="card" data-card="2">
       <p class="eyebrow" data-t="transEye">Getting there</p>
-      <h3 data-t="transTitle">Transportation</h3>
+      <h3 class="dress-h" id="transH"><span class="drop"></span><span class="rest"></span></h3>
       <p data-t="transP">Three buses, leaving from three different stations, and they'll bring you back at the end.</p>
       <div class="route" id="routeBox">
         <svg viewBox="0 0 400 170" aria-hidden="true">
@@ -600,7 +681,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
         <div class="bus-row"><div class="bus-k">Bus B</div><div class="bus-v">東京 Tokyo Station<small>Leaves —:— · Returns ~18:00</small></div></div>
         <div class="bus-row"><div class="bus-k">Bus C</div><div class="bus-v">池袋 Ikebukuro<small>Leaves —:— · Returns ~18:00</small></div></div>
         <p class="gate-note" data-t="busNote">Pickup points are at Shinjuku, Tokyo Station and Ikebukuro. Return buses leave the venue after the party — exact times confirmed closer to the date.</p></div>
-      <p class="gate-note" id="gateMsg" data-t="gateMsg">RSVP below and we'll confirm your pickup point and bus time.</p>
+      <p class="gate-note" id="gateMsg" data-t="gateMsg">Choose your station in the RSVP below and we'll confirm your pickup point and bus time.</p>
     </article>
 
     <div class="cards-dots" id="cardsDots">
@@ -608,11 +689,59 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
   </div>
 </section>
 
-<section class="sec" data-reveal data-scene="quiz">
+<section class="scene sc-faq" data-scene="faq">
+  <div class="pin faq-pin">
+    <div class="faq-head"><p class="eyebrow" data-t="faqEye">Good to know</p>
+      <h2 data-t="faqTitle">A few questions</h2></div>
+
+    <div class="faq-card" data-faq="0">
+      <p class="faq-q" data-t="faqQ1">How do we get there?</p>
+      <p class="faq-a" data-t="faqA1">We're near Atsugi — about 48 minutes from Shinjuku Station. Shuttle buses run from Shinjuku, Tokyo Station and Ikebukuro; each one holds 27–28 people, so please let us know via RSVP if you'd like a seat.</p></div>
+    <div class="faq-card" data-faq="1">
+      <p class="faq-q" data-t="faqQ2">Where exactly is the venue?</p>
+      <p class="faq-a" data-t="faqA2">We're keeping the exact address as a little surprise until you RSVP — think of it as the start of the adventure! For now, just know you're headed to the Atsugi area.</p></div>
+    <div class="faq-card" data-faq="2">
+      <p class="faq-q" data-t="faqQ3">Can we bring the kids?</p>
+      <p class="faq-a" data-t="faqA3">This one's just for the grown-ups — our venue doesn't have space for little ones this time, so we're keeping it adults-only. If that's tricky for you, just reach out and we'll happily figure something out together.</p></div>
+    <div class="faq-card" data-faq="3">
+      <p class="faq-q" data-t="faqQ4">I have a food allergy — how do I tell you?</p>
+      <p class="faq-a" data-t="faqA4">There's a spot for that in the RSVP form below — just fill in "Anything you can't eat?" and we'll take care of it.</p></div>
+    <div class="faq-card" data-faq="4">
+      <p class="faq-q" data-t="faqQ5">What time should I arrive?</p>
+      <p class="faq-a" data-t="faqA5">The ceremony begins at 14:00 — gates close at 13:50, so please plan to arrive a little before then.</p></div>
+    <div class="faq-card" data-faq="5">
+      <p class="faq-q" data-t="faqQ6">Is parking available?</p>
+      <p class="faq-a" data-t="faqA6">Yes, parking is available — just let us know in advance so we can plan for it.</p></div>
+    <div class="faq-card" data-faq="6">
+      <p class="faq-q" data-t="faqQ7">What should I wear?</p>
+      <p class="faq-a" data-t="faqA7">Check out the dress code section above.</p></div>
+    <div class="faq-card" data-faq="7">
+      <p class="faq-q" data-t="faqQ8">Can I bring a +1?</p>
+      <p class="faq-a" data-t="faqA8">We kindly ask that only those who received this invitation attend. If you're bringing a plus one, please add them in the RSVP form so we can seat you together.</p></div>
+    <div class="faq-card" data-faq="8">
+      <p class="faq-q" data-t="faqQ9">Can I change my RSVP after I've sent it?</p>
+      <p class="faq-a" data-t="faqA9">Of course — plans change, and that's completely fine. If you need to update anything (attendance, guest count, allergies, even the 2次会), just reach out to us directly. We'd much rather help you fix it than have you feel like you have to show up out of obligation.</p></div>
+
+    <div class="faq-dots" id="faqDots">
+      <span class="fq-dot on"></span><span class="fq-dot"></span><span class="fq-dot"></span><span class="fq-dot"></span>
+      <span class="fq-dot"></span><span class="fq-dot"></span><span class="fq-dot"></span><span class="fq-dot"></span>
+      <span class="fq-dot"></span></div>
+  </div>
+</section>
+
+<section class="scene sc-quiz" data-scene="quiz">
+ <div class="pin quiz-pin">
+  <div class="quiz-bg" aria-hidden="true">
+    <div class="qz-orb qzo-a"></div><div class="qz-orb qzo-b"></div>
+    <div class="qz-orb qzo-c"></div><div class="qz-orb qzo-d"></div>
+  </div>
   <div class="wrap">
-    <div class="sec-head"><p class="eyebrow" data-t="quizEye">Between courses</p>
+    <div class="sec-head"><div class="quiz-fun-stage" id="qfStage">
+        <span class="qf-word" data-t="quizFun1">Fun.</span>
+        <span class="qf-word" data-t="quizFun2">Quiz.</span>
+        <span class="qf-word" data-t="quizFun3">Time.</span></div>
       <h2 data-words data-fx="growbig" data-t="quizTitle">May or Htoo?</h2></div>
-    <p class="center" style="margin-bottom:2.4rem" data-wipe data-t="quizP">Six questions. Tap whoever you think it is.</p>
+    <p class="center" style="margin-bottom:2.4rem" data-wipe data-t="quizP">Five questions. Tap whoever you think it is.</p>
     <div id="qzBox">
       <div class="qz-dots" id="qzDots"></div>
       <p class="qz-q" id="qzQ">—</p>
@@ -625,22 +754,29 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
       <p class="qz-note" id="qzNote"></p>
       <button class="qz-next" id="qzNext" hidden></button></div>
   </div>
+ </div>
 </section>
 
-<section class="sec" data-reveal data-scene="rsvp">
+<section class="scene sc-rsvp" data-scene="rsvp">
+ <div class="pin rsvp-pin">
+  <div class="rsvp-bg" id="rsvpBg" aria-hidden="true"><div class="rs-moon" id="rsMoon"></div></div>
   <div class="wrap">
     <div class="sec-head"><p class="eyebrow" data-t="rsEye">Let us know</p>
       <h2 data-words data-fx="growbig" data-t="rsTitle">RSVP</h2></div>
-    <p class="center" style="margin-bottom:1rem" data-wipe data-t="rsP">By 16 September 2026. Once you reply, your bus pickup point shows up on this page.</p>
+    <p class="center rs-deadline" style="margin-bottom:1rem" data-wipe data-t="rsP">By 20 September 2026.</p>
     <div class="rs-card" id="rsCard">
       <div class="rs-track"><i id="rsBar"></i></div>
       <div class="rs-step on" data-s="attend">
         <p class="rs-q" data-t="q_attend">Can you make it?</p>
         <p class="rs-hint" data-t="h_attend">16 October 2026</p>
         <div class="vs">
-          <button class="vs-side" id="rsYes" type="button"><span class="init">✓</span><span class="nm" data-t="a_yes">Wouldn't miss it</span></button>
+          <button class="vs-side" id="rsYes" type="button"><span class="init">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3 L3 10.5 L10.5 13.5 L13.5 21 L21 3Z"/></svg></span>
+            <span class="nm" data-t="a_yes">Wouldn't miss it</span></button>
           <span class="vs-or">or</span>
-          <button class="vs-side" id="rsNo" type="button"><span class="init">·</span><span class="nm" data-t="a_no">Can't this time</span></button></div></div>
+          <button class="vs-side" id="rsNo" type="button"><span class="init">
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11 L12 4 L20 11"/><path d="M6 10 V20 H18 V10"/></svg></span>
+            <span class="nm" data-t="a_no">Can't this time</span></button></div></div>
       <div class="rs-step" data-s="name">
         <p class="rs-q" data-t="q_name">What's your name?</p>
         <p class="rs-hint" data-t="h_name">However you'd like it on your place card</p>
@@ -686,18 +822,37 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
       <div class="rs-step" data-s="done">
         <div class="rs-done"><div class="tick"><svg viewBox="0 0 24 24"><path d="M4 12.5 L9.5 18 L20 6"/></svg></div>
           <h3 data-t="doneH">Thank you!</h3>
-          <p style="color:var(--greige);font-size:.92rem" data-t="doneP">Got it. See you on the hill.</p></div></div>
+          <p style="color:var(--greige);font-size:.92rem" data-t="doneP">Got it. See you on the hill.</p>
+          <p class="gate-note" style="margin-top:1.2rem;text-align:center;border:0;padding:0" data-t="rsNote">Need to change your answer later? Just message us — anytime.</p></div></div>
     </div>
+  </div>
+ </div>
+</section>
+
+<section class="sec" data-reveal>
+  <div class="wrap">
+    <div class="sec-head"><p class="eyebrow" data-t="njEye">After the ceremony</p>
+      <h2 data-t="njTitle">2次会</h2></div>
+    <p class="center" style="margin-bottom:1.6rem" data-wipe data-t="njP">Once the main celebration wraps up, we're keeping the night going with a casual afterparty — more drinks, more dancing, way less formality. It's pay-as-you-go: ¥5,000 per person, covers food and drinks.</p>
+    <div class="rs-card" id="njCard">
+      <div class="vs">
+        <button class="vs-side" id="njYes" type="button"><span class="init">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12 2 L14.2 9.8 L22 12 L14.2 14.2 L12 22 L9.8 14.2 L2 12 L9.8 9.8 Z"/></svg></span>
+          <span class="nm" data-t="njYesL">Count me in</span></button>
+        <span class="vs-or">or</span>
+        <button class="vs-side" id="njNo" type="button"><span class="init">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg></span>
+          <span class="nm" data-t="njNoL">I'll sit this one out</span></button></div>
+      <p class="nj-thanks" id="njThanks" hidden></p>
+    </div>
+    <p class="gate-note" style="margin-top:1.6rem" data-t="njNote">Same goes here — if your plans change, just message us anytime.</p>
   </div>
 </section>
 
 <section class="scene sc-outro" data-scene="outro">
   <div class="pin outro-pin">
     <div class="outro-in">
-      <svg id="endMono" viewBox="0 0 200 200" aria-hidden="true">
-        <path d="M58 132 L58 74 L86 112 L114 74 L114 132"/>
-        <path d="M132 74 L132 132 M132 103 L166 103 M166 74 L166 132"/>
-        <circle cx="100" cy="100" r="76"/></svg>
+      <img id="endMono" src="assets/photos/monogram.png" alt="" aria-hidden="true">
       <p class="eyebrow" id="endEyebrow" data-t="endEye">Forever after</p>
       <h2 id="endHead" data-t="endHead">Forever After Begins Here</h2>
       <p id="endMsg" data-t="endMsg">Thank you for being part of our story, our family, and our future. We can't wait to raise a glass with you.</p>
@@ -706,55 +861,103 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 </section>
 
 <script>
+// Strip near-white pixels from PNG so it floats on the dark background
+function removeWhiteBg(imgEl){
+  if(!imgEl)return;
+  const process=()=>{
+    try{
+      const c=document.createElement('canvas');
+      c.width=imgEl.naturalWidth;c.height=imgEl.naturalHeight;
+      const ctx=c.getContext('2d');ctx.drawImage(imgEl,0,0);
+      const id=ctx.getImageData(0,0,c.width,c.height),d=id.data;
+      for(let i=0;i<d.length;i+=4){
+        const w=Math.min(d[i],d[i+1],d[i+2]);
+        if(w>200)d[i+3]=Math.round(d[i+3]*(1-(w-200)/55));}
+      ctx.putImageData(id,0,0);
+      imgEl.src=c.toDataURL('image/png');
+    }catch(e){console.warn('white-bg removal:',e);}};
+  if(imgEl.complete&&imgEl.naturalWidth)process();
+  else imgEl.addEventListener('load',process,{once:true});}
+['monogram','endMono'].forEach(id=>removeWhiteBg(document.getElementById(id)));
+
 const T={en:{},
-ja:{filmPh:"ここにムービーが入ります",skip:"スキップ",announce:"結婚します。",
+ja:{filmPh:"ここに映像が流れます",skip:"スキップ",announce:"わたしたち、結婚します。",
  announceBody:"大切な一日を、みなさんと一緒に過ごせたら嬉しいです。",
  cdD:"日",cdH:"時間",cdM:"分",cdS:"秒",welTitle:"ようこそ",
  welP1:"当日に必要なことは、ぜんぶこのページにまとめました。場所、行き方、一日の流れ。",
  welP2:"式場っぽくない場所を、ずっと探していました。ちょっと遠くて、行く価値のあるところ。",
  welP3:"見つかりました。早くお見せしたいです。",
- heartCap:"ずいぶん長いあいだ、遠く離れた半分どうしでした。",
- climbTitle:"のぼって、のぼって",climbP:"好きなものって、だいたい登った先にあるんですよね。",
- evDateK:"日にち",evDateV:"2026年10月16日（金）",recTitle:"その間の、いろいろ。",
- t1a:"受付",t1b:"着いたら、ゆっくりしていてください",t2a:"挙式",
- t3a:"写真とドリンク",t4a:"お食事",t4b:"みんなで",t6a:"バス出発",
- saveEye:"日程",saveTitle:"2026年10月16日",saveSub:"金曜日・挙式は14時",
+ heartCap:"長いあいだ、ふたつの心は遠く離れていました。",
+ climbTitle:"のぼって、のぼって",climbP:"好きなものは、たいてい登った先にありました。",
+ evDateK:"日にち",evDateV:"2026年10月16日（金）",recTitle:"そのあいだの日々。",
+ dayBus:"バス出発",dayBusSub:"乗車地点によって出発時刻が異なります",
+ dayRecep:"受付開始",dayGate:"入場締切",dayGateSub:"挙式10分前です。お席にご着席ください",dayCeremony:"挙式",
+ saveEye:"日程",saveTitle:"2026年10月16日（金）",
  dressEye:"服装",dressTitle:"ドレスコード",
- dressP:"かたくならずに。着たいものを着てきてください。色を合わせたい方は、この色たちです。",
+ dressP:"かたくなりすぎなくて大丈夫です。色を合わせたい人は、シャンパンやレモンイエロー、あたたかみのあるブラウン系がおすすめです。男性はブラックタイで、かっこよく決めてきてくださいね。",
  transEye:"アクセス",transTitle:"送迎バス",transP:"バス3台が、それぞれ別の駅から出ます。帰りも同じ駅までお送りします。",
  busNote:"乗車地点は新宿・東京・池袋です。帰りのバスは宴の後に会場を出発します。詳しい時間は後日お伝えします。",
- gateMsg:"下記のフォームでお返事いただくと、乗車地点とバス時間が表示されます。",
- quizEye:"お食事のあいまに",quizTitle:"メイ？トゥー？",quizP:"6問だけ。どっちだと思うか押してください。",
+ gateMsg:"下記のRSVPでご希望の駅を選んでいただくと、乗車地点とバス時間をお知らせします。",
+ faqEye:"ご案内",faqTitle:"よくあるご質問",
+ faqQ1:"会場へはどうやって行きますか？",
+ faqA1:"会場は厚木エリアにあり、新宿駅から電車で約48分です。新宿・東京・池袋から送迎バスも出しますが、1台27〜28人までなので、乗りたい人はRSVPで教えてくださいね。",
+ faqQ2:"会場の住所は？",
+ faqA2:"住所は、RSVPをいただいてからのお楽しみにさせてください。旅の始まりみたいで、ちょっとワクワクしませんか？今のところは、厚木エリアということだけ覚えておいてくださいね。",
+ faqQ3:"子供を連れて行ってもいいですか？",
+ faqA3:"今回は大人だけの特別な時間にしたくて、大人限定とさせていただきました。会場に託児スペースがないのもあります。もし難しいようでしたら、気軽にご相談くださいね。できる限り力になります。",
+ faqQ4:"食物アレルギーはどう伝えればいいですか？",
+ faqA4:"下記のRSVPフォームに欄がありますので、「食べられないもの」にご記入ください。",
+ faqQ5:"何時に到着すればいいですか？",
+ faqA5:"挙式は14時開始です。入場は13時50分までとなりますので、少し余裕を持ってお越しくださいね。",
+ faqQ6:"駐車場はありますか？",
+ faqA6:"はい、駐車場をご用意しています。事前に一言いただけると助かります。",
+ faqQ7:"服装はどうすればいいですか？",
+ faqA7:"上のドレスコードをご覧ください。",
+ faqQ8:"パートナーや友人を連れて行ってもいいですか？",
+ faqA8:"今回は、招待状をお受け取りいただいた方のみのご参加をお願いしております。同伴の方がいる場合は、RSVPフォームにご記入ください。お席を近くにご用意しますね。",
+ faqQ9:"送ったあとでも、RSVPの内容を変更できますか？",
+ faqA9:"もちろんです。予定が変わることもありますよね、それは全然大丈夫です。出欠や人数、アレルギー、2次会のことなど、変更したいことがあれば遠慮なく直接連絡してください。無理に予定を合わせて来ていただくより、ずっとお手伝いしたいと思っています。",
+ quizFun1:"たのしい。",quizFun2:"クイズ。",quizFun3:"タイム。",
+ quizTitle:"メイ？トゥー？",quizP:"5問だけ。どっちだと思うか押してください。",
  nameMay:"メイ",nameHtoo:"トゥー",next:"次へ",back:"戻る",rsEye:"お返事",rsTitle:"出欠",
- rsP:"2026年9月1日までにお願いします。お返事をもらえたら、乗車地点がここに表示されます。",
+ rsP:"2026年9月20日までにお願いします。",
  q_attend:"来てもらえますか？",h_attend:"2026年10月16日",a_yes:"よろこんで！",a_no:"残念だけど…",
  q_name:"お名前は？",h_name:"席札に書くお名前です",f_name:"お名前",f_kana:"ふりがな（任意）",
  q_party:"何人で来ますか？",h_party:"ご自身を含めて",q_station:"どこから来ますか？",
- h_station:"バスを決めるためです",c_own:"自分で行きます",q_food:"食べられないものはありますか？",
+ h_station:"バスの手配のためです",c_own:"自分で行きます",q_food:"食べられないものはありますか？",
  h_food:"アレルギーや、苦手なもの",f_allergy:"アレルギー・苦手なもの",q_msg:"なにか一言もらえたら",
  h_msg:"任意です。ぜんぶ読みます",f_msg:"メッセージ",q_review:"これで合ってますか？",send:"送信",
  doneH:"ありがとう！",doneP:"受け取りました。丘の上で会いましょう。",
- calIcs:"カレンダーに追加",calNote:"2026年10月16日 13:00〜17:30（日本時間）",
+ rsNote:"あとから内容を変更したいときは、いつでもメッセージしてくださいね。",
+ calIcs:"カレンダーに追加",calNote:"タップして、この日をカレンダーに追加できます。",
  endEye:"これから",endHead:"ここから、はじまります",
  endMsg:"私たちの物語に、家族に、これからに加わってくれてありがとう。当日、一緒に乾杯しましょう。",
- endSig:"愛をこめて<br>トゥー &amp; メイ"}};
+ endSig:"愛をこめて<br>トゥー &amp; メイ",
+ njEye:"披露宴のあとに",njTitle:"2次会のご案内",
+ njP:"披露宴のあと、もう少しカジュアルな2次会を予定しています。もっと飲んで、もっと踊って、肩の力を抜いた時間に。会費制で、おひとり5,000円（お食事・お飲み物込み）です。",
+ njYesL:"参加します",njNoL:"今回は見送ります",
+ njNote:"こちらも同じです。予定が変わったら、いつでも教えてくださいね。"}};
 const QZ_T={
-en:[{q:"Who said “I love you” first?",a:1,n:"Htoo — and he'd like it on record that he waited three weeks."},
+en:[{q:"Who said “I love you” first?",a:1,n:"Htoo — and he'd like it on record that he waited months and months."},
  {q:"Who's always the last one ready?",a:0,n:"May. Every trip. Every time."},
- {q:"Who actually puts the tent up?",a:1,n:"Htoo builds it. May decorates it."},
- {q:"Who cries at other people's weddings?",a:1,n:"Htoo. He films them for a living and still cries at every one."},
- {q:"Who plans everything down to the minute?",a:0,n:"May. You're reading her timeline right now."},
- {q:"Who fell asleep first on the first date?",a:0,n:"May. In a cinema. Htoo still brings it up."}],
-ja:[{q:"先に「好き」って言ったのは？",a:1,n:"トゥーです。3週間待ったって、本人が言い張ってます。"},
+ {q:"Who cooks?",a:1,n:"Htoo. May's in charge of eating it."},
+ {q:"Who's more likely to make a scene on the dance floor?",a:1,n:"Htoo. Two left feet, zero shame."},
+ {q:"Who picked the honeymoon spot?",a:0,n:"May. Htoo just packed the bags."}],
+ja:[{q:"先に「好き」って言ったのは？",a:1,n:"トゥーです。何か月も待ったって、本人が言い張ってます。"},
  {q:"いつも準備が最後になるのは？",a:0,n:"メイ。毎回、必ず。"},
- {q:"実際にテントを張るのは？",a:1,n:"トゥーが建てて、メイが飾ります。"},
- {q:"人の結婚式で泣くのは？",a:1,n:"トゥー。仕事で撮ってるのに、毎回泣きます。"},
- {q:"分単位で計画するのは？",a:0,n:"メイ。今読んでるこのタイムラインも彼女です。"},
- {q:"初デートで先に寝ちゃったのは？",a:0,n:"メイ。映画館で。トゥーはいまだに言ってきます。"}]};
+ {q:"料理をするのは？",a:1,n:"トゥー。メイは食べる担当です。"},
+ {q:"ダンスフロアで目立ちたがるのは？",a:1,n:"トゥー。ステップはめちゃくちゃですが、堂々としてます。"},
+ {q:"ハネムーンの行き先を決めたのは？",a:0,n:"メイ。トゥーは荷造り担当でした。"}]};
 
 document.querySelectorAll("[data-t]").forEach(el=>{
   T.en[el.dataset.t]=el.hasAttribute("data-html")?el.innerHTML:el.textContent;});
 T.en.dressTitle="Dress Code";
+T.en.transTitle="Transportation";
+T.en.saveTitle="16 October 2026 (Friday)";
+T.en.njThanksYes="Wonderful — see you at the afterparty. It's ¥5,000 per person, payable on the day.";
+T.en.njThanksNo="No worries at all — thanks for letting us know.";
+T.ja.njThanksYes="やった、2次会でも会えますね。会費は当日、おひとり5,000円をお願いします。";
+T.ja.njThanksNo="了解です。教えてくれてありがとうございます。";
 let LANG="en";
 const tr=k=>(T[LANG]&&T[LANG][k])||T.en[k]||"";
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -763,6 +966,33 @@ const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
 const lerp=(a,b,t)=>a+(b-a)*t;
 const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
 const mixRGB=(x,y,t)=>`rgb(${Math.round(lerp(x[0],y[0],t))},${Math.round(lerp(x[1],y[1],t))},${Math.round(lerp(x[2],y[2],t))})`;
+
+/* buttery wheel scroll — mouse/trackpad only. Touch keeps native scrolling
+   untouched (that's the pin/wait behavior we just fixed); "wheel" events
+   only fire for actual scroll wheels/trackpads, never for touch swipes, so
+   this can't reintroduce the touch regression. Eases each wheel tick toward
+   a target instead of jumping straight there, for the smoother feel. */
+if(!reduce){
+  let wsTarget=scrollY,wsTicking=false,wsLastSet=scrollY;
+  function wsMaxScroll(){return Math.max(0,document.body.scrollHeight-innerHeight);}
+  function wsTick(){
+    /* if scrollY has moved since the last frame WE set it, something else
+       (card-drag, keyboard, scrollbar) took over — hand off gracefully
+       instead of fighting it and dragging the page back to a stale target */
+    if(Math.abs(scrollY-wsLastSet)>1){wsTarget=scrollY;wsTicking=false;return;}
+    const diff=wsTarget-scrollY;
+    if(Math.abs(diff)<.5){scrollTo(0,wsTarget);wsTicking=false;return;}
+    const next=scrollY+diff*.16;
+    scrollTo(0,next);wsLastSet=next;
+    requestAnimationFrame(wsTick);}
+  addEventListener("wheel",e=>{
+    e.preventDefault();
+    if(!wsTicking)wsTarget=scrollY;
+    wsTarget=clamp(wsTarget+e.deltaY,0,wsMaxScroll());
+    wsLastSet=scrollY;
+    if(!wsTicking){wsTicking=true;requestAnimationFrame(wsTick);}},{passive:false});
+  addEventListener("resize",()=>{wsTarget=clamp(wsTarget,0,wsMaxScroll());},{passive:true});
+}
 const mix3=(a,b,c,t)=>t<.70?mixRGB(a,b,t/.70):mixRGB(b,c,(t-.70)/.30);
 const win=(p,a,b,f)=>clamp(Math.min((p-a)/f,(b-p)/f),0,1);
 const vf=(el,t)=>{el.style.fontVariationSettings=`"opsz" ${lerp(12,60,t)},"wght" ${lerp(200,420,t)}`;
@@ -779,10 +1009,26 @@ function buildText(){
     const raw=p.dataset.raw||(p.dataset.raw=tr(p.dataset.t)||p.textContent.trim());
     p.innerHTML=raw.trim().split(/\s+/).map(w=>`<span class="ww">${w}</span>`).join(" ");});
   wipes=[...document.querySelectorAll("[data-wipe]")].map(el=>({el,words:[...el.querySelectorAll(".ww")],lit:-1}));}
+function setDropTitle(id,key,fallback){
+  const el=document.getElementById(id);if(!el)return;
+  const t=tr(key)||fallback;
+  el.querySelector(".drop").textContent=t.charAt(0);
+  el.querySelector(".rest").textContent=t.slice(1);}
+function setSaveDate(){
+  const el=document.getElementById("saveH");if(!el)return;
+  const t=tr("saveTitle")||"16 October 2026 (Friday)";
+  const dropEl=el.querySelector(".drop"),restEl=el.querySelector(".rest");
+  if(LANG==="en"){
+    const sp=t.indexOf(" ");
+    dropEl.textContent=sp>0?t.slice(0,sp):t;
+    restEl.textContent=sp>0?t.slice(sp+1):"";
+    el.classList.remove("plain");
+  }else{
+    dropEl.textContent="";restEl.textContent=t;el.classList.add("plain");}}
 function setDressTitle(){
-  const t=tr("dressTitle")||"Dress Code";
-  document.querySelector("#dressH .drop").textContent=t.charAt(0);
-  document.querySelector("#dressH .rest").textContent=t.slice(1);}
+  setDropTitle("dressH","dressTitle","Dress Code");
+  setDropTitle("transH","transTitle","Transportation");
+  setSaveDate();}
 function applyLang(l){
   LANG=l;document.documentElement.lang=l;
   document.querySelectorAll("[data-t]").forEach(el=>{
@@ -802,12 +1048,33 @@ const io=new IntersectionObserver(es=>{es.forEach(e=>{
   {threshold:.12,rootMargin:"0px 0px -5% 0px"});
 document.querySelectorAll("[data-reveal]").forEach(el=>io.observe(el));
 
-const bgm=document.getElementById("bgm"),musicBtn=document.getElementById("music");
+/* gentle synthesized piano loop — no audio file needed */
+const musicBtn=document.getElementById("music");
+let actx=null,musicTimer=null,seqIdx=0;
+const PIANO_SEQ=[261.63,329.63,392.00,493.88,440.00,392.00,329.63,293.66];
+function pianoNote(freq,startTime,dur,vol){
+  const o=actx.createOscillator(),o2=actx.createOscillator(),g=actx.createGain(),g2=actx.createGain();
+  o.type="sine";o.frequency.value=freq;
+  o2.type="triangle";o2.frequency.value=freq*2;g2.gain.value=.16;
+  o2.connect(g2);g2.connect(g);o.connect(g);g.connect(actx.destination);
+  g.gain.setValueAtTime(0,startTime);
+  g.gain.linearRampToValueAtTime(vol,startTime+.03);
+  g.gain.exponentialRampToValueAtTime(.0001,startTime+dur);
+  o.start(startTime);o2.start(startTime);o.stop(startTime+dur+.05);o2.stop(startTime+dur+.05);}
+function scheduleNext(){
+  if(!actx)return;
+  pianoNote(PIANO_SEQ[seqIdx%PIANO_SEQ.length]/2,actx.currentTime+.05,2.3,.09);
+  seqIdx++;musicTimer=setTimeout(scheduleNext,1500);}
 musicBtn.onclick=()=>{
-  if(musicBtn.classList.contains("on")){bgm.pause();musicBtn.classList.remove("on");}
-  else{musicBtn.classList.add("on");
-    if(bgm.querySelector("source")){bgm.volume=.35;bgm.play().catch(()=>{});}
-    else console.log("Add <source src='assets/music.mp3'> to #bgm");}};
+  if(musicBtn.classList.contains("on")){
+    musicBtn.classList.remove("on");
+    if(musicTimer)clearTimeout(musicTimer);
+    if(actx)actx.suspend();
+  }else{
+    musicBtn.classList.add("on");
+    if(!actx)actx=new (window.AudioContext||window.webkitAudioContext)();
+    if(actx.state==="suspended")actx.resume();
+    scheduleNext();}};
 
 const intro=document.getElementById("intro"),film=document.getElementById("film"),
   vidph=document.getElementById("vidph"),phbar=document.getElementById("phbar"),
@@ -845,7 +1112,7 @@ UNITS.forEach(u=>{rolls[u.k]=[...document.querySelectorAll(`#roll-${u.k} .roll-c
   setTimeout(cd,1000);})();
 
 const CAL={start:"20261016T040000Z",end:"20261016T083000Z",title:"May & Htoo — Wedding",
-  desc:"Check-in 13:00 JST. Ceremony 14:00 JST. Address on the wedding site."};
+  desc:"Reception begins 13:30 JST. Gates close 13:50. Ceremony 14:00 JST. Address on the wedding site."};
 document.getElementById("calIcs").onclick=()=>{
   const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//MayHtoo//Wedding//EN","CALSCALE:GREGORIAN",
     "BEGIN:VEVENT","UID:mayhtoo-16oct2026@wedding","DTSTAMP:20260101T000000Z","DTSTART:"+CAL.start,
@@ -872,7 +1139,30 @@ function updateReview(){const box=document.getElementById("rsReview");if(!box)re
     rows.push([tr("q_station"),data.station||"—"]);rows.push([tr("f_allergy"),data.allergy||"—"]);}
   if(data.message)rows.push([tr("f_msg"),data.message]);
   box.innerHTML=rows.map(r=>`<div class="rs-review"><b>${r[0]}</b><span>${String(r[1]).replace(/</g,"&lt;")}</span></div>`).join("");}
-document.getElementById("rsYes").onclick=()=>{data.attending="yes";flow=YES_FLOW;fi=1;showStep();};
+function yesBurst(originEl){
+  const r=originEl.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
+  const N=18;
+  for(let i=0;i<N;i++){
+    const ang=(i/N)*Math.PI*2+Math.random()*.3,dist=60+Math.random()*80;
+    const dx=Math.cos(ang)*dist,dy=Math.sin(ang)*dist,sz=4+Math.random()*4;
+    const p=document.createElement("div");
+    p.style.cssText=`position:fixed;left:${cx}px;top:${cy}px;width:${sz}px;height:${sz}px;`+
+      `border-radius:50%;background:${Math.random()>.5?"#F8ECCB":"#C9974A"};pointer-events:none;z-index:500;`;
+    document.body.appendChild(p);
+    p.animate([
+      {transform:"translate(-50%,-50%) scale(.4)",opacity:1},
+      {transform:`translate(calc(-50% + ${dx.toFixed(1)}px),calc(-50% + ${dy.toFixed(1)}px)) scale(1)`,opacity:0}
+    ],{duration:700+Math.random()*300,easing:"cubic-bezier(.16,.84,.34,1)"}).onfinish=()=>p.remove();}
+  const ring=document.createElement("div");
+  ring.style.cssText=`position:fixed;left:${cx}px;top:${cy}px;width:10px;height:10px;margin:-5px 0 0 -5px;`+
+    `border-radius:50%;border:2px solid #C9974A;pointer-events:none;z-index:499;`;
+  document.body.appendChild(ring);
+  ring.animate([{transform:"scale(1)",opacity:.9},{transform:"scale(9)",opacity:0}],
+    {duration:800,easing:"cubic-bezier(.16,.84,.34,1)"}).onfinish=()=>ring.remove();}
+document.getElementById("rsYes").onclick=e=>{
+  data.attending="yes";flow=YES_FLOW;
+  const btn=e.currentTarget;btn.classList.add("confirmed");yesBurst(btn);
+  setTimeout(()=>{fi=1;showStep();},650);};
 document.getElementById("rsNo").onclick=()=>{data.attending="no";flow=NO_FLOW;fi=1;showStep();};
 rsCard.querySelectorAll("[data-next]").forEach(b=>b.onclick=()=>{const key=flow[fi];
   if(key==="name"){data.name=document.getElementById("fName").value.trim();
@@ -884,7 +1174,7 @@ rsCard.querySelectorAll("[data-next]").forEach(b=>b.onclick=()=>{const key=flow[
 rsCard.querySelectorAll("[data-back]").forEach(b=>b.onclick=()=>{fi=Math.max(fi-1,0);showStep();});
 document.getElementById("pMinus").onclick=()=>{data.party=Math.max(1,data.party-1);
   document.getElementById("pCount").textContent=data.party;};
-document.getElementById("pPlus").onclick=()=>{data.party=Math.min(6,data.party+1);
+document.getElementById("pPlus").onclick=()=>{data.party=Math.min(3,data.party+1);
   document.getElementById("pCount").textContent=data.party;};
 document.querySelectorAll(".rs-chip").forEach(c=>c.onclick=()=>{
   document.querySelectorAll(".rs-chip").forEach(x=>x.classList.remove("on"));
@@ -896,6 +1186,14 @@ document.getElementById("rsSubmit").onclick=async function(){this.disabled=true;
   fi=flow.length-1;showStep();
   if(data.attending==="yes"){document.getElementById("gated").classList.add("open");
     const m=document.getElementById("gateMsg");if(m)m.remove();}};
+
+document.getElementById("njYes").onclick=e=>{
+  const row=document.querySelector("#njCard .vs"),btn=e.currentTarget,box=document.getElementById("njThanks");
+  btn.classList.add("confirmed");yesBurst(btn);
+  setTimeout(()=>{row.style.display="none";box.textContent=tr("njThanksYes");box.hidden=false;},650);};
+document.getElementById("njNo").onclick=()=>{
+  const row=document.querySelector("#njCard .vs"),box=document.getElementById("njThanks");
+  row.style.display="none";box.textContent=tr("njThanksNo");box.hidden=false;};
 
 const progressOf=el=>{const r=el.getBoundingClientRect();return clamp(-r.top/(el.offsetHeight-innerHeight),0,1);};
 const viewProg=r=>clamp((innerHeight-r.top)/(innerHeight+r.height),0,1);
@@ -938,6 +1236,7 @@ const welBig=document.getElementById("welBig"),welBody=document.getElementById("
   jRail=document.getElementById("jRail"),trailBox=document.getElementById("trail"),
   fwBox=document.getElementById("fw"),jScene=document.querySelector(".sc-journey"),
   cards=[...document.querySelectorAll(".card")],cardDots=[...document.querySelectorAll(".cd-dot")],
+  faqCards=[...document.querySelectorAll(".faq-card")],faqDots=[...document.querySelectorAll(".fq-dot")],
   routePath=document.getElementById("routePath"),stops=[...document.querySelectorAll(".stop")],
   bus=document.getElementById("bus"),prog=document.getElementById("prog"),
   endMono=document.getElementById("endMono"),endEyebrow=document.getElementById("endEyebrow"),
@@ -981,6 +1280,26 @@ function fwTick(now,W,H){const t=(now-fwStart)/FW_DUR;
       Math.sin(s.ang)*rad*s.r*e+bt*bt*rad*.6}px,0) scale(${1-bt*.55})`;
     s.el.style.opacity=Math.pow(1-bt,1.6);}}
 
+/* fireworks across the whole screen when the heart becomes one */
+const heartFwBox=document.getElementById("heartFw"),heartScene=document.querySelector(".sc-heart");
+const HFW=[],HFW_OFF=[.18,.5,.82,.32,.68],HFW_OY=[.22,.15,.24,.55,.55];
+for(let b=0;b<5;b++)for(let i=0;i<20;i++){
+  const d=document.createElement("div");d.className="fwp";
+  d.style.background=FWC[i%FWC.length];heartFwBox.appendChild(d);
+  HFW.push({el:d,burst:b,ang:(i/20)*Math.PI*2+b*.4,r:.5+Math.random()*.5,sp:.85+Math.random()*.35});}
+const HFW_DUR=2400;
+let heartFwArmed=true,heartFwStart=0,heartFwOn=false;
+function heartFwHide(){for(const s of HFW)s.el.style.opacity=0;}
+function heartFwTick(now,W,H){const t=(now-heartFwStart)/HFW_DUR;
+  if(t>=1){heartFwOn=false;heartFwHide();return;}
+  for(const s of HFW){const bt=clamp((t-s.burst*.09)/.66,0,1);
+    if(bt<=0||bt>=1){s.el.style.opacity=0;continue;}
+    const e=1-Math.pow(1-bt,2.4),rad=Math.min(W,H)*.30*s.sp;
+    s.el.style.left=(HFW_OFF[s.burst]*W)+"px";s.el.style.top=(HFW_OY[s.burst]*H)+"px";
+    s.el.style.transform=`translate(-50%,-50%) translate3d(${Math.cos(s.ang)*rad*s.r*e}px,${
+      Math.sin(s.ang)*rad*s.r*e+bt*bt*rad*.5}px,0) scale(${1-bt*.5})`;
+    s.el.style.opacity=Math.pow(1-bt,1.5);}}
+
 const BUBC=["#F2EFE9","#CFC9BB","#8C9188","#C9974A","#3E5647","#E0D2B4"];
 const BUBS=[];
 for(let i=0;i<12;i++){
@@ -992,6 +1311,20 @@ for(let i=0;i<12;i++){
   bubBox.appendChild(d);
   BUBS.push({el:d,x:Math.random(),sp:.5+Math.random()*.9,ph:Math.random()*6.28,op:.12+Math.random()*.2});}
 
+const qzOrbs=[...document.querySelectorAll(".qz-orb")];
+const qfWords=[...document.querySelectorAll(".qf-word")];
+const quizPin=document.querySelector(".quiz-pin"),rsvpPin=document.querySelector(".rsvp-pin");
+const quizSecHead=document.querySelector(".sc-quiz .sec-head"),rsvpSecHead=document.querySelector(".sc-rsvp .sec-head");
+const rsvpBg=document.getElementById("rsvpBg"),rsMoon=document.getElementById("rsMoon");
+const RS_SPARKS=[];
+for(let i=0;i<22;i++){
+  const d=document.createElement("div");d.className="rs-spark";
+  const sz=2+Math.random()*3.6;
+  d.style.width=sz+"px";d.style.height=sz+"px";
+  d.style.left=(4+Math.random()*92)+"%";
+  rsvpBg.appendChild(d);
+  RS_SPARKS.push({el:d,y:Math.random(),ph:Math.random()*6.28,sp:.5+Math.random()*.8});}
+
 let welH=welBig.offsetHeight,lastSky="";
 addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
 
@@ -1000,6 +1333,9 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
   const jr=jScene.getBoundingClientRect();
   if(jr.bottom<0||jr.top>innerHeight){fwArmed=true;if(fwOn){fwOn=false;fwHide();}}
   if(fwOn){const rr=jRail.getBoundingClientRect();fwTick(now,rr.width,rr.height);}
+  const hr=heartScene.getBoundingClientRect();
+  if(hr.bottom<0||hr.top>innerHeight){heartFwArmed=true;if(heartFwOn){heartFwOn=false;heartFwHide();}}
+  if(heartFwOn)heartFwTick(now,innerWidth,innerHeight);
   for(const el of pars){const r=el.getBoundingClientRect();
     if(r.bottom<0||r.top>innerHeight)continue;
     const v=(r.top+r.height/2-innerHeight/2)/innerHeight;
@@ -1017,7 +1353,7 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
         el.style.color=mixRGB([120,128,120],[242,239,233],near);vf(el,near);break;
       case "growbig":el.style.transform=`scale(${.78+near*.28}) translate3d(0,${c*-18}px,0)`;
         el.style.color=mixRGB([98,108,100],[242,239,233],Math.pow(near,.7));vf(el,near);break;
-      case "monogram":el.style.transform=`translate3d(0,${q*-40}px,0) rotate(${q*10}deg) scale(${1-q*.12})`;break;}}
+      case "monogram":el.style.transform=`translate3d(0,${q*-40}px,0) scale(${1-q*.12})`;break;}}
 
   for(const sc of scenes){
     const rect=sc.el.getBoundingClientRect();
@@ -1046,7 +1382,8 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
       hnL.style.opacity=hnR.style.opacity=(.4+t*.6).toFixed(2);
       hAmp.style.opacity=clamp((t-.72)/.24,0,1);
       const co=clamp((p-.66)/.16,0,1);
-      hCap.style.opacity=co;hCap.style.transform=`translateY(${(1-co)*14}px)`;}
+      hCap.style.opacity=co;hCap.style.transform=`translateY(${(1-co)*14}px)`;
+      if(heartFwArmed&&t>=.98){heartFwArmed=false;heartFwOn=true;heartFwStart=now;}}
 
     if(sc.kind==="records"){
       const pan=lerp(innerWidth*.62,-REC_TOTAL+innerWidth*.38,p);
@@ -1115,10 +1452,22 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
         b.el.style.transform=`translate3d(${Math.sin(p*5+b.ph)*24}px,${y}px,0)`;
         b.el.style.opacity=(b.op*clamp(p*3,0,1)*clamp((1-p)*3,0,1)).toFixed(3);});}
 
+    if(sc.kind==="faq"){
+      const n=faqCards.length,pos=p*(n-1);
+      const step=Math.min(innerWidth*.92,520);
+      faqCards.forEach((c,i)=>{
+        const d=i-pos, ad=Math.abs(d);
+        c.style.transform=`translate(-50%,-50%) translate3d(${d*step}px,${ad*ad*26}px,0)`+
+          ` rotate(${d*3.2}deg) scale(${clamp(1-ad*.16,.66,1)})`;
+        c.style.opacity=clamp(1-ad*.85,0,1);
+        c.style.zIndex=String(Math.round(30-ad*10));
+        c.style.pointerEvents=ad<.35?"auto":"none";});
+      faqDots.forEach((d,i)=>d.classList.toggle("on",Math.round(pos)===i));}
+
     if(sc.kind==="outro"){
       const d=clamp(p/.42,0,1);
       endSegs.forEach(s=>{s.p.style.strokeDasharray=s.L;s.p.style.strokeDashoffset=s.L*(1-d);});
-      endMono.style.transform=`scale(${.8+d*.2})`;
+      endMono.style.transform=`scale(${.8+d*.2})`;endMono.style.opacity=d;
       endEyebrow.style.opacity=clamp((p-.34)/.14,0,1);
       const h=clamp((p-.42)/.16,0,1);
       endHead.style.opacity=h;endHead.style.transform=`translate3d(0,${(1-h)*26}px,0)`;vf(endHead,h);
@@ -1126,6 +1475,41 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
       endMsg.style.opacity=m;endMsg.style.transform=`translate3d(0,${(1-m)*22}px,0)`;
       const sg=clamp((p-.74)/.18,0,1);
       endSig.style.opacity=sg;endSig.style.transform=`translate3d(0,${(1-sg)*20}px,0)`;}
+
+    if(sc.kind==="quiz"){
+      if(quizSecHead)quizSecHead.classList.toggle("in",p>.02);
+      const qfN=qfWords.length,qfIntro=clamp(p/.5,0,1),qfPos=qfIntro*qfN;
+      qfWords.forEach((w,i)=>{
+        const local=clamp(qfPos-i,0,1),e=ease(local);
+        const sc3=lerp(2.2,.32,e),y=local*-24;
+        const op=local<.08?local/.08:(local>.72?clamp(1-(local-.72)/.28,0,1):1);
+        const blur=local>.6?(local-.6)/.4*3:0;
+        w.style.transform=`translate3d(-50%,-28%,0) translateY(${y.toFixed(1)}px) scale(${sc3.toFixed(3)})`;
+        w.style.opacity=op.toFixed(3);
+        w.style.filter=blur>.01?`blur(${blur.toFixed(2)}px)`:"none";
+        w.style.zIndex=String(10-i);});
+      qzOrbs.forEach((o,i)=>{
+        const amp=52+i*24,ph=i*1.7;
+        const y=(p-.5)*amp*2.6+Math.sin(p*6.28+ph)*20;
+        const x=Math.cos(p*3.4+ph)*46*(i%2?1:-1);
+        const sc2=1+Math.sin(p*6+ph)*.16;
+        o.style.transform=`translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0) rotate(${(p*70*(i%2?1:-1)).toFixed(1)}deg) scale(${sc2.toFixed(3)})`;
+        o.style.opacity=(.42+.28*Math.sin(p*8+ph)).toFixed(3);});
+      quizPin.style.background=`radial-gradient(ellipse at ${(50+Math.sin(p*6.28)*10).toFixed(1)}% 40%,`+
+        `${mixRGB([27,44,34],[30,42,58],p)} 0%,#0D1712 70%)`;}
+
+    if(sc.kind==="rsvp"){
+      if(rsvpSecHead)rsvpSecHead.classList.toggle("in",p>.02);
+      const H=innerHeight,fade=clamp(p*4,0,1);
+      RS_SPARKS.forEach(s=>{
+        const yy=H*(1-((p*s.sp+s.y)%1));
+        s.el.style.transform=`translate3d(0,${yy.toFixed(1)}px,0)`;
+        s.el.style.opacity=(fade*(.3+.65*Math.pow(Math.sin(p*10+s.ph)*.5+.5,2))).toFixed(3);});
+      const my=innerHeight*(.82-p*.68),mx=50+Math.sin(p*4.2)*14;
+      rsMoon.style.transform=`translate3d(-50%,${my.toFixed(1)}px,0) scale(${(.7+p*.5).toFixed(3)})`;
+      rsMoon.style.left=mx.toFixed(2)+"%";
+      rsMoon.style.opacity=clamp(p*3,0,1)*clamp((1.06-p)*3,0,1);
+      rsvpPin.style.background=`radial-gradient(ellipse at 50% 55%,${mixRGB([27,44,34],[42,40,58],p)} 0%,#0D1712 72%)`;}
   }
   requestAnimationFrame(frame);
 })(performance.now());
@@ -1155,6 +1539,102 @@ sideM.onclick=()=>answer(0);sideH.onclick=()=>answer(1);
 qzNext.onclick=()=>{qi++;if(qi<QZ.length)renderQ();
   else document.getElementById("qzBox").innerHTML=
     `<div class="qz-done"><p class="n">${score}/${QZ.length}</p></div>`;};
+(function(){
+  const W=1000,H=1000;
+  /* Catmull-Rom y-ridge profiles per layer DOM index (11 pts, x=0..W) */
+  const profiles={
+    0:[500,452,418,388,404,432,418,380,372,396,488],
+    1:[612,562,522,494,506,488,472,462,486,504,598],
+    2:[724,696,668,648,636,622,616,610,628,650,720],
+    4:[866,846,824,810,806,798,792,788,802,826,858]
+  };
+  function cmr(p0,p1,p2,p3,t){
+    return .5*((2*p1)+(-p0+p2)*t+(2*p0-5*p1+4*p2-p3)*t*t+(-p0+3*p1-3*p2+p3)*t*t*t);}
+  function ry(prof,x){
+    const n=prof.length-1,tg=(x/W)*n,i=Math.min(Math.floor(tg),n-1),t=tg-i;
+    return cmr(prof[Math.max(0,i-1)],prof[i],prof[Math.min(n,i+1)],prof[Math.min(n,i+2)],t);}
+  function hn(x,s){
+    return Math.abs(Math.sin(s*31.7+x*.13)*.42+Math.sin(s*73.1+x*.31)*.35+Math.sin(s*127.3+x*.71)*.23);}
+  const treeH={2:44,4:58},treeSp={2:14,4:10};
+  document.querySelectorAll('.sc-journey .layer').forEach((el,idx)=>{
+    const prof=profiles[idx];if(!prof)return;
+    const path=el.querySelector('path');if(!path)return;
+    const isTree=idx===2||idx===4,tH=treeH[idx]||0,sp=treeSp[idx]||14;
+    let d=`M0,${ry(prof,0).toFixed(1)}`;
+    if(isTree){
+      for(let x=0;x<W;x+=sp){
+        const x2=Math.min(x+sp,W),ny=ry(prof,x2);
+        const baseY=ry(prof,x),pk=baseY-tH*(0.46+hn(x,idx+7)*0.54);
+        const cx=x+(hn(x+3,idx)*0.44+0.08)*sp;
+        d+=` Q${cx.toFixed(1)},${pk.toFixed(1)} ${x2.toFixed(1)},${ny.toFixed(1)}`;}
+    }else{
+      for(let x=16;x<=W;x+=16){
+        const mx=x-8;
+        d+=` Q${mx},${ry(prof,mx).toFixed(1)} ${x},${ry(prof,x).toFixed(1)}`;}
+    }
+    d+=` L${W},${H} L0,${H} Z`;
+    path.setAttribute('d',d);});
+})();
+
+/* drag/swipe the card deck sideways.
+   Earlier attempts hijacked touch-action so JS could own vertical scroll
+   too, but that's what broke the "section pins, waits, only advances once
+   you're done" feel — a hand-rolled scrollBy can't fully replicate native
+   scroll physics. Fix: touch input is never intercepted mid-gesture, so
+   native scroll (and the pin/wait behavior) is exactly what it always was;
+   only once a touch gesture ends do we check if it was a clear, decisive
+   horizontal swipe and, if so, snap to the next/prev card afterward.
+   Mouse input has no such conflict (touch-action doesn't gate it), so
+   desktop keeps a live 1:1 click-drag. */
+(function(){
+  const cardsScene=document.querySelector(".sc-cards"),cardsPin=document.querySelector(".cards-pin");
+  if(!cardsScene||!cardsPin||!cards.length)return;
+  const n=cards.length;
+  const stepPx=()=>Math.min(innerWidth*.92,520);
+  function scrollYFor(pos){
+    const rect=cardsScene.getBoundingClientRect(),elTop=rect.top+scrollY;
+    const pp=clamp(pos/(n-1),0,1);
+    return elTop+pp*(cardsScene.offsetHeight-innerHeight);}
+
+  let mDown=false,mAxis=null,mStartX=0,mStartY=0,mStartPos=0;
+  cardsPin.addEventListener("pointerdown",e=>{
+    if(e.pointerType!=="mouse"||e.button!==0)return;
+    mDown=true;mAxis=null;mStartX=e.clientX;mStartY=e.clientY;
+    mStartPos=progressOf(cardsScene)*(n-1);});
+  cardsPin.addEventListener("pointermove",e=>{
+    if(!mDown||e.pointerType!=="mouse")return;
+    const dx=e.clientX-mStartX,dy=e.clientY-mStartY;
+    if(mAxis===null){
+      if(Math.abs(dx)<6&&Math.abs(dy)<6)return;
+      mAxis=Math.abs(dx)>Math.abs(dy)?"x":"y";
+      if(mAxis==="x")try{cardsPin.setPointerCapture(e.pointerId);}catch(err){}}
+    if(mAxis!=="x")return;
+    e.preventDefault();
+    scrollTo(0,scrollYFor(clamp(mStartPos-dx/stepPx(),0,n-1)));});
+  function endMouseDrag(e){
+    if(!mDown||e.pointerType!=="mouse")return;
+    mDown=false;
+    if(mAxis==="x"){
+      const raw=progressOf(cardsScene)*(n-1);
+      scrollTo({top:scrollYFor(Math.round(raw)),behavior:"smooth"});}
+    mAxis=null;}
+  cardsPin.addEventListener("pointerup",endMouseDrag);
+  cardsPin.addEventListener("pointercancel",endMouseDrag);
+
+  let tId=null,tStartX=0,tStartY=0,tStartPos=0,tStartT=0;
+  cardsPin.addEventListener("pointerdown",e=>{
+    if(e.pointerType!=="touch")return;
+    tId=e.pointerId;tStartX=e.clientX;tStartY=e.clientY;tStartT=performance.now();
+    tStartPos=progressOf(cardsScene)*(n-1);});
+  cardsPin.addEventListener("pointerup",e=>{
+    if(e.pointerType!=="touch"||e.pointerId!==tId)return;
+    tId=null;
+    const dx=e.clientX-tStartX,dy=e.clientY-tStartY,dt=performance.now()-tStartT;
+    if(dt>650||Math.abs(dx)<44||Math.abs(dx)<Math.abs(dy)*1.4)return;
+    const target=clamp(Math.round(tStartPos)+(dx<0?1:-1),0,n-1);
+    scrollTo({top:scrollYFor(target),behavior:"smooth"});});
+})();
+
 buildText();applyLang("en");
 </script>
 </body>
