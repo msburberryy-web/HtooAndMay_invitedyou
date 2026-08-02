@@ -20,6 +20,9 @@ body{margin:0;width:100%;background:var(--ink);color:var(--bone);font-family:var
   line-height:1.8;overflow-x:hidden;-webkit-font-smoothing:antialiased;overscroll-behavior-y:none}
 body.locked{overflow:hidden;height:100vh}
 .wrap{max-width:600px;margin:0 auto;padding:0 var(--pad);position:relative;z-index:4}
+#bgphoto{position:fixed;inset:0;pointer-events:none;z-index:116;background-size:cover;background-position:center;
+  background-image:url("assets/photos/bg-mobile.jpg")}
+@media (min-width:768px){#bgphoto{background-image:url("assets/photos/bg-desktop.jpg")}}
 #grain{position:fixed;inset:0;pointer-events:none;z-index:120;opacity:.12;mix-blend-mode:overlay;
   filter:sepia(.55) saturate(1.5) brightness(1.15);
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
@@ -494,7 +497,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
     <feDisplacementMap in="SourceGraphic" in2="wcn" scale="70" xChannelSelector="R" yChannelSelector="G"/>
   </filter>
 </defs></svg>
-<div id="paper"></div><div id="paintwash"></div><div id="vig"></div><div id="grain"></div>
+<div id="bgphoto"></div><div id="paper"></div><div id="paintwash"></div><div id="vig"></div><div id="grain"></div>
 <div id="prog"></div>
 <div id="lang" role="group" aria-label="Language">
   <button class="lang-b on" data-lang="en" lang="en">EN</button><span class="lang-sep"></span>
@@ -715,10 +718,14 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
     <div class="faq-card" data-faq="7">
       <p class="faq-q" data-t="faqQ8">Can I bring a +1?</p>
       <p class="faq-a" data-t="faqA8">We kindly ask that only those who received this invitation attend. If you're bringing a plus one, please add them in the RSVP form so we can seat you together.</p></div>
+    <div class="faq-card" data-faq="8">
+      <p class="faq-q" data-t="faqQ9">Can I change my RSVP after I've sent it?</p>
+      <p class="faq-a" data-t="faqA9">Of course — plans change, and that's completely fine. If you need to update anything (attendance, guest count, allergies, even the 2次会), just reach out to us directly. We'd much rather help you fix it than have you feel like you have to show up out of obligation.</p></div>
 
     <div class="faq-dots" id="faqDots">
       <span class="fq-dot on"></span><span class="fq-dot"></span><span class="fq-dot"></span><span class="fq-dot"></span>
-      <span class="fq-dot"></span><span class="fq-dot"></span><span class="fq-dot"></span><span class="fq-dot"></span></div>
+      <span class="fq-dot"></span><span class="fq-dot"></span><span class="fq-dot"></span><span class="fq-dot"></span>
+      <span class="fq-dot"></span></div>
   </div>
 </section>
 
@@ -815,7 +822,8 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
       <div class="rs-step" data-s="done">
         <div class="rs-done"><div class="tick"><svg viewBox="0 0 24 24"><path d="M4 12.5 L9.5 18 L20 6"/></svg></div>
           <h3 data-t="doneH">Thank you!</h3>
-          <p style="color:var(--greige);font-size:.92rem" data-t="doneP">Got it. See you on the hill.</p></div></div>
+          <p style="color:var(--greige);font-size:.92rem" data-t="doneP">Got it. See you on the hill.</p>
+          <p class="gate-note" style="margin-top:1.2rem;text-align:center;border:0;padding:0" data-t="rsNote">Need to change your answer later? Just message us — anytime.</p></div></div>
     </div>
   </div>
  </div>
@@ -837,7 +845,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
           <span class="nm" data-t="njNoL">I'll sit this one out</span></button></div>
       <p class="nj-thanks" id="njThanks" hidden></p>
     </div>
-    <p class="gate-note" style="margin-top:1.6rem" data-t="njNote">Plans change, and that's completely fine — if you need to update any part of your RSVP (this included), just reach out to us directly. We'd much rather help you fix it than leave you feeling like you have to show up out of obligation.</p>
+    <p class="gate-note" style="margin-top:1.6rem" data-t="njNote">Same goes here — if your plans change, just message us anytime.</p>
   </div>
 </section>
 
@@ -907,6 +915,8 @@ ja:{filmPh:"ここに映像が流れます",skip:"スキップ",announce:"わた
  faqA7:"上のドレスコードをご覧ください。",
  faqQ8:"パートナーや友人を連れて行ってもいいですか？",
  faqA8:"今回は、招待状をお受け取りいただいた方のみのご参加をお願いしております。同伴の方がいる場合は、RSVPフォームにご記入ください。お席を近くにご用意しますね。",
+ faqQ9:"送ったあとでも、RSVPの内容を変更できますか？",
+ faqA9:"もちろんです。予定が変わることもありますよね、それは全然大丈夫です。出欠や人数、アレルギー、2次会のことなど、変更したいことがあれば遠慮なく直接連絡してください。無理に予定を合わせて来ていただくより、ずっとお手伝いしたいと思っています。",
  quizFun1:"たのしい。",quizFun2:"クイズ。",quizFun3:"タイム。",
  quizTitle:"メイ？トゥー？",quizP:"5問だけ。どっちだと思うか押してください。",
  nameMay:"メイ",nameHtoo:"トゥー",next:"次へ",back:"戻る",rsEye:"お返事",rsTitle:"出欠",
@@ -918,6 +928,7 @@ ja:{filmPh:"ここに映像が流れます",skip:"スキップ",announce:"わた
  h_food:"アレルギーや、苦手なもの",f_allergy:"アレルギー・苦手なもの",q_msg:"なにか一言もらえたら",
  h_msg:"任意です。ぜんぶ読みます",f_msg:"メッセージ",q_review:"これで合ってますか？",send:"送信",
  doneH:"ありがとう！",doneP:"受け取りました。丘の上で会いましょう。",
+ rsNote:"あとから内容を変更したいときは、いつでもメッセージしてくださいね。",
  calIcs:"カレンダーに追加",calNote:"タップして、この日をカレンダーに追加できます。",
  endEye:"これから",endHead:"ここから、はじまります",
  endMsg:"私たちの物語に、家族に、これからに加わってくれてありがとう。当日、一緒に乾杯しましょう。",
@@ -925,7 +936,7 @@ ja:{filmPh:"ここに映像が流れます",skip:"スキップ",announce:"わた
  njEye:"披露宴のあとに",njTitle:"2次会のご案内",
  njP:"披露宴のあと、もう少しカジュアルな2次会を予定しています。もっと飲んで、もっと踊って、肩の力を抜いた時間に。会費制で、おひとり5,000円（お食事・お飲み物込み）です。",
  njYesL:"参加します",njNoL:"今回は見送ります",
- njNote:"予定が変わることもありますよね、それは全然大丈夫です。RSVPの内容（これも含めて）を変更したいときは、遠慮なく直接連絡してください。無理に予定を合わせて来ていただくより、ずっとお手伝いしたいと思っています。"}};
+ njNote:"こちらも同じです。予定が変わったら、いつでも教えてくださいね。"}};
 const QZ_T={
 en:[{q:"Who said “I love you” first?",a:1,n:"Htoo — and he'd like it on record that he waited months and months."},
  {q:"Who's always the last one ready?",a:0,n:"May. Every trip. Every time."},
