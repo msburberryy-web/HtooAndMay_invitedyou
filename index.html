@@ -366,7 +366,7 @@ body.locked{overflow:hidden;height:100vh}
 .vs-side::before{content:"";position:absolute;inset:6% 2%;z-index:-1;border-radius:50%/44%;
   background:radial-gradient(ellipse at 50% 45%,rgba(242,239,233,.07) 0%,transparent 70%);
   box-shadow:inset 0 0 0 1px rgba(242,239,233,.12);transition:.45s var(--ease)}
-#qzBox .vs-side::before,[data-s="attend"] .vs-side::before,#njCard .vs-side::before{border-radius:16px;inset:3% 5%;
+#qzBox .vs-side::before,[data-s="attend"] .vs-side::before{border-radius:16px;inset:3% 5%;
   background:linear-gradient(160deg,rgba(255,255,255,.14),rgba(255,255,255,.04));
   backdrop-filter:blur(12px) saturate(1.3);-webkit-backdrop-filter:blur(12px) saturate(1.3);
   box-shadow:inset 0 0 0 1px rgba(242,239,233,.18),0 10px 26px rgba(0,0,0,.28)}
@@ -440,6 +440,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 .rs-stepper button:hover{border-color:var(--gold);color:var(--gold)}
 .rs-count{font-family:var(--serif);font-weight:200;font-size:3rem;color:var(--gold);
   min-width:2ch;text-align:center;line-height:1}
+#rsReview{max-height:30svh;overflow-y:auto}
 .rs-review{border-bottom:1px dashed rgba(242,239,233,.14);padding:.8rem 0;display:grid;
   grid-template-columns:8rem 1fr;gap:.8rem;font-size:.88rem}
 .rs-review:last-of-type{margin-bottom:1.4rem}
@@ -453,8 +454,6 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
   stroke-dasharray:40;stroke-dashoffset:40;animation:tick .9s var(--ease) .2s forwards}
 @keyframes tick{to{stroke-dashoffset:0}}
 .rs-done h3{font-family:var(--serif);font-weight:200;font-size:1.7rem;margin:0 0 .8rem}
-.nj-thanks{text-align:center;font-family:var(--serif);font-weight:200;font-size:1.3rem;
-  color:var(--gold);padding:1rem 0;animation:stepIn .65s var(--ease)}
 
 /* ══════ RSVP — pinned scroll scene ══════ */
 .sc-rsvp{height:210vh}
@@ -795,7 +794,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
       <div class="rs-step" data-s="station">
         <p class="rs-q" data-t="q_station">Where are you coming from?</p>
         <p class="rs-hint" data-t="h_station">So we can sort your bus</p>
-        <div class="rs-chips" id="chips">
+        <div class="rs-chips" id="chips" data-field="station">
           <button class="rs-chip" type="button" data-v="Shinjuku">新宿 Shinjuku</button>
           <button class="rs-chip" type="button" data-v="Tokyo">東京 Tokyo Station</button>
           <button class="rs-chip" type="button" data-v="Ikebukuro">池袋 Ikebukuro</button>
@@ -806,6 +805,14 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
         <p class="rs-q" data-t="q_food">Anything you can't eat?</p>
         <p class="rs-hint" data-t="h_food">Allergies, or things you'd rather skip</p>
         <label class="rs-field"><span data-t="f_allergy">Allergies &amp; food</span><input class="rs-in" id="fAllergy" type="text"></label>
+        <div class="rs-step-nav"><button class="rs-btn ghost" data-back data-t="back">Back</button>
+          <button class="rs-btn" data-next data-t="next">Next</button></div></div>
+      <div class="rs-step" data-s="nijikai">
+        <p class="rs-q" data-t="q_nijikai">Joining the 2次会 afterparty?</p>
+        <p class="rs-hint" data-t="h_nijikai">A casual second party right after — 会費制, ¥5,000 per person</p>
+        <div class="rs-chips" id="njChips" data-field="nijikai">
+          <button class="rs-chip" type="button" data-v="yes" data-t="njYesL">Count me in</button>
+          <button class="rs-chip" type="button" data-v="no" data-t="njNoL">I'll sit this one out</button></div>
         <div class="rs-step-nav"><button class="rs-btn ghost" data-back data-t="back">Back</button>
           <button class="rs-btn" data-next data-t="next">Next</button></div></div>
       <div class="rs-step" data-s="msg">
@@ -827,26 +834,6 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
     </div>
   </div>
  </div>
-</section>
-
-<section class="sec" data-reveal>
-  <div class="wrap">
-    <div class="sec-head"><p class="eyebrow" data-t="njEye">After the ceremony</p>
-      <h2 data-t="njTitle">2次会</h2></div>
-    <p class="center" style="margin-bottom:1.6rem" data-wipe data-t="njP">Once the main celebration wraps up, we're keeping the night going with a casual afterparty — more drinks, more dancing, way less formality. It's pay-as-you-go: ¥5,000 per person, covers food and drinks.</p>
-    <div class="rs-card" id="njCard">
-      <div class="vs">
-        <button class="vs-side" id="njYes" type="button"><span class="init">
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12 2 L14.2 9.8 L22 12 L14.2 14.2 L12 22 L9.8 14.2 L2 12 L9.8 9.8 Z"/></svg></span>
-          <span class="nm" data-t="njYesL">Count me in</span></button>
-        <span class="vs-or">or</span>
-        <button class="vs-side" id="njNo" type="button"><span class="init">
-          <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg></span>
-          <span class="nm" data-t="njNoL">I'll sit this one out</span></button></div>
-      <p class="nj-thanks" id="njThanks" hidden></p>
-    </div>
-    <p class="gate-note" style="margin-top:1.6rem" data-t="njNote">Same goes here — if your plans change, just message us anytime.</p>
-  </div>
 </section>
 
 <section class="scene sc-outro" data-scene="outro">
@@ -925,7 +912,10 @@ ja:{filmPh:"ここに映像が流れます",skip:"スキップ",announce:"わた
  q_name:"お名前は？",h_name:"席札に書くお名前です",f_name:"お名前",f_kana:"ふりがな（任意）",
  q_party:"何人で来ますか？",h_party:"ご自身を含めて",q_station:"どこから来ますか？",
  h_station:"バスの手配のためです",c_own:"自分で行きます",q_food:"食べられないものはありますか？",
- h_food:"アレルギーや、苦手なもの",f_allergy:"アレルギー・苦手なもの",q_msg:"なにか一言もらえたら",
+ h_food:"アレルギーや、苦手なもの",f_allergy:"アレルギー・苦手なもの",
+ q_nijikai:"披露宴のあとの2次会には参加しますか？",
+ h_nijikai:"披露宴のあとのカジュアルな会費制パーティーです。おひとり5,000円。",
+ q_msg:"なにか一言もらえたら",
  h_msg:"任意です。ぜんぶ読みます",f_msg:"メッセージ",q_review:"これで合ってますか？",send:"送信",
  doneH:"ありがとう！",doneP:"受け取りました。丘の上で会いましょう。",
  rsNote:"あとから内容を変更したいときは、いつでもメッセージしてくださいね。",
@@ -933,10 +923,7 @@ ja:{filmPh:"ここに映像が流れます",skip:"スキップ",announce:"わた
  endEye:"これから",endHead:"ここから、はじまります",
  endMsg:"私たちの物語に、家族に、これからに加わってくれてありがとう。当日、一緒に乾杯しましょう。",
  endSig:"愛をこめて<br>トゥー &amp; メイ",
- njEye:"披露宴のあとに",njTitle:"2次会のご案内",
- njP:"披露宴のあと、もう少しカジュアルな2次会を予定しています。もっと飲んで、もっと踊って、肩の力を抜いた時間に。会費制で、おひとり5,000円（お食事・お飲み物込み）です。",
- njYesL:"参加します",njNoL:"今回は見送ります",
- njNote:"こちらも同じです。予定が変わったら、いつでも教えてくださいね。"}};
+ njYesL:"参加します",njNoL:"今回は見送ります"}};
 const QZ_T={
 en:[{q:"Who said “I love you” first?",a:1,n:"Htoo — and he'd like it on record that he waited months and months."},
  {q:"Who's always the last one ready?",a:0,n:"May. Every trip. Every time."},
@@ -954,10 +941,6 @@ document.querySelectorAll("[data-t]").forEach(el=>{
 T.en.dressTitle="Dress Code";
 T.en.transTitle="Transportation";
 T.en.saveTitle="16 October 2026 (Friday)";
-T.en.njThanksYes="Wonderful — see you at the afterparty. It's ¥5,000 per person, payable on the day.";
-T.en.njThanksNo="No worries at all — thanks for letting us know.";
-T.ja.njThanksYes="やった、2次会でも会えますね。会費は当日、おひとり5,000円をお願いします。";
-T.ja.njThanksNo="了解です。教えてくれてありがとうございます。";
 let LANG="en";
 const tr=k=>(T[LANG]&&T[LANG][k])||T.en[k]||"";
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1126,17 +1109,18 @@ document.getElementById("calIcs").onclick=()=>{
 const SHEET_ENDPOINT="";
 const rsCard=document.getElementById("rsCard"),rsBar=document.getElementById("rsBar"),
   rsSteps=[...rsCard.querySelectorAll(".rs-step")];
-const YES_FLOW=["attend","name","party","station","food","msg","review","done"];
+const YES_FLOW=["attend","name","party","station","food","nijikai","msg","review","done"];
 const NO_FLOW=["attend","name","msg","review","done"];
 let flow=YES_FLOW,fi=0;
-const data={attending:"",name:"",kana:"",party:1,station:"",allergy:"",message:""};
+const data={attending:"",name:"",kana:"",party:1,station:"",allergy:"",nijikai:"",message:""};
 function showStep(){const key=flow[fi];
   rsSteps.forEach(s=>s.classList.toggle("on",s.dataset.s===key));
   rsBar.style.width=(fi/(flow.length-1)*100)+"%";if(key==="review")updateReview();}
 function updateReview(){const box=document.getElementById("rsReview");if(!box)return;
   const rows=[[tr("q_attend"),data.attending==="yes"?tr("a_yes"):tr("a_no")],[tr("f_name"),data.name||"—"]];
   if(data.attending==="yes"){rows.push([tr("q_party"),String(data.party)]);
-    rows.push([tr("q_station"),data.station||"—"]);rows.push([tr("f_allergy"),data.allergy||"—"]);}
+    rows.push([tr("q_station"),data.station||"—"]);rows.push([tr("f_allergy"),data.allergy||"—"]);
+    rows.push([tr("q_nijikai"),data.nijikai==="yes"?tr("njYesL"):data.nijikai==="no"?tr("njNoL"):"—"]);}
   if(data.message)rows.push([tr("f_msg"),data.message]);
   box.innerHTML=rows.map(r=>`<div class="rs-review"><b>${r[0]}</b><span>${String(r[1]).replace(/</g,"&lt;")}</span></div>`).join("");}
 function yesBurst(originEl){
@@ -1176,9 +1160,11 @@ document.getElementById("pMinus").onclick=()=>{data.party=Math.max(1,data.party-
   document.getElementById("pCount").textContent=data.party;};
 document.getElementById("pPlus").onclick=()=>{data.party=Math.min(3,data.party+1);
   document.getElementById("pCount").textContent=data.party;};
-document.querySelectorAll(".rs-chip").forEach(c=>c.onclick=()=>{
-  document.querySelectorAll(".rs-chip").forEach(x=>x.classList.remove("on"));
-  c.classList.add("on");data.station=c.dataset.v;});
+document.querySelectorAll(".rs-chips[data-field]").forEach(group=>{
+  const field=group.dataset.field;
+  group.querySelectorAll(".rs-chip").forEach(c=>c.onclick=()=>{
+    group.querySelectorAll(".rs-chip").forEach(x=>x.classList.remove("on"));
+    c.classList.add("on");data[field]=c.dataset.v;});});
 document.getElementById("rsSubmit").onclick=async function(){this.disabled=true;
   try{if(SHEET_ENDPOINT)await fetch(SHEET_ENDPOINT,{method:"POST",mode:"no-cors",
     headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({...data,lang:LANG})});
@@ -1186,14 +1172,6 @@ document.getElementById("rsSubmit").onclick=async function(){this.disabled=true;
   fi=flow.length-1;showStep();
   if(data.attending==="yes"){document.getElementById("gated").classList.add("open");
     const m=document.getElementById("gateMsg");if(m)m.remove();}};
-
-document.getElementById("njYes").onclick=e=>{
-  const row=document.querySelector("#njCard .vs"),btn=e.currentTarget,box=document.getElementById("njThanks");
-  btn.classList.add("confirmed");yesBurst(btn);
-  setTimeout(()=>{row.style.display="none";box.textContent=tr("njThanksYes");box.hidden=false;},650);};
-document.getElementById("njNo").onclick=()=>{
-  const row=document.querySelector("#njCard .vs"),box=document.getElementById("njThanks");
-  row.style.display="none";box.textContent=tr("njThanksNo");box.hidden=false;};
 
 const progressOf=el=>{const r=el.getBoundingClientRect();return clamp(-r.top/(el.offsetHeight-innerHeight),0,1);};
 const viewProg=r=>clamp((innerHeight-r.top)/(innerHeight+r.height),0,1);
