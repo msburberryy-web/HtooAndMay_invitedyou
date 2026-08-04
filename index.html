@@ -100,7 +100,7 @@ body.locked{overflow:hidden;height:100vh}
 @keyframes draw{to{stroke-dashoffset:0}}
 .announce{font-family:var(--serif);font-weight:200;font-size:clamp(1.6rem,7vw,2.4rem);
   line-height:1.3;margin:0 auto 1.2rem;max-width:18ch}
-.announce-body{font-size:.92rem;color:var(--greige);max-width:32ch;margin:0 auto}
+.announce-body{font-size:1.02rem;color:var(--greige);max-width:32ch;margin:0 auto}
 .seq{opacity:0;transform:translateY(14px)}
 .drawn .seq{animation:up 1.15s var(--ease) forwards}
 .drawn .seq:nth-of-type(1){animation-delay:1.1s}
@@ -131,7 +131,7 @@ body.locked{overflow:hidden;height:100vh}
   font-family:var(--sans);font-weight:700;text-transform:uppercase;letter-spacing:.02em;
   color:var(--gold);white-space:nowrap;will-change:transform,opacity,filter;pointer-events:none;
   font-size:clamp(1.9rem,9.5vw,3rem);opacity:0}
-.sec p{font-size:.93rem;color:var(--greige);margin:0 0 1.1rem}
+.sec p{font-size:1.03rem;color:var(--greige);margin:0 0 1.1rem}
 .center{text-align:center}
 .rs-deadline{font-size:1.15rem;font-weight:600;color:var(--gold);letter-spacing:.02em}
 .scene{position:relative}
@@ -148,7 +148,7 @@ body.locked{overflow:hidden;height:100vh}
 #welBig{font-family:var(--serif);font-weight:200;line-height:1.02;margin:0;
   font-size:clamp(2.6rem,14vw,7.4rem);letter-spacing:-.02em;transform-origin:center center;will-change:transform}
 #welBody{max-width:34ch;margin-top:1.4rem;opacity:0;will-change:transform,opacity}
-#welBody p{font-size:.93rem;color:var(--greige);margin:0 0 1rem}
+#welBody p{font-size:1.03rem;color:var(--greige);margin:0 0 1rem}
 
 .sc-heart{height:270vh}
 @media (min-width:768px){.sc-heart{height:330vh}}
@@ -165,7 +165,7 @@ body.locked{overflow:hidden;height:100vh}
   color:var(--greige);white-space:nowrap}
 .heart-names span{will-change:transform,opacity}
 #hAmp{color:var(--gold);opacity:0}
-.heart-cap{font-size:.86rem;color:var(--stone);text-align:center;margin:0;opacity:0;
+.heart-cap{font-size:.96rem;color:var(--stone);text-align:center;margin:0;opacity:0;
   will-change:opacity,transform;padding:0 8vw}
 
 .sc-records{height:320vh}
@@ -216,7 +216,7 @@ body.locked{overflow:hidden;height:100vh}
 .j-head{position:absolute;z-index:14;text-align:center;padding:0 10vw;max-width:32rem;will-change:transform,opacity}
 .j-head h3{font-family:var(--serif);font-size:clamp(1.9rem,8.4vw,3rem);margin:0 0 .6rem;
   line-height:1.1;text-shadow:0 2px 30px rgba(0,0,0,.5);will-change:font-variation-settings}
-.j-head p{font-size:.93rem;color:var(--greige);margin:0;text-shadow:0 1px 22px rgba(0,0,0,.6)}
+.j-head p{font-size:1.02rem;color:var(--greige);margin:0;text-shadow:0 1px 22px rgba(0,0,0,.6)}
 .j-date{position:absolute;z-index:14;left:0;right:0;top:11vh;text-align:center;padding:0 8vw;
   opacity:0;will-change:opacity,transform}
 .j-date .k{font-size:.56rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin:0 0 .5rem}
@@ -256,7 +256,7 @@ body.locked{overflow:hidden;height:100vh}
 .card .eyebrow{margin-bottom:.8rem}
 .card h3{font-family:var(--serif);font-weight:200;font-size:clamp(1.7rem,7vw,2.3rem);
   margin:0 0 1rem;line-height:1.15}
-.card p{font-size:.92rem;color:var(--greige);margin:0 0 1.2rem}
+.card p{font-size:1.02rem;color:var(--greige);margin:0 0 1.2rem}
 .cards-dots{position:absolute;bottom:9vh;left:0;right:0;display:flex;gap:.45rem;
   justify-content:center;z-index:30}
 .cd-dot{width:28px;height:2px;background:rgba(242,239,233,.18);transition:background .5s ease}
@@ -267,16 +267,17 @@ body.locked{overflow:hidden;height:100vh}
 @media (min-width:768px){.sc-faq{height:500vh}}
 .faq-pin{background:radial-gradient(ellipse at 50% 46%,#1B2C22 0%,#0D1712 68%)}
 .faq-head{position:absolute;top:7vh;left:0;right:0;text-align:center;z-index:5;padding:0 var(--pad)}
-.faq-card{position:absolute;left:50%;top:54%;width:min(84vw,440px);
+.faq-card{position:absolute;left:50%;top:54%;width:min(90vw,480px);
   transform:translate(-50%,-50%);will-change:transform,opacity;
-  padding:2.4rem 1.8rem;border-radius:18px;text-align:center;
+  padding:2.6rem 2rem;border-radius:18px;text-align:center;
   background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.03));
   backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   border:1px solid rgba(242,239,233,.16);box-shadow:0 18px 50px rgba(0,0,0,.4)}
-@media (min-width:768px){.faq-card{padding:2.8rem 2.4rem}}
-.faq-q{font-family:var(--serif);font-weight:200;font-size:clamp(1.25rem,5.4vw,1.6rem);
-  margin:0 0 1rem;line-height:1.32;color:var(--gold)}
-.faq-a{font-size:.92rem;color:var(--greige);line-height:1.7;margin:0}
+@media (min-width:768px){.faq-card{padding:3.1rem 2.7rem}}
+.faq-q{font-family:var(--serif);font-weight:200;font-size:clamp(1.4rem,6.2vw,1.85rem);
+  margin:0 0 1.1rem;line-height:1.32;color:var(--gold)}
+.faq-a{font-size:1.05rem;color:var(--greige);line-height:1.7;margin:0}
+.faq-a .hl{color:var(--gold);font-weight:400}
 .faq-dots{position:absolute;bottom:9vh;left:0;right:0;display:flex;gap:.45rem;
   justify-content:center;z-index:30}
 .fq-dot{width:28px;height:2px;background:rgba(242,239,233,.18);transition:background .5s ease}
@@ -330,7 +331,7 @@ body.locked{overflow:hidden;height:100vh}
 .bus-row{display:grid;grid-template-columns:3.6rem 1fr;gap:.8rem;align-items:baseline;
   padding:.75rem 0;border-bottom:1px solid var(--line);text-align:left}
 .bus-k{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
-.bus-v{font-size:.88rem;color:var(--greige)}
+.bus-v{font-size:.98rem;color:var(--greige)}
 .bus-v small{display:block;color:var(--stone);font-size:.76rem}
 .gate-note{border-left:1px solid var(--gold);padding:.2rem 0 .2rem .9rem;font-size:.8rem;
   color:var(--stone);margin:1.4rem 0 0;text-align:left}
@@ -396,7 +397,7 @@ body.locked{overflow:hidden;height:100vh}
 .vs-side.confirmed .init{color:var(--gold);transform:scale(1.22)}
 .vs-side.confirmed .nm{color:var(--gold)}
 @keyframes yesPop{0%{transform:scale(1)}40%{transform:scale(1.1)}100%{transform:scale(1)}}
-.qz-note{text-align:center;font-size:.88rem;color:var(--greige);margin:1.6rem 0 0;min-height:3.4em;
+.qz-note{text-align:center;font-size:.98rem;color:var(--greige);margin:1.6rem 0 0;min-height:3.4em;
   opacity:0;transform:translateY(10px);transition:.6s var(--ease)}
 .qz-note.on{opacity:1;transform:none}
 .qz-next{display:block;margin:1.2rem auto 0;background:none;border:0;border-bottom:1px solid var(--gold);
@@ -414,7 +415,8 @@ body.locked{overflow:hidden;height:100vh}
 @keyframes stepIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 .rs-q{font-family:var(--serif);font-weight:200;font-size:clamp(1.35rem,5.8vw,1.9rem);
   line-height:1.32;margin:.4rem 0;text-align:center}
-.rs-hint{font-size:.8rem;color:var(--stone);text-align:center;margin:0 0 2rem}
+.rs-hint{font-size:.9rem;color:var(--stone);text-align:center;margin:0 0 2rem}
+.rs-hint .hl{color:var(--gold);font-weight:400}
 .rs-field{display:block;margin-bottom:1.6rem}
 .rs-field span{display:block;font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;
   color:var(--gold);margin-bottom:.4rem}
@@ -442,7 +444,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
   min-width:2ch;text-align:center;line-height:1}
 #rsReview{max-height:36svh;overflow-y:auto;overscroll-behavior:contain}
 .rs-review{border-bottom:1px dashed rgba(242,239,233,.14);padding:.8rem 0;display:grid;
-  grid-template-columns:8rem 1fr;gap:.8rem;font-size:.88rem}
+  grid-template-columns:8rem 1fr;gap:.8rem;font-size:.95rem}
 .rs-review:last-of-type{margin-bottom:1.4rem}
 .rs-review b{font-weight:300;color:var(--stone);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase}
 .rs-review span{color:var(--greige)}
@@ -474,7 +476,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 #endEyebrow{opacity:0}
 #endHead{font-family:var(--serif);font-weight:200;font-size:clamp(1.7rem,7.4vw,2.7rem);
   margin:0 0 1.6rem;line-height:1.2;opacity:0;will-change:transform,opacity}
-#endMsg{font-size:.95rem;max-width:34ch;margin:0 auto;opacity:0;will-change:transform,opacity}
+#endMsg{font-size:1.05rem;max-width:34ch;margin:0 auto;opacity:0;will-change:transform,opacity}
 #endSig{font-family:var(--serif);font-weight:200;font-size:1.4rem;letter-spacing:.1em;
   color:var(--greige);margin-top:2.4rem;opacity:0;will-change:transform,opacity}
 
@@ -695,31 +697,31 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 
     <div class="faq-card" data-faq="0">
       <p class="faq-q" data-t="faqQ1">How do we get there?</p>
-      <p class="faq-a" data-t="faqA1">We're near Atsugi — about 48 minutes from Shinjuku Station. Shuttle buses run from Shinjuku, Tokyo Station and Ikebukuro; each one holds 27–28 people, so please let us know via RSVP if you'd like a seat.</p></div>
+      <p class="faq-a" data-t="faqA1" data-html>We're near Atsugi — about <span class="hl">48 minutes from Shinjuku Station</span>. Shuttle buses run from Shinjuku, Tokyo Station and Ikebukuro; each one holds 27–28 people, so please let us know via RSVP if you'd like a seat.</p></div>
     <div class="faq-card" data-faq="1">
       <p class="faq-q" data-t="faqQ2">Where exactly is the venue?</p>
-      <p class="faq-a" data-t="faqA2">We're keeping the exact address as a little surprise until you RSVP — think of it as the start of the adventure! For now, just know you're headed to the Atsugi area.</p></div>
+      <p class="faq-a" data-t="faqA2" data-html>We're keeping the exact address as a little surprise until you RSVP — think of it as the start of the adventure! For now, just know you're headed to the <span class="hl">Atsugi area</span>.</p></div>
     <div class="faq-card" data-faq="2">
       <p class="faq-q" data-t="faqQ3">Can we bring the kids?</p>
-      <p class="faq-a" data-t="faqA3">This one's just for the grown-ups — our venue doesn't have space for little ones this time, so we're keeping it adults-only. If that's tricky for you, just reach out and we'll happily figure something out together.</p></div>
+      <p class="faq-a" data-t="faqA3" data-html>This one's just for the grown-ups — our venue doesn't have space for little ones this time, so we're keeping it <span class="hl">adults-only</span>. If that's tricky for you, just reach out and we'll happily figure something out together.</p></div>
     <div class="faq-card" data-faq="3">
       <p class="faq-q" data-t="faqQ4">I have a food allergy — how do I tell you?</p>
-      <p class="faq-a" data-t="faqA4">There's a spot for that in the RSVP form below — just fill in "Anything you can't eat?" and we'll take care of it.</p></div>
+      <p class="faq-a" data-t="faqA4" data-html>There's a spot for that in the <span class="hl">RSVP form below</span> — just fill in "Anything you can't eat?" and we'll take care of it.</p></div>
     <div class="faq-card" data-faq="4">
       <p class="faq-q" data-t="faqQ5">What time should I arrive?</p>
-      <p class="faq-a" data-t="faqA5">The ceremony begins at 14:00 — gates close at 13:50, so please plan to arrive a little before then.</p></div>
+      <p class="faq-a" data-t="faqA5" data-html>The ceremony begins at <span class="hl">14:00</span> — gates close at <span class="hl">13:50</span>, so please plan to arrive a little before then.</p></div>
     <div class="faq-card" data-faq="5">
       <p class="faq-q" data-t="faqQ6">Is parking available?</p>
-      <p class="faq-a" data-t="faqA6">Yes, parking is available — just let us know in advance so we can plan for it.</p></div>
+      <p class="faq-a" data-t="faqA6" data-html><span class="hl">Yes, parking is available</span> — just let us know in advance so we can plan for it.</p></div>
     <div class="faq-card" data-faq="6">
       <p class="faq-q" data-t="faqQ7">What should I wear?</p>
       <p class="faq-a" data-t="faqA7">Check out the dress code section above.</p></div>
     <div class="faq-card" data-faq="7">
       <p class="faq-q" data-t="faqQ8">Can I bring a +1?</p>
-      <p class="faq-a" data-t="faqA8">We kindly ask that only those who received this invitation attend. If you're bringing a plus one, please add them in the RSVP form so we can seat you together.</p></div>
+      <p class="faq-a" data-t="faqA8" data-html>We kindly ask that <span class="hl">only those who received this invitation</span> attend. If you're bringing a plus one, please add them in the RSVP form so we can seat you together.</p></div>
     <div class="faq-card" data-faq="8">
       <p class="faq-q" data-t="faqQ9">Can I change my RSVP after I've sent it?</p>
-      <p class="faq-a" data-t="faqA9">Of course — plans change, and that's completely fine. If you need to update anything (attendance, guest count, allergies, even the 2次会), just reach out to us directly. We'd much rather help you fix it than have you feel like you have to show up out of obligation.</p></div>
+      <p class="faq-a" data-t="faqA9" data-html>Of course — plans change, and that's completely fine. If you need to update anything (attendance, guest count, allergies, even the 2次会), just <span class="hl">reach out to us directly</span>. We'd much rather help you fix it than have you feel like you have to show up out of obligation.</p></div>
 
     <div class="faq-dots" id="faqDots">
       <span class="fq-dot on"></span><span class="fq-dot"></span><span class="fq-dot"></span><span class="fq-dot"></span>
@@ -809,7 +811,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
           <button class="rs-btn" data-next data-t="next">Next</button></div></div>
       <div class="rs-step" data-s="nijikai">
         <p class="rs-q" data-t="q_nijikai">Joining us for the 2次会 afterparty?</p>
-        <p class="rs-hint" data-t="h_nijikai">Once the main celebration wraps up, we're keeping the night going with a casual afterparty — more food, more drinks, way less formality. The ¥5,000 per person isn't an entrance fee, just our way of covering the extra food and drinks together.</p>
+        <p class="rs-hint" data-t="h_nijikai" data-html>Once the main celebration wraps up, we're keeping the night going with a casual afterparty — more food, more drinks, way less formality. <span class="hl">¥5,000 per person</span> isn't an entrance fee, just our way of covering the extra food and drinks together.</p>
         <div class="rs-chips" id="njChips" data-field="nijikai">
           <button class="rs-chip" type="button" data-v="yes" data-t="njYesL">Count me in</button>
           <button class="rs-chip" type="button" data-v="no" data-t="njNoL">I'll sit this one out</button></div>
@@ -887,23 +889,23 @@ ja:{filmPh:"ここに映像が流れます",skip:"スキップ",announce:"わた
  gateMsg:"下記のRSVPでご希望の駅を選んでいただくと、乗車地点とバス時間をお知らせします。",
  faqEye:"ご案内",faqTitle:"よくあるご質問",
  faqQ1:"会場へはどうやって行きますか？",
- faqA1:"会場は厚木エリアにあり、新宿駅から電車で約48分です。新宿・東京・池袋から送迎バスも出しますが、1台27〜28人までなので、乗りたい人はRSVPで教えてくださいね。",
+ faqA1:"会場は厚木エリアにあり、<span class=\"hl\">新宿駅から電車で約48分</span>です。新宿・東京・池袋から送迎バスも出しますが、1台27〜28人までなので、乗りたい人はRSVPで教えてくださいね。",
  faqQ2:"会場の住所は？",
- faqA2:"住所は、RSVPをいただいてからのお楽しみにさせてください。旅の始まりみたいで、ちょっとワクワクしませんか？今のところは、厚木エリアということだけ覚えておいてくださいね。",
+ faqA2:"住所は、RSVPをいただいてからのお楽しみにさせてください。旅の始まりみたいで、ちょっとワクワクしませんか？今のところは、<span class=\"hl\">厚木エリア</span>ということだけ覚えておいてくださいね。",
  faqQ3:"子供を連れて行ってもいいですか？",
- faqA3:"今回は大人だけの特別な時間にしたくて、大人限定とさせていただきました。会場に託児スペースがないのもあります。もし難しいようでしたら、気軽にご相談くださいね。できる限り力になります。",
+ faqA3:"今回は大人だけの特別な時間にしたくて、<span class=\"hl\">大人限定</span>とさせていただきました。会場に託児スペースがないのもあります。もし難しいようでしたら、気軽にご相談くださいね。できる限り力になります。",
  faqQ4:"食物アレルギーはどう伝えればいいですか？",
- faqA4:"下記のRSVPフォームに欄がありますので、「食べられないもの」にご記入ください。",
+ faqA4:"下記の<span class=\"hl\">RSVPフォーム</span>に欄がありますので、「食べられないもの」にご記入ください。",
  faqQ5:"何時に到着すればいいですか？",
- faqA5:"挙式は14時開始です。入場は13時50分までとなりますので、少し余裕を持ってお越しくださいね。",
+ faqA5:"挙式は<span class=\"hl\">14時開始</span>です。入場は<span class=\"hl\">13時50分まで</span>となりますので、少し余裕を持ってお越しくださいね。",
  faqQ6:"駐車場はありますか？",
- faqA6:"はい、駐車場をご用意しています。事前に一言いただけると助かります。",
+ faqA6:"<span class=\"hl\">はい、駐車場をご用意しています</span>。事前に一言いただけると助かります。",
  faqQ7:"服装はどうすればいいですか？",
  faqA7:"上のドレスコードをご覧ください。",
  faqQ8:"パートナーや友人を連れて行ってもいいですか？",
- faqA8:"今回は、招待状をお受け取りいただいた方のみのご参加をお願いしております。同伴の方がいる場合は、RSVPフォームにご記入ください。お席を近くにご用意しますね。",
+ faqA8:"今回は、<span class=\"hl\">招待状をお受け取りいただいた方のみ</span>のご参加をお願いしております。同伴の方がいる場合は、RSVPフォームにご記入ください。お席を近くにご用意しますね。",
  faqQ9:"送ったあとでも、RSVPの内容を変更できますか？",
- faqA9:"もちろんです。予定が変わることもありますよね、それは全然大丈夫です。出欠や人数、アレルギー、2次会のことなど、変更したいことがあれば遠慮なく直接連絡してください。無理に予定を合わせて来ていただくより、ずっとお手伝いしたいと思っています。",
+ faqA9:"もちろんです。予定が変わることもありますよね、それは全然大丈夫です。出欠や人数、アレルギー、2次会のことなど、変更したいことがあれば<span class=\"hl\">遠慮なく直接連絡してください</span>。無理に予定を合わせて来ていただくより、ずっとお手伝いしたいと思っています。",
  quizFun1:"たのしい。",quizFun2:"クイズ。",quizFun3:"タイム。",
  quizTitle:"メイ？トゥー？",quizP:"5問だけ。どっちだと思うか押してください。",
  nameMay:"メイ",nameHtoo:"トゥー",next:"次へ",back:"戻る",rsEye:"お返事",rsTitle:"出欠",
@@ -914,7 +916,7 @@ ja:{filmPh:"ここに映像が流れます",skip:"スキップ",announce:"わた
  h_station:"バスの手配のためです",c_own:"自分で行きます",q_food:"食べられないものはありますか？",
  h_food:"アレルギーや、苦手なもの",f_allergy:"アレルギー・苦手なもの",
  q_nijikai:"披露宴のあと、2次会にも参加されますか？",
- h_nijikai:"披露宴が終わったあとも、もう少し肩の力を抜いて楽しめる時間を用意しています。追加のお食事とお飲み物の分として、おひとり5,000円をいただいていますが、参加費ということではなく、みんなでもっと楽しむための費用だと思ってください。",
+ h_nijikai:"披露宴が終わったあとも、もう少し肩の力を抜いて楽しめる時間を用意しています。追加のお食事とお飲み物の分として、<span class=\"hl\">おひとり5,000円</span>をいただいていますが、参加費ということではなく、みんなでもっと楽しむための費用だと思ってください。",
  q_msg:"なにか一言もらえたら",
  h_msg:"任意です。ぜんぶ読みます",f_msg:"メッセージ",q_review:"これで合ってますか？",send:"送信",
  doneH:"ありがとう！",doneP:"受け取りました。丘の上で会いましょう。",
@@ -1068,8 +1070,14 @@ function endIntro(){if(ended)return;ended=true;intro.classList.add("gone");
   document.body.classList.remove("locked");monoSec.classList.add("drawn");
   setTimeout(()=>intro.remove(),1300);}
 document.getElementById("skip").onclick=endIntro;
-if(film.querySelector("source")){vidph.style.display="none";film.play().catch(endIntro);
-  film.addEventListener("ended",endIntro);}
+if(film.querySelector("source")){
+  vidph.style.display="none";
+  let started=false;
+  film.addEventListener("playing",()=>{started=true;},{once:true});
+  film.addEventListener("ended",endIntro);
+  film.addEventListener("error",endIntro);
+  film.play().catch(endIntro);
+  setTimeout(()=>{if(!started)endIntro();},6000);}
 else{const DUR=5000,t0=performance.now();
   (function tick(now){const p=Math.min((now-t0)/DUR,1);phbar.style.width=(p*100)+"%";
     p<1?requestAnimationFrame(tick):endIntro();})(t0);}
