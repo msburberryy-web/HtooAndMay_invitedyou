@@ -440,7 +440,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 .rs-stepper button:hover{border-color:var(--gold);color:var(--gold)}
 .rs-count{font-family:var(--serif);font-weight:200;font-size:3rem;color:var(--gold);
   min-width:2ch;text-align:center;line-height:1}
-#rsReview{max-height:30svh;overflow-y:auto}
+#rsReview{max-height:36svh;overflow-y:auto;overscroll-behavior:contain}
 .rs-review{border-bottom:1px dashed rgba(242,239,233,.14);padding:.8rem 0;display:grid;
   grid-template-columns:8rem 1fr;gap:.8rem;font-size:.88rem}
 .rs-review:last-of-type{margin-bottom:1.4rem}
@@ -808,8 +808,8 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
         <div class="rs-step-nav"><button class="rs-btn ghost" data-back data-t="back">Back</button>
           <button class="rs-btn" data-next data-t="next">Next</button></div></div>
       <div class="rs-step" data-s="nijikai">
-        <p class="rs-q" data-t="q_nijikai">Joining the 2次会 afterparty?</p>
-        <p class="rs-hint" data-t="h_nijikai">A casual second party right after — 会費制, ¥5,000 per person</p>
+        <p class="rs-q" data-t="q_nijikai">Joining us for the 2次会 afterparty?</p>
+        <p class="rs-hint" data-t="h_nijikai">Once the main celebration wraps up, we're keeping the night going with a casual afterparty — more food, more drinks, way less formality. The ¥5,000 per person isn't an entrance fee, just our way of covering the extra food and drinks together.</p>
         <div class="rs-chips" id="njChips" data-field="nijikai">
           <button class="rs-chip" type="button" data-v="yes" data-t="njYesL">Count me in</button>
           <button class="rs-chip" type="button" data-v="no" data-t="njNoL">I'll sit this one out</button></div>
@@ -913,8 +913,8 @@ ja:{filmPh:"ここに映像が流れます",skip:"スキップ",announce:"わた
  q_party:"何人で来ますか？",h_party:"ご自身を含めて",q_station:"どこから来ますか？",
  h_station:"バスの手配のためです",c_own:"自分で行きます",q_food:"食べられないものはありますか？",
  h_food:"アレルギーや、苦手なもの",f_allergy:"アレルギー・苦手なもの",
- q_nijikai:"披露宴のあとの2次会には参加しますか？",
- h_nijikai:"披露宴のあとのカジュアルな会費制パーティーです。おひとり5,000円。",
+ q_nijikai:"披露宴のあと、2次会にも参加されますか？",
+ h_nijikai:"披露宴が終わったあとも、もう少し肩の力を抜いて楽しめる時間を用意しています。追加のお食事とお飲み物の分として、おひとり5,000円をいただいていますが、参加費ということではなく、みんなでもっと楽しむための費用だと思ってください。",
  q_msg:"なにか一言もらえたら",
  h_msg:"任意です。ぜんぶ読みます",f_msg:"メッセージ",q_review:"これで合ってますか？",send:"送信",
  doneH:"ありがとう！",doneP:"受け取りました。丘の上で会いましょう。",
@@ -969,6 +969,7 @@ if(!reduce){
     scrollTo(0,next);wsLastSet=next;
     requestAnimationFrame(wsTick);}
   addEventListener("wheel",e=>{
+    if(e.target.closest&&e.target.closest("#rsReview"))return;
     e.preventDefault();
     if(!wsTicking)wsTarget=scrollY;
     wsTarget=clamp(wsTarget+e.deltaY,0,wsMaxScroll());
