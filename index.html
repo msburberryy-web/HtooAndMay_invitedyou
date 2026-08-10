@@ -21,7 +21,7 @@ body{margin:0;width:100%;background:var(--ink);color:var(--bone);font-family:var
   line-height:1.8;overflow-x:hidden;-webkit-font-smoothing:antialiased;overscroll-behavior-y:none}
 body.locked{overflow:hidden;height:100vh}
 .wrap{max-width:600px;margin:0 auto;padding:0 var(--pad);position:relative;z-index:4}
-#bgphoto{position:fixed;inset:0;pointer-events:none;z-index:-1;background-size:cover;background-position:center;
+#bgphoto{position:fixed;left:0;right:0;top:-15%;height:130%;pointer-events:none;z-index:-1;background-size:cover;background-position:center;will-change:transform;
   background-image:url("assets/photos/bg-mobile.jpg")}
 @media (min-width:768px){#bgphoto{background-image:url("assets/photos/bg-desktop.jpg")}}
 #paintwash{position:fixed;inset:0;pointer-events:none;z-index:118;mix-blend-mode:hard-light;opacity:.62;
@@ -132,9 +132,6 @@ body.locked{overflow:hidden;height:100vh}
 .rs-deadline{font-size:1.15rem;font-weight:600;color:var(--gold);letter-spacing:.02em}
 .scene{position:relative}
 .pin{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.pin::before,.pin::after{content:"";position:absolute;left:0;right:0;height:16vh;z-index:20;pointer-events:none}
-.pin::before{top:0;background:linear-gradient(to bottom,var(--ink) 0%,rgba(13,23,18,.55) 45%,transparent 100%)}
-.pin::after{bottom:0;background:linear-gradient(to top,var(--ink) 0%,rgba(13,23,18,.55) 45%,transparent 100%)}
 .layer{position:absolute;inset:0;width:100%;height:100%;will-change:transform}
 .layer svg,.layer img{width:100%;height:100%;display:block;object-fit:cover;object-position:center bottom}
 
@@ -849,24 +846,6 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 </section>
 
 <script>
-function removeWhiteBg(imgEl){
-  if(!imgEl)return;
-  const process=()=>{
-    try{
-      const c=document.createElement('canvas');
-      c.width=imgEl.naturalWidth;c.height=imgEl.naturalHeight;
-      const ctx=c.getContext('2d');ctx.drawImage(imgEl,0,0);
-      const id=ctx.getImageData(0,0,c.width,c.height),d=id.data;
-      for(let i=0;i<d.length;i+=4){
-        const w=Math.min(d[i],d[i+1],d[i+2]);
-        if(w>200)d[i+3]=Math.round(d[i+3]*(1-(w-200)/55));}
-      ctx.putImageData(id,0,0);
-      imgEl.src=c.toDataURL('image/png');
-    }catch(e){console.warn('white-bg removal:',e);}};
-  if(imgEl.complete&&imgEl.naturalWidth)process();
-  else imgEl.addEventListener('load',process,{once:true});}
-['monogram','endMono'].forEach(id=>removeWhiteBg(document.getElementById(id)));
-
 const T={en:{},
 ja:{filmPh:"オープニングフィルムが再生されます",skip:"スキップ",announce:"結婚いたします。",
  announceBody:"大切な皆様と一緒に、特別な時間を過ごせたら嬉しいです。",
@@ -1011,22 +990,25 @@ const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
 const mixRGB=(x,y,t)=>`rgb(${Math.round(lerp(x[0],y[0],t))},${Math.round(lerp(x[1],y[1],t))},${Math.round(lerp(x[2],y[2],t))})`;
 
 if(!reduce){
-  let wsTarget=scrollY,wsTicking=false,wsLastSet=scrollY;
+  let wsTarget=scrollY,wsTicking=false,wsLastSet=scrollY,wsLastT=0;
   function wsMaxScroll(){return Math.max(0,document.body.scrollHeight-innerHeight);}
-  function wsTick(){
-    if(Math.abs(scrollY-wsLastSet)>1){wsTarget=scrollY;wsTicking=false;return;}
+  function wsTick(now){
+    if(Math.abs(scrollY-wsLastSet)>2){wsTarget=scrollY;wsTicking=false;return;}
+    const dt=wsLastT?clamp(now-wsLastT,1,48):16.67;wsLastT=now;
     const diff=wsTarget-scrollY;
-    if(Math.abs(diff)<.5){scrollTo(0,wsTarget);wsTicking=false;return;}
-    const next=scrollY+diff*.26;
+    if(Math.abs(diff)<.4){scrollTo(0,wsTarget);wsTicking=false;wsLastT=0;return;}
+    const rate=1-Math.pow(1-.17,dt/16.67);
+    const next=scrollY+diff*rate;
     scrollTo(0,next);wsLastSet=next;
     requestAnimationFrame(wsTick);}
   addEventListener("wheel",e=>{
     if(e.target.closest&&e.target.closest("#rsReview"))return;
     e.preventDefault();
     if(!wsTicking)wsTarget=scrollY;
-    wsTarget=clamp(wsTarget+e.deltaY,0,wsMaxScroll());
+    const dy=e.deltaMode===1?e.deltaY*18:e.deltaMode===2?e.deltaY*innerHeight:e.deltaY;
+    wsTarget=clamp(wsTarget+dy,0,wsMaxScroll());
     wsLastSet=scrollY;
-    if(!wsTicking){wsTicking=true;requestAnimationFrame(wsTick);}},{passive:false});
+    if(!wsTicking){wsTicking=true;wsLastT=0;requestAnimationFrame(wsTick);}},{passive:false});
   addEventListener("resize",()=>{wsTarget=clamp(wsTarget,0,wsMaxScroll());},{passive:true});
 }
 const mix3=(a,b,c,t)=>t<.70?mixRGB(a,b,t/.70):mixRGB(b,c,(t-.70)/.30);
@@ -1369,7 +1351,7 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
 (function frame(now){
   const pageProg=clamp(scrollY/(document.body.scrollHeight-innerHeight),0,1);
   prog.style.width=(pageProg*100)+"%";
-  bgPhoto.style.backgroundPosition=`50% ${(pageProg*100).toFixed(1)}%`;
+  bgPhoto.style.transform=`translate3d(0,${lerp(innerHeight*.15,innerHeight*-.15,pageProg)}px,0)`;
   const jr=jScene.getBoundingClientRect();
   if(jr.bottom<0||jr.top>innerHeight){fwArmed=true;if(fwOn){fwOn=false;fwHide();}}
   if(fwOn){const rr=jRail.getBoundingClientRect();fwTick(now,rr.width,rr.height);}
