@@ -722,7 +722,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
       <p class="faq-a" data-t="faqA7">Please refer to the dress code card above.</p></div>
     <div class="faq-card" data-faq="7">
       <p class="faq-q" data-t="faqQ8">May I bring a guest (+1)?</p>
-      <p class="faq-a" data-t="faqA8" data-html>We kindly request attendance from <span class="hl">invited guests</span>. If you wish to bring a plus one, please list their name in the RSVP section so we can seat you together comfortably.</p></div>
+      <p class="faq-a" data-t="faqA8" data-html>If you're attending with a spouse or plus-one, you only need to submit <span class="hl">one RSVP</span> — just add their name in the guest field so we can seat you together.</p></div>
     <div class="faq-card" data-faq="8">
       <p class="faq-q" data-t="faqQ9">Can I update my RSVP details later?</p>
       <p class="faq-a" data-t="faqA9" data-html>Yes, of course! Plans change, and that's completely okay. If you need to update your attendance, guest details, or transportation preference, simply <span class="hl">contact us directly</span> anytime.</p></div>
@@ -795,6 +795,9 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
         <div class="rs-stepper"><button type="button" id="pMinus" aria-label="minus">−</button>
           <div class="rs-count" id="pCount">1</div>
           <button type="button" id="pPlus" aria-label="plus">+</button></div>
+        <label class="rs-field" id="guestNameField" style="display:none;margin-top:1.6rem">
+          <span data-t="f_guestName">Guest name(s)</span>
+          <input class="rs-in" id="fGuestName" type="text"></label>
         <div class="rs-step-nav"><button class="rs-btn ghost" data-back data-t="back">Back</button>
           <button class="rs-btn" data-next data-t="next">Next</button></div></div>
       <div class="rs-step" data-s="station">
@@ -907,7 +910,7 @@ ja:{filmPh:"オープニングフィルムが再生されます",skip:"スキッ
  faqQ7:"服装の指定はありますか？",
  faqA7:"上記の「ドレスコード」の項目をご覧ください。",
  faqQ8:"同伴者（+1）を連れて行ってもいいですか？",
- faqA8:"今回は<span class=\"hl\">招待状をお送りした皆様</span>を中心にお迎えしております。ご同伴者がいらっしゃる場合はRSVPフォームにご記入ください。",
+ faqA8:"配偶者やパートナーとご一緒に出席される場合、RSVPは<span class=\"hl\">1回のご提出</span>で大丈夫です。同じフォーム内に同伴者のお名前もご記入くださいね。",
  faqQ9:"回答後にRSVP内容を変更できますか？",
  faqA9:"はい、いつでも変更可能です。ご都合が変わられた場合は<span class=\"hl\">直接ご連絡いただけますと幸いです</span>。",
  quizFun1:"楽しく",quizFun2:"クイズ",quizFun3:"タイム！",
@@ -919,6 +922,7 @@ ja:{filmPh:"オープニングフィルムが再生されます",skip:"スキッ
  q_party:"ご出席人数",h_party:"ご本人様を含めた人数",q_station:"ご利用駅",
  h_station:"送迎バス手配のためお選びください",c_own:"自分で向かいます",q_food:"アレルギー・お食事のお好み",
  h_food:"アレルギーや控えている食材がございましたらお知らせください",f_allergy:"アレルギー等",
+ f_guestName:"同伴者のお名前",
  q_nijikai:"2次会へのご参加",
  h_nijikai:"披露宴の後、カジュアルな2次会を予定しております。<span class=\"hl\">会費：おひとり様 5,000円</span>（軽食・ドリンク代として）。",
  njLink:"日本の結婚式マナーについて（英語）→",
@@ -964,7 +968,7 @@ my:{filmPh:"ဗီဒီယိုဖိုင်အား ဒီနေရာတ�
  faqQ7:"ဝတ်ဆင်ရမည့် ဝတ်စုံအမျိုးအစားမှာ မည်သို့နည်း။",
  faqA7:"အထက်ပါ Dress Code အပိုင်းတွင် ကြည့်ရှုနိုင်ပါသည်။",
  faqQ8:"အဖော် (+1) ခေါ်ဆောင်လာခွင့် ရှိပါသလား။",
- faqA8:"ဖိတ်ကြားလွှာရရှိသူများ သီးသန့်တက်ရောက်ပေးပါရန် မေတ္တာရပ်ခံအပ်ပါသည်။ အဖော်ပါပါက RSVP ဖောင်တွင် အမည်ဖြည့်စွက်ပေးပါရန်။",
+ faqA8:"ဇနီးမောင်နှံ (သို့မဟုတ်) အဖော်နှင့်အတူ တက်ရောက်မည်ဆိုပါက <span class=\"hl\">တစ်ကြိမ်သာ RSVP ဖောင်ဖြည့်စွက်ရန်</span> လိုအပ်ပြီး ပါဝင်လာမည့်သူ၏ အမည်ကိုလည်း ဖောင်တွင် တစ်ပါတည်း ဖြည့်စွက်ပေးနိုင်ပါသည်။",
  faqQ9:"RSVP ဖြည့်ပြီးပါက အချက်အလက်များ ပြန်လည်ပြင်ဆင်နိုင်ပါသလား။",
  faqA9:"ဟုတ်ကဲ့၊ ပြင်ဆင်နိုင်ပါသည်။ အစီအစဉ်များ ပြောင်းလဲပါက ကျွန်တော်တို့ထံ <span class=\"hl\">တိုက်ရိုက် ဆက်သွယ် အကြောင်းကြားနိုင်ပါသည်။</span>",
  quizFun1:"ပျော်ရွှင်စရာ",quizFun2:"ဥာဏ်စမ်း",quizFun3:"အစီအစဉ်",
@@ -976,6 +980,7 @@ my:{filmPh:"ဗီဒီယိုဖိုင်အား ဒီနေရာတ�
  q_party:"တက်ရောက်မည့် ဧည့်သည်အရေအတွက်",h_party:"မိမိအပါအဝင်",q_station:"မည်သည့်ဘူတာမှ လာရောက်မည်နည်း",
  h_station:"ကြိုပို့ကား စီစဉ်ရန်ဖြစ်ပါသည်",c_own:"ကိုယ်ပိုင်အစီအစဉ်ဖြင့် လာရောက်ပါမည်",q_food:"မတည့်သည့် အစားအစာများ ရှိပါသလား",
  h_food:"ဓာတ်မတည့်သည်များ သို့မဟုတ် မစားသည့် အစားအစာများ",f_allergy:"မတည့်သည့် အစားအစာများ",
+ f_guestName:"အတူတက်ရောက်မည့်သူ၏ အမည်",
  q_nijikai:"2次会 (Afterparty) သို့ ပါဝင်ဆင်နွှဲမည်လား",
  h_nijikai:"မင်္ဂလာဧည့်ခံပွဲအပြီးတွင် ပေါ့ပါးလွတ်လပ်သော အာဖတာပါတီ ဆက်လက်ကျင်းပပါမည်။ <span class=\"hl\">တစ်ဦးလျှင် ယန်း ၅,၀၀၀</span> (အစားအသောက် စရိတ်မျှဝေခြင်း ဖြစ်ပါသည်။)",
  njLink:"ဂျပန်မင်္ဂလာပွဲ ဓလေ့ထုံးစံများအကြောင်း လေ့လာရန် →",
@@ -1174,13 +1179,14 @@ const rsCard=document.getElementById("rsCard"),rsBar=document.getElementById("rs
 const YES_FLOW=["attend","name","party","station","food","nijikai","msg","review","done"];
 const NO_FLOW=["attend","name","msg","review","done"];
 let flow=YES_FLOW,fi=0;
-const data={attending:"",name:"",kana:"",party:1,station:"",allergy:"",nijikai:"",message:""};
+const data={attending:"",name:"",kana:"",party:1,guestNames:"",station:"",allergy:"",nijikai:"",message:""};
 function showStep(){const key=flow[fi];
   rsSteps.forEach(s=>s.classList.toggle("on",s.dataset.s===key));
   rsBar.style.width=(fi/(flow.length-1)*100)+"%";if(key==="review")updateReview();}
 function updateReview(){const box=document.getElementById("rsReview");if(!box)return;
   const rows=[[tr("q_attend"),data.attending==="yes"?tr("a_yes"):tr("a_no")],[tr("f_name"),data.name||"—"]];
   if(data.attending==="yes"){rows.push([tr("q_party"),String(data.party)]);
+    if(data.party>1)rows.push([tr("f_guestName"),data.guestNames||"—"]);
     rows.push([tr("q_station"),data.station||"—"]);rows.push([tr("f_allergy"),data.allergy||"—"]);
     rows.push([tr("q_nijikai"),data.nijikai==="yes"?tr("njYesL"):data.nijikai==="no"?tr("njNoL"):"—"]);}
   if(data.message)rows.push([tr("f_msg"),data.message]);
@@ -1214,14 +1220,17 @@ rsCard.querySelectorAll("[data-next]").forEach(b=>b.onclick=()=>{const key=flow[
   if(key==="name"){data.name=document.getElementById("fName").value.trim();
     data.kana=document.getElementById("fKana").value.trim();
     if(!data.name){document.getElementById("fName").focus();return;}}
+  if(key==="party")data.guestNames=document.getElementById("fGuestName").value.trim();
   if(key==="food")data.allergy=document.getElementById("fAllergy").value.trim();
   if(key==="msg")data.message=document.getElementById("fMsg").value.trim();
   fi=Math.min(fi+1,flow.length-1);showStep();});
 rsCard.querySelectorAll("[data-back]").forEach(b=>b.onclick=()=>{fi=Math.max(fi-1,0);showStep();});
+const guestNameField=document.getElementById("guestNameField");
+function updateGuestNameField(){guestNameField.style.display=data.party>1?"block":"none";}
 document.getElementById("pMinus").onclick=()=>{data.party=Math.max(1,data.party-1);
-  document.getElementById("pCount").textContent=data.party;};
+  document.getElementById("pCount").textContent=data.party;updateGuestNameField();};
 document.getElementById("pPlus").onclick=()=>{data.party=Math.min(3,data.party+1);
-  document.getElementById("pCount").textContent=data.party;};
+  document.getElementById("pCount").textContent=data.party;updateGuestNameField();};
 document.querySelectorAll(".rs-chips[data-field]").forEach(group=>{
   const field=group.dataset.field;
   group.querySelectorAll(".rs-chip").forEach(c=>c.onclick=()=>{
