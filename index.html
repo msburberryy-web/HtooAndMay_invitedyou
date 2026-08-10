@@ -21,7 +21,7 @@ body{margin:0;width:100%;background:var(--ink);color:var(--bone);font-family:var
   line-height:1.8;overflow-x:hidden;-webkit-font-smoothing:antialiased;overscroll-behavior-y:none}
 body.locked{overflow:hidden;height:100vh}
 .wrap{max-width:600px;margin:0 auto;padding:0 var(--pad);position:relative;z-index:4}
-#bgphoto{position:fixed;inset:0;pointer-events:none;z-index:116;background-size:cover;background-position:center;
+#bgphoto{position:fixed;inset:0;pointer-events:none;z-index:-1;background-size:cover;background-position:center;
   background-image:url("assets/photos/bg-mobile.jpg")}
 @media (min-width:768px){#bgphoto{background-image:url("assets/photos/bg-desktop.jpg")}}
 #grain{position:fixed;inset:0;pointer-events:none;z-index:120;opacity:.12;mix-blend-mode:overlay;
@@ -153,7 +153,7 @@ body.locked{overflow:hidden;height:100vh}
 
 .sc-heart{height:190vh}
 @media (min-width:768px){.sc-heart{height:230vh}}
-.heart-pin{flex-direction:column;gap:2rem;background:radial-gradient(ellipse at 50% 46%,#1B2C22 0%,#0D1712 68%)}
+.heart-pin{flex-direction:column;gap:2rem;background:radial-gradient(ellipse at 50% 46%,rgba(27,44,34,.55) 0%,rgba(13,23,18,.78) 68%)}
 .heart-stage{position:relative;width:min(80vw,440px);aspect-ratio:200/180}
 .heart-stage svg{width:100%;height:100%;overflow:visible}
 .hg{will-change:transform}
@@ -171,7 +171,7 @@ body.locked{overflow:hidden;height:100vh}
 
 .sc-records{height:225vh}
 @media (min-width:768px){.sc-records{height:280vh}}
-.rec-pin{background:#141F19}
+.rec-pin{background:rgba(20,31,25,.55)}
 .rec-stage{position:absolute;inset:0;overflow:hidden}
 .rec{position:absolute;top:50%;left:0;will-change:transform}
 .rec-inner{position:relative;transform:translate(-50%,-50%)}
@@ -266,7 +266,7 @@ body.locked{overflow:hidden;height:100vh}
 /* ══════ FAQ ══════ */
 .sc-faq{height:310vh}
 @media (min-width:768px){.sc-faq{height:350vh}}
-.faq-pin{background:radial-gradient(ellipse at 50% 46%,#1B2C22 0%,#0D1712 68%)}
+.faq-pin{background:radial-gradient(ellipse at 50% 46%,rgba(27,44,34,.55) 0%,rgba(13,23,18,.78) 68%)}
 .faq-head{position:absolute;top:7vh;left:0;right:0;text-align:center;z-index:5;padding:0 var(--pad)}
 .faq-card{position:absolute;left:50%;top:54%;width:min(90vw,480px);
   transform:translate(-50%,-50%);will-change:transform,opacity;
@@ -342,7 +342,7 @@ body.locked{overflow:hidden;height:100vh}
 /* ══════ QUIZ ══════ */
 .sc-quiz{height:140vh}
 @media (min-width:768px){.sc-quiz{height:160vh}}
-.quiz-pin{flex-direction:column;background:radial-gradient(ellipse at 50% 40%,#1B2C22 0%,#0D1712 70%);transition:background .3s linear}
+.quiz-pin{flex-direction:column;background:radial-gradient(ellipse at 50% 40%,rgba(27,44,34,.55) 0%,rgba(13,23,18,.8) 70%);transition:background .3s linear}
 .quiz-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
 .qz-orb{position:absolute;border-radius:50%;filter:blur(1px);will-change:transform,opacity}
 .qzo-a{width:260px;height:260px;left:-10%;top:10%;background:radial-gradient(circle,rgba(201,151,74,.55),transparent 70%)}
@@ -463,7 +463,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 /* ══════ RSVP ══════ */
 .sc-rsvp{height:150vh}
 @media (min-width:768px){.sc-rsvp{height:170vh}}
-.rsvp-pin{background:radial-gradient(ellipse at 50% 55%,#1B2C22 0%,#0D1712 72%);transition:background .3s linear}
+.rsvp-pin{background:radial-gradient(ellipse at 50% 55%,rgba(27,44,34,.55) 0%,rgba(13,23,18,.82) 72%);transition:background .3s linear}
 .rsvp-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
 .rs-spark{position:absolute;border-radius:50%;background:#F8ECCB;will-change:transform,opacity}
 .rs-moon{position:absolute;top:0;left:50%;width:240px;height:240px;border-radius:50%;will-change:transform,opacity;
@@ -1018,6 +1018,7 @@ const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
 const lerp=(a,b,t)=>a+(b-a)*t;
 const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
 const mixRGB=(x,y,t)=>`rgb(${Math.round(lerp(x[0],y[0],t))},${Math.round(lerp(x[1],y[1],t))},${Math.round(lerp(x[2],y[2],t))})`;
+const mixRGBA=(x,y,t,a)=>`rgba(${Math.round(lerp(x[0],y[0],t))},${Math.round(lerp(x[1],y[1],t))},${Math.round(lerp(x[2],y[2],t))},${a})`;
 
 if(!reduce){
   let wsTarget=scrollY,wsTicking=false,wsLastSet=scrollY;
@@ -1538,7 +1539,7 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
         o.style.transform=`translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0) rotate(${(p*70*(i%2?1:-1)).toFixed(1)}deg) scale(${sc2.toFixed(3)})`;
         o.style.opacity=(.42+.28*Math.sin(p*8+ph)).toFixed(3);});
       quizPin.style.background=`radial-gradient(ellipse at ${(50+Math.sin(p*6.28)*10).toFixed(1)}% 40%,`+
-        `${mixRGB([27,44,34],[30,42,58],p)} 0%,#0D1712 70%)`;}
+        `${mixRGBA([27,44,34],[30,42,58],p,.55)} 0%,rgba(13,23,18,.8) 70%)`;}
 
     if(sc.kind==="rsvp"){
       if(rsvpSecHead)rsvpSecHead.classList.toggle("in",p>.02);
@@ -1551,7 +1552,7 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
       rsMoon.style.transform=`translate3d(-50%,${my.toFixed(1)}px,0) scale(${(.7+p*.5).toFixed(3)})`;
       rsMoon.style.left=mx.toFixed(2)+"%";
       rsMoon.style.opacity=clamp(p*3,0,1)*clamp((1.06-p)*3,0,1);
-      rsvpPin.style.background=`radial-gradient(ellipse at 50% 55%,${mixRGB([27,44,34],[42,40,58],p)} 0%,#0D1712 72%)`;}
+      rsvpPin.style.background=`radial-gradient(ellipse at 50% 55%,${mixRGBA([27,44,34],[42,40,58],p,.55)} 0%,rgba(13,23,18,.82) 72%)`;}
   }
   requestAnimationFrame(frame);
 })(performance.now());
