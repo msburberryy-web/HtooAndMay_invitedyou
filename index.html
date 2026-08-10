@@ -8,13 +8,14 @@
 <title>May &amp; Htoo — 16.10.2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,200..500&family=Zen+Kaku+Gothic+New:wght@300;400&family=Shippori+Mincho:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,200..500&family=Padauk:wght@400;700&family=Zen+Kaku+Gothic+New:wght@300;400&family=Shippori+Mincho:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#0D1712;--ink-2:#14211A;--bone:#F2EFE9;--greige:#CFC9BB;--stone:#8C9188;
   --gold:#C9974A;--dim:#42514A;--line:rgba(242,239,233,.14);
   --serif:"Newsreader",Georgia,serif;--sans:"Zen Kaku Gothic New",system-ui,sans-serif;
   --pad:clamp(1.25rem,6vw,3rem);--ease:cubic-bezier(.16,.84,.34,1)}
 html[lang="ja"]{--serif:"Shippori Mincho","Newsreader",serif}
+html[lang="my"]{--sans:"Padauk","Zen Kaku Gothic New",sans-serif;--serif:"Padauk","Newsreader",serif}
 *{box-sizing:border-box}
 body{margin:0;width:100%;background:var(--ink);color:var(--bone);font-family:var(--sans);font-weight:300;
   line-height:1.8;overflow-x:hidden;-webkit-font-smoothing:antialiased;overscroll-behavior-y:none}
@@ -48,7 +49,7 @@ body.locked{overflow:hidden;height:100vh}
 .lang-b{background:none;border:0;cursor:pointer;font-family:var(--sans);padding:.42rem .6rem;
   color:var(--stone);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;
   position:relative;transition:color .35s ease;line-height:1}
-.lang-b[lang="ja"]{letter-spacing:.06em;text-transform:none}
+.lang-b[lang="ja"], .lang-b[lang="my"]{letter-spacing:.06em;text-transform:none}
 .lang-b.on{color:var(--gold)}
 .lang-b.on::after{content:"";position:absolute;left:.5rem;right:.5rem;bottom:.16rem;height:1px;background:var(--gold)}
 .lang-sep{width:1px;height:9px;background:rgba(242,239,233,.18)}
@@ -99,8 +100,8 @@ body.locked{overflow:hidden;height:100vh}
 .drawn #monogram{opacity:1}
 @keyframes draw{to{stroke-dashoffset:0}}
 .announce{font-family:var(--serif);font-weight:200;font-size:clamp(1.6rem,7vw,2.4rem);
-  line-height:1.3;margin:0 auto 1.2rem;max-width:18ch}
-.announce-body{font-size:1.02rem;color:var(--greige);max-width:32ch;margin:0 auto}
+  line-height:1.3;margin:0 auto 1.2rem;max-width:22ch}
+.announce-body{font-size:1.02rem;color:var(--greige);max-width:34ch;margin:0 auto}
 .seq{opacity:0;transform:translateY(14px)}
 .drawn .seq{animation:up 1.15s var(--ease) forwards}
 .drawn .seq:nth-of-type(1){animation-delay:1.1s}
@@ -145,9 +146,9 @@ body.locked{overflow:hidden;height:100vh}
 .sc-welcome{height:160vh}
 @media (min-width:768px){.sc-welcome{height:195vh}}
 .wel-pin{flex-direction:column;text-align:center;padding:0 var(--pad)}
-#welBig{font-family:var(--serif);font-weight:200;line-height:1.02;margin:0;
-  font-size:clamp(2.6rem,14vw,7.4rem);letter-spacing:-.02em;transform-origin:center center;will-change:transform}
-#welBody{max-width:34ch;margin-top:1.4rem;opacity:0;will-change:transform,opacity}
+#welBig{font-family:var(--serif);font-weight:200;line-height:1.1;margin:0;
+  font-size:clamp(2.4rem,12vw,6.8rem);letter-spacing:-.02em;transform-origin:center center;will-change:transform}
+#welBody{max-width:36ch;margin-top:1.4rem;opacity:0;will-change:transform,opacity}
 #welBody p{font-size:1.03rem;color:var(--greige);margin:0 0 1rem}
 
 .sc-heart{height:190vh}
@@ -222,7 +223,7 @@ body.locked{overflow:hidden;height:100vh}
 .j-date .k{font-size:.56rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin:0 0 .5rem}
 .j-date .v{font-family:var(--serif);font-weight:200;font-size:clamp(1.3rem,5.6vw,1.9rem);
   margin:0;color:var(--bone);text-shadow:0 2px 24px rgba(0,0,0,.5)}
-/* centred glass plates */
+
 .day-rows{position:absolute;inset:0;z-index:13;pointer-events:none}
 .day-row{position:absolute;left:0;right:0;display:flex;justify-content:center;padding:0 var(--pad);
   transform:translateY(-50%) scale(.92);visibility:hidden;opacity:0;
@@ -241,7 +242,7 @@ body.locked{overflow:hidden;height:100vh}
 .day-what small{display:block;font-size:clamp(.78rem,2.9vw,.85rem);color:#E4E7DF;
   line-height:1.5;margin-top:.2rem;text-shadow:0 1px 10px rgba(0,0,0,.55)}
 
-/* ══════ CARD DECK — save the date / dress / getting there ══════ */
+/* ══════ CARD DECK ══════ */
 .sc-cards{height:280vh}
 @media (min-width:768px){.sc-cards{height:320vh}}
 .cards-pin{overflow-x:clip;overflow-y:visible;touch-action:pan-y;cursor:grab;user-select:none}
@@ -262,7 +263,7 @@ body.locked{overflow:hidden;height:100vh}
 .cd-dot{width:28px;height:2px;background:rgba(242,239,233,.18);transition:background .5s ease}
 .cd-dot.on{background:var(--gold)}
 
-/* ══════ FAQ — pinned scroll scene ══════ */
+/* ══════ FAQ ══════ */
 .sc-faq{height:310vh}
 @media (min-width:768px){.sc-faq{height:350vh}}
 .faq-pin{background:radial-gradient(ellipse at 50% 46%,#1B2C22 0%,#0D1712 68%)}
@@ -290,7 +291,7 @@ body.locked{overflow:hidden;height:100vh}
 .save-date .drop{font-size:clamp(3.2rem,15vw,4.6rem);font-weight:500;color:var(--gold);
   line-height:.82;display:inline-block;will-change:transform}
 .save-date .rest{font-size:clamp(1.5rem,6vw,2rem)}
-.save-date.plain .rest{font-size:clamp(2rem,9vw,3rem)}
+.save-date.plain .rest{font-size:clamp(1.5rem,7vw,2.4rem)}
 .cal-card{position:relative;width:126px;margin:0 auto;padding:0 0 .9rem;background:rgba(242,239,233,.06);
   border:1px solid var(--line);border-radius:.35rem .35rem 1rem 1rem;cursor:pointer;
   font-family:var(--sans);display:block;overflow:hidden;transition:.35s var(--ease);
@@ -338,7 +339,7 @@ body.locked{overflow:hidden;height:100vh}
 #gated{max-height:0;opacity:0;overflow:hidden;transition:max-height 1.1s var(--ease),opacity .85s ease}
 #gated.open{max-height:900px;opacity:1}
 
-/* ══════ QUIZ — pinned scroll scene ══════ */
+/* ══════ QUIZ ══════ */
 .sc-quiz{height:140vh}
 @media (min-width:768px){.sc-quiz{height:160vh}}
 .quiz-pin{flex-direction:column;background:radial-gradient(ellipse at 50% 40%,#1B2C22 0%,#0D1712 70%);transition:background .3s linear}
@@ -459,7 +460,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 @keyframes tick{to{stroke-dashoffset:0}}
 .rs-done h3{font-family:var(--serif);font-weight:200;font-size:1.7rem;margin:0 0 .8rem}
 
-/* ══════ RSVP — pinned scroll scene ══════ */
+/* ══════ RSVP ══════ */
 .sc-rsvp{height:150vh}
 @media (min-width:768px){.sc-rsvp{height:170vh}}
 .rsvp-pin{background:radial-gradient(ellipse at 50% 55%,#1B2C22 0%,#0D1712 72%);transition:background .3s linear}
@@ -504,7 +505,8 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 <div id="prog"></div>
 <div id="lang" role="group" aria-label="Language">
   <button class="lang-b on" data-lang="en" lang="en">EN</button><span class="lang-sep"></span>
-  <button class="lang-b" data-lang="ja" lang="ja">日本語</button>
+  <button class="lang-b" data-lang="ja" lang="ja">日本語</button><span class="lang-sep"></span>
+  <button class="lang-b" data-lang="my" lang="my">မြန်မာ</button>
 </div>
 <button id="music" aria-label="Music on or off"><i></i><i></i><i></i><i></i></button>
 
@@ -527,7 +529,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
     <img id="monogram" src="assets/photos/monogram.png" data-fx="monogram" alt="Htoo &amp; May monogram"></div>
   <div class="mono-inner">
     <h1 class="announce seq" data-t="announce">We're getting married.</h1>
-    <p class="announce-body seq" data-t="announceBody">And we'd really love you there for it.</p>
+    <p class="announce-body seq" data-t="announceBody">And we'd love for you to celebrate with us.</p>
     <div class="countdown seq" id="cd"></div>
   </div>
 </section>
@@ -536,9 +538,9 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
   <div class="pin wel-pin">
     <h2 id="welBig" data-t="welTitle" data-html>A Warm<br>Welcome</h2>
     <div id="welBody">
-      <p data-t="welP1">Everything you need is on this page — where we'll be, how to get there, what the day looks like.</p>
-      <p data-t="welP2">We spent ages looking for somewhere that didn't feel like a wedding hall. Somewhere you'd have to travel to.</p>
-      <p data-t="welP3">We found it. We can't wait to show you.</p></div>
+      <p data-t="welP1">Everything you need to know is right here — locations, travel details, and the day's timeline.</p>
+      <p data-t="welP2">We searched for a venue that felt truly special, somewhere worth making the journey for.</p>
+      <p data-t="welP3">We found our dream spot, and we can't wait to share it with you.</p></div>
   </div>
 </section>
 
@@ -567,7 +569,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
       <span id="hnL" data-t="nameMay">May</span>
       <span id="hAmp">&amp;</span>
       <span id="hnR" data-t="nameHtoo">Htoo</span></p>
-    <p class="heart-cap" id="hCap" data-t="heartCap">Two halves, a long way apart, for a very long time.</p>
+    <p class="heart-cap" id="hCap" data-t="heartCap">Two hearts crossing miles and moments to become one.</p>
   </div>
 </section>
 
@@ -587,7 +589,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
       <div class="rec-cover"><span>Photo</span></div><div class="rec-cap">Nikkah</div></div></div>
     <div class="rec"><div class="rec-inner"><div class="rec-vinyl"></div>
       <div class="rec-cover"><span>Photo</span></div><div class="rec-cap">Side B</div></div></div>
-  </div><div class="rec-title"><p id="recTitle" data-t="recTitle">The years in between.</p></div></div>
+  </div><div class="rec-title"><p id="recTitle" data-t="recTitle">The chapters of our story.</p></div></div>
 </section>
 
 <section class="scene sc-journey" data-scene="journey">
@@ -614,19 +616,19 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
     <div id="trail"></div><div id="star"></div><div id="fw"></div>
     <div class="j-head" id="jHead">
       <h3 id="jHeadT" data-t="climbTitle">Up, and up</h3>
-      <p data-t="climbP">Everything we love is somewhere you have to climb to get to.</p></div>
+      <p data-t="climbP">The best views are always found after a little climb.</p></div>
     <div class="j-date" id="jDate">
       <p class="k" data-t="evDateK">Date</p>
-      <p class="v" data-t="evDateV" data-html>Friday 16 October 2026</p></div>
+      <p class="v" data-t="evDateV" data-html>Friday, 16 October 2026</p></div>
     <div class="day-rows">
       <div class="day-row" data-y="0.20"><div class="day-row-in"><div class="day-time">—</div>
-        <div class="day-what"><span data-t="dayBus">Bus departs</span><small data-t="dayBusSub">Time depends on your pickup station</small></div></div></div>
+        <div class="day-what"><span data-t="dayBus">Bus departs</span><small data-t="dayBusSub">Departure time varies by station</small></div></div></div>
       <div class="day-row" data-y="0.40"><div class="day-row-in"><div class="day-time">13:30</div>
-        <div class="day-what"><span data-t="dayRecep">Reception begins</span></div></div></div>
+        <div class="day-what"><span data-t="dayRecep">Reception opens</span></div></div></div>
       <div class="day-row" data-y="0.60"><div class="day-row-in"><div class="day-time">13:50</div>
-        <div class="day-what"><span data-t="dayGate">Gates close</span><small data-t="dayGateSub">Please be seated — ceremony begins in 10 minutes</small></div></div></div>
+        <div class="day-what"><span data-t="dayGate">Gates close</span><small data-t="dayGateSub">Please take your seats — ceremony begins in 10 minutes</small></div></div></div>
       <div class="day-row" data-y="0.80"><div class="day-row-in"><div class="day-time">14:00</div>
-        <div class="day-what"><span data-t="dayCeremony">Ceremony</span></div></div></div>
+        <div class="day-what"><span data-t="dayCeremony">Ceremony begins</span></div></div></div>
     </div>
   </div>
 </section>
@@ -642,13 +644,13 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
       <button class="cal-card" id="calIcs">
         <span class="cal-top">Oct</span><span class="cal-day">16</span>
         <span class="cal-foot" data-t="calIcs">Add to calendar</span></button>
-      <p style="font-size:.86rem;font-weight:600;color:var(--gold);margin:1.2rem 0 0" data-t="calNote">Tap to add this day to your phone's calendar.</p>
+      <p style="font-size:.86rem;font-weight:600;color:var(--gold);margin:1.2rem 0 0" data-t="calNote">Tap to save this date to your phone's calendar.</p>
     </article>
 
     <article class="card" data-card="1">
-      <p class="eyebrow" data-t="dressEye">What to wear</p>
+      <p class="eyebrow" data-t="dressEye">Dress code</p>
       <h3 class="dress-h" id="dressH"><span class="drop"></span><span class="rest"></span></h3>
-      <p data-t="dressP">Nothing too formal — but if you'd like to match our palette, think champagne, soft lemon, and warm browns. Gentlemen, black tie suits the evening perfectly.</p>
+      <p data-t="dressP">Feel free to keep it comfortable yet elegant. If you'd like to complement our palette, consider champagne, soft yellow, or warm earthy tones. Black tie is warmly welcomed for gentlemen.</p>
       <div class="swatches">
         <div class="sw" style="background:#C7E0C9"></div><div class="sw" style="background:#F5E9A0"></div>
         <div class="sw" style="background:#8B5A3C"></div><div class="sw" style="background:#5C3A22"></div>
@@ -661,7 +663,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
     <article class="card" data-card="2">
       <p class="eyebrow" data-t="transEye">Getting there</p>
       <h3 class="dress-h" id="transH"><span class="drop"></span><span class="rest"></span></h3>
-      <p data-t="transP">Three buses, leaving from three different stations, and they'll bring you back at the end.</p>
+      <p data-t="transP">Shuttle buses will depart from three key stations and return you safely at the end of the celebration.</p>
       <div class="route" id="routeBox">
         <svg viewBox="0 0 400 170" aria-hidden="true">
           <path id="routeGhost" d="M20 125 Q90 35 150 85 T270 65 T380 45"/>
@@ -680,11 +682,11 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
             <circle cx="11" cy="22" r="3.4" fill="#0D1712"/><circle cx="31" cy="22" r="3.4" fill="#0D1712"/>
           </g></g></svg></div>
       <div id="gated">
-        <div class="bus-row"><div class="bus-k">Bus A</div><div class="bus-v">新宿 Shinjuku<small>Leaves —:— · Returns ~18:00</small></div></div>
-        <div class="bus-row"><div class="bus-k">Bus B</div><div class="bus-v">東京 Tokyo Station<small>Leaves —:— · Returns ~18:00</small></div></div>
-        <div class="bus-row"><div class="bus-k">Bus C</div><div class="bus-v">池袋 Ikebukuro<small>Leaves —:— · Returns ~18:00</small></div></div>
-        <p class="gate-note" data-t="busNote">Pickup points are at Shinjuku, Tokyo Station and Ikebukuro. Return buses leave the venue after the party — exact times confirmed closer to the date.</p></div>
-      <p class="gate-note" id="gateMsg" data-t="gateMsg">Choose your station in the RSVP below and we'll confirm your pickup point and bus time.</p>
+        <div class="bus-row"><div class="bus-k">Bus A</div><div class="bus-v">新宿 Shinjuku<small>Departs —:— · Returns ~18:00</small></div></div>
+        <div class="bus-row"><div class="bus-k">Bus B</div><div class="bus-v">東京 Tokyo Station<small>Departs —:— · Returns ~18:00</small></div></div>
+        <div class="bus-row"><div class="bus-k">Bus C</div><div class="bus-v">池袋 Ikebukuro<small>Departs —:— · Returns ~18:00</small></div></div>
+        <p class="gate-note" data-t="busNote">Pickup locations are in Shinjuku, Tokyo Station, and Ikebukuro. Return buses leave after the reception — precise departure times will be confirmed closer to the date.</p></div>
+      <p class="gate-note" id="gateMsg" data-t="gateMsg">Select your preferred station in the RSVP below, and we will confirm your pickup point and schedule.</p>
     </article>
 
     <div class="cards-dots" id="cardsDots">
@@ -694,36 +696,36 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 
 <section class="scene sc-faq" data-scene="faq">
   <div class="pin faq-pin">
-    <div class="faq-head"><p class="eyebrow" data-t="faqEye">Good to know</p>
-      <h2 data-t="faqTitle">A few questions</h2></div>
+    <div class="faq-head"><p class="eyebrow" data-t="faqEye">Details</p>
+      <h2 data-t="faqTitle">Questions &amp; Answers</h2></div>
 
     <div class="faq-card" data-faq="0">
-      <p class="faq-q" data-t="faqQ1">How do we get there?</p>
-      <p class="faq-a" data-t="faqA1" data-html>We're near Atsugi — about <span class="hl">48 minutes from Shinjuku Station</span>. Shuttle buses run from Shinjuku, Tokyo Station and Ikebukuro; each one holds 27–28 people, so please let us know via RSVP if you'd like a seat.</p></div>
+      <p class="faq-q" data-t="faqQ1">How do we get to the venue?</p>
+      <p class="faq-a" data-t="faqA1" data-html>The venue is near Atsugi — roughly <span class="hl">48 minutes from Shinjuku Station</span>. Shuttle buses will operate from Shinjuku, Tokyo Station, and Ikebukuro. As seating is limited to 27–28 guests per bus, please reserve a seat in your RSVP.</p></div>
     <div class="faq-card" data-faq="1">
-      <p class="faq-q" data-t="faqQ2">Where exactly is the venue?</p>
-      <p class="faq-a" data-t="faqA2" data-html>We're keeping the exact address as a little surprise until you RSVP — think of it as the start of the adventure! For now, just know you're headed to the <span class="hl">Atsugi area</span>.</p></div>
+      <p class="faq-q" data-t="faqQ2">Where is the exact location?</p>
+      <p class="faq-a" data-t="faqA2" data-html>We're keeping the exact address a pleasant surprise until after you RSVP! For now, you can plan on traveling to the scenic <span class="hl">Atsugi area</span>.</p></div>
     <div class="faq-card" data-faq="2">
-      <p class="faq-q" data-t="faqQ3">Can we bring young kids or elderly family members?</p>
-      <p class="faq-a" data-t="faqA3" data-html>We won't say no outright — if it feels right for your family, they're welcome. Just know the <span class="hl">venue is a bit out of town</span>, so help isn't always close by if something comes up. Worth weighing before deciding, and reach out anytime if you're unsure.</p></div>
+      <p class="faq-q" data-t="faqQ3">Are children and senior family members welcome?</p>
+      <p class="faq-a" data-t="faqA3" data-html>Yes, absolutely — if traveling works comfortably for your family, they are more than welcome. Please note that <span class="hl">the venue is located slightly off the beaten path</span>, so extra amenities may take a moment to access. Feel free to message us directly if you have any questions!</p></div>
     <div class="faq-card" data-faq="3">
-      <p class="faq-q" data-t="faqQ4">I have a food allergy — how do I tell you?</p>
-      <p class="faq-a" data-t="faqA4" data-html>There's a spot for that in the <span class="hl">RSVP form below</span> — just fill in "Anything you can't eat?" and we'll take care of it.</p></div>
+      <p class="faq-q" data-t="faqQ4">How should I inform you about dietary requirements?</p>
+      <p class="faq-a" data-t="faqA4" data-html>You can easily note any dietary restrictions or allergies in the <span class="hl">RSVP section below</span> under "Dietary requirements".</p></div>
     <div class="faq-card" data-faq="4">
       <p class="faq-q" data-t="faqQ5">What time should I arrive?</p>
-      <p class="faq-a" data-t="faqA5" data-html>Arrive around <span class="hl">20 minutes before</span> the <span class="hl">14:00</span> start to save yourself a seat.</p></div>
+      <p class="faq-a" data-t="faqA5" data-html>We recommend arriving about <span class="hl">20 minutes before</span> the <span class="hl">14:00</span> ceremony so you can settle in comfortably.</p></div>
     <div class="faq-card" data-faq="5">
-      <p class="faq-q" data-t="faqQ6">Is parking available?</p>
-      <p class="faq-a" data-t="faqA6" data-html><span class="hl">Yes, parking is available</span> — just let us know in advance so we can plan for it.</p></div>
+      <p class="faq-q" data-t="faqQ6">Is parking available on site?</p>
+      <p class="faq-a" data-t="faqA6" data-html><span class="hl">Yes, parking is available</span>. Please kindly let us know in advance so we can reserve a space for you.</p></div>
     <div class="faq-card" data-faq="6">
-      <p class="faq-q" data-t="faqQ7">What should I wear?</p>
-      <p class="faq-a" data-t="faqA7">Check out the dress code section above.</p></div>
+      <p class="faq-q" data-t="faqQ7">What is the dress code?</p>
+      <p class="faq-a" data-t="faqA7">Please refer to the dress code card above.</p></div>
     <div class="faq-card" data-faq="7">
-      <p class="faq-q" data-t="faqQ8">Can I bring a +1?</p>
-      <p class="faq-a" data-t="faqA8" data-html>We kindly ask that <span class="hl">only those who received this invitation</span> attend. If you're bringing a plus one, please add them in the RSVP form so we can seat you together.</p></div>
+      <p class="faq-q" data-t="faqQ8">May I bring a guest (+1)?</p>
+      <p class="faq-a" data-t="faqA8" data-html>We kindly request attendance from <span class="hl">invited guests</span>. If you wish to bring a plus one, please list their name in the RSVP section so we can seat you together comfortably.</p></div>
     <div class="faq-card" data-faq="8">
-      <p class="faq-q" data-t="faqQ9">Can I change my RSVP after I've sent it?</p>
-      <p class="faq-a" data-t="faqA9" data-html>Of course — plans change, and that's completely fine. If you need to update anything (attendance, guest count, allergies, even the 2次会), just <span class="hl">reach out to us directly</span>. We'd much rather help you fix it than have you feel like you have to show up out of obligation.</p></div>
+      <p class="faq-q" data-t="faqQ9">Can I update my RSVP details later?</p>
+      <p class="faq-a" data-t="faqA9" data-html>Yes, of course! Plans change, and that's completely okay. If you need to update your attendance, guest details, or transportation preference, simply <span class="hl">contact us directly</span> anytime.</p></div>
 
     <div class="faq-dots" id="faqDots">
       <span class="fq-dot on"></span><span class="fq-dot"></span><span class="fq-dot"></span><span class="fq-dot"></span>
@@ -744,7 +746,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
         <span class="qf-word" data-t="quizFun2">Quiz.</span>
         <span class="qf-word" data-t="quizFun3">Time.</span></div>
       <h2 data-words data-fx="growbig" data-t="quizTitle">May or Htoo?</h2></div>
-    <p class="center" style="margin-bottom:1.3rem" data-wipe data-t="quizP">Three questions. Tap whoever you think it is.</p>
+    <p class="center" style="margin-bottom:1.3rem" data-wipe data-t="quizP">Three quick questions. Tap who you think matches best!</p>
     <div id="qzBox">
       <div class="qz-dots" id="qzDots"></div>
       <p class="qz-q" id="qzQ">—</p>
@@ -764,78 +766,78 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
  <div class="pin rsvp-pin">
   <div class="rsvp-bg" id="rsvpBg" aria-hidden="true"><div class="rs-moon" id="rsMoon"></div></div>
   <div class="wrap">
-    <div class="sec-head"><p class="eyebrow" data-t="rsEye">Let us know</p>
+    <div class="sec-head"><p class="eyebrow" data-t="rsEye">Kindly respond</p>
       <h2 data-words data-fx="growbig" data-t="rsTitle">RSVP</h2></div>
-    <p class="center rs-deadline" style="margin-bottom:1rem" data-wipe data-t="rsP">By 20 September 2026.</p>
+    <p class="center rs-deadline" style="margin-bottom:1rem" data-wipe data-t="rsP">Please reply by 20 September 2026.</p>
     <div class="rs-card" id="rsCard">
       <div class="rs-track"><i id="rsBar"></i></div>
       <div class="rs-step on" data-s="attend">
-        <p class="rs-q" data-t="q_attend">Can you make it?</p>
+        <p class="rs-q" data-t="q_attend">Will you join us?</p>
         <p class="rs-hint" data-t="h_attend">16 October 2026</p>
         <div class="vs">
           <button class="vs-side" id="rsYes" type="button"><span class="init">
             <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3 L3 10.5 L10.5 13.5 L13.5 21 L21 3Z"/></svg></span>
-            <span class="nm" data-t="a_yes">Wouldn't miss it</span></button>
+            <span class="nm" data-t="a_yes">Joyfully accept</span></button>
           <span class="vs-or">or</span>
           <button class="vs-side" id="rsNo" type="button"><span class="init">
             <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11 L12 4 L20 11"/><path d="M6 10 V20 H18 V10"/></svg></span>
-            <span class="nm" data-t="a_no">Can't this time</span></button></div></div>
+            <span class="nm" data-t="a_no">Regretfully decline</span></button></div></div>
       <div class="rs-step" data-s="name">
-        <p class="rs-q" data-t="q_name">What's your name?</p>
-        <p class="rs-hint" data-t="h_name">However you'd like it on your place card</p>
+        <p class="rs-q" data-t="q_name">Your Name</p>
+        <p class="rs-hint" data-t="h_name">As you would like it displayed on your place card</p>
         <label class="rs-field"><span data-t="f_name">Name</span><input class="rs-in" id="fName" type="text" autocomplete="name"></label>
-        <label class="rs-field"><span data-t="f_kana">ふりがな / reading (optional)</span><input class="rs-in" id="fKana" type="text"></label>
+        <label class="rs-field"><span data-t="f_kana">Phonetic Reading (Optional)</span><input class="rs-in" id="fKana" type="text"></label>
         <div class="rs-step-nav"><button class="rs-btn ghost" data-back data-t="back">Back</button>
           <button class="rs-btn" data-next data-t="next">Next</button></div></div>
       <div class="rs-step" data-s="party">
-        <p class="rs-q" data-t="q_party">How many of you?</p>
-        <p class="rs-hint" data-t="h_party">Counting yourself</p>
+        <p class="rs-q" data-t="q_party">Number of guests</p>
+        <p class="rs-hint" data-t="h_party">Including yourself</p>
         <div class="rs-stepper"><button type="button" id="pMinus" aria-label="minus">−</button>
           <div class="rs-count" id="pCount">1</div>
           <button type="button" id="pPlus" aria-label="plus">+</button></div>
         <div class="rs-step-nav"><button class="rs-btn ghost" data-back data-t="back">Back</button>
           <button class="rs-btn" data-next data-t="next">Next</button></div></div>
       <div class="rs-step" data-s="station">
-        <p class="rs-q" data-t="q_station">Where are you coming from?</p>
-        <p class="rs-hint" data-t="h_station">So we can sort your bus</p>
+        <p class="rs-q" data-t="q_station">Where will you join us from?</p>
+        <p class="rs-hint" data-t="h_station">This helps us arrange your shuttle seat</p>
         <div class="rs-chips" id="chips" data-field="station">
           <button class="rs-chip" type="button" data-v="Shinjuku">新宿 Shinjuku</button>
           <button class="rs-chip" type="button" data-v="Tokyo">東京 Tokyo Station</button>
           <button class="rs-chip" type="button" data-v="Ikebukuro">池袋 Ikebukuro</button>
-          <button class="rs-chip" type="button" data-v="Own" data-t="c_own">I'll make my own way</button></div>
+          <button class="rs-chip" type="button" data-v="Own" data-t="c_own">I will travel independently</button></div>
         <div class="rs-step-nav"><button class="rs-btn ghost" data-back data-t="back">Back</button>
           <button class="rs-btn" data-next data-t="next">Next</button></div></div>
       <div class="rs-step" data-s="food">
-        <p class="rs-q" data-t="q_food">Anything you can't eat?</p>
-        <p class="rs-hint" data-t="h_food">Allergies, or things you'd rather skip</p>
-        <label class="rs-field"><span data-t="f_allergy">Allergies &amp; food</span><input class="rs-in" id="fAllergy" type="text"></label>
+        <p class="rs-q" data-t="q_food">Dietary requirements</p>
+        <p class="rs-hint" data-t="h_food">Please share any food allergies or restrictions</p>
+        <label class="rs-field"><span data-t="f_allergy">Dietary Needs</span><input class="rs-in" id="fAllergy" type="text"></label>
         <div class="rs-step-nav"><button class="rs-btn ghost" data-back data-t="back">Back</button>
           <button class="rs-btn" data-next data-t="next">Next</button></div></div>
       <div class="rs-step" data-s="nijikai">
-        <p class="rs-q" data-t="q_nijikai">Joining us for the 2次会 afterparty?</p>
-        <p class="rs-hint" data-t="h_nijikai" data-html>Once the main celebration wraps up, we're keeping the night going with a casual afterparty — more food, more drinks, way less formality. <span class="hl">¥5,000 per person</span> isn't an entrance fee, just our way of covering the extra food and drinks together.</p>
-        <p class="rs-hint" style="margin-top:-1.3rem"><a class="ext-link" href="https://www.japanlivingguide.com/expatinfo/japaneseculture/wedding-etiquette/" target="_blank" rel="noopener" data-t="njLink">New to this custom? Here's a quick explainer →</a></p>
+        <p class="rs-q" data-t="q_nijikai">Afterparty (2次会)</p>
+        <p class="rs-hint" data-t="h_nijikai" data-html>Following the main reception, we will host a relaxed afterparty with extra food, drinks, and music. <span class="hl">¥5,000 per person</span> (shared cost for catering).</p>
+        <p class="rs-hint" style="margin-top:-1.3rem"><a class="ext-link" href="https://www.japanlivingguide.com/expatinfo/japaneseculture/wedding-etiquette/" target="_blank" rel="noopener" data-t="njLink">Learn more about Japanese wedding customs →</a></p>
         <div class="rs-chips" id="njChips" data-field="nijikai">
-          <button class="rs-chip" type="button" data-v="yes" data-t="njYesL">Count me in</button>
-          <button class="rs-chip" type="button" data-v="no" data-t="njNoL">I'll sit this one out</button></div>
+          <button class="rs-chip" type="button" data-v="yes" data-t="njYesL">Count me in!</button>
+          <button class="rs-chip" type="button" data-v="no" data-t="njNoL">Unable to join</button></div>
         <div class="rs-step-nav"><button class="rs-btn ghost" data-back data-t="back">Back</button>
           <button class="rs-btn" data-next data-t="next">Next</button></div></div>
       <div class="rs-step" data-s="msg">
-        <p class="rs-q" data-t="q_msg">Anything you want to tell us?</p>
-        <p class="rs-hint" data-t="h_msg">Optional — but we'll read every one</p>
-        <label class="rs-field"><span data-t="f_msg">Message</span><textarea class="rs-in" id="fMsg"></textarea></label>
+        <p class="rs-q" data-t="q_msg">Message for the Couple</p>
+        <p class="rs-hint" data-t="h_msg">Optional — we would love to hear from you!</p>
+        <label class="rs-field"><span data-t="f_msg">Your Message</span><textarea class="rs-in" id="fMsg"></textarea></label>
         <div class="rs-step-nav"><button class="rs-btn ghost" data-back data-t="back">Back</button>
           <button class="rs-btn" data-next data-t="next">Next</button></div></div>
       <div class="rs-step" data-s="review">
-        <p class="rs-q" data-t="q_review">Look right?</p>
+        <p class="rs-q" data-t="q_review">Confirm your responses</p>
         <div id="rsReview"></div>
         <div class="rs-step-nav"><button class="rs-btn ghost" data-back data-t="back">Back</button>
-          <button class="rs-btn" id="rsSubmit" data-t="send">Send it</button></div></div>
+          <button class="rs-btn" id="rsSubmit" data-t="send">Submit RSVP</button></div></div>
       <div class="rs-step" data-s="done">
         <div class="rs-done"><div class="tick"><svg viewBox="0 0 24 24"><path d="M4 12.5 L9.5 18 L20 6"/></svg></div>
           <h3 data-t="doneH">Thank you!</h3>
-          <p style="color:var(--greige);font-size:.92rem" data-t="doneP">Got it. See you on the hill.</p>
-          <p class="gate-note" style="margin-top:1.2rem;text-align:center;border:0;padding:0" data-t="rsNote">Need to change your answer later? Just message us — anytime.</p></div></div>
+          <p style="color:var(--greige);font-size:.92rem" data-t="doneP">Your RSVP has been submitted. We look forward to celebrating with you!</p>
+          <p class="gate-note" style="margin-top:1.2rem;text-align:center;border:0;padding:0" data-t="rsNote">If you need to make any changes later, feel free to reach out to us directly.</p></div></div>
     </div>
   </div>
  </div>
@@ -845,15 +847,14 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
   <div class="pin outro-pin">
     <div class="outro-in">
       <img id="endMono" src="assets/photos/monogram.png" alt="" aria-hidden="true">
-      <p class="eyebrow" id="endEyebrow" data-t="endEye">Forever after</p>
-      <h2 id="endHead" data-t="endHead">Forever After Begins Here</h2>
-      <p id="endMsg" data-t="endMsg">Thank you for being part of our story, our family, and our future. We can't wait to raise a glass with you.</p>
+      <p class="eyebrow" id="endEyebrow" data-t="endEye">Looking forward</p>
+      <h2 id="endHead" data-t="endHead">Our Next Chapter Begins</h2>
+      <p id="endMsg" data-t="endMsg">Thank you for being part of our story and sharing in our happiness. We cannot wait to celebrate together.</p>
       <p id="endSig" data-t="endSig" data-html>With love,<br>Htoo &amp; May</p></div>
   </div>
 </section>
 
 <script>
-// Strip near-white pixels from PNG so it floats on the dark background
 function removeWhiteBg(imgEl){
   if(!imgEl)return;
   const process=()=>{
@@ -873,70 +874,131 @@ function removeWhiteBg(imgEl){
 ['monogram','endMono'].forEach(id=>removeWhiteBg(document.getElementById(id)));
 
 const T={en:{},
-ja:{filmPh:"ここに映像が流れます",skip:"スキップ",announce:"わたしたち、結婚します。",
- announceBody:"大切な一日を、みなさんと一緒に過ごせたら嬉しいです。",
+ja:{filmPh:"オープニングフィルムが再生されます",skip:"スキップ",announce:"結婚いたします。",
+ announceBody:"大切な皆様と一緒に、特別な時間を過ごせたら嬉しいです。",
  cdD:"日",cdH:"時間",cdM:"分",cdS:"秒",welTitle:"ようこそ",
- welP1:"当日に必要なことは、ぜんぶこのページにまとめました。場所、行き方、一日の流れ。",
- welP2:"式場っぽくない場所を、ずっと探していました。ちょっと遠くて、行く価値のあるところ。",
- welP3:"見つかりました。早くお見せしたいです。",
- heartCap:"長いあいだ、ふたつの心は遠く離れていました。",
- climbTitle:"のぼって、のぼって",climbP:"好きなものは、たいてい登った先にありました。",
- evDateK:"日にち",evDateV:"2026年10月16日（金）",recTitle:"そのあいだの日々。",
- dayBus:"バス出発",dayBusSub:"乗車地点によって出発時刻が異なります",
- dayRecep:"受付開始",dayGate:"入場締切",dayGateSub:"挙式10分前です。お席にご着席ください",dayCeremony:"挙式",
+ welP1:"挙式当日の案内（会場、アクセス、スケジュール）をまとめました。",
+ welP2:"私たちらしい特別な時間を共有できる場所を選びました。",
+ welP3:"皆様とお会いできるのを心より楽しみにしております。",
+ heartCap:"遠く離れていたふたつの心が、ひとつに寄り添います。",
+ climbTitle:"一歩ずつ、その先へ",climbP:"素敵な景色は、いつも少し歩んだ先に広がるもの。",
+ evDateK:"日程",evDateV:"2026年10月16日（金）",recTitle:"これまでの歩み",
+ dayBus:"送迎バス発車",dayBusSub:"※乗車駅によって出発時間が異なります",
+ dayRecep:"受付開始",dayGate:"入場締切",dayGateSub:"挙式10分前です。お席にお着きください",dayCeremony:"挙式開始",
  saveEye:"日程",saveTitle:"2026年10月16日（金）",
- dressEye:"服装",dressTitle:"ドレスコード",
- dressP:"かたくなりすぎなくて大丈夫です。色を合わせたい人は、シャンパンやレモンイエロー、あたたかみのあるブラウン系がおすすめです。男性はブラックタイで、かっこよく決めてきてくださいね。",
- transEye:"アクセス",transTitle:"送迎バス",transP:"バス3台が、それぞれ別の駅から出ます。帰りも同じ駅までお送りします。",
- busNote:"乗車地点は新宿・東京・池袋です。帰りのバスは宴の後に会場を出発します。詳しい時間は後日お伝えします。",
- gateMsg:"下記のRSVPでご希望の駅を選んでいただくと、乗車地点とバス時間をお知らせします。",
+ dressEye:"ドレスコード",dressTitle:"Dress Code",
+ dressP:"フォーマルすぎず、快適な装いでお越しください。カラーを合わせられる方は、シャンパンゴールド、レモンイエロー、ブラウン系がおすすめです。男性はブラックタイも歓迎いたします。",
+ transEye:"アクセス",transTitle:"Transportation",transP:"主要3駅から無料送迎バスをご用意しております。お帰りも同駅まで送迎いたします。",
+ busNote:"乗車場所は新宿・東京・池袋です。復路は披露宴終了後に出発いたします。詳細は後日ご案内いたします。",
+ gateMsg:"下のRSVPにてご希望の乗車駅をお選びください。",
  faqEye:"ご案内",faqTitle:"よくあるご質問",
- faqQ1:"会場へはどうやって行きますか？",
- faqA1:"会場は厚木エリアにあり、<span class=\"hl\">新宿駅から電車で約48分</span>です。新宿・東京・池袋から送迎バスも出しますが、1台27〜28人までなので、乗りたい人はRSVPで教えてくださいね。",
- faqQ2:"会場の住所は？",
- faqA2:"住所は、RSVPをいただいてからのお楽しみにさせてください。旅の始まりみたいで、ちょっとワクワクしませんか？今のところは、<span class=\"hl\">厚木エリア</span>ということだけ覚えておいてくださいね。",
- faqQ3:"小さなお子さまやご年配のご家族を連れて行ってもいいですか？",
- faqA3:"はっきり「だめ」とは言いません。ご家族にとって良ければ、連れて来ていただいて大丈夫です。ただ、<span class=\"hl\">会場は少し町から離れています</span>ので、何かあってもすぐには対応できないことがあります。よく考えてみてくださいね。迷ったら遠慮なくご相談ください。",
- faqQ4:"食物アレルギーはどう伝えればいいですか？",
- faqA4:"下記の<span class=\"hl\">RSVPフォーム</span>に欄がありますので、「食べられないもの」にご記入ください。",
- faqQ5:"何時に到着すればいいですか？",
- faqA5:"<span class=\"hl\">14時開始の20分前</span>を目安にお越しいただくと、お席を確保しやすいです。",
+ faqQ1:"会場へのアクセス方法は？",
+ faqA1:"会場は厚木エリアにございます（<span class=\"hl\">新宿駅から約48分</span>）。新宿・東京・池袋から送迎バスを用意しております。定員がございますのでRSVPにてご希望をお知らせください。",
+ faqQ2:"詳しい住所はどこですか？",
+ faqA2:"住所はご出席のご連絡をいただいた後にご案内いたします。<span class=\"hl\">厚木エリア</span>での素敵な一日をお楽しみに！",
+ faqQ3:"子供や高齢の家族も一緒に参加できますか？",
+ faqA3:"もちろん歓迎いたします！<span class=\"hl\">会場が少し自然豊かな場所に位置しているため</span>、ご移動などの負担をご考慮の上ご検討いただけますと幸いです。ご不安な点はお気軽にご相談ください。",
+ faqQ4:"アレルギー対応はありますか？",
+ faqA4:"下の<span class=\"hl\">RSVPフォーム</span>に「アレルギー・お食事のお好み」欄がございますので、ご記入ください。",
+ faqQ5:"何時頃に到着すればよいですか？",
+ faqA5:"挙式開始（<span class=\"hl\">14:00</span>）の<span class=\"hl\">20分前頃</span>を目安にお越しください。",
  faqQ6:"駐車場はありますか？",
- faqA6:"<span class=\"hl\">はい、駐車場をご用意しています</span>。事前に一言いただけると助かります。",
- faqQ7:"服装はどうすればいいですか？",
- faqA7:"上のドレスコードをご覧ください。",
- faqQ8:"パートナーや友人を連れて行ってもいいですか？",
- faqA8:"今回は、<span class=\"hl\">招待状をお受け取りいただいた方のみ</span>のご参加をお願いしております。同伴の方がいる場合は、RSVPフォームにご記入ください。お席を近くにご用意しますね。",
- faqQ9:"送ったあとでも、RSVPの内容を変更できますか？",
- faqA9:"もちろんです。予定が変わることもありますよね、それは全然大丈夫です。出欠や人数、アレルギー、2次会のことなど、変更したいことがあれば<span class=\"hl\">遠慮なく直接連絡してください</span>。無理に予定を合わせて来ていただくより、ずっとお手伝いしたいと思っています。",
- quizFun1:"たのしい。",quizFun2:"クイズ。",quizFun3:"タイム。",
- quizTitle:"メイ？トゥー？",quizP:"3問だけ。どっちだと思うか押してください。",
- nameMay:"メイ",nameHtoo:"トゥー",next:"次へ",back:"戻る",rsEye:"お返事",rsTitle:"出欠",
- rsP:"2026年9月20日までにお願いします。",
- q_attend:"来てもらえますか？",h_attend:"2026年10月16日",a_yes:"よろこんで！",a_no:"残念だけど…",
- q_name:"お名前は？",h_name:"席札に書くお名前です",f_name:"お名前",f_kana:"ふりがな（任意）",
- q_party:"何人で来ますか？",h_party:"ご自身を含めて",q_station:"どこから来ますか？",
- h_station:"バスの手配のためです",c_own:"自分で行きます",q_food:"食べられないものはありますか？",
- h_food:"アレルギーや、苦手なもの",f_allergy:"アレルギー・苦手なもの",
- q_nijikai:"披露宴のあと、2次会にも参加されますか？",
- h_nijikai:"披露宴が終わったあとも、もう少し肩の力を抜いて楽しめる時間を用意しています。追加のお食事とお飲み物の分として、<span class=\"hl\">おひとり5,000円</span>をいただいていますが、参加費ということではなく、みんなでもっと楽しむための費用だと思ってください。",
- njLink:"この文化について、海外の友人向けの説明記事はこちら（英語）→",
- q_msg:"なにか一言もらえたら",
- h_msg:"任意です。ぜんぶ読みます",f_msg:"メッセージ",q_review:"これで合ってますか？",send:"送信",
- doneH:"ありがとう！",doneP:"受け取りました。丘の上で会いましょう。",
- rsNote:"あとから内容を変更したいときは、いつでもメッセージしてくださいね。",
- calIcs:"カレンダーに追加",calNote:"タップして、この日をカレンダーに追加できます。",
- endEye:"これから",endHead:"ここから、はじまります",
- endMsg:"私たちの物語に、家族に、これからに加わってくれてありがとう。当日、一緒に乾杯しましょう。",
- endSig:"愛をこめて<br>トゥー &amp; メイ",
- njYesL:"参加します",njNoL:"今回は見送ります"}};
+ faqA6:"<span class=\"hl\">お車でお越しいただけます</span>。事前に台数を把握するためRSVPにてお知らせください。",
+ faqQ7:"服装の指定はありますか？",
+ faqA7:"上記の「ドレスコード」の項目をご覧ください。",
+ faqQ8:"同伴者（+1）を連れて行ってもいいですか？",
+ faqA8:"今回は<span class=\"hl\">招待状をお送りした皆様</span>を中心にお迎えしております。ご同伴者がいらっしゃる場合はRSVPフォームにご記入ください。",
+ faqQ9:"回答後にRSVP内容を変更できますか？",
+ faqA9:"はい、いつでも変更可能です。ご都合が変わられた場合は<span class=\"hl\">直接ご連絡いただけますと幸いです</span>。",
+ quizFun1:"楽しく",quizFun2:"クイズ",quizFun3:"タイム！",
+ quizTitle:"May それとも Htoo？",quizP:"3つのクイズに答えてみてください！",
+ nameMay:"May",nameHtoo:"Htoo",next:"次へ",back:"戻る",rsEye:"ご回答",rsTitle:"RSVP",
+ rsP:"2026年9月20日までにご回答をお願いいたします。",
+ q_attend:"ご出席いただけますか？",h_attend:"2026年10月16日",a_yes:"喜んで出席します",a_no:"あいにく欠席します",
+ q_name:"お名前",h_name:"席札に使用させていただきます",f_name:"お名前",f_kana:"ふりがな（任意）",
+ q_party:"ご出席人数",h_party:"ご本人様を含めた人数",q_station:"ご利用駅",
+ h_station:"送迎バス手配のためお選びください",c_own:"自分で向かいます",q_food:"アレルギー・お食事のお好み",
+ h_food:"アレルギーや控えている食材がございましたらお知らせください",f_allergy:"アレルギー等",
+ q_nijikai:"2次会へのご参加",
+ h_nijikai:"披露宴の後、カジュアルな2次会を予定しております。<span class=\"hl\">会費：おひとり様 5,000円</span>（軽食・ドリンク代として）。",
+ njLink:"日本の結婚式マナーについて（英語）→",
+ q_msg:"メッセージ",
+ h_msg:"新郎新婦へのメッセージをお寄せください（任意）",f_msg:"メッセージ",q_review:"内容のご確認",send:"送信する",
+ doneH:"ありがとうございます！",doneP:"ご回答を受け付けました。当日お会いできることを楽しみにしております！",
+ rsNote:"内容の変更がございましたら、いつでもお気軽にご連絡ください。",
+ calIcs:"カレンダーに追加",calNote:"タップするとお手持ちのカレンダーに登録できます。",
+ endEye:"これから",endHead:"新しい旅立ち",
+ endMsg:"私たちの歩みを温かく見守ってくださり心より感謝申し上げます。当日、皆様と乾杯できるのを楽しみにしております。",
+ endSig:"愛を込めて<br>Htoo &amp; May",
+ njYesL:"参加します",njNoL:"辞退します"},
+my:{filmPh:"ဗီဒီယိုဖိုင်အား ဒီနေရာတွင် ကြည့်ရှုနိုင်ပါသည်။",skip:"ကျော်ရန်",announce:"မင်္ဂလာသတင်းအောင်ပါပြီ။",
+ announceBody:"ကျွန်တော်တို့၏ မင်္ဂလာပွဲလေးသို့ လူကြီးမင်းတို့အား နွေးထွေးစွာ ဖိတ်ခေါ်အပ်ပါသည်။",
+ cdD:"ရက်",cdH:"နာရီ",cdM:"မိနစ်",cdS:"စက္ကန့်",welTitle:"နွေးထွေးစွာ ကြိုဆိုပါတယ်။",
+ welP1:"မင်္ဂလာပွဲကျင်းပမည့်နေရာ၊ သွားရောက်ရမည့်နည်းလမ်းနှင့် အစီအစဉ်များကို ဒီစာမျက်နှာတွင် စုံလင်စွာ ကြည့်ရှုနိုင်ပါသည်။",
+ welP2:"ရိုးရာမင်္ဂလာခန်းမများထက် ပိုမိုထူးခြားပြီး အမှတ်တရဖြစ်စေမည့် နေရာလေးတစ်ခုကို ဖန်တီးထားပါတယ်။",
+ welP3:"မကြာမီ လူကြီးမင်းတို့နှင့်ဆုံတွေ့ဖို့ ရင်ခုန်စွာဖြင့် စောင့်မျှော်နေပါတယ်။",
+ heartCap:"ဝေးကွာခဲ့သော နှလုံးသားနှစ်ခု၊ ယခုအခါ တစ်ထပ်တည်း ကျရောက်ခဲ့ပါပြီ။",
+ climbTitle:"ရှေ့သို့ တက်လှမ်းရင်း",climbP:"အလှပဆုံးသော အရာများသည် အခက်အခဲများကို ကျော်ဖြတ်ပြီးမှ ကြုံတွေ့ရတတ်စမြဲပါ။",
+ evDateK:"ကျင်းပမည့်ရက်စွဲ",evDateV:"၂၀၂၆ ခုနှစ်၊ အောက်တိုဘာလ (၁၆) ရက် (သောကြာနေ့)",recTitle:"ကျွန်တော်တို့၏ အမှတ်တရ သမိုင်းကြောင်းများ။",
+ dayBus:"ကြိုပို့ဘတ်စ်ကား ထွက်ခွာချိန်",dayBusSub:"ကားဂိတ်အလိုက် ထွက်ခွာချိန် ကွဲပြားနိုင်ပါသည်။",
+ dayRecep:"ဧည့်ခံပွဲ စတင်ချိန်",dayGate:"ပွဲစတင်ရန် ပြင်ဆင်ချိန်",dayGateSub:"အခမ်းအနားမစတင်မီ ၁၀ မိနစ်အလိုတွင် နေရာယူပေးပါရန်။",dayCeremony:"မင်္ဂလာအခမ်းအနား စတင်ချိန်",
+ saveEye:"ရက်စွဲ",saveTitle:"၁၆ အောက်တိုဘာ ၂၀၂၆ (သောကြာနေ့)",
+ dressEye:"ဝတ်စုံဒီဇိုင်း",dressTitle:"Dress Code",
+ dressP:"ပေါ့ပါးလွတ်လပ်စွာ ဝတ်ဆင်နိုင်ပါသည်။ အဝတ်အစားအရောင်ကို ပွဲနှင့်လိုက်ဖက်အောင် ဝတ်ဆင်လိုပါက ဝင်္ကပါရောင် (Champagne)၊ အဝါနုရောင် သို့မဟုတ် အညိုရောင်လိုင်းများကို ရွေးချယ်နိုင်ပါသည်။ အမျိုးသားများအတွက် Black Tie ဝတ်စုံဖြင့်လည်း တက်ရောက်နိုင်ပါသည်။",
+ transEye:"ခရီးစဉ်ဆိုင်ရာ",transTitle:"Transportation",transP:"အဓိက ဘူတာရုံ (၃) ခုမှ ကြိုပို့ဘတ်စ်ကားများ စီစဉ်ပေးထားပြီး၊ ပွဲအပြီးတွင် မူလဘူတာသို့ ပြန်လည်ပို့ဆောင်ပေးပါမည်။",
+ busNote:"ကြိုပို့ဂိတ်များမှာ Shinjuku, Tokyo Station နှင့် Ikebukuro တို့ဖြစ်ကြပြီး၊ အသေးစိတ်အချိန်ဇယားကို မင်္ဂလာပွဲနီးကပ်ချိန်တွင် အကြောင်းကြားပေးပါမည်။",
+ gateMsg:"အောက်ပါ RSVP တွင် သင်စီးနင်းလိုသော ဂိတ်ကို ရွေးချယ်ပေးပါ။",
+ faqEye:"သိရှိရန်များ",faqTitle:"မေးလေ့ရှိသော မေးခွန်းများ",
+ faqQ1:"ပွဲကျင်းပမည့်နေရာသို့ မည်သို့သွားရောက်ရမည်နည်း။",
+ faqA1:"ပွဲကျင်းပမည့်နေရာသည် Atsugi ဧရိယာတွင်ရှိပြီး <span class=\"hl\">Shinjuku ဘူတာမှ မိနစ် ၄၈ မိနစ်ခန့်</span> ကွာဝေးပါသည်။ Shinjuku, Tokyo Station, Ikebukuro တို့မှ ကြိုပို့ကားများ စီစဉ်ပေးထားပါသည်။ အစီးရေ ကန့်သတ်ချက်ရှိပါသဖြင့် RSVP တွင် ကြိုတင်စာရင်းပေးပါရန်။",
+ faqQ2:"ပွဲကျင်းပမည့် လိပ်စာအတိအကျမှာ မည်သို့နည်း။",
+ faqA2:"လိပ်စာအတိအကျကို RSVP စာရင်းပေးသွင်းပြီးမှ အကြောင်းကြားပေးပါမည်။ လက်ရှိတွင် <span class=\"hl\">Atsugi ဧရိယာ</span> သို့ လာရောက်ရမည်ဟု မှတ်သားပေးပါ။",
+ faqQ3:"ကလေးငယ်များနှင့် လူကြီးမိဘများကို ခေါ်ဆောင်လာခွင့်ရှိပါသလား။",
+ faqA3:"ဝမ်းမြောက်စွာ ခေါ်ဆောင်လာနိုင်ပါသည်။ သို့သော် <span class=\"hl\">ပွဲကျင်းပမည့်နေရာသည် မြို့နှင့် အနည်းငယ်ကွာဝေးပါသဖြင့်</span> ခရီးစဉ်အတွက် ကြိုတင်ပြင်ဆင်မှုများ ပြုလုပ်ထားရန် အကြံပြုလိုပါသည်။",
+ faqQ4:"မတည့်သည့် အစားအစာများကို မည်သို့ အကြောင်းကြားရမည်နည်း။",
+ faqA4:"အောက်ပါ <span class=\"hl\">RSVP ဖောင်</span> တွင် အစားအသောက်နှင့် ပတ်သက်သည့် လိုအပ်ချက်များကို ဖြည့်စွက်ပေးနိုင်ပါသည်။",
+ faqQ5:"မည်သည့်အချိန်တွင် ရောက်ရှိရမည်နည်း။",
+ faqA5:"မင်္ဂလာပွဲ စတင်မည့် <span class=\"hl\">၁၄:၀၀ နာရီ မတိုင်မီ မိနစ် ၂၀ ခန့်</span> ကြိုတင်ရောက်ရှိပေးပါရန်။",
+ faqQ6:"ကားရပ်နားရန် နေရာရှိပါသလား။",
+ faqA6:"<span class=\"hl\">ကားရပ်နားရန်နေရာ စီစဉ်ပေးထားပါသည်။</span> ကြိုတင်ပြင်ဆင်နိုင်ရန်အတွက် RSVP တွင် အသိပေးပေးပါရန်။",
+ faqQ7:"ဝတ်ဆင်ရမည့် ဝတ်စုံအမျိုးအစားမှာ မည်သို့နည်း။",
+ faqA7:"အထက်ပါ Dress Code အပိုင်းတွင် ကြည့်ရှုနိုင်ပါသည်။",
+ faqQ8:"အဖော် (+1) ခေါ်ဆောင်လာခွင့် ရှိပါသလား။",
+ faqA8:"ဖိတ်ကြားလွှာရရှိသူများ သီးသန့်တက်ရောက်ပေးပါရန် မေတ္တာရပ်ခံအပ်ပါသည်။ အဖော်ပါပါက RSVP ဖောင်တွင် အမည်ဖြည့်စွက်ပေးပါရန်။",
+ faqQ9:"RSVP ဖြည့်ပြီးပါက အချက်အလက်များ ပြန်လည်ပြင်ဆင်နိုင်ပါသလား။",
+ faqA9:"ဟုတ်ကဲ့၊ ပြင်ဆင်နိုင်ပါသည်။ အစီအစဉ်များ ပြောင်းလဲပါက ကျွန်တော်တို့ထံ <span class=\"hl\">တိုက်ရိုက် ဆက်သွယ် အကြောင်းကြားနိုင်ပါသည်။</span>",
+ quizFun1:"ပျော်ရွှင်စရာ",quizFun2:"ဥာဏ်စမ်း",quizFun3:"အစီအစဉ်",
+ quizTitle:"May လား Htoo လား။",quizP:"မေးခွန်း (၃) ခုကို မည်သူဖြစ်မည်နည်း မှန်းဆကြည့်ပါ။",
+ nameMay:"မေ",nameHtoo:"ထူး",next:"ရှေ့သို့",back:"နောက်သို့",rsEye:"အကြောင်းပြန်ရန်",rsTitle:"RSVP",
+ rsP:"၂၀၂၆ ခုနှစ်၊ စက်တင်ဘာလ (၂၀) ရက်နေ့ မတိုင်မီ အကြောင်းပြန်ပေးပါရန်။",
+ q_attend:"မင်္ဂလာပွဲသို့ တက်ရောက်နိုင်ပါသလား။",h_attend:"၁၆ အောက်တိုဘာ ၂၀၂၆",a_yes:"ဝမ်းမြောက်စွာ တက်ရောက်ပါမည်",a_no:"မတက်ရောက်နိုင်ပါ",
+ q_name:"လူကြီးမင်း၏ အမည်",h_name:"ဧည့်သည်နေရာပြ ကတ်ပြားအတွက် ဖြစ်ပါသည်",f_name:"အမည်",f_kana:"အသံထွက် (သို့) စာလုံးပေါင်း",
+ q_party:"တက်ရောက်မည့် ဧည့်သည်အရေအတွက်",h_party:"မိမိအပါအဝင်",q_station:"မည်သည့်ဘူတာမှ လာရောက်မည်နည်း",
+ h_station:"ကြိုပို့ကား စီစဉ်ရန်ဖြစ်ပါသည်",c_own:"ကိုယ်ပိုင်အစီအစဉ်ဖြင့် လာရောက်ပါမည်",q_food:"မတည့်သည့် အစားအစာများ ရှိပါသလား",
+ h_food:"ဓာတ်မတည့်သည်များ သို့မဟုတ် မစားသည့် အစားအစာများ",f_allergy:"မတည့်သည့် အစားအစာများ",
+ q_nijikai:"2次会 (Afterparty) သို့ ပါဝင်ဆင်နွှဲမည်လား",
+ h_nijikai:"မင်္ဂလာဧည့်ခံပွဲအပြီးတွင် ပေါ့ပါးလွတ်လပ်သော အာဖတာပါတီ ဆက်လက်ကျင်းပပါမည်။ <span class=\"hl\">တစ်ဦးလျှင် ယန်း ၅,၀၀၀</span> (အစားအသောက် စရိတ်မျှဝေခြင်း ဖြစ်ပါသည်။)",
+ njLink:"ဂျပန်မင်္ဂလာပွဲ ဓလေ့ထုံးစံများအကြောင်း လေ့လာရန် →",
+ q_msg:"ဆုတောင်းစကားများ ပေးပို့ရန်",
+ h_msg:"ဆုတောင်းစကားများ ပေးပို့နိုင်ပါသည်။",f_msg:"ဆုတောင်းစကား",q_review:"အချက်အလက်များ မှန်ကန်ပါသလား",send:"ပေးပို့မည်",
+ doneH:"ကျေးဇူးတင်ရှိပါသည်။",doneP:"လူကြီးမင်း၏ အကြောင်းပြန်ချက်ကို ရရှိပါပြီ။ ပွဲနေ့တွင် ဆုံတွေ့ကြပါစို့။",
+ rsNote:"အချက်အလက်များ ပြောင်းလဲလိုပါက အချိန်မရွေး ဆက်သွယ်နိုင်ပါသည်။",
+ calIcs:"ပြက္ခဒိန်တွင် ထည့်သွင်းမည်",calNote:"ဖုန်းပြက္ခဒိန်တွင် မှတ်သားထားရန် နှိပ်ပါ။",
+ endEye:"နိဂုံး",endHead:"ရှေ့သို့ ဆက်လက်လျှောက်လှမ်းမည့် ခရီးစဉ်",
+ endMsg:"ကျွန်တော်တို့၏ မင်္ဂလာပွဲလေးတွင် ပါဝင်ဆင်နွှဲပေးမည့်အတွက် ကျေးဇူးအထူးတင်ရှိပါသည်။",
+ endSig:"ချစ်ခြင်းမေတ္တာများစွာဖြင့်<br>Htoo &amp; May",
+ njYesL:"ပါဝင်ပါမည်",njNoL:"မပါဝင်နိုင်ပါ"}};
+
 const QZ_T={
 en:[{q:"Who said “I love you” first?",a:1,n:"Htoo — and he'd like it on record that he waited months and months."},
  {q:"Who's always the last one ready?",a:0,n:"May. Every trip. Every time."},
  {q:"Who cooks?",a:1,n:"Htoo. May's in charge of eating it."}],
-ja:[{q:"先に「好き」って言ったのは？",a:1,n:"トゥーです。何か月も待ったって、本人が言い張ってます。"},
- {q:"いつも準備が最後になるのは？",a:0,n:"メイ。毎回、必ず。"},
- {q:"料理をするのは？",a:1,n:"トゥー。メイは食べる担当です。"}]};
+ja:[{q:"先に「好き」と伝えたのは？",a:1,n:"Htooです！何ヶ月も待ったと本人が言い張っています。"},
+ {q:"いつも準備に時間がかかるのは？",a:0,n:"Mayです。旅行の時も毎回です！"},
+ {q:"お料理を担当するのは？",a:1,n:"Htooです。Mayは食べる担当です。"}],
+my:[{q:"“ချစ်တယ်” လို့ စတင်ပြောခဲ့သူက ဘယ်သူလဲ။",a:1,n:"ထူး ပါ။ (လပေါင်းများစွာ စောင့်ဆိုင်းခဲ့ရတာပါလို့ အခိုင်အမာ ဆိုပါတယ်)"},
+ {q:"ခရီးသွားရင် ပြင်ဆင်တာ အမြဲနောက်ကျလေ့ရှိသူက ဘယ်သူလဲ။",a:0,n:"မေ ပါ။ ခရီးတိုင်း၊ အကြိမ်တိုင်းပါပဲ။"},
+ {q:"ဟင်းချက်တာ ဘယ်သူလဲ။",a:1,n:"ထူး ပါ။ မေ ကတော့ အမြဲမြည်းစမ်းသူပါ။"}]};
 
 document.querySelectorAll("[data-t]").forEach(el=>{
   T.en[el.dataset.t]=el.hasAttribute("data-html")?el.innerHTML:el.textContent;});
@@ -952,18 +1014,10 @@ const lerp=(a,b,t)=>a+(b-a)*t;
 const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
 const mixRGB=(x,y,t)=>`rgb(${Math.round(lerp(x[0],y[0],t))},${Math.round(lerp(x[1],y[1],t))},${Math.round(lerp(x[2],y[2],t))})`;
 
-/* buttery wheel scroll — mouse/trackpad only. Touch keeps native scrolling
-   untouched (that's the pin/wait behavior we just fixed); "wheel" events
-   only fire for actual scroll wheels/trackpads, never for touch swipes, so
-   this can't reintroduce the touch regression. Eases each wheel tick toward
-   a target instead of jumping straight there, for the smoother feel. */
 if(!reduce){
   let wsTarget=scrollY,wsTicking=false,wsLastSet=scrollY;
   function wsMaxScroll(){return Math.max(0,document.body.scrollHeight-innerHeight);}
   function wsTick(){
-    /* if scrollY has moved since the last frame WE set it, something else
-       (card-drag, keyboard, scrollbar) took over — hand off gracefully
-       instead of fighting it and dragging the page back to a stale target */
     if(Math.abs(scrollY-wsLastSet)>1){wsTarget=scrollY;wsTicking=false;return;}
     const diff=wsTarget-scrollY;
     if(Math.abs(diff)<.5){scrollTo(0,wsTarget);wsTicking=false;return;}
@@ -1034,7 +1088,6 @@ const io=new IntersectionObserver(es=>{es.forEach(e=>{
   {threshold:.12,rootMargin:"0px 0px -5% 0px"});
 document.querySelectorAll("[data-reveal]").forEach(el=>io.observe(el));
 
-/* gentle synthesized piano loop — no audio file needed */
 const musicBtn=document.getElementById("music");
 let actx=null,musicTimer=null,seqIdx=0;
 const PIANO_SEQ=[261.63,329.63,392.00,493.88,440.00,392.00,329.63,293.66];
@@ -1199,7 +1252,7 @@ const jSky=document.getElementById("jSky"),jGlow=document.getElementById("jGlow"
 const jLayers=[...document.querySelectorAll(".sc-journey .layer")].map(el=>({el,
   depth:parseFloat(el.dataset.depth),c0:el.dataset.c0.split(",").map(Number),
   c1:el.dataset.c1.split(",").map(Number),c2:el.dataset.c2.split(",").map(Number),last:""}));
-/* richer sky — bright afternoon, hard gold, rose, violet twilight, night */
+
 const SKY=[{at:0,   top:[150,172,168],bot:[221,216,198]},
            {at:.42, top:[168,180,162],bot:[236,224,192]},
            {at:.66, top:[216,148,84], bot:[254,216,140]},
@@ -1267,7 +1320,6 @@ function fwTick(now,W,H){const t=(now-fwStart)/FW_DUR;
       Math.sin(s.ang)*rad*s.r*e+bt*bt*rad*.6}px,0) scale(${1-bt*.55})`;
     s.el.style.opacity=Math.pow(1-bt,1.6);}}
 
-/* fireworks across the whole screen when the heart becomes one */
 const heartFwBox=document.getElementById("heartFw"),heartScene=document.querySelector(".sc-heart");
 const HFW=[],HFW_OFF=[.18,.5,.82,.32,.68],HFW_OY=[.22,.15,.24,.55,.55];
 for(let b=0;b<5;b++)for(let i=0;i<20;i++){
@@ -1381,12 +1433,10 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
         r.style.zIndex=String(Math.round(near*20));});
       if(recTitle)vf(recTitle,clamp(1-Math.abs(p-.5)*2.2,0,1));}
 
-    /* ══ JOURNEY — sky now follows the star ══ */
     if(sc.kind==="journey"){
       const travel=clamp((p-.14)/.74,0,1);
       const css=skyAt(travel);
       if(css!==lastSky){jSky.style.background=css;lastSky=css;}
-      /* the land lights up as the star crosses the golden band */
       jGlow.style.opacity=(Math.max(0,1-Math.abs(travel-.70)/.26)*.85).toFixed(3);
       jLayers.forEach(L=>{L.el.style.transform=`translate3d(0,${p*L.depth*innerHeight*.62}px,0)`;
         const c=mix3(L.c0,L.c1,L.c2,travel);
@@ -1408,7 +1458,6 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
       dayRows.forEach(row=>row.classList.toggle("shown",p>.15&&sy>=parseFloat(row.dataset.y)-.012));
       if(fwArmed&&p>.15&&sy>=0.70){fwArmed=false;fwOn=true;fwStart=now;}}
 
-    /* ══ CARD DECK ══ */
     if(sc.kind==="cards"){
       const n=cards.length,pos=p*(n-1);
       const step=Math.min(innerWidth*.92,520);
@@ -1420,11 +1469,9 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
         c.style.zIndex=String(Math.round(30-ad*10));
         c.style.pointerEvents=ad<.35?"auto":"none";});
       cardDots.forEach((d,i)=>d.classList.toggle("on",Math.round(pos)===i));
-      /* dress card at centre */
       const dn=clamp(1-Math.abs(1-pos),0,1);
       if(dressDrop){dressDrop.style.transform=`scale(${.82+dn*.28}) rotate(${(1-dn)*-6}deg)`;}
       swEls.forEach((s,i)=>s.style.transform=`scale(${.5+dn*.5}) translateY(${(1-dn)*(i%2?14:-14)}px)`);
-      /* transport card at centre drives the bus */
       const tn=clamp((pos-1.35)/.6,0,1);
       routePath.style.strokeDashoffset=RLEN*(1-tn);
       stops.forEach((s,i)=>s.classList.toggle("on",tn>=i/(stops.length-1)-.02));
@@ -1432,7 +1479,6 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
         const bp=routePath.getPointAtLength(RLEN*tn),ah=routePath.getPointAtLength(Math.min(RLEN*tn+6,RLEN));
         bus.setAttribute("transform",`translate(${bp.x},${bp.y}) rotate(${Math.atan2(ah.y-bp.y,ah.x-bp.x)*180/Math.PI})`);
       } else bus.classList.remove("on");
-      /* bubbles drift behind the whole deck */
       const H=rect.height>0?innerHeight:innerHeight;
       BUBS.forEach(b=>{
         const y=H*1.05-(p*b.sp+b.x)%1.25*H*1.25;
@@ -1528,7 +1574,6 @@ qzNext.onclick=()=>{qi++;if(qi<QZ.length)renderQ();
     `<div class="qz-done"><p class="n">${score}/${QZ.length}</p></div>`;};
 (function(){
   const W=1000,H=1000;
-  /* Catmull-Rom y-ridge profiles per layer DOM index (11 pts, x=0..W) */
   const profiles={
     0:[500,452,418,388,404,432,418,380,372,396,488],
     1:[612,562,522,494,506,488,472,462,486,504,598],
@@ -1563,16 +1608,6 @@ qzNext.onclick=()=>{qi++;if(qi<QZ.length)renderQ();
     path.setAttribute('d',d);});
 })();
 
-/* drag/swipe the card deck sideways.
-   Earlier attempts hijacked touch-action so JS could own vertical scroll
-   too, but that's what broke the "section pins, waits, only advances once
-   you're done" feel — a hand-rolled scrollBy can't fully replicate native
-   scroll physics. Fix: touch input is never intercepted mid-gesture, so
-   native scroll (and the pin/wait behavior) is exactly what it always was;
-   only once a touch gesture ends do we check if it was a clear, decisive
-   horizontal swipe and, if so, snap to the next/prev card afterward.
-   Mouse input has no such conflict (touch-action doesn't gate it), so
-   desktop keeps a live 1:1 click-drag. */
 (function(){
   const cardsScene=document.querySelector(".sc-cards"),cardsPin=document.querySelector(".cards-pin");
   if(!cardsScene||!cardsPin||!cards.length)return;
