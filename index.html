@@ -794,6 +794,13 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
         <label class="rs-field"><span data-t="f_kana">Phonetic Reading (Optional)</span><input class="rs-in" id="fKana" type="text"></label>
         <div class="rs-step-nav"><button class="rs-btn ghost" data-back data-t="back">Back</button>
           <button class="rs-btn" data-next data-t="next">Next</button></div></div>
+      <div class="rs-step" data-s="contact">
+        <p class="rs-q" data-t="q_contact">How can we reach you?</p>
+        <p class="rs-hint" data-t="h_contact">Just in case we'd like to get in touch before or after the wedding</p>
+        <label class="rs-field"><span data-t="f_contact">Email or Phone Number</span><input class="rs-in" id="fContact" type="text" autocomplete="email"></label>
+        <label class="rs-field"><span data-t="f_address">Mailing Address (Optional)</span><input class="rs-in" id="fAddress" type="text" autocomplete="street-address"></label>
+        <div class="rs-step-nav"><button class="rs-btn ghost" data-back data-t="back">Back</button>
+          <button class="rs-btn" data-next data-t="next">Next</button></div></div>
       <div class="rs-step" data-s="party">
         <p class="rs-q" data-t="q_party">Number of guests</p>
         <p class="rs-hint" data-t="h_party">Including yourself</p>
@@ -910,6 +917,8 @@ ja:{filmPh:"オープニングフィルムが再生されます",skip:"スキッ
  rsP:"2026年9月20日までにご回答をお願いいたします。",
  q_attend:"ご出席いただけますか？",h_attend:"2026年10月16日",a_yes:"喜んで出席します",a_no:"あいにく欠席します",
  q_name:"お名前",h_name:"席札に使用させていただきます",f_name:"お名前",f_kana:"ふりがな（任意）",
+ q_contact:"ご連絡先を教えてください",h_contact:"結婚式の前後でご連絡させていただく場合がございます",
+ f_contact:"メールアドレスまたは電話番号",f_address:"ご住所（任意）",
  q_party:"ご出席人数",h_party:"ご本人様を含めた人数",q_station:"ご利用駅",
  h_station:"送迎バス手配のためお選びください",c_own:"自分で向かいます",c_later:"後で決めます",q_food:"アレルギー・お食事のお好み",
  h_food:"アレルギーや控えている食材がございましたらお知らせください",f_allergy:"アレルギー等",
@@ -968,6 +977,8 @@ my:{filmPh:"ဗီဒီယိုဖိုင်အား ဒီနေရာတ�
  rsP:"၂၀၂၆ ခုနှစ်၊ စက်တင်ဘာလ (၂၀) ရက်နေ့ မတိုင်မီ အကြောင်းပြန်ပေးပါရန်။",
  q_attend:"မင်္ဂလာပွဲသို့ တက်ရောက်နိုင်ပါသလား။",h_attend:"၁၆ အောက်တိုဘာ ၂၀၂၆",a_yes:"ဝမ်းမြောက်စွာ တက်ရောက်ပါမည်",a_no:"မတက်ရောက်နိုင်ပါ",
  q_name:"လူကြီးမင်း၏ အမည်",h_name:"ဧည့်သည်နေရာပြ ကတ်ပြားအတွက် ဖြစ်ပါသည်",f_name:"အမည်",f_kana:"အသံထွက် (သို့) စာလုံးပေါင်း",
+ q_contact:"ဆက်သွယ်ရန် လိပ်စာကို ပေးပါ",h_contact:"မင်္ဂလာပွဲမတိုင်မီ (သို့) ပြီးနောက် ဆက်သွယ်ရန် လိုအပ်နိုင်ပါသည်",
+ f_contact:"အီးမေးလ် (သို့) ဖုန်းနံပါတ်",f_address:"နေရပ်လိပ်စာ (ချန်ထားနိုင်သည်)",
  q_party:"တက်ရောက်မည့် ဧည့်သည်အရေအတွက်",h_party:"မိမိအပါအဝင်",q_station:"မည်သည့်ဘူတာမှ လာရောက်မည်နည်း",
  h_station:"ကြိုပို့ကား စီစဉ်ရန်ဖြစ်ပါသည်",c_own:"ကိုယ်ပိုင်အစီအစဉ်ဖြင့် လာရောက်ပါမည်",c_later:"နောက်မှ ဆုံးဖြတ်မည်",q_food:"မတည့်သည့် အစားအစာများ ရှိပါသလား",
  h_food:"ဓာတ်မတည့်သည်များ သို့မဟုတ် မစားသည့် အစားအစာများ",f_allergy:"မတည့်သည့် အစားအစာများ",
@@ -1170,15 +1181,17 @@ document.getElementById("calIcs").onclick=()=>{
 const SHEET_ENDPOINT="https://script.google.com/macros/s/AKfycbzq1pO9lLenqPzQecIh8jE980OBXG1GITrXZXyytk88P2OkLKqsssYxoDZO58l27eic/exec";
 const rsCard=document.getElementById("rsCard"),rsBar=document.getElementById("rsBar"),
   rsSteps=[...rsCard.querySelectorAll(".rs-step")];
-const YES_FLOW=["attend","name","party","station","food","nijikai","msg","review","done"];
-const NO_FLOW=["attend","name","msg","review","done"];
+const YES_FLOW=["attend","name","contact","party","station","food","nijikai","msg","review","done"];
+const NO_FLOW=["attend","name","contact","msg","review","done"];
 let flow=YES_FLOW,fi=0;
-const data={attending:"",name:"",kana:"",party:1,guestNames:"",station:"",allergy:"",nijikai:"",message:""};
+const data={attending:"",name:"",kana:"",contact:"",address:"",party:1,guestNames:"",station:"",allergy:"",nijikai:"",message:""};
 function showStep(){const key=flow[fi];
   rsSteps.forEach(s=>s.classList.toggle("on",s.dataset.s===key));
   rsBar.style.width=(fi/(flow.length-1)*100)+"%";if(key==="review")updateReview();}
 function updateReview(){const box=document.getElementById("rsReview");if(!box)return;
   const rows=[[tr("q_attend"),data.attending==="yes"?tr("a_yes"):tr("a_no")],[tr("f_name"),data.name||"—"]];
+  rows.push([tr("f_contact"),data.contact||"—"]);
+  if(data.address)rows.push([tr("f_address"),data.address]);
   if(data.attending==="yes"){rows.push([tr("q_party"),String(data.party)]);
     if(data.party>1)rows.push([tr("f_guestName"),data.guestNames||"—"]);
     const stChip=document.querySelector(`.rs-chips[data-field="station"] [data-v="${data.station}"]`);
@@ -1216,6 +1229,9 @@ rsCard.querySelectorAll("[data-next]").forEach(b=>b.onclick=()=>{const key=flow[
   if(key==="name"){data.name=document.getElementById("fName").value.trim();
     data.kana=document.getElementById("fKana").value.trim();
     if(!data.name){document.getElementById("fName").focus();return;}}
+  if(key==="contact"){data.contact=document.getElementById("fContact").value.trim();
+    data.address=document.getElementById("fAddress").value.trim();
+    if(!data.contact){document.getElementById("fContact").focus();return;}}
   if(key==="party")data.guestNames=document.getElementById("fGuestName").value.trim();
   if(key==="food")data.allergy=document.getElementById("fAllergy").value.trim();
   if(key==="msg")data.message=document.getElementById("fMsg").value.trim();
