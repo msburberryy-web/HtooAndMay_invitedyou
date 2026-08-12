@@ -127,8 +127,9 @@ body.locked{overflow:hidden;height:100vh}
 .sec p{font-size:1.03rem;color:var(--greige);margin:0 0 1.1rem;
   text-shadow:0 1px 14px rgba(0,0,0,.6),0 1px 2px rgba(0,0,0,.5)}
 .center{text-align:center}
-.rs-deadline{font-size:1.15rem;font-weight:600;color:var(--gold);letter-spacing:.02em;
-  text-shadow:0 1px 14px rgba(0,0,0,.6)}
+.rs-deadline{font-size:1rem;color:var(--bone);
+  text-shadow:0 1px 16px rgba(0,0,0,.7),0 1px 3px rgba(0,0,0,.65)}
+.rs-deadline .hl{color:var(--gold);font-weight:600}
 .scene{position:relative}
 .pin{position:sticky;top:0;height:100dvh;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .layer{position:absolute;inset:0;width:100%;height:100%;will-change:transform}
@@ -256,6 +257,7 @@ body.locked{overflow:hidden;height:100vh}
 .card h3{font-family:var(--serif);font-weight:200;font-size:clamp(1.7rem,7vw,2.3rem);
   margin:0 0 1rem;line-height:1.15}
 .card p{font-size:1.02rem;color:var(--greige);margin:0 0 1.2rem}
+.card p .hl{color:var(--gold);font-weight:600}
 .cards-dots{position:absolute;bottom:9dvh;left:0;right:0;display:flex;gap:.45rem;
   justify-content:center;z-index:30}
 .cd-dot{width:28px;height:2px;background:rgba(242,239,233,.18);transition:background .5s ease}
@@ -621,7 +623,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.1rem}
     <article class="card" data-card="1">
       <p class="eyebrow" data-t="dressEye">Dress code</p>
       <h3 class="dress-h" id="dressH"><span class="drop"></span><span class="rest"></span></h3>
-      <p data-t="dressP">Feel free to keep it comfortable yet elegant. If you'd like to complement our palette, consider champagne, soft yellow, or warm earthy tones. Black tie is warmly welcomed for gentlemen.</p>
+      <p data-t="dressP" data-html>Our dress code is <span class="hl">cocktail style</span> — polished yet comfortable. If you'd like to complement our palette, consider champagne, soft yellow, or warm earthy tones. Black tie is warmly welcomed for gentlemen.</p>
       <div class="swatches">
         <div class="sw" style="background:#C7E0C9"></div><div class="sw" style="background:#F5E9A0"></div>
         <div class="sw" style="background:#8B5A3C"></div><div class="sw" style="background:#5C3A22"></div>
@@ -665,12 +667,18 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.1rem}
         <div class="bus-row"><div class="bus-k">Bus A</div><div class="bus-v">新宿 Shinjuku<small>Departs —:— · Returns ~18:00</small></div></div>
         <div class="bus-row"><div class="bus-k">Bus B</div><div class="bus-v">東京 Tokyo Station<small>Departs —:— · Returns ~18:00</small></div></div>
         <div class="bus-row"><div class="bus-k">Bus C</div><div class="bus-v">池袋 Ikebukuro<small>Departs —:— · Returns ~18:00</small></div></div>
-        <p class="gate-note" data-t="busNote">Pickup locations are in Shinjuku, Tokyo Station, and Ikebukuro. Return buses leave after the reception — precise departure times will be confirmed closer to the date.</p></div>
+        <p class="gate-note" data-t="busNote">These three stations are our starting plan, based on what's most convenient for our guests — if many of you prefer the same station, we may add an extra bus there instead. It isn't a fixed promise yet, so your preferred station below helps us finalize the routes.</p></div>
       <p class="gate-note" id="gateMsg" data-t="gateMsg">Select your preferred station in the RSVP below, and we will confirm your pickup point and schedule.</p>
     </article>
 
+    <article class="card" data-card="4">
+      <p class="eyebrow" data-t="afterEye">Afterparty</p>
+      <h3 class="dress-h" id="afterH"><span class="drop"></span><span class="rest"></span></h3>
+      <p data-t="afterP" data-html>Following the main reception, we'll host a relaxed afterparty (2次会) with extra food, drinks, and music. <span class="hl">¥5,000 per person</span> (shared cost for catering). Let us know if you'd like to join in the RSVP below.</p>
+    </article>
+
     <div class="cards-dots" id="cardsDots">
-      <span class="cd-dot on"></span><span class="cd-dot"></span><span class="cd-dot"></span><span class="cd-dot"></span></div>
+      <span class="cd-dot on"></span><span class="cd-dot"></span><span class="cd-dot"></span><span class="cd-dot"></span><span class="cd-dot"></span></div>
   </div>
 </section>
 
@@ -720,7 +728,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.1rem}
   <div class="wrap">
     <div class="sec-head"><p class="eyebrow" data-t="rsEye">Kindly respond</p>
       <h2 data-words data-fx="growbig" data-t="rsTitle">RSVP</h2></div>
-    <p class="center rs-deadline" style="margin-bottom:1rem" data-wipe data-t="rsP">Please reply by 20 September 2026.</p>
+    <p class="center rs-deadline" style="margin-bottom:1rem" data-t="rsP" data-html>Please reply by <span class="hl">20 September 2026</span>.</p>
     <div class="rs-card" id="rsCard">
       <div class="rs-track"><i id="rsBar"></i></div>
       <div class="rs-step on" data-s="attend">
@@ -836,11 +844,13 @@ ja:{filmPh:"オープニングフィルムが再生されます",skip:"スキッ
  dayRecep:"受付開始",dayGate:"入場締切",dayGateSub:"挙式10分前です。お席にお着きください",dayCeremony:"挙式開始",
  saveEye:"日程",saveTitle:"2026年10月16日（金）",
  dressEye:"ドレスコード",dressTitle:"Dress Code",
- dressP:"フォーマルすぎず、快適な装いでお越しください。カラーを合わせられる方は、シャンパンゴールド、レモンイエロー、ブラウン系がおすすめです。男性はブラックタイも歓迎いたします。",
+ dressP:"ドレスコードは<span class=\"hl\">カクテルスタイル</span>です。フォーマルすぎず、上品な装いでお越しください。カラーを合わせられる方は、シャンパンゴールド、レモンイエロー、ブラウン系がおすすめです。男性はブラックタイも歓迎いたします。",
  locEye:"会場エリア",locTitle:"Atsugi Area",locP:"会場は厚木エリアにございます。最寄り駅は厚木駅です。下記の地図をご参照ください。",
  transEye:"アクセス",transTitle:"Transportation",transP:"主要3駅から無料送迎バスをご用意しております。お帰りも同駅まで送迎いたします。",
- busNote:"乗車場所は新宿・東京・池袋です。復路は披露宴終了後に出発いたします。詳細は後日ご案内いたします。",
+ busNote:"新宿・東京・池袋の3駅を予定していますが、ご出発になる駅はゲストの皆様のご都合に応じて決定いたします。同じ駅をご希望の方が多い場合は、その方面に増便する場合もございます。まだ確定ではございませんので、下記にてご希望の乗車駅をお知らせください。",
  gateMsg:"下のRSVPにてご希望の乗車駅をお選びください。",
+ afterEye:"アフターパーティー",afterTitle:"Afterparty",
+ afterP:"披露宴の後には、お食事・お飲み物・音楽をお楽しみいただける<span class=\"hl\">アフターパーティー（2次会）</span>を予定しております。会費は<span class=\"hl\">お一人様5,000円</span>（お食事代等の実費）です。ご参加をご希望の場合は、下記のRSVPにてお知らせください。",
  faqEye:"ご案内",faqTitle:"よくあるご質問",
  faqQ1:"会場へのアクセス方法は？",
  faqA1:"会場は厚木エリアにございます（<span class=\"hl\">新宿駅から約48分</span>）。新宿・東京・池袋から送迎バスを用意しております。定員がございますのでRSVPにてご希望をお知らせください。",
@@ -861,7 +871,7 @@ ja:{filmPh:"オープニングフィルムが再生されます",skip:"スキッ
  faqQ9:"回答後にRSVP内容を変更できますか？",
  faqA9:"はい、いつでも変更可能です。ご都合が変わられた場合は<span class=\"hl\">直接ご連絡いただけますと幸いです</span>。",
  nameMay:"May",nameHtoo:"Htoo",next:"次へ",back:"戻る",rsEye:"ご回答",rsTitle:"RSVP",
- rsP:"2026年9月20日までにご回答をお願いいたします。",
+ rsP:"<span class=\"hl\">2026年9月20日</span>までにご回答をお願いいたします。",
  q_attend:"ご出席いただけますか？",h_attend:"2026年10月16日",a_yes:"喜んで出席します",a_no:"あいにく欠席します",
  q_name:"お名前",h_name:"席札に使用させていただきます",f_name:"お名前",f_kana:"ふりがな（任意）",
  q_contact:"ご連絡先を教えてください",h_contact:"結婚式の前後でご連絡させていただく場合がございます",
@@ -895,11 +905,13 @@ my:{filmPh:"ဗီဒီယိုဖိုင်အား ဒီနေရာတ�
  dayRecep:"ဧည့်ခံပွဲ စတင်ချိန်",dayGate:"ပွဲစတင်ရန် ပြင်ဆင်ချိန်",dayGateSub:"အခမ်းအနားမစတင်မီ ၁၀ မိနစ်အလိုတွင် နေရာယူပေးပါရန်။",dayCeremony:"မင်္ဂလာအခမ်းအနား စတင်ချိန်",
  saveEye:"ရက်စွဲ",saveTitle:"၁၆ အောက်တိုဘာ ၂၀၂၆ (သောကြာနေ့)",
  dressEye:"ဝတ်စုံဒီဇိုင်း",dressTitle:"Dress Code",
- dressP:"ပေါ့ပါးလွတ်လပ်စွာ ဝတ်ဆင်နိုင်ပါသည်။ အဝတ်အစားအရောင်ကို ပွဲနှင့်လိုက်ဖက်အောင် ဝတ်ဆင်လိုပါက ဝင်္ကပါရောင် (Champagne)၊ အဝါနုရောင် သို့မဟုတ် အညိုရောင်လိုင်းများကို ရွေးချယ်နိုင်ပါသည်။ အမျိုးသားများအတွက် Black Tie ဝတ်စုံဖြင့်လည်း တက်ရောက်နိုင်ပါသည်။",
+ dressP:"ဝတ်စုံဒီဇိုင်းမှာ <span class=\"hl\">Cocktail Style</span> ဖြစ်ပါသည်။ ပေါ့ပါးလွတ်လပ်စွာ တင့်တယ်စွာ ဝတ်ဆင်နိုင်ပါသည်။ အဝတ်အစားအရောင်ကို ပွဲနှင့်လိုက်ဖက်အောင် ဝတ်ဆင်လိုပါက ဝင်္ကပါရောင် (Champagne)၊ အဝါနုရောင် သို့မဟုတ် အညိုရောင်လိုင်းများကို ရွေးချယ်နိုင်ပါသည်။ အမျိုးသားများအတွက် Black Tie ဝတ်စုံဖြင့်လည်း တက်ရောက်နိုင်ပါသည်။",
  locEye:"တည်နေရာ",locTitle:"Atsugi Area",locP:"ကျွန်တော်တို့ ပွဲကျင်းပမည့်နေရာသည် Atsugi ဒေသတွင် ဖြစ်ပြီး အနီးဆုံးဘူတာမှာ Atsugi Station ဖြစ်ပါသည်။ လမ်းညွှန်ရန် အောက်ပါမြေပုံကို ကြည့်ရှုပါ။",
  transEye:"ခရီးစဉ်ဆိုင်ရာ",transTitle:"Transportation",transP:"အဓိက ဘူတာရုံ (၃) ခုမှ ကြိုပို့ဘတ်စ်ကားများ စီစဉ်ပေးထားပြီး၊ ပွဲအပြီးတွင် မူလဘူတာသို့ ပြန်လည်ပို့ဆောင်ပေးပါမည်။",
- busNote:"ကြိုပို့ဂိတ်များမှာ Shinjuku, Tokyo Station နှင့် Ikebukuro တို့ဖြစ်ကြပြီး၊ အသေးစိတ်အချိန်ဇယားကို မင်္ဂလာပွဲနီးကပ်ချိန်တွင် အကြောင်းကြားပေးပါမည်။",
+ busNote:"Shinjuku၊ Tokyo Station နှင့် Ikebukuro တို့ကို အစပြု အစီအစဉ်အဖြစ် စီစဉ်ထားပြီး၊ ဧည့်သည်များအတွက် အဆင်ပြေမှုအပေါ် မူတည်၍ အတည်ပြုပါမည်။ တစ်ဂိတ်တည်းကို လူအများဆုံး ရွေးချယ်ပါက ထိုဒေသအတွက် ဘတ်စ်ကားထပ်တိုးပေးနိုင်ပါသည်။ အတည်မဖြစ်သေးသဖြင့် အောက်တွင် သင်နှစ်သက်ရာ ဂိတ်ကို ဖြေကြားပေးပါရန်။",
  gateMsg:"အောက်ပါ RSVP တွင် သင်စီးနင်းလိုသော ဂိတ်ကို ရွေးချယ်ပေးပါ။",
+ afterEye:"အထူးပါတီ",afterTitle:"Afterparty",
+ afterP:"ဧည့်ခံပွဲအပြီးတွင် အစားအသောက်နှင့် ဂီတဖျော်ဖြေမှုများပါဝင်သော <span class=\"hl\">Afterparty (2次会)</span> ကို ဆက်လက်ကျင်းပပါမည်။ တစ်ဦးလျှင် <span class=\"hl\">¥5,000</span> ကျခံရမည်ဖြစ်ပါသည် (စားသောက်စရိတ် အားလုံးအတွက်)။ ပါဝင်လိုပါက အောက်ပါ RSVP တွင် အကြောင်းကြားပေးပါ။",
  faqEye:"သိရှိရန်များ",faqTitle:"မေးလေ့ရှိသော မေးခွန်းများ",
  faqQ1:"ပွဲကျင်းပမည့်နေရာသို့ မည်သို့သွားရောက်ရမည်နည်း။",
  faqA1:"ပွဲကျင်းပမည့်နေရာသည် Atsugi ဧရိယာတွင်ရှိပြီး <span class=\"hl\">Shinjuku ဘူတာမှ မိနစ် ၄၈ မိနစ်ခန့်</span> ကွာဝေးပါသည်။ Shinjuku, Tokyo Station, Ikebukuro တို့မှ ကြိုပို့ကားများ စီစဉ်ပေးထားပါသည်။ အစီးရေ ကန့်သတ်ချက်ရှိပါသဖြင့် RSVP တွင် ကြိုတင်စာရင်းပေးပါရန်။",
@@ -920,7 +932,7 @@ my:{filmPh:"ဗီဒီယိုဖိုင်အား ဒီနေရာတ�
  faqQ9:"RSVP ဖြည့်ပြီးပါက အချက်အလက်များ ပြန်လည်ပြင်ဆင်နိုင်ပါသလား။",
  faqA9:"ဟုတ်ကဲ့၊ ပြင်ဆင်နိုင်ပါသည်။ အစီအစဉ်များ ပြောင်းလဲပါက ကျွန်တော်တို့ထံ <span class=\"hl\">တိုက်ရိုက် ဆက်သွယ် အကြောင်းကြားနိုင်ပါသည်။</span>",
  nameMay:"မေ",nameHtoo:"ထူး",next:"ရှေ့သို့",back:"နောက်သို့",rsEye:"အကြောင်းပြန်ရန်",rsTitle:"RSVP",
- rsP:"၂၀၂၆ ခုနှစ်၊ စက်တင်ဘာလ (၂၀) ရက်နေ့ မတိုင်မီ အကြောင်းပြန်ပေးပါရန်။",
+ rsP:"<span class=\"hl\">၂၀၂၆ ခုနှစ်၊ စက်တင်ဘာလ (၂၀) ရက်နေ့</span> မတိုင်မီ အကြောင်းပြန်ပေးပါရန်။",
  q_attend:"မင်္ဂလာပွဲသို့ တက်ရောက်နိုင်ပါသလား။",h_attend:"၁၆ အောက်တိုဘာ ၂၀၂၆",a_yes:"ဝမ်းမြောက်စွာ တက်ရောက်ပါမည်",a_no:"မတက်ရောက်နိုင်ပါ",
  q_name:"လူကြီးမင်း၏ အမည်",h_name:"ဧည့်သည်နေရာပြ ကတ်ပြားအတွက် ဖြစ်ပါသည်",f_name:"အမည်",f_kana:"အသံထွက် (သို့) စာလုံးပေါင်း",
  q_contact:"ဆက်သွယ်ရန် လိပ်စာကို ပေးပါ",h_contact:"မင်္ဂလာပွဲမတိုင်မီ (သို့) ပြီးနောက် ဆက်သွယ်ရန် လိုအပ်နိုင်ပါသည်",
@@ -947,6 +959,7 @@ document.querySelectorAll("[data-t]").forEach(el=>{
 T.en.dressTitle="Dress Code";
 T.en.locTitle="Atsugi Area";
 T.en.transTitle="Transportation";
+T.en.afterTitle="Afterparty";
 T.en.saveTitle="16 October 2026 (Friday)";
 let LANG="en";
 const tr=k=>(T[LANG]&&T[LANG][k])||T.en[k]||"";
@@ -1015,6 +1028,7 @@ function setDressTitle(){
   setDropTitle("dressH","dressTitle","Dress Code");
   setDropTitle("locH","locTitle","Atsugi Area");
   setDropTitle("transH","transTitle","Transportation");
+  setDropTitle("afterH","afterTitle","Afterparty");
   setSaveDate();}
 function applyLang(l){
   LANG=l;document.documentElement.lang=l;
