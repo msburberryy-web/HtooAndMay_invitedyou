@@ -86,11 +86,10 @@ body.locked{overflow:hidden;height:100vh}
   letter-spacing:.22em;text-transform:uppercase;padding:.8rem}
 
 .mono-sec{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;
-  justify-content:flex-start;text-align:center;padding:5rem var(--pad) 4rem;overflow:hidden}
-.mono-bg{position:absolute;inset:-14%;will-change:transform}
-.mono-bg svg,.mono-bg img{width:100%;height:100%;object-fit:cover}
-.mono-logo-stage{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.mono-inner{position:relative;z-index:3;width:100%;padding-top:calc(50svh + 5rem)}
+  justify-content:center;text-align:center;padding:6rem var(--pad) max(3rem,calc(env(safe-area-inset-bottom) + 2rem));
+  overflow:hidden;gap:clamp(1.2rem,5svh,2.8rem)}
+.mono-logo-stage{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.mono-inner{position:relative;z-index:3;width:100%}
 #monogram{width:min(38vw,150px);height:auto;will-change:transform;opacity:0;transition:opacity 1.4s ease 0.9s;display:block;background:none}
 .drawn #monogram{opacity:1}
 @keyframes draw{to{stroke-dashoffset:0}}
@@ -507,12 +506,6 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 </div>
 
 <section class="mono-sec" id="monoSec">
-  <div class="mono-bg" data-par="0.10">
-    <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice">
-      <rect width="1000" height="1000" fill="#0D1712"/>
-      <path d="M0 720 Q250 640 520 700 T1000 680 L1000 1000 L0 1000Z" fill="#14211A"/>
-      <path d="M0 850 Q280 780 580 830 T1000 810 L1000 1000 L0 1000Z" fill="#182A20"/></svg>
-  </div>
   <div class="mono-logo-stage">
     <img id="monogram" src="assets/photos/monogram.png" data-fx="monogram" alt="Htoo &amp; May monogram"></div>
   <div class="mono-inner">
