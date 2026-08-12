@@ -406,23 +406,25 @@ body.locked{overflow:hidden;height:100vh}
 .rs-step.on{display:block;animation:stepIn .65s var(--ease)}
 @keyframes stepIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 .rs-q{font-family:var(--serif);font-weight:200;font-size:clamp(1.35rem,5.8vw,1.9rem);
-  line-height:1.32;margin:.4rem 0;text-align:center}
-.rs-hint{font-size:.9rem;color:var(--stone);text-align:center;margin:0 0 2rem}
+  line-height:1.32;margin:.4rem 0;text-align:center;text-shadow:0 2px 20px rgba(0,0,0,.6),0 1px 3px rgba(0,0,0,.5)}
+.rs-hint{font-size:.9rem;color:var(--greige);text-align:center;margin:0 0 2rem;
+  text-shadow:0 1px 14px rgba(0,0,0,.6),0 1px 2px rgba(0,0,0,.5)}
 .rs-hint .hl{color:var(--gold);font-weight:400}
 .ext-link{color:var(--gold);font-size:.82rem;text-decoration:none;border-bottom:1px solid rgba(201,151,74,.5)}
 .rs-field{display:block;margin-bottom:1.6rem}
 .rs-field span{display:block;font-size:.56rem;letter-spacing:.24em;text-transform:uppercase;
-  color:var(--gold);margin-bottom:.4rem}
+  color:var(--gold);margin-bottom:.4rem;text-shadow:0 1px 10px rgba(0,0,0,.6)}
 .rs-in{width:100%;background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;
   color:var(--bone);font-family:var(--serif);font-weight:200;font-size:1.3rem;
-  padding:.5rem 0;min-height:44px;transition:border-color .35s ease}
+  padding:.5rem 0;min-height:44px;transition:border-color .35s ease;text-shadow:0 1px 10px rgba(0,0,0,.5)}
 .rs-in:focus{outline:none;border-bottom-color:var(--gold)}
 textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem}
 .rs-chips{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center}
-.rs-chip{background:none;border:1px solid var(--line);border-radius:999px;color:var(--greige);
+.rs-chip{background:rgba(9,17,13,.4);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  border:1px solid var(--line);border-radius:999px;color:var(--greige);
   font-family:var(--sans);font-size:.85rem;padding:.7rem 1.1rem;cursor:pointer;
   transition:.3s var(--ease);min-height:44px}
-.rs-chip.on{border-color:var(--gold);color:var(--gold);background:rgba(201,151,74,.12)}
+.rs-chip.on{border-color:var(--gold);color:var(--gold);background:rgba(201,151,74,.18)}
 .rs-step-nav{display:flex;gap:.8rem;align-items:center;justify-content:center;margin-top:2rem}
 .rs-btn{background:none;border:1px solid var(--gold);border-radius:999px;color:var(--bone);
   font-family:var(--sans);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;
@@ -778,9 +780,11 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
         <div class="rs-stepper"><button type="button" id="pMinus" aria-label="minus">−</button>
           <div class="rs-count" id="pCount">1</div>
           <button type="button" id="pPlus" aria-label="plus">+</button></div>
-        <label class="rs-field" id="guestNameField" style="display:none;margin-top:1.6rem">
-          <span data-t="f_guestName">Guest name(s)</span>
-          <input class="rs-in" id="fGuestName" type="text"></label>
+        <div id="guestNameField" style="display:none;margin-top:1.6rem">
+          <label class="rs-field"><span data-t="f_guestName">Guest name(s)</span>
+            <input class="rs-in" id="fGuestName" type="text"></label>
+          <div style="text-align:center;margin-top:.8rem">
+            <button class="rs-chip" id="guestNameLater" type="button" data-t="c_later">Decide later</button></div></div>
         <div class="rs-step-nav"><button class="rs-btn ghost" data-back data-t="back">Back</button>
           <button class="rs-btn" data-next data-t="next">Next</button></div></div>
       <div class="rs-step" data-s="station">
@@ -790,7 +794,8 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
           <button class="rs-chip" type="button" data-v="Shinjuku">新宿 Shinjuku</button>
           <button class="rs-chip" type="button" data-v="Tokyo">東京 Tokyo Station</button>
           <button class="rs-chip" type="button" data-v="Ikebukuro">池袋 Ikebukuro</button>
-          <button class="rs-chip" type="button" data-v="Own" data-t="c_own">I will travel independently</button></div>
+          <button class="rs-chip" type="button" data-v="Own" data-t="c_own">I will travel independently</button>
+          <button class="rs-chip" type="button" data-v="Later" data-t="c_later">Decide later</button></div>
         <div class="rs-step-nav"><button class="rs-btn ghost" data-back data-t="back">Back</button>
           <button class="rs-btn" data-next data-t="next">Next</button></div></div>
       <div class="rs-step" data-s="food">
@@ -885,7 +890,7 @@ ja:{filmPh:"オープニングフィルムが再生されます",skip:"スキッ
  q_attend:"ご出席いただけますか？",h_attend:"2026年10月16日",a_yes:"喜んで出席します",a_no:"あいにく欠席します",
  q_name:"お名前",h_name:"席札に使用させていただきます",f_name:"お名前",f_kana:"ふりがな（任意）",
  q_party:"ご出席人数",h_party:"ご本人様を含めた人数",q_station:"ご利用駅",
- h_station:"送迎バス手配のためお選びください",c_own:"自分で向かいます",q_food:"アレルギー・お食事のお好み",
+ h_station:"送迎バス手配のためお選びください",c_own:"自分で向かいます",c_later:"後で決めます",q_food:"アレルギー・お食事のお好み",
  h_food:"アレルギーや控えている食材がございましたらお知らせください",f_allergy:"アレルギー等",
  f_guestName:"同伴者のお名前",
  q_nijikai:"2次会へのご参加",
@@ -943,7 +948,7 @@ my:{filmPh:"ဗီဒီယိုဖိုင်အား ဒီနေရာတ�
  q_attend:"မင်္ဂလာပွဲသို့ တက်ရောက်နိုင်ပါသလား။",h_attend:"၁၆ အောက်တိုဘာ ၂၀၂၆",a_yes:"ဝမ်းမြောက်စွာ တက်ရောက်ပါမည်",a_no:"မတက်ရောက်နိုင်ပါ",
  q_name:"လူကြီးမင်း၏ အမည်",h_name:"ဧည့်သည်နေရာပြ ကတ်ပြားအတွက် ဖြစ်ပါသည်",f_name:"အမည်",f_kana:"အသံထွက် (သို့) စာလုံးပေါင်း",
  q_party:"တက်ရောက်မည့် ဧည့်သည်အရေအတွက်",h_party:"မိမိအပါအဝင်",q_station:"မည်သည့်ဘူတာမှ လာရောက်မည်နည်း",
- h_station:"ကြိုပို့ကား စီစဉ်ရန်ဖြစ်ပါသည်",c_own:"ကိုယ်ပိုင်အစီအစဉ်ဖြင့် လာရောက်ပါမည်",q_food:"မတည့်သည့် အစားအစာများ ရှိပါသလား",
+ h_station:"ကြိုပို့ကား စီစဉ်ရန်ဖြစ်ပါသည်",c_own:"ကိုယ်ပိုင်အစီအစဉ်ဖြင့် လာရောက်ပါမည်",c_later:"နောက်မှ ဆုံးဖြတ်မည်",q_food:"မတည့်သည့် အစားအစာများ ရှိပါသလား",
  h_food:"ဓာတ်မတည့်သည်များ သို့မဟုတ် မစားသည့် အစားအစာများ",f_allergy:"မတည့်သည့် အစားအစာများ",
  f_guestName:"အတူတက်ရောက်မည့်သူ၏ အမည်",
  q_nijikai:"2次会 (Afterparty) သို့ ပါဝင်ဆင်နွှဲမည်လား",
@@ -1155,7 +1160,9 @@ function updateReview(){const box=document.getElementById("rsReview");if(!box)re
   const rows=[[tr("q_attend"),data.attending==="yes"?tr("a_yes"):tr("a_no")],[tr("f_name"),data.name||"—"]];
   if(data.attending==="yes"){rows.push([tr("q_party"),String(data.party)]);
     if(data.party>1)rows.push([tr("f_guestName"),data.guestNames||"—"]);
-    rows.push([tr("q_station"),data.station||"—"]);rows.push([tr("f_allergy"),data.allergy||"—"]);
+    const stChip=document.querySelector(`.rs-chips[data-field="station"] [data-v="${data.station}"]`);
+    rows.push([tr("q_station"),(stChip&&stChip.textContent.trim())||data.station||"—"]);
+    rows.push([tr("f_allergy"),data.allergy||"—"]);
     rows.push([tr("q_nijikai"),data.nijikai==="yes"?tr("njYesL"):data.nijikai==="no"?tr("njNoL"):"—"]);}
   if(data.message)rows.push([tr("f_msg"),data.message]);
   box.innerHTML=rows.map(r=>`<div class="rs-review"><b>${r[0]}</b><span>${String(r[1]).replace(/</g,"&lt;")}</span></div>`).join("");}
@@ -1193,12 +1200,16 @@ rsCard.querySelectorAll("[data-next]").forEach(b=>b.onclick=()=>{const key=flow[
   if(key==="msg")data.message=document.getElementById("fMsg").value.trim();
   fi=Math.min(fi+1,flow.length-1);showStep();});
 rsCard.querySelectorAll("[data-back]").forEach(b=>b.onclick=()=>{fi=Math.max(fi-1,0);showStep();});
-const guestNameField=document.getElementById("guestNameField");
+const guestNameField=document.getElementById("guestNameField"),
+  fGuestName=document.getElementById("fGuestName"),guestNameLater=document.getElementById("guestNameLater");
 function updateGuestNameField(){guestNameField.style.display=data.party>1?"block":"none";}
 document.getElementById("pMinus").onclick=()=>{data.party=Math.max(1,data.party-1);
   document.getElementById("pCount").textContent=data.party;updateGuestNameField();};
 document.getElementById("pPlus").onclick=()=>{data.party=Math.min(3,data.party+1);
   document.getElementById("pCount").textContent=data.party;updateGuestNameField();};
+guestNameLater.onclick=()=>{
+  if(guestNameLater.classList.toggle("on")){fGuestName.value=tr("c_later")||"Decide later";fGuestName.readOnly=true;}
+  else{fGuestName.value="";fGuestName.readOnly=false;fGuestName.focus();}};
 document.querySelectorAll(".rs-chips[data-field]").forEach(group=>{
   const field=group.dataset.field;
   group.querySelectorAll(".rs-chip").forEach(c=>c.onclick=()=>{
