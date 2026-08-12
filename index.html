@@ -8,7 +8,7 @@
 <title>May &amp; Htoo — 16.10.2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,200..500&family=Padauk:wght@400;700&family=Zen+Kaku+Gothic+New:wght@300;400&family=Shippori+Mincho:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,200..500&family=Padauk:wght@400;700&family=Zen+Kaku+Gothic+New:wght@300;400&family=Shippori+Mincho:wght@400;500&family=Alex+Brush&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#0D1712;--ink-2:#14211A;--bone:#F2EFE9;--greige:#CFC9BB;--stone:#8C9188;
   --gold:#C9974A;--dim:#42514A;--line:rgba(242,239,233,.14);
@@ -163,7 +163,8 @@ body.locked{overflow:hidden;height:100vh}
   color:var(--bone);white-space:nowrap;text-shadow:0 2px 18px rgba(0,0,0,.65),0 1px 3px rgba(0,0,0,.55)}
 .heart-names span{will-change:transform,opacity}
 #hAmp{color:var(--gold);opacity:0}
-.heart-cap{font-size:1rem;color:var(--greige);text-align:center;margin:0;opacity:0;
+.heart-cap{font-family:var(--serif);font-weight:400;font-size:clamp(1.15rem,4.6vw,1.4rem);
+  color:var(--bone);text-align:center;margin:0;opacity:0;
   will-change:opacity,transform;padding:0 8vw;text-shadow:0 2px 16px rgba(0,0,0,.65),0 1px 3px rgba(0,0,0,.55)}
 .heart-pin .hero-motto{margin:.6rem 0 0;opacity:0;will-change:opacity,transform;
   color:var(--bone);text-shadow:0 2px 16px rgba(0,0,0,.65),0 1px 3px rgba(0,0,0,.55)}
@@ -489,8 +490,9 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
   text-shadow:0 1px 16px rgba(0,0,0,.6),0 1px 3px rgba(0,0,0,.5)}
 #endCredit{font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--stone);
   margin-top:3rem;opacity:0;will-change:transform,opacity;text-shadow:0 1px 10px rgba(0,0,0,.6)}
-.hero-motto{font-family:var(--serif);font-weight:200;font-style:italic;font-size:.98rem;
-  letter-spacing:.02em;color:var(--greige);margin:0 0 .3rem;text-align:center}
+.hero-motto{font-family:"Alex Brush",var(--serif);font-weight:400;font-style:normal;
+  font-size:clamp(1.7rem,7.5vw,2.4rem);letter-spacing:.02em;color:var(--bone);
+  margin:0 0 .3rem;text-align:center;line-height:1.3}
 
 @media (prefers-reduced-motion:reduce){
   .layer,.rec,#welBig,#star,.bub,.hg,.card{transform:translate(-50%,-50%)!important}
@@ -1277,6 +1279,7 @@ const jSky=document.getElementById("jSky"),jGlow=document.getElementById("jGlow"
 const jLayers=[...document.querySelectorAll(".sc-journey .layer")].map(el=>({el,
   depth:parseFloat(el.dataset.depth),c0:el.dataset.c0.split(",").map(Number),
   c1:el.dataset.c1.split(",").map(Number),c2:el.dataset.c2.split(",").map(Number),last:""}));
+const LAYER_REVEAL={.13:[0,.12],.24:[.06,.20],.38:[.14,.28],.56:[.24,.40]};
 
 const SKY=[{at:0,   top:[176,168,178],bot:[236,222,204]},
            {at:.42, top:[196,172,164],bot:[244,216,182]},
@@ -1471,7 +1474,9 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
       jSky.style.opacity=edgeFade.toFixed(3);
       jGlow.style.opacity=(Math.max(0,1-Math.abs(travel-.70)/.26)*.85*edgeFade).toFixed(3);
       jLayers.forEach(L=>{L.el.style.transform=`translate3d(0,${p*L.depth*innerHeight*.62}px,0)`;
-        L.el.style.opacity=edgeFade.toFixed(3);
+        const rv=LAYER_REVEAL[L.depth];
+        const reveal=rv?clamp((travel-rv[0])/(rv[1]-rv[0]),0,1):1;
+        L.el.style.opacity=(edgeFade*reveal).toFixed(3);
         const c=mix3(L.c0,L.c1,L.c2,travel);
         if(c!==L.last){L.el.style.setProperty("--lc",c);L.last=c;}});
       jVenue.style.opacity=(clamp((p-.30)/.16,0,1)*edgeFade).toFixed(3);
@@ -1619,7 +1624,8 @@ qzNext.onclick=()=>{qi++;if(qi<QZ.length)renderQ();
     return cmr(prof[Math.max(0,i-1)],prof[i],prof[Math.min(n,i+1)],prof[Math.min(n,i+2)],t);}
   function hn(x,s){
     return Math.abs(Math.sin(s*31.7+x*.13)*.42+Math.sin(s*73.1+x*.31)*.35+Math.sin(s*127.3+x*.71)*.23);}
-  const treeH={2:44,4:58},treeSp={2:14,4:10};
+  const jScale=Math.max(innerWidth,innerHeight*1.52)/1000;
+  const treeH={2:51/jScale,4:67/jScale},treeSp={2:16/jScale,4:11.6/jScale};
   document.querySelectorAll('.sc-journey .layer').forEach((el,idx)=>{
     const prof=profiles[idx];if(!prof)return;
     const path=el.querySelector('path');if(!path)return;
