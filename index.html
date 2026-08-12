@@ -473,10 +473,14 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 #endMsg{font-size:1.05rem;max-width:34ch;margin:0 auto;opacity:0;will-change:transform,opacity}
 #endSig{font-family:var(--serif);font-weight:200;font-size:1.4rem;letter-spacing:.1em;
   color:var(--greige);margin-top:2.4rem;opacity:0;will-change:transform,opacity}
+#endCredit{font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);
+  margin-top:3rem;opacity:0;will-change:transform,opacity}
+.hero-motto{font-family:var(--serif);font-weight:200;font-style:italic;font-size:.98rem;
+  letter-spacing:.02em;color:var(--greige);margin:0 0 .3rem;text-align:center}
 
 @media (prefers-reduced-motion:reduce){
   .layer,.rec,#welBig,#star,.bub,.hg,.card{transform:translate(-50%,-50%)!important}
-  #welBody,#endHead,#endMsg,#endSig,#endEyebrow,.j-head,.j-date,.heart-cap,#hAmp,.card{opacity:1!important}
+  #welBody,#endHead,#endMsg,#endSig,#endEyebrow,#endCredit,.j-head,.j-date,.heart-cap,#hAmp,.card{opacity:1!important}
   .day-row{visibility:visible!important;opacity:1!important;transform:translateY(-50%)!important}
   .drawn #monogram path,.drawn #monogram circle{animation:none;stroke-dashoffset:0}
   .seq,[data-reveal],.w{opacity:1!important;transform:none!important;animation:none!important}
@@ -513,6 +517,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
   <div class="mono-logo-stage">
     <img id="monogram" src="assets/photos/monogram.png" data-fx="monogram" alt="Htoo &amp; May monogram"></div>
   <div class="mono-inner">
+    <p class="hero-motto seq" data-t="heroMotto">Two hearts, one eternity</p>
     <h1 class="announce seq" data-t="announce">We're getting married.</h1>
     <p class="announce-body seq" data-t="announceBody">And we'd love for you to celebrate with us.</p>
     <div class="countdown seq" id="cd"></div>
@@ -841,13 +846,14 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
       <p class="eyebrow" id="endEyebrow" data-t="endEye">Looking forward</p>
       <h2 id="endHead" data-t="endHead">Our Next Chapter Begins</h2>
       <p id="endMsg" data-t="endMsg">Thank you for being part of our story and sharing in our happiness. We cannot wait to celebrate together.</p>
-      <p id="endSig" data-t="endSig" data-html>With love,<br>Htoo &amp; May</p></div>
+      <p id="endSig" data-t="endSig" data-html>With love,<br>Htoo &amp; May</p>
+      <p id="endCredit" data-t="siteCredit">Designed &amp; crafted by Studio Eternelle</p></div>
   </div>
 </section>
 
 <script>
 const T={en:{},
-ja:{filmPh:"オープニングフィルムが再生されます",skip:"スキップ",announce:"結婚いたします。",
+ja:{filmPh:"オープニングフィルムが再生されます",skip:"スキップ",heroMotto:"ふたつの心、ひとつの永遠に",announce:"結婚いたします。",
  announceBody:"大切な皆様と一緒に、特別な時間を過ごせたら嬉しいです。",
  cdD:"日",cdH:"時間",cdM:"分",cdS:"秒",welTitle:"ようこそ",
  welP1:"世界にはたくさんの物語がありますが、私たちにとって一番大切なのは二人の物語です。ここから新しい章がはじまります。",
@@ -903,9 +909,9 @@ ja:{filmPh:"オープニングフィルムが再生されます",skip:"スキッ
  calIcs:"カレンダーに追加",calNote:"タップするとお手持ちのカレンダーに登録できます。",
  endEye:"これから",endHead:"新しい旅立ち",
  endMsg:"私たちの歩みを温かく見守ってくださり心より感謝申し上げます。当日、皆様と乾杯できるのを楽しみにしております。",
- endSig:"愛を込めて<br>Htoo &amp; May",
+ endSig:"愛を込めて<br>Htoo &amp; May",siteCredit:"Studio Eternelle デザイン・制作",
  njYesL:"参加します",njNoL:"辞退します"},
-my:{filmPh:"ဗီဒီယိုဖိုင်အား ဒီနေရာတွင် ကြည့်ရှုနိုင်ပါသည်။",skip:"ကျော်ရန်",announce:"မင်္ဂလာသတင်းအောင်ပါပြီ။",
+my:{filmPh:"ဗီဒီယိုဖိုင်အား ဒီနေရာတွင် ကြည့်ရှုနိုင်ပါသည်။",skip:"ကျော်ရန်",heroMotto:"နှလုံးနှစ်လုံး၊ ထာဝရတစ်ခုတည်း",announce:"မင်္ဂလာသတင်းအောင်ပါပြီ။",
  announceBody:"ကျွန်တော်တို့၏ မင်္ဂလာပွဲလေးသို့ လူကြီးမင်းတို့အား နွေးထွေးစွာ ဖိတ်ခေါ်အပ်ပါသည်။",
  cdD:"ရက်",cdH:"နာရီ",cdM:"မိနစ်",cdS:"စက္ကန့်",welTitle:"နွေးထွေးစွာ ကြိုဆိုပါတယ်။",
  welP1:"အချစ်ဇာတ်လမ်းတွေ အများကြီးရှိပေမယ့် ကျွန်တော်တို့နှစ်ယောက်ရဲ့ဇာတ်လမ်းကို အနှစ်သက်ဆုံးပါပဲ။ ဒီနေရာကနေ အခန်းသစ်တစ်ခန်း စတင်တော့မှာပါ။",
@@ -961,7 +967,7 @@ my:{filmPh:"ဗီဒီယိုဖိုင်အား ဒီနေရာတ�
  calIcs:"ပြက္ခဒိန်တွင် ထည့်သွင်းမည်",calNote:"ဖုန်းပြက္ခဒိန်တွင် မှတ်သားထားရန် နှိပ်ပါ။",
  endEye:"နိဂုံး",endHead:"ရှေ့သို့ ဆက်လက်လျှောက်လှမ်းမည့် ခရီးစဉ်",
  endMsg:"ကျွန်တော်တို့၏ မင်္ဂလာပွဲလေးတွင် ပါဝင်ဆင်နွှဲပေးမည့်အတွက် ကျေးဇူးအထူးတင်ရှိပါသည်။",
- endSig:"ချစ်ခြင်းမေတ္တာများစွာဖြင့်<br>Htoo &amp; May",
+ endSig:"ချစ်ခြင်းမေတ္တာများစွာဖြင့်<br>Htoo &amp; May",siteCredit:"Studio Eternelle မှ ဒီဇိုင်းရေးဆွဲ ပြုလုပ်သည်",
  njYesL:"ပါဝင်ပါမည်",njNoL:"မပါဝင်နိုင်ပါ"}};
 
 const QZ_T={
@@ -1269,7 +1275,8 @@ const welBig=document.getElementById("welBig"),welBody=document.getElementById("
   bus=document.getElementById("bus"),prog=document.getElementById("prog"),bgPhoto=document.getElementById("bgphoto"),
   endMono=document.getElementById("endMono"),endEyebrow=document.getElementById("endEyebrow"),
   endHead=document.getElementById("endHead"),endMsg=document.getElementById("endMsg"),
-  endSig=document.getElementById("endSig"),dressDrop=document.querySelector("#dressH .drop"),
+  endSig=document.getElementById("endSig"),endCredit=document.getElementById("endCredit"),
+  dressDrop=document.querySelector("#dressH .drop"),
   swEls=[...document.querySelectorAll(".sw")],bubBox=document.getElementById("cardBubbles");
 const RLEN=routePath.getTotalLength();routePath.style.setProperty("--rlen",RLEN);
 const DLEN=railPath.getTotalLength();
@@ -1499,7 +1506,9 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
       const m=clamp((p-.56)/.16,0,1);
       endMsg.style.opacity=m;endMsg.style.transform=`translate3d(0,${(1-m)*22}px,0)`;
       const sg=clamp((p-.74)/.18,0,1);
-      endSig.style.opacity=sg;endSig.style.transform=`translate3d(0,${(1-sg)*20}px,0)`;}
+      endSig.style.opacity=sg;endSig.style.transform=`translate3d(0,${(1-sg)*20}px,0)`;
+      const cr=clamp((p-.88)/.12,0,1);
+      endCredit.style.opacity=cr;endCredit.style.transform=`translate3d(0,${(1-cr)*16}px,0)`;}
 
     if(sc.kind==="quiz"){
       if(quizSecHead)quizSecHead.classList.toggle("in",p>.02);
