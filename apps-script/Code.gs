@@ -8,6 +8,7 @@
  * {
  *   attending: "yes" | "no",
  *   name: string, kana: string,
+ *   contact: string, address: string,
  *   party: number, guestNames: string,
  *   station: string, allergy: string,
  *   nijikai: "yes" | "no" | "",
@@ -20,6 +21,7 @@ const SHEET_NAME = "RSVPs";
 
 const HEADERS = [
   "Timestamp", "Language", "Attending", "Name", "Kana / Reading",
+  "Email / Phone", "Mailing address",
   "Party size", "Guest name(s)", "Station", "Allergy / dietary notes",
   "2次会 (afterparty)", "Message"
 ];
@@ -35,6 +37,8 @@ function doPost(e) {
       data.attending || "",
       data.name || "",
       data.kana || "",
+      data.contact || "",
+      data.address || "",
       data.party || "",
       data.guestNames || "",
       data.station || "",
