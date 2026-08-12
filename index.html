@@ -178,7 +178,7 @@ body.locked{overflow:hidden;height:100vh}
 .rec-cover img{width:100%;height:100%;object-fit:cover;display:block}
 .rec-cap{position:absolute;left:0;right:0;top:calc(var(--rs) + .7rem);text-align:center;
   font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;color:var(--stone)}
-.rec-title{position:absolute;z-index:12;bottom:8vh;left:0;right:0;text-align:center;padding:0 8vw}
+.rec-title{position:absolute;z-index:12;bottom:8svh;left:0;right:0;text-align:center;padding:0 8vw}
 .rec-title p{font-family:var(--serif);font-size:clamp(1.25rem,5.2vw,1.9rem);color:var(--greige);
   margin:0;will-change:font-variation-settings}
 
@@ -207,7 +207,7 @@ body.locked{overflow:hidden;height:100vh}
 .j-head h3{font-family:var(--serif);font-size:clamp(1.9rem,8.4vw,3rem);margin:0 0 .6rem;
   line-height:1.1;text-shadow:0 2px 30px rgba(0,0,0,.5);will-change:font-variation-settings}
 .j-head p{font-size:1.02rem;color:var(--greige);margin:0;text-shadow:0 1px 22px rgba(0,0,0,.6)}
-.j-date{position:absolute;z-index:14;left:0;right:0;top:11vh;text-align:center;padding:0 8vw;
+.j-date{position:absolute;z-index:14;left:0;right:0;top:11svh;text-align:center;padding:0 8vw;
   opacity:0;will-change:opacity,transform}
 .j-date .k{font-size:.56rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin:0 0 .5rem}
 .j-date .v{font-family:var(--serif);font-weight:200;font-size:clamp(1.3rem,5.6vw,1.9rem);
@@ -247,7 +247,7 @@ body.locked{overflow:hidden;height:100vh}
 .card h3{font-family:var(--serif);font-weight:200;font-size:clamp(1.7rem,7vw,2.3rem);
   margin:0 0 1rem;line-height:1.15}
 .card p{font-size:1.02rem;color:var(--greige);margin:0 0 1.2rem}
-.cards-dots{position:absolute;bottom:9vh;left:0;right:0;display:flex;gap:.45rem;
+.cards-dots{position:absolute;bottom:9svh;left:0;right:0;display:flex;gap:.45rem;
   justify-content:center;z-index:30}
 .cd-dot{width:28px;height:2px;background:rgba(242,239,233,.18);transition:background .5s ease}
 .cd-dot.on{background:var(--gold)}
@@ -255,7 +255,7 @@ body.locked{overflow:hidden;height:100vh}
 /* ══════ FAQ ══════ */
 .sc-faq{height:310vh}
 @media (min-width:768px){.sc-faq{height:350vh}}
-.faq-head{position:absolute;top:7vh;left:0;right:0;text-align:center;z-index:5;padding:0 var(--pad)}
+.faq-head{position:absolute;top:7svh;left:0;right:0;text-align:center;z-index:5;padding:0 var(--pad)}
 .faq-card{position:absolute;left:50%;top:54%;width:min(90vw,480px);
   transform:translate(-50%,-50%);will-change:transform,opacity;
   padding:2.6rem 2rem;border-radius:18px;text-align:center;
@@ -267,7 +267,7 @@ body.locked{overflow:hidden;height:100vh}
   margin:0 0 1.1rem;line-height:1.32;color:var(--gold)}
 .faq-a{font-size:1.05rem;color:var(--greige);line-height:1.7;margin:0}
 .faq-a .hl{color:var(--gold);font-weight:400}
-.faq-dots{position:absolute;bottom:9vh;left:0;right:0;display:flex;gap:.45rem;
+.faq-dots{position:absolute;bottom:9svh;left:0;right:0;display:flex;gap:.45rem;
   justify-content:center;z-index:30}
 .fq-dot{width:28px;height:2px;background:rgba(242,239,233,.18);transition:background .5s ease}
 .fq-dot.on{background:var(--gold)}
@@ -380,6 +380,8 @@ body.locked{overflow:hidden;height:100vh}
   background:radial-gradient(ellipse at 50% 45%,rgba(201,151,74,.22) 0%,transparent 72%)}
 .vs-side.right .init{color:var(--gold);transform:scale(1.14) rotate(-3deg)}
 .vs-side.right .nm{color:var(--gold)}
+.vs-yes .init{color:var(--gold)}
+[data-s="attend"] .vs-yes::before{box-shadow:inset 0 0 0 1px rgba(201,151,74,.4),0 10px 26px rgba(0,0,0,.28)}
 .vs-side.miss{opacity:.28;transform:scale(.94)}
 .vs-side.confirmed{animation:yesPop .55s var(--ease)}
 .vs-side.confirmed::before{box-shadow:inset 0 0 0 1px var(--gold);
@@ -576,19 +578,19 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 <section class="scene sc-journey" data-scene="journey">
   <div class="pin">
     <div id="jSky"></div><div id="jGlow"></div>
-    <div class="layer" data-depth="0.13" data-c0="90,107,92" data-c1="164,132,88" data-c2="34,42,50">
+    <div class="layer" data-depth="0.13" data-c0="150,138,132" data-c1="164,132,88" data-c2="34,42,50">
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMax slice">
         <path d="M0 500 Q180 380 400 450 T780 420 T1000 480 L1000 1000 L0 1000Z"/></svg></div>
-    <div class="layer" data-depth="0.24" data-c0="62,79,68" data-c1="114,90,60" data-c2="24,31,37">
+    <div class="layer" data-depth="0.24" data-c0="114,100,92" data-c1="114,90,60" data-c2="24,31,37">
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMax slice">
         <path d="M0 600 Q220 480 480 560 T880 530 T1000 590 L1000 1000 L0 1000Z"/></svg></div>
-    <div class="layer" data-depth="0.38" data-c0="42,59,49" data-c1="80,60,40" data-c2="16,22,27">
+    <div class="layer" data-depth="0.38" data-c0="82,68,62" data-c1="80,60,40" data-c2="16,22,27">
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMax slice">
         <path d="M0,720 L1000,596 L1000,1000 L0,1000 Z"/></svg></div>
-    <div class="layer" id="jVenue" data-depth="0.46" data-c0="30,44,35" data-c1="56,42,30" data-c2="11,16,20">
+    <div class="layer" id="jVenue" data-depth="0.46" data-c0="56,46,42" data-c1="56,42,30" data-c2="11,16,20">
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMax slice">
         <path d="M0,840 C140,828 268,806 360,700 L360,682 L396,656 L396,612 L464,558 L464,480 L480,462 L500,426 L520,462 L536,480 L536,558 L604,612 L604,656 L640,682 L640,700 C732,806 860,828 1000,840 L1000,1000 L0,1000 Z"/></svg></div>
-    <div class="layer" data-depth="0.56" data-c0="22,36,28" data-c1="42,32,22" data-c2="9,13,17">
+    <div class="layer" data-depth="0.56" data-c0="40,34,32" data-c1="42,32,22" data-c2="9,13,17">
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMax slice">
         <path d="M0,870 L1000,840 L1000,1000 L0,1000 Z"/></svg></div>
     <div id="jRail"><svg viewBox="0 0 100 1000" preserveAspectRatio="none">
@@ -756,7 +758,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
         <p class="rs-q" data-t="q_attend">Will you join us?</p>
         <p class="rs-hint" data-t="h_attend">16 October 2026</p>
         <div class="vs">
-          <button class="vs-side" id="rsYes" type="button"><span class="init">
+          <button class="vs-side vs-yes" id="rsYes" type="button"><span class="init">
             <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3 L3 10.5 L10.5 13.5 L13.5 21 L21 3Z"/></svg></span>
             <span class="nm" data-t="a_yes">Joyfully accept</span></button>
           <span class="vs-or">or</span>
@@ -1228,8 +1230,8 @@ const jLayers=[...document.querySelectorAll(".sc-journey .layer")].map(el=>({el,
   depth:parseFloat(el.dataset.depth),c0:el.dataset.c0.split(",").map(Number),
   c1:el.dataset.c1.split(",").map(Number),c2:el.dataset.c2.split(",").map(Number),last:""}));
 
-const SKY=[{at:0,   top:[150,172,168],bot:[221,216,198]},
-           {at:.42, top:[168,180,162],bot:[236,224,192]},
+const SKY=[{at:0,   top:[176,168,178],bot:[236,222,204]},
+           {at:.42, top:[196,172,164],bot:[244,216,182]},
            {at:.66, top:[216,148,84], bot:[254,216,140]},
            {at:.79, top:[142,94,112], bot:[234,152,102]},
            {at:.89, top:[62,64,94],   bot:[150,96,104]},
@@ -1413,11 +1415,14 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
       const travel=clamp((p-.14)/.74,0,1);
       const css=skyAt(travel);
       if(css!==lastSky){jSky.style.background=css;lastSky=css;}
-      jGlow.style.opacity=(Math.max(0,1-Math.abs(travel-.70)/.26)*.85).toFixed(3);
+      const edgeFade=win(p,0,1,.05);
+      jSky.style.opacity=edgeFade.toFixed(3);
+      jGlow.style.opacity=(Math.max(0,1-Math.abs(travel-.70)/.26)*.85*edgeFade).toFixed(3);
       jLayers.forEach(L=>{L.el.style.transform=`translate3d(0,${p*L.depth*innerHeight*.62}px,0)`;
+        L.el.style.opacity=edgeFade.toFixed(3);
         const c=mix3(L.c0,L.c1,L.c2,travel);
         if(c!==L.last){L.el.style.setProperty("--lc",c);L.last=c;}});
-      jVenue.style.opacity=clamp((p-.30)/.16,0,1);
+      jVenue.style.opacity=(clamp((p-.30)/.16,0,1)*edgeFade).toFixed(3);
       const ho=win(p,-.08,.13,.055);
       jHead.style.opacity=ho;
       jHead.style.transform=`translate3d(0,${(p-.06)*-200}px,0) scale(${1+p*.2})`;
