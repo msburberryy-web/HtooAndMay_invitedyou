@@ -198,8 +198,10 @@ body.locked{overflow:hidden;height:100vh}
 @media (min-width:768px){.sc-journey{height:460vh}}
 #jSky{position:absolute;inset:0;z-index:0;will-change:background}
 #jGlow{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;will-change:opacity;
-  --gx:50%;--gy:18%;
-  background:radial-gradient(ellipse 70% 38% at var(--gx) var(--gy),rgba(255,238,196,.75),rgba(255,178,96,.22) 42%,transparent 72%)}
+  --gx:50%;--gy:16%;
+  background:
+    radial-gradient(circle 3.2vmin at var(--gx) var(--gy),rgba(255,252,240,.95),rgba(255,238,205,.55) 55%,transparent 100%),
+    radial-gradient(ellipse 26% 15% at var(--gx) var(--gy),rgba(255,214,150,.5),transparent 72%)}
 .sc-journey .layer{top:-52%;height:152%;will-change:transform;z-index:2}
 .sc-journey .layer path{fill:var(--lc)}
 #jVenue{opacity:0;will-change:opacity}
@@ -615,7 +617,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.1rem}
         <path d="M0,720 L1000,596 L1000,1000 L0,1000 Z"/></svg></div>
     <div class="layer" id="jVenue" data-depth="0.46" data-c0="17,28,23" data-c1="18,27,34" data-c2="10,17,27">
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMax slice">
-        <path d="M0,840 C140,828 268,806 360,700 L360,682 L396,656 L396,612 L464,558 L464,480 L480,462 L500,426 L520,462 L536,480 L536,558 L604,612 L604,656 L640,682 L640,700 C732,806 860,828 1000,840 L1000,1000 L0,1000 Z"/></svg></div>
+        <path transform="translate(0,90)" d="M0,840 C140,828 268,806 360,700 L360,682 L396,656 L396,612 L464,558 L464,480 L480,462 L500,426 L520,462 L536,480 L536,558 L604,612 L604,656 L640,682 L640,700 C732,806 860,828 1000,840 L1000,1000 L0,1000 Z"/></svg></div>
     <div class="layer" data-depth="0.56" data-c0="12,20,17" data-c1="13,20,26" data-c2="7,12,20">
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMax slice">
         <path d="M0,870 L1000,840 L1000,1000 L0,1000 Z"/></svg></div>
@@ -1475,9 +1477,9 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
       if(css!==lastSky){jSky.style.background=css;lastSky=css;}
       const edgeFade=win(p,0,1,.05);
       jSky.style.opacity=edgeFade.toFixed(3);
-      const glowBase=.55,glowPeak=Math.max(0,1-Math.abs(travel-.70)/.26)*.45;
-      jGlow.style.opacity=((glowBase+glowPeak)*edgeFade).toFixed(3);
-      jLayers.forEach(L=>{L.el.style.transform=`translate3d(0,${p*L.depth*innerHeight*.62}px,0)`;
+      const glowIn=clamp(p/.13,0,1),glowPeak=Math.max(0,1-Math.abs(travel-.70)/.26)*.5;
+      jGlow.style.opacity=((glowIn*.6+glowPeak)*edgeFade).toFixed(3);
+      jLayers.forEach(L=>{L.el.style.transform=`translate3d(0,${p*L.depth*innerHeight*.44}px,0)`;
         const rv=LAYER_REVEAL[L.depth];
         const reveal=rv?clamp((travel-rv[0])/(rv[1]-rv[0]),0,1):1;
         L.el.style.opacity=(edgeFade*reveal).toFixed(3);
@@ -1494,7 +1496,7 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
       star.style.left=(pt.x/100*rr.width)+"px";star.style.top=(pt.y/1000*rr.height)+"px";
       star.style.opacity=(p>.15&&p<.90)?1:0;
       star.style.zIndex=travel<.38?"10":"1";
-      jGlow.style.setProperty("--gx",pt.x+"%");jGlow.style.setProperty("--gy",(pt.y/10)+"%");
+      jGlow.style.setProperty("--gx",clamp(pt.x,5,95)+"%");jGlow.style.setProperty("--gy",clamp(pt.y/10,6,95)+"%");
       star.style.transform=`translate(-50%,-50%) scale(${1+Math.sin(travel*Math.PI)*.5})`;
       for(const s of TRAIL){const on=s.t<=travel&&p>.14;
         if(on!==s.lit){s.lit=on;s.el.style.opacity=on?.85:0;}}
@@ -1625,9 +1627,10 @@ qzNext.onclick=()=>{qi++;if(qi<QZ.length)renderQ();
   };
   function cmr(p0,p1,p2,p3,t){
     return .5*((2*p1)+(-p0+p2)*t+(2*p0-5*p1+4*p2-p3)*t*t+(-p0+3*p1-3*p2+p3)*t*t*t);}
+  const PEAK_DROP=95;
   function ry(prof,x){
     const n=prof.length-1,tg=(x/W)*n,i=Math.min(Math.floor(tg),n-1),t=tg-i;
-    return cmr(prof[Math.max(0,i-1)],prof[i],prof[Math.min(n,i+1)],prof[Math.min(n,i+2)],t);}
+    return cmr(prof[Math.max(0,i-1)],prof[i],prof[Math.min(n,i+1)],prof[Math.min(n,i+2)],t)+PEAK_DROP;}
   function hn(x,s){
     return Math.abs(Math.sin(s*31.7+x*.13)*.42+Math.sin(s*73.1+x*.31)*.35+Math.sin(s*127.3+x*.71)*.23);}
   const jScale=Math.max(innerWidth,innerHeight*1.52)/1000;
