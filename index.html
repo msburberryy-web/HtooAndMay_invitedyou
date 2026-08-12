@@ -272,7 +272,9 @@ html[lang="my"] .faq-head .eyebrow{display:none}
   background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.03));
   backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   border:1px solid rgba(242,239,233,.16);box-shadow:0 18px 50px rgba(0,0,0,.4)}
-@media (min-width:768px){.faq-card{padding:3.1rem 2.7rem}}
+.faq-card::before{content:"";position:absolute;inset:10px;border:1px solid rgba(242,239,233,.35);
+  border-radius:10px;pointer-events:none}
+@media (min-width:768px){.faq-card{padding:3.1rem 2.7rem}.faq-card::before{inset:14px}}
 .faq-q{font-family:var(--serif);font-weight:200;font-size:clamp(1.4rem,6.2vw,1.85rem);
   margin:0 0 1.1rem;line-height:1.32;color:var(--gold)}
 .faq-a{font-size:1.05rem;color:var(--greige);line-height:1.7;margin:0}
