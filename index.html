@@ -159,6 +159,7 @@ body.locked{overflow:hidden;height:100vh}
 #hAmp{color:var(--gold);opacity:0}
 .heart-cap{font-size:.96rem;color:var(--stone);text-align:center;margin:0;opacity:0;
   will-change:opacity,transform;padding:0 8vw}
+.heart-pin .hero-motto{margin:.6rem 0 0;opacity:0;will-change:opacity,transform}
 
 .sc-records{height:225vh}
 @media (min-width:768px){.sc-records{height:280vh}}
@@ -480,7 +481,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 
 @media (prefers-reduced-motion:reduce){
   .layer,.rec,#welBig,#star,.bub,.hg,.card{transform:translate(-50%,-50%)!important}
-  #welBody,#endHead,#endMsg,#endSig,#endEyebrow,#endCredit,.j-head,.j-date,.heart-cap,#hAmp,.card{opacity:1!important}
+  #welBody,#endHead,#endMsg,#endSig,#endEyebrow,#endCredit,.j-head,.j-date,.heart-cap,#heartMotto,#hAmp,.card{opacity:1!important}
   .day-row{visibility:visible!important;opacity:1!important;transform:translateY(-50%)!important}
   .drawn #monogram path,.drawn #monogram circle{animation:none;stroke-dashoffset:0}
   .seq,[data-reveal],.w{opacity:1!important;transform:none!important;animation:none!important}
@@ -517,7 +518,6 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
   <div class="mono-logo-stage">
     <img id="monogram" src="assets/photos/monogram.png" data-fx="monogram" alt="Htoo &amp; May monogram"></div>
   <div class="mono-inner">
-    <p class="hero-motto seq" data-t="heroMotto">Two hearts, one eternity</p>
     <h1 class="announce seq" data-t="announce">We're getting married.</h1>
     <p class="announce-body seq" data-t="announceBody">And we'd love for you to celebrate with us.</p>
     <div class="countdown seq" id="cd"></div>
@@ -560,6 +560,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
       <span id="hAmp">&amp;</span>
       <span id="hnR" data-t="nameHtoo">Htoo</span></p>
     <p class="heart-cap" id="hCap" data-t="heartCap">Two hearts crossing miles and moments to become one.</p>
+    <p class="hero-motto" id="heartMotto" data-t="heroMotto">Two hearts, one eternity</p>
   </div>
 </section>
 
@@ -585,19 +586,19 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
 <section class="scene sc-journey" data-scene="journey">
   <div class="pin">
     <div id="jSky"></div><div id="jGlow"></div>
-    <div class="layer" data-depth="0.13" data-c0="150,138,132" data-c1="164,132,88" data-c2="34,42,50">
+    <div class="layer" data-depth="0.13" data-c0="42,64,52" data-c1="40,60,66" data-c2="28,40,58">
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMax slice">
         <path d="M0 500 Q180 380 400 450 T780 420 T1000 480 L1000 1000 L0 1000Z"/></svg></div>
-    <div class="layer" data-depth="0.24" data-c0="114,100,92" data-c1="114,90,60" data-c2="24,31,37">
+    <div class="layer" data-depth="0.24" data-c0="32,50,40" data-c1="32,48,56" data-c2="20,30,46">
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMax slice">
         <path d="M0 600 Q220 480 480 560 T880 530 T1000 590 L1000 1000 L0 1000Z"/></svg></div>
-    <div class="layer" data-depth="0.38" data-c0="82,68,62" data-c1="80,60,40" data-c2="16,22,27">
+    <div class="layer" data-depth="0.38" data-c0="24,38,31" data-c1="24,36,44" data-c2="15,23,36">
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMax slice">
         <path d="M0,720 L1000,596 L1000,1000 L0,1000 Z"/></svg></div>
-    <div class="layer" id="jVenue" data-depth="0.46" data-c0="56,46,42" data-c1="56,42,30" data-c2="11,16,20">
+    <div class="layer" id="jVenue" data-depth="0.46" data-c0="17,28,23" data-c1="18,27,34" data-c2="10,17,27">
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMax slice">
         <path d="M0,840 C140,828 268,806 360,700 L360,682 L396,656 L396,612 L464,558 L464,480 L480,462 L500,426 L520,462 L536,480 L536,558 L604,612 L604,656 L640,682 L640,700 C732,806 860,828 1000,840 L1000,1000 L0,1000 Z"/></svg></div>
-    <div class="layer" data-depth="0.56" data-c0="40,34,32" data-c1="42,32,22" data-c2="9,13,17">
+    <div class="layer" data-depth="0.56" data-c0="12,20,17" data-c1="13,20,26" data-c2="7,12,20">
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMax slice">
         <path d="M0,870 L1000,840 L1000,1000 L0,1000 Z"/></svg></div>
     <div id="jRail"><svg viewBox="0 0 100 1000" preserveAspectRatio="none">
@@ -613,11 +614,11 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
     <div class="day-rows">
       <div class="day-row" data-y="0.20"><div class="day-row-in"><div class="day-time">—</div>
         <div class="day-what"><span data-t="dayBus">Bus departs</span><small data-t="dayBusSub">Departure time varies by station</small></div></div></div>
-      <div class="day-row" data-y="0.40"><div class="day-row-in"><div class="day-time">13:30</div>
+      <div class="day-row" data-y="0.40"><div class="day-row-in"><div class="day-time">14:00</div>
         <div class="day-what"><span data-t="dayRecep">Reception opens</span></div></div></div>
-      <div class="day-row" data-y="0.60"><div class="day-row-in"><div class="day-time">13:50</div>
+      <div class="day-row" data-y="0.60"><div class="day-row-in"><div class="day-time">14:20</div>
         <div class="day-what"><span data-t="dayGate">Gates close</span><small data-t="dayGateSub">Please take your seats — ceremony begins in 10 minutes</small></div></div></div>
-      <div class="day-row" data-y="0.80"><div class="day-row-in"><div class="day-time">14:00</div>
+      <div class="day-row" data-y="0.80"><div class="day-row-in"><div class="day-time">14:30</div>
         <div class="day-what"><span data-t="dayCeremony">Ceremony begins</span></div></div></div>
     </div>
   </div>
@@ -703,7 +704,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
       <p class="faq-a" data-t="faqA4" data-html>You can easily note any dietary restrictions or allergies in the <span class="hl">RSVP section below</span> under "Dietary requirements".</p></div>
     <div class="faq-card" data-faq="4">
       <p class="faq-q" data-t="faqQ5">What time should I arrive?</p>
-      <p class="faq-a" data-t="faqA5" data-html>We recommend arriving about <span class="hl">20 minutes before</span> the <span class="hl">14:00</span> ceremony so you can settle in comfortably.</p></div>
+      <p class="faq-a" data-t="faqA5" data-html>We recommend arriving about <span class="hl">20 minutes before</span> the <span class="hl">14:30</span> ceremony so you can settle in comfortably.</p></div>
     <div class="faq-card" data-faq="5">
       <p class="faq-q" data-t="faqQ6">Is parking available on site?</p>
       <p class="faq-a" data-t="faqA6" data-html><span class="hl">Yes, parking is available</span>. Please kindly let us know in advance so we can reserve a space for you.</p></div>
@@ -880,7 +881,7 @@ ja:{filmPh:"オープニングフィルムが再生されます",skip:"スキッ
  faqQ4:"アレルギー対応はありますか？",
  faqA4:"下の<span class=\"hl\">RSVPフォーム</span>に「アレルギー・お食事のお好み」欄がございますので、ご記入ください。",
  faqQ5:"何時頃に到着すればよいですか？",
- faqA5:"挙式開始（<span class=\"hl\">14:00</span>）の<span class=\"hl\">20分前頃</span>を目安にお越しください。",
+ faqA5:"挙式開始（<span class=\"hl\">14:30</span>）の<span class=\"hl\">20分前頃</span>を目安にお越しください。",
  faqQ6:"駐車場はありますか？",
  faqA6:"<span class=\"hl\">お車でお越しいただけます</span>。事前に台数を把握するためRSVPにてお知らせください。",
  faqQ7:"服装の指定はありますか？",
@@ -938,7 +939,7 @@ my:{filmPh:"ဗီဒီယိုဖိုင်အား ဒီနေရာတ�
  faqQ4:"မတည့်သည့် အစားအစာများကို မည်သို့ အကြောင်းကြားရမည်နည်း။",
  faqA4:"အောက်ပါ <span class=\"hl\">RSVP ဖောင်</span> တွင် အစားအသောက်နှင့် ပတ်သက်သည့် လိုအပ်ချက်များကို ဖြည့်စွက်ပေးနိုင်ပါသည်။",
  faqQ5:"မည်သည့်အချိန်တွင် ရောက်ရှိရမည်နည်း။",
- faqA5:"မင်္ဂလာပွဲ စတင်မည့် <span class=\"hl\">၁၄:၀၀ နာရီ မတိုင်မီ မိနစ် ၂၀ ခန့်</span> ကြိုတင်ရောက်ရှိပေးပါရန်။",
+ faqA5:"မင်္ဂလာပွဲ စတင်မည့် <span class=\"hl\">၁၄:၃၀ နာရီ မတိုင်မီ မိနစ် ၂၀ ခန့်</span> ကြိုတင်ရောက်ရှိပေးပါရန်။",
  faqQ6:"ကားရပ်နားရန် နေရာရှိပါသလား။",
  faqA6:"<span class=\"hl\">ကားရပ်နားရန်နေရာ စီစဉ်ပေးထားပါသည်။</span> ကြိုတင်ပြင်ဆင်နိုင်ရန်အတွက် RSVP တွင် အသိပေးပေးပါရန်။",
  faqQ7:"ဝတ်ဆင်ရမည့် ဝတ်စုံအမျိုးအစားမှာ မည်သို့နည်း။",
@@ -1120,7 +1121,7 @@ else{const DUR=5000,t0=performance.now();
     p<1?requestAnimationFrame(tick):endIntro();})(t0);}
 document.querySelectorAll("#monogram path, #monogram circle").forEach(el=>el.style.setProperty("--len",el.getTotalLength()));
 
-const TARGET=new Date("2026-10-16T14:00:00+09:00").getTime();
+const TARGET=new Date("2026-10-16T14:30:00+09:00").getTime();
 const UNITS=[{k:"d",digits:3,max:400},{k:"h",digits:2,max:24},{k:"m",digits:2,max:60},{k:"s",digits:2,max:60}];
 const cdBox=document.getElementById("cd"),R=44,C=2*Math.PI*R;
 cdBox.innerHTML=UNITS.map(u=>`<div class="cd-unit">
@@ -1140,8 +1141,8 @@ UNITS.forEach(u=>{rolls[u.k]=[...document.querySelectorAll(`#roll-${u.k} .roll-c
     rings[u.k].style.strokeDashoffset=C*(1-(v[u.k]%u.max)/u.max);});
   setTimeout(cd,1000);})();
 
-const CAL={start:"20261016T040000Z",end:"20261016T083000Z",title:"May & Htoo — Wedding",
-  desc:"Reception begins 13:30 JST. Gates close 13:50. Ceremony 14:00 JST. Address on the wedding site."};
+const CAL={start:"20261016T043000Z",end:"20261016T090000Z",title:"May & Htoo — Wedding",
+  desc:"Reception begins 14:00 JST. Gates close 14:20. Ceremony 14:30 JST. Address on the wedding site."};
 document.getElementById("calIcs").onclick=()=>{
   const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//MayHtoo//Wedding//EN","CALSCALE:GREGORIAN",
     "BEGIN:VEVENT","UID:mayhtoo-16oct2026@wedding","DTSTAMP:20260101T000000Z","DTSTART:"+CAL.start,
@@ -1262,7 +1263,8 @@ const welBig=document.getElementById("welBig"),welBody=document.getElementById("
   hGL=document.getElementById("hGL"),hGR=document.getElementById("hGR"),
   hOutline=document.getElementById("hOutline"),hnL=document.getElementById("hnL"),
   hnR=document.getElementById("hnR"),hAmp=document.getElementById("hAmp"),
-  hCap=document.getElementById("hCap"),heartStage=document.querySelector(".heart-stage"),
+  hCap=document.getElementById("hCap"),heartMotto=document.getElementById("heartMotto"),
+  heartStage=document.querySelector(".heart-stage"),
   jHead=document.getElementById("jHead"),jHeadT=document.getElementById("jHeadT"),
   jDate=document.getElementById("jDate"),jVenue=document.getElementById("jVenue"),
   dayRows=[...document.querySelectorAll(".day-row")],recTitle=document.getElementById("recTitle"),
@@ -1418,6 +1420,8 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
       hAmp.style.opacity=clamp((t-.72)/.24,0,1);
       const co=clamp((p-.66)/.16,0,1);
       hCap.style.opacity=co;hCap.style.transform=`translateY(${(1-co)*14}px)`;
+      const me=clamp((p-.76)/.16,0,1);
+      heartMotto.style.opacity=me;heartMotto.style.transform=`translateY(${(1-me)*14}px)`;
       if(heartFwArmed&&t>=.98){heartFwArmed=false;heartFwOn=true;heartFwStart=now;}}
 
     if(sc.kind==="records"){
