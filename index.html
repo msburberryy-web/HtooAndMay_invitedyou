@@ -197,7 +197,8 @@ body.locked{overflow:hidden;height:100vh}
 @media (min-width:768px){.sc-journey{height:460vh}}
 #jSky{position:absolute;inset:0;z-index:0;will-change:background}
 #jGlow{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;will-change:opacity;
-  background:radial-gradient(ellipse 90% 48% at 22% 62%,rgba(255,214,142,.55),rgba(255,178,96,.18) 40%,transparent 72%)}
+  --gx:50%;--gy:18%;
+  background:radial-gradient(ellipse 70% 38% at var(--gx) var(--gy),rgba(255,238,196,.75),rgba(255,178,96,.22) 42%,transparent 72%)}
 .sc-journey .layer{top:-52%;height:152%;will-change:transform;z-index:2}
 .sc-journey .layer path{fill:var(--lc)}
 #jVenue{opacity:0;will-change:opacity}
@@ -838,7 +839,8 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.05rem
         <p class="rs-hint" style="margin-top:-1.3rem"><a class="ext-link" href="https://www.japanlivingguide.com/expatinfo/japaneseculture/wedding-etiquette/" target="_blank" rel="noopener" data-t="njLink">Learn more about Japanese wedding customs →</a></p>
         <div class="rs-chips" id="njChips" data-field="nijikai">
           <button class="rs-chip" type="button" data-v="yes" data-t="njYesL">Count me in!</button>
-          <button class="rs-chip" type="button" data-v="no" data-t="njNoL">Unable to join</button></div>
+          <button class="rs-chip" type="button" data-v="no" data-t="njNoL">Unable to join</button>
+          <button class="rs-chip" type="button" data-v="later" data-t="c_later">Decide later</button></div>
         <div class="rs-step-nav"><button class="rs-btn ghost" data-back data-t="back">Back</button>
           <button class="rs-btn" data-next data-t="next">Next</button></div></div>
       <div class="rs-step" data-s="msg">
@@ -1198,7 +1200,7 @@ function updateReview(){const box=document.getElementById("rsReview");if(!box)re
     const stChip=document.querySelector(`.rs-chips[data-field="station"] [data-v="${data.station}"]`);
     rows.push([tr("q_station"),(stChip&&stChip.textContent.trim())||data.station||"—"]);
     rows.push([tr("f_allergy"),data.allergy||"—"]);
-    rows.push([tr("q_nijikai"),data.nijikai==="yes"?tr("njYesL"):data.nijikai==="no"?tr("njNoL"):"—"]);}
+    rows.push([tr("q_nijikai"),data.nijikai==="yes"?tr("njYesL"):data.nijikai==="no"?tr("njNoL"):data.nijikai==="later"?tr("c_later"):"—"]);}
   if(data.message)rows.push([tr("f_msg"),data.message]);
   box.innerHTML=rows.map(r=>`<div class="rs-review"><b>${r[0]}</b><span>${String(r[1]).replace(/</g,"&lt;")}</span></div>`).join("");}
 function yesBurst(originEl){
@@ -1471,7 +1473,8 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
       if(css!==lastSky){jSky.style.background=css;lastSky=css;}
       const edgeFade=win(p,0,1,.05);
       jSky.style.opacity=edgeFade.toFixed(3);
-      jGlow.style.opacity=(Math.max(0,1-Math.abs(travel-.70)/.26)*.85*edgeFade).toFixed(3);
+      const glowBase=.55,glowPeak=Math.max(0,1-Math.abs(travel-.70)/.26)*.45;
+      jGlow.style.opacity=((glowBase+glowPeak)*edgeFade).toFixed(3);
       jLayers.forEach(L=>{L.el.style.transform=`translate3d(0,${p*L.depth*innerHeight*.62}px,0)`;
         const rv=LAYER_REVEAL[L.depth];
         const reveal=rv?clamp((travel-rv[0])/(rv[1]-rv[0]),0,1):1;
@@ -1488,6 +1491,8 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
       const rr=jRail.getBoundingClientRect(),pt=railPath.getPointAtLength(DLEN*travel);
       star.style.left=(pt.x/100*rr.width)+"px";star.style.top=(pt.y/1000*rr.height)+"px";
       star.style.opacity=(p>.15&&p<.90)?1:0;
+      star.style.zIndex=travel<.38?"10":"1";
+      jGlow.style.setProperty("--gx",pt.x+"%");jGlow.style.setProperty("--gy",(pt.y/10)+"%");
       star.style.transform=`translate(-50%,-50%) scale(${1+Math.sin(travel*Math.PI)*.5})`;
       for(const s of TRAIL){const on=s.t<=travel&&p>.14;
         if(on!==s.lit){s.lit=on;s.el.style.opacity=on?.85:0;}}
@@ -1685,13 +1690,21 @@ qzNext.onclick=()=>{qi++;if(qi<QZ.length)renderQ();
     if(e.pointerType!=="touch")return;
     tId=e.pointerId;tStartX=e.clientX;tStartY=e.clientY;tStartT=performance.now();
     tStartPos=progressOf(cardsScene)*(n-1);});
+  function settleThenSnap(target){
+    const done=()=>scrollTo({top:scrollYFor(target),behavior:"smooth"});
+    if("onscrollend" in window){addEventListener("scrollend",done,{once:true});return;}
+    let lastY=scrollY,stable=0;
+    (function wait(){
+      if(scrollY===lastY)stable++;else{stable=0;lastY=scrollY;}
+      if(stable>=4)return done();
+      requestAnimationFrame(wait);})();}
   cardsPin.addEventListener("pointerup",e=>{
     if(e.pointerType!=="touch"||e.pointerId!==tId)return;
     tId=null;
     const dx=e.clientX-tStartX,dy=e.clientY-tStartY,dt=performance.now()-tStartT;
     if(dt>650||Math.abs(dx)<44||Math.abs(dx)<Math.abs(dy)*1.4)return;
     const target=clamp(Math.round(tStartPos)+(dx<0?1:-1),0,n-1);
-    scrollTo({top:scrollYFor(target),behavior:"smooth"});});
+    settleThenSnap(target);});
 })();
 
 buildText();applyLang("en");
