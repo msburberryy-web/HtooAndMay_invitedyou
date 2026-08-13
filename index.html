@@ -823,8 +823,8 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.1rem}
     <div class="outro-in">
       <img id="endMono" src="assets/photos/monogram.png" alt="" aria-hidden="true">
       <p class="eyebrow" id="endEyebrow" data-t="endEye">Looking forward</p>
-      <h2 id="endHead" data-t="endHead">Our Next Chapter Begins</h2>
-      <p id="endMsg" data-t="endMsg">Thank you for being part of our story and sharing in our happiness. We cannot wait to celebrate together.</p>
+      <h2 id="endHead" data-t="endHead">Are You Ready to Witness This?</h2>
+      <p id="endMsg" data-t="endMsg">Thank you for being part of our story so far — the best chapter is about to begin, and we cannot wait to celebrate it with you.</p>
       <p id="endSig" data-t="endSig" data-html>With love,<br>Htoo &amp; May</p>
       <p id="endCredit" data-t="siteCredit">Designed &amp; crafted by Studio Eternelle</p></div>
   </div>
@@ -890,8 +890,8 @@ ja:{filmPh:"オープニングフィルムが再生されます",skip:"スキッ
  doneH:"ありがとうございます！",doneP:"ご回答を受け付けました。当日お会いできることを楽しみにしております！",
  rsNote:"内容の変更がございましたら、いつでもお気軽にご連絡ください。",
  calIcs:"カレンダーに追加",calNote:"タップするとお手持ちのカレンダーに登録できます。",
- endEye:"これから",endHead:"新しい旅立ち",
- endMsg:"私たちの歩みを温かく見守ってくださり心より感謝申し上げます。当日、皆様と乾杯できるのを楽しみにしております。",
+ endEye:"これから",endHead:"その瞬間を、見届ける準備はできましたか？",
+ endMsg:"私たちの歩みを温かく見守ってくださり心より感謝申し上げます。いよいよ迎えるその日を、皆様と一緒に迎えられることを楽しみにしております。",
  endSig:"愛を込めて<br>Htoo &amp; May",siteCredit:"Studio Eternelle デザイン・制作",
  njYesL:"参加します",njNoL:"辞退します"},
 my:{filmPh:"ဗီဒီယိုဖိုင်အား ဒီနေရာတွင် ကြည့်ရှုနိုင်ပါသည်။",skip:"ကျော်ရန်",heroMotto:"နှလုံးသားနှစ်ခု၊ အချစ်တစ်ခု၊ ထာဝရအတွက်",announce:"မင်္ဂလာသတင်းကောင်းလေး အသိပေးအပ်ပါသည်။",
@@ -952,8 +952,8 @@ my:{filmPh:"ဗီဒီယိုဖိုင်အား ဒီနေရာတ�
  doneH:"ကျေးဇူးတင်ရှိပါသည်။",doneP:"လူကြီးမင်း၏ အကြောင်းပြန်ချက်ကို ရရှိပါပြီ။ ပွဲနေ့တွင် ဆုံတွေ့ကြပါစို့။",
  rsNote:"အချက်အလက်များ ပြောင်းလဲလိုပါက အချိန်မရွေး ဆက်သွယ်နိုင်ပါသည်။",
  calIcs:"ပြက္ခဒိန်တွင် ထည့်သွင်းမည်",calNote:"ဖုန်းပြက္ခဒိန်တွင် မှတ်သားထားရန် နှိပ်ပါ။",
- endEye:"နိဂုံး",endHead:"ရှေ့သို့ ဆက်လက်လျှောက်လှမ်းမည့် ခရီးစဉ်",
- endMsg:"ကျွန်တော်တို့၏ မင်္ဂလာပွဲလေးတွင် ပါဝင်ဆင်နွှဲပေးမည့်အတွက် ကျေးဇူးအထူးတင်ရှိပါသည်။",
+ endEye:"နိဂုံး",endHead:"ဒီအခိုက်အတန့်ကို သက်သေခံဖို့ အသင့်ဖြစ်ပြီလား？",
+ endMsg:"ကျွန်တော်တို့၏ ခရီးစဉ်လေးတွင် ပါဝင်ပေးမည့်အတွက် ကျေးဇူးအထူးတင်ရှိပါသည်။ အထူးနေ့လေးကို အားလုံးနှင့်အတူ ဆီးကြိုနိုင်ဖို့ စောင့်မျှော်နေပါတယ်။",
  endSig:"ချစ်ခြင်းမေတ္တာများစွာဖြင့်<br>Htoo &amp; May",siteCredit:"Studio Eternelle မှ ဒီဇိုင်းရေးဆွဲ ပြုလုပ်သည်",
  njYesL:"ပါဝင်ပါမည်",njNoL:"မပါဝင်နိုင်ပါ"}};
 
@@ -1220,7 +1220,7 @@ const scenes=[...document.querySelectorAll("[data-scene]")].map(el=>({el,kind:el
 const pars=[...document.querySelectorAll("[data-par]")];
 const fxs=[...document.querySelectorAll("[data-fx]")];
 const DEPTH=isPhone?.6:1,PAR=isPhone?.5:1;
-const REC_SIZE=isPhone?Math.round(innerWidth*.40):230;
+const REC_SIZE=isPhone?Math.round(innerWidth*.48):280;
 const REC_STEP=REC_SIZE+(isPhone?Math.round(innerWidth*.30):190);
 const ARCH=isPhone?innerHeight*.12:innerHeight*.16;
 const recs=[...document.querySelectorAll(".rec")];
