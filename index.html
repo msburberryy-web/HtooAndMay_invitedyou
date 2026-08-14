@@ -649,7 +649,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.1rem}
     <div class="day-rows">
       <div class="day-row" data-y="0.20"><div class="day-row-in"><div class="day-time">—</div>
         <div class="day-what"><span data-t="dayBus">Bus departs</span><small data-t="dayBusSub">Departure time varies by station</small></div></div></div>
-      <div class="day-row" data-y="0.40"><div class="day-row-in"><div class="day-time">14:00</div>
+      <div class="day-row" data-y="0.40"><div class="day-row-in"><div class="day-time">13:30</div>
         <div class="day-what"><span data-t="dayRecep">Reception opens</span></div></div></div>
       <div class="day-row" data-y="0.60"><div class="day-row-in"><div class="day-time">14:20</div>
         <div class="day-what"><span data-t="dayGate">Gates close</span><small data-t="dayGateSub">Please take your seats — ceremony begins in 10 minutes</small></div></div></div>
@@ -1196,7 +1196,7 @@ UNITS.forEach(u=>{rolls[u.k]=[...document.querySelectorAll(`#roll-${u.k} .roll-c
   setTimeout(cd,1000);})();
 
 const CAL={start:"20261016T043000Z",end:"20261016T090000Z",title:"May & Htoo — Wedding",
-  desc:"Reception begins 14:00 JST. Gates close 14:20. Ceremony 14:30 JST. Address on the wedding site."};
+  desc:"Reception begins 13:30 JST. Gates close 14:20. Ceremony 14:30 JST. Address on the wedding site."};
 document.getElementById("calIcs").onclick=()=>{
   const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//MayHtoo//Wedding//EN","CALSCALE:GREGORIAN",
     "BEGIN:VEVENT","UID:mayhtoo-16oct2026@wedding","DTSTAMP:20260101T000000Z","DTSTART:"+CAL.start,
