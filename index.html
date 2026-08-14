@@ -246,8 +246,13 @@ body.locked{overflow:hidden;height:100vh}
   will-change:transform,opacity;opacity:0}
 #heartFw{position:absolute;inset:0;z-index:16;pointer-events:none;overflow:hidden}
 .j-head{position:absolute;z-index:14;text-align:center;padding:0 10vw;max-width:32rem;will-change:transform,opacity}
-.j-head h3{font-family:var(--serif);font-size:clamp(1.9rem,8.4vw,3rem);margin:0 0 .6rem;
-  line-height:1.1;text-shadow:0 2px 30px rgba(0,0,0,.5);will-change:font-variation-settings}
+.j-head::before{content:"";position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);
+  width:80vmin;height:80vmin;border-radius:50%;z-index:-1;pointer-events:none;
+  background:radial-gradient(circle,rgba(201,151,74,.4),rgba(201,151,74,0) 62%)}
+.j-head h3{font-family:"Alex Brush",cursive;font-weight:400;color:#fff;font-size:clamp(2.6rem,12vw,4.6rem);
+  margin:0 0 .6rem;line-height:1.05;
+  text-shadow:0 4px 30px rgba(0,0,0,.55),0 0 40px rgba(201,151,74,.55),0 2px 8px rgba(0,0,0,.45);
+  will-change:font-variation-settings}
 .j-head p{font-size:1.02rem;color:var(--greige);margin:0;text-shadow:0 1px 22px rgba(0,0,0,.6)}
 .j-date{position:absolute;z-index:14;left:0;right:0;top:11dvh;text-align:center;padding:0 8vw;
   opacity:0;will-change:opacity,transform}
@@ -636,7 +641,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.1rem}
       <path id="railPath" style="display:none" d="M14 -30 C 4 140, 26 300, 13 450 S 2 700, 15 880 S 24 950, 19 1000"/></svg></div>
     <div id="trail"></div><div id="star"></div><div id="fw"></div>
     <div class="j-head" id="jHead">
-      <h3 id="jHeadT" data-t="climbTitle">Up, and up</h3>
+      <h3 id="jHeadT" data-t="climbTitle">Coming Soon</h3>
       <p data-t="climbP">The best views are always found after a little climb.</p></div>
     <div class="j-date" id="jDate">
       <p class="k" data-t="evDateK">Date</p>
@@ -887,7 +892,7 @@ ja:{filmPh:"オープニングフィルムが再生されます",skip:"スキッ
  welP2:"いつも温かく導き、支えてくださった家族とご友人の皆様に、深い感謝を申し上げます。",
  welP3:"私達にとってかけがえのない皆様とこの日を共有できることを、とても幸せに思います。当日、一緒に素晴らしい時間を過ごせることを楽しみにしています!",
  heartCap:"遠く離れていたふたつの心が、ひとつに寄り添います。",
- climbTitle:"一歩ずつ、その先へ",climbP:"素敵な景色は、いつも少し歩んだ先に広がるもの。",
+ climbTitle:"Coming Soon",climbP:"素敵な景色は、いつも少し歩んだ先に広がるもの。",
  evDateK:"日程",evDateV:"2026年10月16日（金）",recTitle:"これまでの歩み",
  dayBus:"送迎バス発車",dayBusSub:"※乗車駅によって出発時間が異なります",
  dayRecep:"受付開始",dayGate:"入場締切",dayGateSub:"挙式10分前です。お席にお着きください",dayCeremony:"挙式開始",
@@ -949,7 +954,7 @@ my:{filmPh:"ဗီဒီယိုဖိုင်အား ဒီနေရာတ�
  welP2:"ခရီးစဉ်တစ်လျှောက်လုံးမှာ လမ်းပြပေးခဲ့ပြီး မေတ္တာတရားများစွာနဲ့ ပံ့ပိုးကူညီပေးခဲ့ကြတဲ့ မိသားစုနဲ့ မိတ်ဆွေသူငယ်ချင်းများအားလုံးကို အထူးပင် ကျေးဇူးတင်ရှိပါတယ်။",
  welP3:"ကျွန်တော်တို့အတွက် အရေးအကြီးဆုံးဖြစ်တဲ့ လူကြီးမင်းတို့နဲ့အတူ ဒီအမှတ်တရနေ့လေးကို ဝေမျှဆင်နွှဲခွင့်ရတဲ့အတွက် ဝမ်းမြောက်ဂုဏ်ယူမိပြီး ပွဲနေ့မှာ အားလုံးနဲ့ ဆုံတွေ့ဖို့ ရင်ခုန်စွာဖြင့် စောင့်မျှော်နေပါတယ်။",
  heartCap:"ဝေးကွာခဲ့သော နှလုံးသားနှစ်ခု၊ ယခုအခါ တစ်ထပ်တည်း ကျရောက်ခဲ့ပါပြီ။",
- climbTitle:"ရှေ့သို့ တက်လှမ်းရင်း",climbP:"အလှပဆုံးသော အရာများသည် အခက်အခဲများကို ကျော်ဖြတ်ပြီးမှ ကြုံတွေ့ရတတ်စမြဲပါ။",
+ climbTitle:"Coming Soon",climbP:"အလှပဆုံးသော အရာများသည် အခက်အခဲများကို ကျော်ဖြတ်ပြီးမှ ကြုံတွေ့ရတတ်စမြဲပါ။",
  evDateK:"ကျင်းပမည့်ရက်စွဲ",evDateV:"၂၀၂၆ ခုနှစ်၊ အောက်တိုဘာလ (၁၆) ရက် (သောကြာနေ့)",recTitle:"ကျွန်တော်တို့၏ အမှတ်တရ သမိုင်းကြောင်းများ။",
  dayBus:"ကြိုပို့ဘတ်စ်ကား ထွက်ခွာချိန်",dayBusSub:"ကားဂိတ်အလိုက် ထွက်ခွာချိန် ကွဲပြားနိုင်ပါသည်။",
  dayRecep:"ဧည့်ခံပွဲ စတင်ချိန်",dayGate:"ပွဲစတင်ရန် ပြင်ဆင်ချိန်",dayGateSub:"အခမ်းအနားမစတင်မီ ၁၀ မိနစ်အလိုတွင် နေရာယူပေးပါရန်။",dayCeremony:"မင်္ဂလာအခမ်းအနား စတင်ချိန်",
@@ -1549,7 +1554,6 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
       jHead.style.opacity=ho;
       const jEntrance=clamp(p/.08,0,1);
       jHead.style.transform=`translate3d(0,${(p-.06)*-200}px,0) scale(${(.55+jEntrance*.45)*(1+p*.2)})`;
-      if(jHeadT)vf(jHeadT,clamp(1-p*5,0,1));
       const dof=win(p,.11,.22,.045);
       jDate.style.opacity=dof;jDate.style.transform=`translate3d(0,${(1-dof)*18}px,0)`;
       const rr=jRail.getBoundingClientRect(),pt=railPath.getPointAtLength(DLEN*travel);
