@@ -4,6 +4,7 @@ Clicking a vinyl record in the "chapters of our story" section switches the back
 
 - **`piano.mp3`** — general background music, plays by default and whenever no record is selected
 - **`rec-first-meet.mp3`** — plays when the "First meet" record is clicked
+- **`rec-first-date.mp3`** — "First date"
 - **`rec-first-trip.mp3`** — "First trip"
 - **`rec-meeting-family.mp3`** — "Meeting family"
 - **`rec-proposal.mp3`** — "The proposal"
