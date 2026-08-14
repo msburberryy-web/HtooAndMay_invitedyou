@@ -217,7 +217,7 @@ body.locked{overflow:hidden;height:100vh}
 .rec-cap{position:absolute;left:0;right:0;top:calc(var(--rs) + .7rem);text-align:center;
   font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;color:var(--greige);
   text-shadow:0 1px 10px rgba(0,0,0,.65),0 1px 2px rgba(0,0,0,.55)}
-.rec-title{position:absolute;z-index:12;bottom:8dvh;left:0;right:0;text-align:center;padding:0 8vw}
+.rec-title{position:absolute;z-index:12;top:10dvh;left:0;right:0;text-align:center;padding:0 8vw}
 .rec-title p{font-family:var(--serif);font-size:clamp(1.25rem,5.2vw,1.9rem);color:var(--greige);
   margin:0;will-change:font-variation-settings;text-shadow:0 2px 16px rgba(0,0,0,.65),0 1px 3px rgba(0,0,0,.55)}
 
@@ -1545,9 +1545,10 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
         const c=mix3(L.c0,L.c1,L.c2,travel);
         if(c!==L.last){L.el.style.setProperty("--lc",c);L.last=c;}});
       jVenue.style.opacity=(clamp((p-.30)/.16,0,1)*edgeFade).toFixed(3);
-      const ho=win(p,-.08,.13,.055);
+      const ho=win(p,0,.26,.08);
       jHead.style.opacity=ho;
-      jHead.style.transform=`translate3d(0,${(p-.06)*-200}px,0) scale(${1+p*.2})`;
+      const jEntrance=clamp(p/.08,0,1);
+      jHead.style.transform=`translate3d(0,${(p-.06)*-200}px,0) scale(${(.55+jEntrance*.45)*(1+p*.2)})`;
       if(jHeadT)vf(jHeadT,clamp(1-p*5,0,1));
       const dof=win(p,.11,.22,.045);
       jDate.style.opacity=dof;jDate.style.transform=`translate3d(0,${(1-dof)*18}px,0)`;
