@@ -93,17 +93,23 @@ body.locked{overflow:hidden;height:100vh}
 #monogram{width:min(38vw,150px);height:auto;will-change:transform;opacity:0;transition:opacity 1.4s ease 0.9s;display:block;background:none}
 .drawn #monogram{opacity:1}
 @keyframes draw{to{stroke-dashoffset:0}}
-.announce{font-family:var(--serif);font-weight:200;font-size:clamp(1.6rem,7vw,2.4rem);
-  line-height:1.3;margin:0 auto 1.2rem;max-width:22ch;text-shadow:0 2px 20px rgba(0,0,0,.6),0 1px 3px rgba(0,0,0,.5)}
-.announce-body{font-size:1.02rem;color:var(--greige);max-width:34ch;margin:0 auto;
+.hero-names{display:flex;align-items:baseline;justify-content:center;gap:.55rem;
+  font-family:var(--serif);font-weight:600;font-size:clamp(2.1rem,9vw,3.4rem);
+  color:var(--bone);white-space:nowrap;margin:0 0 .4rem;letter-spacing:.005em;
+  text-shadow:0 4px 30px rgba(0,0,0,.7),0 1px 4px rgba(0,0,0,.6)}
+.hero-names .amp{color:var(--gold);font-weight:400;font-style:italic;font-size:.82em}
+.announce{font-family:var(--serif);font-weight:600;font-size:clamp(1.7rem,7.4vw,2.6rem);
+  line-height:1.28;margin:0 auto 1.2rem;max-width:22ch;text-shadow:0 3px 26px rgba(0,0,0,.65),0 1px 4px rgba(0,0,0,.55)}
+.announce-body{font-size:1.08rem;font-weight:500;color:var(--greige);max-width:34ch;margin:0 auto;
   text-shadow:0 1px 14px rgba(0,0,0,.6),0 1px 2px rgba(0,0,0,.5)}
 .seq{opacity:0;transform:translateY(14px)}
 .drawn .seq{animation:up 1.15s var(--ease) forwards}
-.drawn .seq:nth-of-type(1){animation-delay:1.1s}
-.drawn .seq:nth-of-type(2){animation-delay:1.35s}
-.drawn .seq:nth-of-type(3){animation-delay:1.6s}
+.drawn .seq:nth-child(1){animation-delay:.85s}
+.drawn .seq:nth-child(2){animation-delay:1.15s}
+.drawn .seq:nth-child(3){animation-delay:1.4s}
 @keyframes up{to{opacity:1;transform:none}}
 .countdown{display:flex;gap:clamp(.5rem,3.4vw,1.4rem);justify-content:center;margin-top:3rem}
+.wel-pin .countdown{opacity:0;will-change:transform,opacity}
 .cd-unit{position:relative;width:clamp(64px,20vw,92px);height:clamp(64px,20vw,92px);
   display:flex;flex-direction:column;align-items:center;justify-content:center}
 .cd-ring{position:absolute;inset:0;transform:rotate(-90deg)}
@@ -184,23 +190,26 @@ body.locked{overflow:hidden;height:100vh}
   display:flex;align-items:center;justify-content:center;box-shadow:0 16px 44px rgba(0,0,0,.55);overflow:hidden}
 .rec-cover img{width:100%;height:100%;object-fit:cover;display:block}
 .rec-cover.no-photo img.real{display:none}
+.rec-cover.no-photo{background:linear-gradient(160deg,rgba(30,48,74,.5),rgba(10,18,32,.32));
+  backdrop-filter:blur(12px) saturate(1.15);-webkit-backdrop-filter:blur(12px) saturate(1.15);
+  border:1px solid rgba(163,193,232,.2)}
 .rc-mono{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:34%!important;height:auto!important;
   opacity:.28;z-index:2;object-fit:contain!important;filter:drop-shadow(0 4px 16px rgba(0,0,0,.5))}
 .rc-soon{position:absolute;left:0;right:0;bottom:14%;text-align:center;font-size:.56rem;z-index:2;
   letter-spacing:.24em;text-transform:uppercase;color:rgba(242,239,233,.5);text-shadow:0 1px 8px rgba(0,0,0,.6)}
 .soon-fx{position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none;z-index:45}
 .soon-fx .glow{position:absolute;left:0;top:0;width:64vmin;height:64vmin;border-radius:50%;
-  transform:translate(-50%,-50%) scale(var(--soon-s,.3));
+  transform:translate(-50%,-50%) scale(var(--soon-s,.24));
   background:radial-gradient(circle,rgba(201,151,74,.4),rgba(201,151,74,0) 65%);
-  opacity:var(--soon-o,0)}
-.soon-fx .txt{position:absolute;left:0;top:0;transform:translate(-50%,-50%) scale(var(--soon-s,.3));
+  opacity:var(--soon-o,.55)}
+.soon-fx .txt{position:absolute;left:0;top:0;transform:translate(-50%,-50%) scale(var(--soon-s,.24));
   transform-origin:center;font-family:"Alex Brush",cursive;font-weight:400;color:#fff;white-space:nowrap;
   font-size:clamp(2.6rem,15vw,7.5rem);line-height:1;
   text-shadow:0 6px 30px rgba(0,0,0,.55),0 0 40px rgba(201,151,74,.6),0 2px 8px rgba(0,0,0,.45);
-  opacity:var(--soon-o,0)}
+  opacity:var(--soon-o,.55)}
 .soon-fx .spark{position:absolute;left:0;top:0;color:var(--gold);font-size:1.3rem;
-  transform:translate(calc(var(--sx,0) * var(--soon-s,.3)),calc(var(--sy,0) * var(--soon-s,.3))) scale(var(--soon-s,.3));
-  opacity:calc(var(--soon-o,0) * .85);text-shadow:0 0 10px rgba(201,151,74,.7)}
+  transform:translate(calc(var(--sx,0) * var(--soon-s,.24)),calc(var(--sy,0) * var(--soon-s,.24))) scale(var(--soon-s,.24));
+  opacity:calc(var(--soon-o,.55) * .85);text-shadow:0 0 10px rgba(201,151,74,.7)}
 .rec-cap{position:absolute;left:0;right:0;top:calc(var(--rs) + .7rem);text-align:center;
   font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;color:var(--greige);
   text-shadow:0 1px 10px rgba(0,0,0,.65),0 1px 2px rgba(0,0,0,.55)}
@@ -482,7 +491,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.1rem}
 
 @media (prefers-reduced-motion:reduce){
   .layer,.rec,#welBig,#star,.bub,.hg,.card{transform:translate(-50%,-50%)!important}
-  #welBody,#endHead,#endMsg,#endSig,#endEyebrow,#endCredit,.j-head,.j-date,.heart-cap,#heartMotto,#hAmp,.card{opacity:1!important}
+  #welBody,#cd,#endHead,#endMsg,#endSig,#endEyebrow,#endCredit,.j-head,.j-date,.heart-cap,#heartMotto,#hAmp,.card{opacity:1!important}
   .day-row{visibility:visible!important;opacity:1!important;transform:translateY(-50%)!important}
   .drawn #monogram path,.drawn #monogram circle{animation:none;stroke-dashoffset:0}
   .seq,[data-reveal],.w{opacity:1!important;transform:none!important;animation:none!important}
@@ -519,9 +528,9 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.1rem}
   <div class="mono-logo-stage">
     <img id="monogram" src="assets/photos/monogram.png" data-fx="monogram" alt="Htoo &amp; May monogram"></div>
   <div class="mono-inner">
+    <p class="hero-names seq"><span id="heroNameL" data-t="nameMay">May</span><span class="amp">&amp;</span><span id="heroNameR" data-t="nameHtoo">Htoo</span></p>
     <h1 class="announce seq" data-t="announce">We're getting married.</h1>
     <p class="announce-body seq" data-t="announceBody" data-html>And we'd love for you to celebrate with us.</p>
-    <div class="countdown seq" id="cd"></div>
   </div>
 </section>
 
@@ -532,6 +541,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.1rem}
       <p data-t="welP1">Every step of our journey has brought us to this moment, and we couldn't be happier to begin our next chapter together.</p>
       <p data-t="welP2">To our family and friends: thank you for guiding, supporting, and surrounding us with love every step of the way.</p>
       <p data-t="welP3">We are so honored to share this special day with the people who mean the world to us. We can't wait to celebrate together!</p></div>
+    <div class="countdown" id="cd"></div>
   </div>
 </section>
 
@@ -1261,6 +1271,7 @@ const recs=[...document.querySelectorAll(".rec")];
 recs.forEach(r=>r.style.setProperty("--rs",REC_SIZE+"px"));
 const REC_TOTAL=(recs.length-1)*REC_STEP;
 const soonFx=document.getElementById("soonFx");
+const wedFadeEls=[...document.querySelectorAll("#recWedding .rec-cover,#recWedding .rec-vinyl,#recWedding .rec-cap")];
 
 const jSky=document.getElementById("jSky"),jGlow=document.getElementById("jGlow");
 const jLayers=[...document.querySelectorAll(".sc-journey .layer")].map(el=>({el,
@@ -1279,7 +1290,7 @@ function skyAt(p){let a=SKY[0],b=SKY[SKY.length-1];
   const t=(p-a.at)/((b.at-a.at)||1);
   return `linear-gradient(to bottom,${mixRGB(a.top,b.top,t)} 0%,${mixRGB(a.bot,b.bot,t)} 100%)`;}
 
-const welBig=document.getElementById("welBig"),welBody=document.getElementById("welBody"),
+const welBig=document.getElementById("welBig"),welBody=document.getElementById("welBody"),welCd=document.getElementById("cd"),
   hGL=document.getElementById("hGL"),hGR=document.getElementById("hGR"),
   hOutline=document.getElementById("hOutline"),hnL=document.getElementById("hnL"),
   hnR=document.getElementById("hnR"),hAmp=document.getElementById("hAmp"),
@@ -1422,7 +1433,9 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
       const t=clamp(p/.55,0,1),s=lerp(1,.30,t*t*(3-2*t)),ty=-t*innerHeight*.14;
       welBig.style.transform=`translate3d(0,${ty}px,0) scale(${s})`;vf(welBig,1-t*.7);
       const b=clamp((p-.34)/.24,0,1);welBody.style.opacity=b;
-      welBody.style.transform=`translate3d(0,${ty-welH*(1-s)*.5+(1-b)*26}px,0)`;}
+      welBody.style.transform=`translate3d(0,${ty-welH*(1-s)*.5+(1-b)*26}px,0)`;
+      const c=clamp((p-.58)/.22,0,1);welCd.style.opacity=c;
+      welCd.style.transform=`translate3d(0,${ty-welH*(1-s)*.5+(1-c)*22}px,0)`;}
 
     if(sc.kind==="heart"){
       const t=ease(clamp(p/.62,0,1));
@@ -1445,16 +1458,23 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
 
     if(sc.kind==="records"){
       const pan=lerp(innerWidth*.62,-REC_TOTAL+innerWidth*.38,p);
+      const li=recs.length-1;
+      const wx=pan+li*REC_STEP,wu=wx/innerWidth,wk=clamp((wu-.5)*2,-1.7,1.7);
+      const wedNear=clamp(1-Math.abs(wk),0,1);
+      const foc=clamp((wedNear-.5)/.26,0,1),focE=foc*foc*(3-2*foc);
       recs.forEach((r,i)=>{const x=pan+i*REC_STEP,u=x/innerWidth,k=clamp((u-.5)*2,-1.7,1.7);
         const near=clamp(1-Math.abs(k),0,1);
         r.style.transform=`translate3d(${x}px,${-ARCH*(1-k*k)}px,0) rotate(${k*13}deg) scale(${.72+near*.52})`;
-        r.style.opacity=clamp(1.3-Math.abs(k)*.75,0,1);
-        r.style.zIndex=String(Math.round(near*20));
-        if(soonFx&&i===recs.length-1){
-          const s=.32+near*2.9,o=clamp(near*1.6-.35,0,1);
-          soonFx.style.setProperty("--soon-s",s.toFixed(3));
-          soonFx.style.setProperty("--soon-o",o.toFixed(3));}});
-      if(recTitle)vf(recTitle,clamp(1-Math.abs(p-.5)*2.2,0,1));}
+        let op=clamp(1.3-Math.abs(k)*.75,0,1);
+        if(i!==li)op*=(1-focE);
+        r.style.opacity=op;
+        r.style.zIndex=String(Math.round(near*20));});
+      if(soonFx){
+        const s=.24+focE*2.3,o=clamp(.55+focE*.45,0,1);
+        soonFx.style.setProperty("--soon-s",s.toFixed(3));
+        soonFx.style.setProperty("--soon-o",o.toFixed(3));
+        wedFadeEls.forEach(el=>{el.style.opacity=(1-focE).toFixed(3);});}
+      if(recTitle)vf(recTitle,clamp(1-Math.abs(p-.5)*2.2,0,1)*(1-focE));}
 
     if(sc.kind==="journey"){
       const travel=clamp((p-.14)/.74,0,1);
