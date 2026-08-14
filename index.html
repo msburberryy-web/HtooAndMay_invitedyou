@@ -1298,6 +1298,18 @@ const recs=[...document.querySelectorAll(".rec")];
 recs.forEach(r=>r.style.setProperty("--rs",REC_SIZE+"px"));
 const REC_TOTAL=(recs.length-1)*REC_STEP;
 const soonFx=document.getElementById("soonFx");
+const soonTxt=soonFx?soonFx.querySelector(".txt"):null;
+let soonMaxScale=2.4;
+function updateSoonMaxScale(){
+  if(!soonTxt)return;
+  const w=soonTxt.offsetWidth,h=soonTxt.offsetHeight;
+  if(!w||!h)return;
+  const wedNearCeil=1-Math.abs((.38-.5)*2);
+  const ancestorScale=.72+wedNearCeil*.52;
+  soonMaxScale=Math.max(.6,Math.min((innerWidth*.72)/(w*ancestorScale),(innerHeight*.4)/(h*ancestorScale)));}
+updateSoonMaxScale();
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(updateSoonMaxScale);
+addEventListener("resize",updateSoonMaxScale,{passive:true});
 const wedFadeEls=[...document.querySelectorAll("#recWedding .rec-cover,#recWedding .rec-vinyl,#recWedding .rec-cap")];
 recs.forEach(r=>{
   const cover=r.querySelector(".rec-cover");
@@ -1513,7 +1525,7 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
         r.style.opacity=op;
         r.style.zIndex=String(Math.round(near*20));});
       if(soonFx){
-        const s=.24+focE*2.3,o=clamp(.55+focE*.45,0,1);
+        const s=.24+focE*(soonMaxScale-.24),o=clamp(.55+focE*.45,0,1);
         soonFx.style.setProperty("--soon-s",s.toFixed(3));
         soonFx.style.setProperty("--soon-o",o.toFixed(3));
         wedFadeEls.forEach(el=>{el.style.opacity=(1-focE).toFixed(3);});}
