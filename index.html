@@ -185,9 +185,13 @@ body.locked{overflow:hidden;height:100vh}
   width:34%;height:34%;border-radius:50%;background:var(--gold)}
 .rec-vinyl::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
   width:7%;height:7%;border-radius:50%;background:#141F19;z-index:2}
-.rec-cover{position:relative;width:var(--rs);height:var(--rs);border-radius:2px;
+.rec.playing .rec-vinyl{animation:spinVinyl 2.6s linear infinite}
+@keyframes spinVinyl{from{transform:translateY(-50%) rotate(0deg)}to{transform:translateY(-50%) rotate(360deg)}}
+.rec-cover{cursor:pointer;position:relative;width:var(--rs);height:var(--rs);border-radius:2px;
   background:linear-gradient(140deg,#243A2C,#16241C);border:1px solid rgba(242,239,233,.13);
-  display:flex;align-items:center;justify-content:center;box-shadow:0 16px 44px rgba(0,0,0,.55);overflow:hidden}
+  display:flex;align-items:center;justify-content:center;box-shadow:0 16px 44px rgba(0,0,0,.55);
+  overflow:hidden;transition:box-shadow .4s ease}
+.rec.playing .rec-cover{box-shadow:0 16px 44px rgba(0,0,0,.55),0 0 0 2px var(--gold),0 0 26px rgba(201,151,74,.45)}
 .rec-cover img{width:100%;height:100%;object-fit:cover;display:block}
 .rec-cover.no-photo img.real{display:none}
 .rec-cover.no-photo{background:linear-gradient(160deg,rgba(30,48,74,.5),rgba(10,18,32,.32));
@@ -515,6 +519,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.1rem}
   <button class="lang-b" data-lang="my" lang="my">မြန်မာ</button>
 </div>
 <button id="music" aria-label="Music on or off"><i></i><i></i><i></i><i></i></button>
+<audio id="bgm" loop preload="none"></audio>
 
 <div id="intro">
   <video id="film" muted playsinline preload="auto"><source src="https://res.cloudinary.com/j3lgvkwu/video/upload/q_auto/intro_dkfc95.mp4" type="video/mp4"></video>
@@ -1096,9 +1101,17 @@ const io=new IntersectionObserver(es=>{es.forEach(e=>{
   {threshold:.12,rootMargin:"0px 0px -5% 0px"});
 document.querySelectorAll("[data-reveal]").forEach(el=>io.observe(el));
 
-const musicBtn=document.getElementById("music");
-let actx=null,musicTimer=null,seqIdx=0;
-const PIANO_SEQ=[261.63,329.63,392.00,493.88,440.00,392.00,329.63,293.66];
+const musicBtn=document.getElementById("music"),bgmEl=document.getElementById("bgm");
+let actx=null,musicTimer=null,seqIdx=0,musicOn=false,currentTrack="general",activeRec=null;
+const TRACKS={
+  general:{file:"assets/audio/piano.mp3",seq:[261.63,329.63,392.00,493.88,440.00,392.00,329.63,293.66]},
+  "first-meet":{file:"assets/audio/rec-first-meet.mp3",seq:[329.63,392.00,440.00,523.25,440.00,392.00]},
+  "first-trip":{file:"assets/audio/rec-first-trip.mp3",seq:[293.66,349.23,440.00,349.23,293.66,246.94]},
+  "meeting-family":{file:"assets/audio/rec-meeting-family.mp3",seq:[349.23,440.00,523.25,440.00,349.23,293.66]},
+  "proposal":{file:"assets/audio/rec-proposal.mp3",seq:[392.00,493.88,587.33,493.88,440.00,392.00]},
+  "public-announce":{file:"assets/audio/rec-public-announce.mp3",seq:[440.00,554.37,659.25,554.37,440.00,349.23]},
+  "nikkah":{file:"assets/audio/rec-nikkah.mp3",seq:[293.66,349.23,392.00,440.00,392.00,349.23]},
+  "side-wedding":{file:"assets/audio/rec-side-wedding.mp3",seq:[392.00,440.00,523.25,659.25,587.33,523.25]}};
 function pianoNote(freq,startTime,dur,vol){
   const o=actx.createOscillator(),o2=actx.createOscillator(),g=actx.createGain(),g2=actx.createGain();
   o.type="sine";o.frequency.value=freq;
@@ -1108,20 +1121,34 @@ function pianoNote(freq,startTime,dur,vol){
   g.gain.linearRampToValueAtTime(vol,startTime+.03);
   g.gain.exponentialRampToValueAtTime(.0001,startTime+dur);
   o.start(startTime);o2.start(startTime);o.stop(startTime+dur+.05);o2.stop(startTime+dur+.05);}
+function stopSynth(){if(musicTimer)clearTimeout(musicTimer);musicTimer=null;}
 function scheduleNext(){
   if(!actx)return;
-  pianoNote(PIANO_SEQ[seqIdx%PIANO_SEQ.length]/2,actx.currentTime+.05,2.3,.09);
+  const seq=(TRACKS[currentTrack]||TRACKS.general).seq;
+  pianoNote(seq[seqIdx%seq.length]/2,actx.currentTime+.05,2.3,.09);
   seqIdx++;musicTimer=setTimeout(scheduleNext,1500);}
+function startSynth(){
+  if(!musicOn)return;
+  if(!actx)actx=new (window.AudioContext||window.webkitAudioContext)();
+  if(actx.state==="suspended")actx.resume();
+  stopSynth();seqIdx=0;scheduleNext();}
+function playTrack(key){
+  currentTrack=key;
+  if(!musicOn)return;
+  const t=TRACKS[key]||TRACKS.general;
+  stopSynth();
+  bgmEl.pause();bgmEl.onerror=null;
+  bgmEl.onerror=()=>startSynth();
+  bgmEl.src=t.file;bgmEl.currentTime=0;
+  const pr=bgmEl.play();
+  if(pr&&pr.catch)pr.catch(()=>startSynth());}
 musicBtn.onclick=()=>{
-  if(musicBtn.classList.contains("on")){
-    musicBtn.classList.remove("on");
-    if(musicTimer)clearTimeout(musicTimer);
-    if(actx)actx.suspend();
+  if(musicOn){
+    musicOn=false;musicBtn.classList.remove("on");
+    bgmEl.pause();stopSynth();if(actx)actx.suspend();
   }else{
-    musicBtn.classList.add("on");
-    if(!actx)actx=new (window.AudioContext||window.webkitAudioContext)();
-    if(actx.state==="suspended")actx.resume();
-    scheduleNext();}};
+    musicOn=true;musicBtn.classList.add("on");
+    playTrack(currentTrack);}};
 
 const intro=document.getElementById("intro"),film=document.getElementById("film"),
   vidph=document.getElementById("vidph"),phbar=document.getElementById("phbar"),
@@ -1272,6 +1299,22 @@ recs.forEach(r=>r.style.setProperty("--rs",REC_SIZE+"px"));
 const REC_TOTAL=(recs.length-1)*REC_STEP;
 const soonFx=document.getElementById("soonFx");
 const wedFadeEls=[...document.querySelectorAll("#recWedding .rec-cover,#recWedding .rec-vinyl,#recWedding .rec-cap")];
+recs.forEach(r=>{
+  const cover=r.querySelector(".rec-cover");
+  if(!cover)return;
+  cover.addEventListener("click",()=>{
+    const img=r.querySelector(".rec-cover img");
+    const src=img?img.getAttribute("src")||"":"";
+    const m=src.match(/story-([a-z0-9-]+)\.jpg/);
+    const slug=m?m[1]:"general";
+    if(!musicOn){musicOn=true;musicBtn.classList.add("on");}
+    if(activeRec===r){
+      activeRec.classList.remove("playing");activeRec=null;
+      playTrack("general");
+    }else{
+      if(activeRec)activeRec.classList.remove("playing");
+      activeRec=r;r.classList.add("playing");
+      playTrack(slug);}});});
 
 const jSky=document.getElementById("jSky"),jGlow=document.getElementById("jGlow");
 const jLayers=[...document.querySelectorAll(".sc-journey .layer")].map(el=>({el,
