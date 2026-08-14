@@ -1516,7 +1516,7 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
       const li=recs.length-1;
       const wx=pan+li*REC_STEP,wu=wx/innerWidth,wk=clamp((wu-.5)*2,-1.7,1.7);
       const wedNear=clamp(1-Math.abs(wk),0,1);
-      const foc=clamp((wedNear-.5)/.26,0,1),focE=foc*foc*(3-2*foc);
+      const foc=clamp((wedNear-.75)/.245,0,1),focE=foc*foc*(3-2*foc);
       recs.forEach((r,i)=>{const x=pan+i*REC_STEP,u=x/innerWidth,k=clamp((u-.5)*2,-1.7,1.7);
         const near=clamp(1-Math.abs(k),0,1);
         r.style.transform=`translate3d(${x}px,${-ARCH*(1-k*k)}px,0) rotate(${k*13}deg) scale(${.72+near*.52})`;
