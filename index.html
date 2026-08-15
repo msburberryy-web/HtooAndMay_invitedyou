@@ -1312,6 +1312,7 @@ updateSoonZone();
 addEventListener("resize",updateSoonZone,{passive:true});
 function applySoonFx(){
   if(!soonFx)return;
+  if(scrollY<soonZoneStart-innerHeight*.5)soonPeakFoc=0;
   const soonU=clamp((scrollY-soonZoneStart)/(soonZoneEnd-soonZoneStart),0,1);
   const handoff=clamp(soonU/.3,0,1);
   const reveal=Math.max(soonPeakFoc,handoff);
