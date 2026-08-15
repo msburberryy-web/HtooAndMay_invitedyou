@@ -484,15 +484,13 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.1rem}
 #endSig{font-family:var(--serif);font-weight:200;font-size:1.4rem;letter-spacing:.1em;
   color:var(--greige);margin-top:2.4rem;opacity:0;will-change:transform,opacity;
   text-shadow:0 1px 16px rgba(0,0,0,.6),0 1px 3px rgba(0,0,0,.5)}
-#endCredit{font-size:.56rem;letter-spacing:.22em;text-transform:uppercase;color:var(--stone);
-  margin-top:3rem;opacity:0;will-change:transform,opacity;text-shadow:0 1px 10px rgba(0,0,0,.6)}
 .hero-motto{font-family:"Alex Brush",var(--serif);font-weight:400;font-style:normal;
   font-size:clamp(1.7rem,7.5vw,2.4rem);letter-spacing:.02em;color:var(--bone);
   margin:0 0 .3rem;text-align:center;line-height:1.3}
 
 @media (prefers-reduced-motion:reduce){
   .layer,.rec,#welBig,#star,.bub,.hg,.card{transform:translate(-50%,-50%)!important}
-  #welBody,#cd,#endHead,#endMsg,#endSig,#endEyebrow,#endCredit,#soonFx,.j-date,.heart-cap,#heartMotto,#hAmp,.card{opacity:1!important}
+  #welBody,#cd,#endHead,#endMsg,#endSig,#endEyebrow,#soonFx,.j-date,.heart-cap,#heartMotto,#hAmp,.card{opacity:1!important}
   .day-row{visibility:visible!important;opacity:1!important;transform:translateY(-50%)!important}
   .drawn #monogram path,.drawn #monogram circle{animation:none;stroke-dashoffset:0}
   .seq,[data-reveal],.w{opacity:1!important;transform:none!important;animation:none!important}
@@ -856,8 +854,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.1rem}
       <p class="eyebrow" id="endEyebrow" data-t="endEye">Looking forward</p>
       <h2 id="endHead" data-t="endHead">Are You Ready to Witness This?</h2>
       <p id="endMsg" data-t="endMsg">Thank you for being part of our story so far — the best chapter is about to begin, and we cannot wait to celebrate it with you.</p>
-      <p id="endSig" data-t="endSig" data-html>With love,<br>Htoo &amp; May</p>
-      <p id="endCredit" data-t="siteCredit">Designed &amp; crafted by Studio Eternelle</p></div>
+      <p id="endSig" data-t="endSig" data-html>With love,<br>Htoo &amp; May</p></div>
   </div>
 </section>
 
@@ -1377,7 +1374,7 @@ const welBig=document.getElementById("welBig"),welBody=document.getElementById("
   bus=document.getElementById("bus"),prog=document.getElementById("prog"),bgPhoto=document.getElementById("bgphoto"),
   endMono=document.getElementById("endMono"),endEyebrow=document.getElementById("endEyebrow"),
   endHead=document.getElementById("endHead"),endMsg=document.getElementById("endMsg"),
-  endSig=document.getElementById("endSig"),endCredit=document.getElementById("endCredit"),
+  endSig=document.getElementById("endSig"),
   dressDrop=document.querySelector("#dressH .drop"),
   swEls=[...document.querySelectorAll(".sw")],bubBox=document.getElementById("cardBubbles");
 const RLEN=routePath.getTotalLength();routePath.style.setProperty("--rlen",RLEN);
@@ -1624,9 +1621,7 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
       const m=clamp((p-.56)/.16,0,1);
       endMsg.style.opacity=m;endMsg.style.transform=`translate3d(0,${(1-m)*22}px,0)`;
       const sg=clamp((p-.74)/.18,0,1);
-      endSig.style.opacity=sg;endSig.style.transform=`translate3d(0,${(1-sg)*20}px,0)`;
-      const cr=clamp((p-.88)/.12,0,1);
-      endCredit.style.opacity=cr;endCredit.style.transform=`translate3d(0,${(1-cr)*16}px,0)`;}
+      endSig.style.opacity=sg;endSig.style.transform=`translate3d(0,${(1-sg)*20}px,0)`;}
 
     if(sc.kind==="rsvp"){
       if(rsvpSecHead)rsvpSecHead.classList.toggle("in",p>.02);
