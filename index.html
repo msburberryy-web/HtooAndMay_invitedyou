@@ -18,7 +18,7 @@ html[lang="ja"]{--serif:"Shippori Mincho","Newsreader",serif}
 html[lang="my"]{--sans:"Padauk","Zen Kaku Gothic New",sans-serif;--serif:"Padauk","Newsreader",serif}
 *{box-sizing:border-box}
 body{margin:0;width:100%;background:var(--ink);color:var(--bone);font-family:var(--sans);font-weight:300;
-  line-height:1.8;overflow-x:hidden;-webkit-font-smoothing:antialiased;overscroll-behavior-y:none}
+  line-height:1.8;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 body.locked{overflow:hidden;height:100vh}
 .wrap{max-width:600px;margin:0 auto;padding:0 var(--pad);position:relative;z-index:4}
 #bgphoto{position:fixed;left:0;right:0;top:-15%;height:130%;pointer-events:none;z-index:-1;background-size:cover;background-position:center;will-change:transform;
@@ -237,13 +237,13 @@ body.locked{overflow:hidden;height:100vh}
 #jRail svg{width:100%;height:100%;display:block}
 #railGhost{fill:none;stroke:rgba(242,239,233,.07);stroke-width:.4;stroke-dasharray:2 9}
 #trail{position:absolute;inset:0;z-index:9;pointer-events:none}
-.tp{position:absolute;border-radius:50%;background:#F8ECCB;transform:translate(-50%,-50%);opacity:0;will-change:opacity}
+.tp{position:absolute;border-radius:50%;background:#F8ECCB;transform:translate(-50%,-50%);opacity:0}
 #star{position:absolute;z-index:10;width:8px;height:8px;border-radius:50%;background:#FFFBEE;
   box-shadow:0 0 9px 3px rgba(255,242,206,.95),0 0 24px 9px rgba(201,151,74,.32);
   transform:translate(-50%,-50%);will-change:transform,opacity;pointer-events:none;opacity:0}
 #fw{position:absolute;inset:0;z-index:11;pointer-events:none}
 .fwp{position:absolute;width:4px;height:4px;border-radius:50%;transform:translate(-50%,-50%);
-  will-change:transform,opacity;opacity:0}
+  opacity:0}
 #heartFw{position:absolute;inset:0;z-index:16;pointer-events:none;overflow:hidden}
 .j-date{position:absolute;z-index:14;left:0;right:0;top:11dvh;text-align:center;padding:0 8vw;
   opacity:0;will-change:opacity,transform}
@@ -315,7 +315,7 @@ html[lang="my"] .faq-head .eyebrow{display:none}
 .fq-dot{width:28px;height:2px;background:rgba(242,239,233,.18);transition:background .5s ease}
 .fq-dot.on{background:var(--gold)}
 #cardBubbles{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.bub{position:absolute;border-radius:50%;will-change:transform,opacity;opacity:0}
+.bub{position:absolute;border-radius:50%;opacity:0}
 
 .save-date{font-family:var(--serif);font-weight:200;line-height:1.1;letter-spacing:-.01em;
   margin:0 0 1.6rem;display:flex;align-items:baseline;justify-content:center;gap:.03em;flex-wrap:wrap}
