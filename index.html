@@ -201,7 +201,7 @@ body.locked{overflow:hidden;height:100vh}
   opacity:.28;z-index:2;object-fit:contain!important;filter:drop-shadow(0 4px 16px rgba(0,0,0,.5))}
 .rc-soon{position:absolute;left:0;right:0;bottom:14%;text-align:center;font-size:.56rem;z-index:2;
   letter-spacing:.24em;text-transform:uppercase;color:rgba(242,239,233,.5);text-shadow:0 1px 8px rgba(0,0,0,.6)}
-.soon-fx{position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none;z-index:45}
+.soon-fx{position:fixed;left:50%;top:50%;width:0;height:0;pointer-events:none;z-index:45}
 .soon-fx .glow{position:absolute;left:0;top:0;width:64vmin;height:64vmin;border-radius:50%;
   transform:translate(-50%,-50%) scale(var(--soon-s,.24));
   background:radial-gradient(circle,rgba(201,151,74,.4),rgba(201,151,74,0) 65%);
@@ -245,15 +245,6 @@ body.locked{overflow:hidden;height:100vh}
 .fwp{position:absolute;width:4px;height:4px;border-radius:50%;transform:translate(-50%,-50%);
   will-change:transform,opacity;opacity:0}
 #heartFw{position:absolute;inset:0;z-index:16;pointer-events:none;overflow:hidden}
-.j-head{position:absolute;z-index:14;text-align:center;padding:0 10vw;max-width:32rem;will-change:transform,opacity}
-.j-head::before{content:"";position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);
-  width:80vmin;height:80vmin;border-radius:50%;z-index:-1;pointer-events:none;
-  background:radial-gradient(circle,rgba(201,151,74,.4),rgba(201,151,74,0) 62%)}
-.j-head h3{font-family:"Alex Brush",cursive;font-weight:400;color:#fff;font-size:clamp(2.6rem,12vw,4.6rem);
-  margin:0 0 .6rem;line-height:1.05;
-  text-shadow:0 4px 30px rgba(0,0,0,.55),0 0 40px rgba(201,151,74,.55),0 2px 8px rgba(0,0,0,.45);
-  will-change:font-variation-settings}
-.j-head p{font-size:1.02rem;color:var(--greige);margin:0;text-shadow:0 1px 22px rgba(0,0,0,.6)}
 .j-date{position:absolute;z-index:14;left:0;right:0;top:11dvh;text-align:center;padding:0 8vw;
   opacity:0;will-change:opacity,transform}
 .j-date .k{font-size:.56rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin:0 0 .5rem}
@@ -283,11 +274,12 @@ body.locked{overflow:hidden;height:100vh}
 @media (min-width:768px){.sc-cards{height:320vh}}
 .cards-pin{overflow-x:clip;overflow-y:visible;touch-action:pan-y;cursor:grab;user-select:none}
 .cards-pin:active{cursor:grabbing}
+.card.no-blur,.faq-card.no-blur{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
 .card{position:absolute;left:50%;top:50%;width:min(84vw,440px);
   transform:translate(-50%,-50%);will-change:transform,opacity;
   padding:2.6rem 1.8rem 2.4rem;border-radius:18px;text-align:center;
-  background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.03));
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:linear-gradient(160deg,rgba(20,17,15,.55),rgba(20,17,15,.4));
+  backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
   border:1px solid rgba(242,239,233,.16);box-shadow:0 18px 50px rgba(0,0,0,.4)}
 @media (min-width:768px){.card{padding:3rem 2.4rem 2.8rem}}
 .card .eyebrow{margin-bottom:.8rem}
@@ -308,8 +300,8 @@ html[lang="my"] .faq-head .eyebrow{display:none}
 .faq-card{position:absolute;left:50%;top:54%;width:min(90vw,480px);
   transform:translate(-50%,-50%);will-change:transform,opacity;
   padding:2.6rem 2rem;border-radius:18px;text-align:center;
-  background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.03));
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:linear-gradient(160deg,rgba(20,17,15,.55),rgba(20,17,15,.4));
+  backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);
   border:1px solid rgba(242,239,233,.16);box-shadow:0 18px 50px rgba(0,0,0,.4)}
 .faq-card::before{content:"";position:absolute;inset:10px;border:1px solid rgba(242,239,233,.35);
   border-radius:10px;pointer-events:none}
@@ -500,7 +492,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.1rem}
 
 @media (prefers-reduced-motion:reduce){
   .layer,.rec,#welBig,#star,.bub,.hg,.card{transform:translate(-50%,-50%)!important}
-  #welBody,#cd,#endHead,#endMsg,#endSig,#endEyebrow,#endCredit,.j-head,.j-date,.heart-cap,#heartMotto,#hAmp,.card{opacity:1!important}
+  #welBody,#cd,#endHead,#endMsg,#endSig,#endEyebrow,#endCredit,#soonFx,.j-date,.heart-cap,#heartMotto,#hAmp,.card{opacity:1!important}
   .day-row{visibility:visible!important;opacity:1!important;transform:translateY(-50%)!important}
   .drawn #monogram path,.drawn #monogram circle{animation:none;stroke-dashoffset:0}
   .seq,[data-reveal],.w{opacity:1!important;transform:none!important;animation:none!important}
@@ -603,14 +595,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.1rem}
       <div class="rec-cover"><img src="assets/photos/story-nikkah.jpg" alt=""></div><div class="rec-cap">Nikkah</div></div></div>
     <div class="rec" id="recWedding"><div class="rec-inner"><div class="rec-vinyl"></div>
       <div class="rec-cover no-photo">
-      </div><div class="rec-cap">The wedding</div>
-      <div class="soon-fx" id="soonFx"><div class="glow"></div>
-        <span class="spark" style="--sx:-11vmin;--sy:-9vmin">✦</span>
-        <span class="spark" style="--sx:12vmin;--sy:-11vmin">✧</span>
-        <span class="spark" style="--sx:-14vmin;--sy:8vmin">✧</span>
-        <span class="spark" style="--sx:13vmin;--sy:9vmin">✦</span>
-        <span class="spark" style="--sx:0vmin;--sy:-15vmin">✦</span>
-        <div class="txt">Coming Soon</div></div></div></div>
+      </div><div class="rec-cap">The wedding</div></div></div>
   </div><div class="rec-title"><p id="recTitle" data-t="recTitle">The chapters of our story.</p></div></div>
 </section>
 
@@ -636,8 +621,6 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.1rem}
       <path id="railGhost" d="M14 -30 C 4 140, 26 300, 13 450 S 2 700, 15 880 S 24 950, 19 1000"/>
       <path id="railPath" style="display:none" d="M14 -30 C 4 140, 26 300, 13 450 S 2 700, 15 880 S 24 950, 19 1000"/></svg></div>
     <div id="trail"></div><div id="star"></div><div id="fw"></div>
-    <div class="j-head" id="jHead">
-      <h3 id="jHeadT" data-t="climbTitle">Coming Soon</h3></div>
     <div class="j-date" id="jDate">
       <p class="k" data-t="evDateK">Date</p>
       <p class="v" data-t="evDateV" data-html>Friday, 16 October 2026</p></div>
@@ -877,6 +860,14 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.1rem}
       <p id="endCredit" data-t="siteCredit">Designed &amp; crafted by Studio Eternelle</p></div>
   </div>
 </section>
+
+<div class="soon-fx" id="soonFx"><div class="glow"></div>
+  <span class="spark" style="--sx:-11vmin;--sy:-9vmin">✦</span>
+  <span class="spark" style="--sx:12vmin;--sy:-11vmin">✧</span>
+  <span class="spark" style="--sx:-14vmin;--sy:8vmin">✧</span>
+  <span class="spark" style="--sx:13vmin;--sy:9vmin">✦</span>
+  <span class="spark" style="--sx:0vmin;--sy:-15vmin">✦</span>
+  <div class="txt">Coming Soon</div></div>
 
 <script>
 const T={en:{},
@@ -1299,18 +1290,30 @@ recs.forEach(r=>r.style.setProperty("--rs",REC_SIZE+"px"));
 const REC_TOTAL=(recs.length-1)*REC_STEP;
 const soonFx=document.getElementById("soonFx");
 const soonTxt=soonFx?soonFx.querySelector(".txt"):null;
-let soonMaxScale=2.4;
-let soonPeakFoc=0;
+let soonMaxScale=2.4,soonDockScale=1;
+let soonPeakFoc=0,soonLeftPct=50,soonTopPct=50,journeyP=0;
 function updateSoonMaxScale(){
   if(!soonTxt)return;
   const w=soonTxt.offsetWidth,h=soonTxt.offsetHeight;
   if(!w||!h)return;
-  const wedNearCeil=1-Math.abs((.38-.5)*2);
-  const ancestorScale=.72+wedNearCeil*.52;
-  soonMaxScale=Math.max(.6,Math.min((innerWidth*.72)/(w*ancestorScale),(innerHeight*.4)/(h*ancestorScale)));}
+  soonMaxScale=Math.max(.6,Math.min((innerWidth*.72)/w,(innerHeight*.4)/h));
+  soonDockScale=Math.max(.3,Math.min((innerWidth*.46)/w,(innerHeight*.22)/h));}
 updateSoonMaxScale();
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(updateSoonMaxScale);
 addEventListener("resize",updateSoonMaxScale,{passive:true});
+function applySoonFx(){
+  if(!soonFx)return;
+  const handoff=clamp(journeyP/.08,0,1);
+  const reveal=Math.max(soonPeakFoc,handoff);
+  const fadeOut=journeyP>.18?clamp(1-(journeyP-.18)/.08,0,1):1;
+  const s=lerp(.24+reveal*(soonMaxScale-.24),soonDockScale,handoff);
+  const leftPct=lerp(soonLeftPct,50,handoff);
+  const topPct=lerp(soonTopPct,38,handoff);
+  const o=clamp(reveal*1.3,0,1)*fadeOut;
+  soonFx.style.left=leftPct.toFixed(2)+"%";
+  soonFx.style.top=topPct.toFixed(2)+"%";
+  soonFx.style.setProperty("--soon-s",s.toFixed(3));
+  soonFx.style.setProperty("--soon-o",o.toFixed(3));}
 const wedFadeEls=[...document.querySelectorAll("#recWedding .rec-cover,#recWedding .rec-vinyl,#recWedding .rec-cap")];
 recs.forEach(r=>{
   const cover=r.querySelector(".rec-cover");
@@ -1352,7 +1355,6 @@ const welBig=document.getElementById("welBig"),welBody=document.getElementById("
   hnR=document.getElementById("hnR"),hAmp=document.getElementById("hAmp"),
   hCap=document.getElementById("hCap"),heartMotto=document.getElementById("heartMotto"),
   heartStage=document.querySelector(".heart-stage"),
-  jHead=document.getElementById("jHead"),jHeadT=document.getElementById("jHeadT"),
   jDate=document.getElementById("jDate"),jVenue=document.getElementById("jVenue"),
   dayRows=[...document.querySelectorAll(".day-row")],recTitle=document.getElementById("recTitle"),
   railPath=document.getElementById("railPath"),star=document.getElementById("star"),
@@ -1376,7 +1378,9 @@ dayRows.forEach(r=>r.style.top=(parseFloat(r.dataset.y)*100)+"%");
 const TN=150,TRAIL=[];
 for(let i=0;i<TN;i++){const d=document.createElement("div");d.className="tp";
   trailBox.appendChild(d);TRAIL.push({el:d,t:i/(TN-1),lit:false});}
-function layoutTrail(){const rr=jRail.getBoundingClientRect();
+function updateRailRect(){const r=jRail.getBoundingClientRect();railRect={width:r.width,height:r.height};}
+let railRect;updateRailRect();
+function layoutTrail(){updateRailRect();const rr=railRect;
   for(const s of TRAIL){const pt=railPath.getPointAtLength(DLEN*s.t);
     const n=.5+.5*Math.sin(s.t*29+Math.sin(s.t*8.3)*2.4),n2=.5+.5*Math.sin(s.t*61+1.7);
     const w=.7+n*2.1+n2*.5;
@@ -1454,7 +1458,7 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
   bgPhoto.style.transform=`translate3d(0,${lerp(innerHeight*.15,innerHeight*-.15,pageProg)}px,0)`;
   const jr=jScene.getBoundingClientRect();
   if(jr.bottom<0||jr.top>innerHeight){fwArmed=true;if(fwOn){fwOn=false;fwHide();}}
-  if(fwOn){const rr=jRail.getBoundingClientRect();fwTick(now,rr.width,rr.height);}
+  if(fwOn)fwTick(now,railRect.width,railRect.height);
   const hr=heartScene.getBoundingClientRect();
   if(hr.bottom<0||hr.top>innerHeight){heartFwArmed=true;if(heartFwOn){heartFwOn=false;heartFwHide();}}
   if(heartFwOn)heartFwTick(now,innerWidth,innerHeight);
@@ -1480,7 +1484,7 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
   for(const sc of scenes){
     const rect=sc.el.getBoundingClientRect();
     if(rect.bottom<-200||rect.top>innerHeight+200)continue;
-    const raw=progressOf(sc.el);
+    const raw=clamp(-rect.top/(sc.el.offsetHeight-innerHeight),0,1);
     const lerpF=(sc.kind==="records"||sc.kind==="cards"||sc.kind==="faq")?.35:.09;
     sc.s=reduce?raw:lerp(sc.s,raw,lerpF);
     const p=sc.s;
@@ -1526,11 +1530,9 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
         if(i!==li)op*=(1-soonPeakFoc);
         r.style.opacity=op;
         r.style.zIndex=String(Math.round(near*20));});
-      if(soonFx){
-        const s=.24+soonPeakFoc*(soonMaxScale-.24),o=clamp(.55+focE*.45,0,1);
-        soonFx.style.setProperty("--soon-s",s.toFixed(3));
-        soonFx.style.setProperty("--soon-o",o.toFixed(3));
-        wedFadeEls.forEach(el=>{el.style.opacity=(1-soonPeakFoc).toFixed(3);});}
+      soonLeftPct=wu*100;
+      soonTopPct=50+(-ARCH*(1-wk*wk))/innerHeight*100;
+      wedFadeEls.forEach(el=>{el.style.opacity=(1-soonPeakFoc).toFixed(3);});
       if(recTitle)vf(recTitle,clamp(1-Math.abs(p-.5)*2.2,0,1)*(1-soonPeakFoc));}
 
     if(sc.kind==="journey"){
@@ -1548,13 +1550,10 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
         const c=mix3(L.c0,L.c1,L.c2,travel);
         if(c!==L.last){L.el.style.setProperty("--lc",c);L.last=c;}});
       jVenue.style.opacity=(clamp((p-.30)/.16,0,1)*edgeFade).toFixed(3);
-      const ho=win(p,0,.26,.08);
-      jHead.style.opacity=ho;
-      const jEntrance=clamp(p/.08,0,1);
-      jHead.style.transform=`translate3d(0,${(p-.06)*-200}px,0) scale(${(.92+jEntrance*.08)*(1+p*.2)})`;
+      journeyP=p;
       const dof=win(p,.11,.22,.045);
       jDate.style.opacity=dof;jDate.style.transform=`translate3d(0,${(1-dof)*18}px,0)`;
-      const rr=jRail.getBoundingClientRect(),pt=railPath.getPointAtLength(DLEN*travel);
+      const rr=railRect,pt=railPath.getPointAtLength(DLEN*travel);
       star.style.left=(pt.x/100*rr.width)+"px";star.style.top=(pt.y/1000*rr.height)+"px";
       star.style.opacity=(p>.15&&p<.90)?1:0;
       star.style.zIndex=travel<.38?"10":"1";
@@ -1575,7 +1574,8 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
           ` rotate(${d*3.2}deg) scale(${clamp(1-ad*.16,.66,1)})`;
         c.style.opacity=clamp(1-ad*.85,0,1);
         c.style.zIndex=String(Math.round(30-ad*10));
-        c.style.pointerEvents=ad<.35?"auto":"none";});
+        c.style.pointerEvents=ad<.35?"auto":"none";
+        c.classList.toggle("no-blur",ad>.75);});
       cardDots.forEach((d,i)=>d.classList.toggle("on",Math.round(pos)===i));
       const dn=clamp(1-Math.abs(1-pos),0,1);
       if(dressDrop){dressDrop.style.transform=`scale(${.82+dn*.28}) rotate(${(1-dn)*-6}deg)`;}
@@ -1602,7 +1602,8 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
           ` rotate(${d*3.2}deg) scale(${clamp(1-ad*.16,.66,1)})`;
         c.style.opacity=clamp(1-ad*.85,0,1);
         c.style.zIndex=String(Math.round(30-ad*10));
-        c.style.pointerEvents=ad<.35?"auto":"none";});
+        c.style.pointerEvents=ad<.35?"auto":"none";
+        c.classList.toggle("no-blur",ad>.75);});
       faqDots.forEach((d,i)=>d.classList.toggle("on",Math.round(pos)===i));}
 
     if(sc.kind==="outro"){
@@ -1631,6 +1632,7 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
       rsMoon.style.left=mx.toFixed(2)+"%";
       rsMoon.style.opacity=clamp(p*3,0,1)*clamp((1.06-p)*3,0,1);}
   }
+  applySoonFx();
   requestAnimationFrame(frame);
 })(performance.now());
 
