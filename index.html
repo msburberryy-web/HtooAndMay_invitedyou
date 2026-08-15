@@ -1303,9 +1303,9 @@ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(updateSoonMaxS
 addEventListener("resize",updateSoonMaxScale,{passive:true});
 function applySoonFx(){
   if(!soonFx)return;
-  const handoff=clamp(journeyP/.08,0,1);
+  const handoff=clamp(journeyP/.05,0,1);
   const reveal=Math.max(soonPeakFoc,handoff);
-  const fadeOut=journeyP>.18?clamp(1-(journeyP-.18)/.08,0,1):1;
+  const fadeOut=journeyP>.11?clamp(1-(journeyP-.11)/.06,0,1):1;
   const s=lerp(.24+reveal*(soonMaxScale-.24),soonDockScale,handoff);
   const leftPct=lerp(soonLeftPct,50,handoff);
   const topPct=lerp(soonTopPct,38,handoff);
@@ -1530,13 +1530,11 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
         if(i!==li)op*=(1-soonPeakFoc);
         r.style.opacity=op;
         r.style.zIndex=String(Math.round(near*20));});
-      soonLeftPct=wu*100;
-      soonTopPct=50+(-ARCH*(1-wk*wk))/innerHeight*100;
       wedFadeEls.forEach(el=>{el.style.opacity=(1-soonPeakFoc).toFixed(3);});
       if(recTitle)vf(recTitle,clamp(1-Math.abs(p-.5)*2.2,0,1)*(1-soonPeakFoc));}
 
     if(sc.kind==="journey"){
-      const travel=clamp((p-.14)/.74,0,1);
+      const travel=clamp((p-.06)/.74,0,1);
       const css=skyAt(travel);
       if(css!==lastSky){jSky.style.background=css;lastSky=css;}
       const edgeFade=win(p,0,1,.05);
@@ -1555,15 +1553,15 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
       jDate.style.opacity=dof;jDate.style.transform=`translate3d(0,${(1-dof)*18}px,0)`;
       const rr=railRect,pt=railPath.getPointAtLength(DLEN*travel);
       star.style.left=(pt.x/100*rr.width)+"px";star.style.top=(pt.y/1000*rr.height)+"px";
-      star.style.opacity=(p>.15&&p<.90)?1:0;
+      star.style.opacity=(p>.07&&p<.90)?1:0;
       star.style.zIndex=travel<.38?"10":"1";
       jGlow.style.setProperty("--gx",clamp(pt.x,5,95)+"%");jGlow.style.setProperty("--gy",clamp(pt.y/10,6,95)+"%");
       star.style.transform=`translate(-50%,-50%) scale(${1+Math.sin(travel*Math.PI)*.5})`;
-      for(const s of TRAIL){const on=s.t<=travel&&p>.14;
+      for(const s of TRAIL){const on=s.t<=travel&&p>.06;
         if(on!==s.lit){s.lit=on;s.el.style.opacity=on?.85:0;}}
       const sy=pt.y/1000;
-      dayRows.forEach(row=>row.classList.toggle("shown",p>.15&&sy>=parseFloat(row.dataset.y)-.012));
-      if(fwArmed&&p>.15&&sy>=0.70){fwArmed=false;fwOn=true;fwStart=now;}}
+      dayRows.forEach(row=>row.classList.toggle("shown",p>.07&&sy>=parseFloat(row.dataset.y)-.012));
+      if(fwArmed&&p>.07&&sy>=0.70){fwArmed=false;fwOn=true;fwStart=now;}}
 
     if(sc.kind==="cards"){
       const n=cards.length,pos=p*(n-1);
