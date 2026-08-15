@@ -1291,7 +1291,7 @@ const REC_TOTAL=(recs.length-1)*REC_STEP;
 const soonFx=document.getElementById("soonFx");
 const soonTxt=soonFx?soonFx.querySelector(".txt"):null;
 let soonMaxScale=2.4,soonDockScale=1;
-let soonPeakFoc=0,soonLeftPct=50,soonTopPct=50,journeyP=0;
+let soonPeakFoc=0,soonLeftPct=50,soonTopPct=50;
 function updateSoonMaxScale(){
   if(!soonTxt)return;
   const w=soonTxt.offsetWidth,h=soonTxt.offsetHeight;
@@ -1301,11 +1301,21 @@ function updateSoonMaxScale(){
 updateSoonMaxScale();
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(updateSoonMaxScale);
 addEventListener("resize",updateSoonMaxScale,{passive:true});
+let soonZoneStart=0,soonZoneEnd=1;
+function updateSoonZone(){
+  const rs=document.querySelector(".sc-records"),js=document.querySelector(".sc-journey");
+  if(!rs||!js)return;
+  const rsRect=rs.getBoundingClientRect(),jsRect=js.getBoundingClientRect();
+  soonZoneStart=rsRect.top+scrollY+(rs.offsetHeight-innerHeight);
+  soonZoneEnd=jsRect.top+scrollY;}
+updateSoonZone();
+addEventListener("resize",updateSoonZone,{passive:true});
 function applySoonFx(){
   if(!soonFx)return;
-  const handoff=clamp(journeyP/.05,0,1);
+  const soonU=clamp((scrollY-soonZoneStart)/(soonZoneEnd-soonZoneStart),0,1);
+  const handoff=clamp(soonU/.3,0,1);
   const reveal=Math.max(soonPeakFoc,handoff);
-  const fadeOut=journeyP>.11?clamp(1-(journeyP-.11)/.06,0,1):1;
+  const fadeOut=soonU>.55?clamp(1-(soonU-.55)/.45,0,1):1;
   const s=lerp(.24+reveal*(soonMaxScale-.24),soonDockScale,handoff);
   const leftPct=lerp(soonLeftPct,50,handoff);
   const topPct=lerp(soonTopPct,38,handoff);
@@ -1548,7 +1558,6 @@ addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
         const c=mix3(L.c0,L.c1,L.c2,travel);
         if(c!==L.last){L.el.style.setProperty("--lc",c);L.last=c;}});
       jVenue.style.opacity=(clamp((p-.30)/.16,0,1)*edgeFade).toFixed(3);
-      journeyP=p;
       const dof=win(p,.11,.22,.045);
       jDate.style.opacity=dof;jDate.style.transform=`translate3d(0,${(1-dof)*18}px,0)`;
       const rr=railRect,pt=railPath.getPointAtLength(DLEN*travel);
