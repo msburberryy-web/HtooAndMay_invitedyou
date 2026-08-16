@@ -1460,6 +1460,7 @@ for(let i=0;i<22;i++){
 
 let welH=welBig.offsetHeight,lastSky="";
 addEventListener("resize",debounce(()=>{welH=welBig.offsetHeight;},150),{passive:true});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{welH=welBig.offsetHeight;});
 
 (function frame(now){
   const pageProg=clamp(scrollY/(document.body.scrollHeight-innerHeight),0,1);
@@ -1713,11 +1714,21 @@ addEventListener("resize",debounce(()=>{welH=welBig.offsetHeight;},150),{passive
   cardsPin.addEventListener("pointerup",endMouseDrag);
   cardsPin.addEventListener("pointercancel",endMouseDrag);
 
-  let tId=null,tStartX=0,tStartY=0,tStartPos=0,tStartT=0;
+  let tId=null,tAxis=null,tStartX=0,tStartY=0,tStartPos=0,tStartT=0;
   cardsPin.addEventListener("pointerdown",e=>{
     if(e.pointerType!=="touch")return;
-    tId=e.pointerId;tStartX=e.clientX;tStartY=e.clientY;tStartT=performance.now();
+    tId=e.pointerId;tAxis=null;tStartX=e.clientX;tStartY=e.clientY;tStartT=performance.now();
     tStartPos=progressOf(cardsScene)*(n-1);});
+  cardsPin.addEventListener("pointermove",e=>{
+    if(e.pointerType!=="touch"||e.pointerId!==tId)return;
+    const dx=e.clientX-tStartX,dy=e.clientY-tStartY;
+    if(tAxis===null){
+      if(Math.abs(dx)<6&&Math.abs(dy)<6)return;
+      tAxis=Math.abs(dx)>Math.abs(dy)?"x":"y";
+      if(tAxis==="x")try{cardsPin.setPointerCapture(e.pointerId);}catch(err){}}
+    if(tAxis!=="x")return;
+    e.preventDefault();
+    scrollTo(0,scrollYFor(clamp(tStartPos-dx/stepPx(),0,n-1)));});
   function settleThenSnap(target){
     const done=()=>scrollTo({top:scrollYFor(target),behavior:"smooth"});
     if("onscrollend" in window){addEventListener("scrollend",done,{once:true});return;}
@@ -1726,13 +1737,18 @@ addEventListener("resize",debounce(()=>{welH=welBig.offsetHeight;},150),{passive
       if(scrollY===lastY)stable++;else{stable=0;lastY=scrollY;}
       if(stable>=4)return done();
       requestAnimationFrame(wait);})();}
-  cardsPin.addEventListener("pointerup",e=>{
+  function endTouchDrag(e){
     if(e.pointerType!=="touch"||e.pointerId!==tId)return;
-    tId=null;
+    const wasX=tAxis==="x";
+    tId=null;tAxis=null;
+    if(!wasX)return;
     const dx=e.clientX-tStartX,dy=e.clientY-tStartY,dt=performance.now()-tStartT;
-    if(dt>650||Math.abs(dx)<44||Math.abs(dx)<Math.abs(dy)*1.4)return;
-    const target=clamp(Math.round(tStartPos)+(dx<0?1:-1),0,n-1);
-    settleThenSnap(target);});
+    const isFlick=dt<=650&&Math.abs(dx)>=44&&Math.abs(dx)>=Math.abs(dy)*1.4;
+    const raw=progressOf(cardsScene)*(n-1);
+    const target=isFlick?clamp(Math.round(tStartPos)+(dx<0?1:-1),0,n-1):clamp(Math.round(raw),0,n-1);
+    settleThenSnap(target);}
+  cardsPin.addEventListener("pointerup",endTouchDrag);
+  cardsPin.addEventListener("pointercancel",endTouchDrag);
 })();
 
 buildText();applyLang("en");
