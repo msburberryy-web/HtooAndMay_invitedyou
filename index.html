@@ -1463,41 +1463,70 @@ addEventListener("resize",debounce(()=>{welH=welBig.offsetHeight;},150),{passive
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{welH=welBig.offsetHeight;});
 
 (function frame(now){
-  const pageProg=clamp(scrollY/(document.body.scrollHeight-innerHeight),0,1);
+  // ===== READ PHASE: gather every DOM measurement up front, before any writes =====
+  // Interleaving reads (getBoundingClientRect/offsetHeight/getPointAtLength) with
+  // style writes forces the browser to do a synchronous layout recalculation on
+  // each read that follows a pending write ("layout thrashing"). Batching all
+  // reads first means only one layout flush per frame instead of many.
+  const sy=scrollY;
+  const bodyH=document.body.scrollHeight;
+  const jr=jScene.getBoundingClientRect();
+  const hr=heartScene.getBoundingClientRect();
+  const parReads=pars.map(el=>el.getBoundingClientRect());
+  const wipeReads=wipes.map(wp=>wp.el.getBoundingClientRect());
+  const fxReads=fxs.map(el=>el.getBoundingClientRect());
+  const sceneReads=scenes.map(sc=>{
+    const rect=sc.el.getBoundingClientRect();
+    const active=!(rect.bottom<-200||rect.top>innerHeight+200);
+    return {sc,rect,active,offH:active?sc.el.offsetHeight:0};
+  });
+  for(const sd of sceneReads){
+    if(!sd.active)continue;
+    const raw=clamp(-sd.rect.top/(sd.offH-innerHeight),0,1);
+    const lerpF=(sd.sc.kind==="records"||sd.sc.kind==="cards"||sd.sc.kind==="faq")?.35:.09;
+    sd.sc.s=reduce?raw:lerp(sd.sc.s,raw,lerpF);
+    sd.p=sd.sc.s;
+    if(sd.sc.kind==="journey"){
+      sd.travel=clamp((sd.p-.06)/.74,0,1);
+      sd.pt=railPath.getPointAtLength(DLEN*sd.travel);}
+    if(sd.sc.kind==="cards"){
+      sd.pos=sd.p*(cards.length-1);
+      sd.tn=clamp((sd.pos-2.35)/.6,0,1);
+      if(sd.tn>.005&&sd.tn<.995){
+        sd.bp=routePath.getPointAtLength(RLEN*sd.tn);
+        sd.ah=routePath.getPointAtLength(Math.min(RLEN*sd.tn+6,RLEN));}}
+  }
+
+  // ===== WRITE PHASE: apply every style change; no DOM reads from here on =====
+  const pageProg=clamp(sy/(bodyH-innerHeight),0,1);
   prog.style.width=(pageProg*100)+"%";
   bgPhoto.style.transform=`translate3d(0,${lerp(innerHeight*.15,innerHeight*-.15,pageProg)}px,0)`;
-  const jr=jScene.getBoundingClientRect();
   if(jr.bottom<0||jr.top>innerHeight){fwArmed=true;if(fwOn){fwOn=false;fwHide();}}
   if(fwOn)fwTick(now,railRect.width,railRect.height);
-  const hr=heartScene.getBoundingClientRect();
   if(hr.bottom<0||hr.top>innerHeight){heartFwArmed=true;if(heartFwOn){heartFwOn=false;heartFwHide();}}
   if(heartFwOn)heartFwTick(now,innerWidth,innerHeight);
-  for(const el of pars){const r=el.getBoundingClientRect();
-    if(r.bottom<0||r.top>innerHeight)continue;
+  pars.forEach((el,i)=>{const r=parReads[i];
+    if(r.bottom<0||r.top>innerHeight)return;
     const v=(r.top+r.height/2-innerHeight/2)/innerHeight;
-    el.style.transform=`translate3d(0,${v*parseFloat(el.dataset.par)*100*PAR}px,0)`;}
-  for(const wp of wipes){const r=wp.el.getBoundingClientRect();
-    if(r.bottom<-60||r.top>innerHeight+60)continue;
+    el.style.transform=`translate3d(0,${v*parseFloat(el.dataset.par)*100*PAR}px,0)`;});
+  wipes.forEach((wp,i)=>{const r=wipeReads[i];
+    if(r.bottom<-60||r.top>innerHeight+60)return;
     const q=clamp((innerHeight*.82-r.top)/(innerHeight*.5),0,1);
     const n=wp.words.length,lit=Math.round(q*n);
-    if(lit!==wp.lit){for(let i=0;i<n;i++)wp.words[i].style.color=i<lit?"var(--bone)":"var(--dim)";wp.lit=lit;}}
-  for(const el of fxs){const r=el.getBoundingClientRect();
-    if(r.bottom<-120||r.top>innerHeight+120)continue;
+    if(lit!==wp.lit){for(let i2=0;i2<n;i2++)wp.words[i2].style.color=i2<lit?"var(--bone)":"var(--dim)";wp.lit=lit;}});
+  fxs.forEach((el,i)=>{const r=fxReads[i];
+    if(r.bottom<-120||r.top>innerHeight+120)return;
     const q=viewProg(r),c=(q-.5)*2,near=1-Math.abs(c);
     switch(el.dataset.fx){
       case "grow":el.style.transform=`scale(${.86+near*.18})`;
         el.style.color=mixRGB([120,128,120],[242,239,233],near);vf(el,near);break;
       case "growbig":el.style.transform=`scale(${.78+near*.28}) translate3d(0,${c*-18}px,0)`;
         el.style.color=mixRGB([98,108,100],[242,239,233],Math.pow(near,.7));vf(el,near);break;
-      case "monogram":el.style.transform=`translate3d(0,${q*-40}px,0) scale(${1-q*.12})`;break;}}
+      case "monogram":el.style.transform=`translate3d(0,${q*-40}px,0) scale(${1-q*.12})`;break;}});
 
-  for(const sc of scenes){
-    const rect=sc.el.getBoundingClientRect();
-    if(rect.bottom<-200||rect.top>innerHeight+200)continue;
-    const raw=clamp(-rect.top/(sc.el.offsetHeight-innerHeight),0,1);
-    const lerpF=(sc.kind==="records"||sc.kind==="cards"||sc.kind==="faq")?.35:.09;
-    sc.s=reduce?raw:lerp(sc.s,raw,lerpF);
-    const p=sc.s;
+  for(const sd of sceneReads){
+    if(!sd.active)continue;
+    const sc=sd.sc,p=sd.p;
 
     if(sc.kind==="welcome"){
       const t=clamp(p/.55,0,1),s=lerp(1,.30,t*t*(3-2*t)),ty=-t*innerHeight*.14;
@@ -1544,7 +1573,7 @@ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{welH=welB
       if(recTitle)vf(recTitle,clamp(1-Math.abs(p-.5)*2.2,0,1)*(1-soonPeakFoc));}
 
     if(sc.kind==="journey"){
-      const travel=clamp((p-.06)/.74,0,1);
+      const travel=sd.travel;
       const css=skyAt(travel);
       if(css!==lastSky){jSky.style.background=css;lastSky=css;}
       const edgeFade=win(p,0,1,.05);
@@ -1560,7 +1589,7 @@ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{welH=welB
       jVenue.style.opacity=(clamp((p-.30)/.16,0,1)*edgeFade).toFixed(3);
       const dof=win(p,.11,.22,.045);
       jDate.style.opacity=dof;jDate.style.transform=`translate3d(0,${(1-dof)*18}px,0)`;
-      const rr=railRect,pt=railPath.getPointAtLength(DLEN*travel);
+      const rr=railRect,pt=sd.pt;
       star.style.left=(pt.x/100*rr.width)+"px";star.style.top=(pt.y/1000*rr.height)+"px";
       star.style.opacity=(p>.07&&p<.90)?1:0;
       star.style.zIndex=travel<.38?"10":"1";
@@ -1568,12 +1597,12 @@ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{welH=welB
       star.style.transform=`translate(-50%,-50%) scale(${1+Math.sin(travel*Math.PI)*.5})`;
       for(const s of TRAIL){const on=s.t<=travel&&p>.06;
         if(on!==s.lit){s.lit=on;s.el.style.opacity=on?.85:0;}}
-      const sy=pt.y/1000;
-      dayRows.forEach(row=>row.classList.toggle("shown",p>.07&&sy>=parseFloat(row.dataset.y)-.012));
-      if(fwArmed&&p>.07&&sy>=0.70){fwArmed=false;fwOn=true;fwStart=now;}}
+      const railY=pt.y/1000;
+      dayRows.forEach(row=>row.classList.toggle("shown",p>.07&&railY>=parseFloat(row.dataset.y)-.012));
+      if(fwArmed&&p>.07&&railY>=0.70){fwArmed=false;fwOn=true;fwStart=now;}}
 
     if(sc.kind==="cards"){
-      const n=cards.length,pos=p*(n-1);
+      const pos=sd.pos;
       const step=Math.min(innerWidth*.92,520);
       cards.forEach((c,i)=>{
         const d=i-pos, ad=Math.abs(d);
@@ -1587,16 +1616,15 @@ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{welH=welB
       const dn=clamp(1-Math.abs(1-pos),0,1);
       if(dressDrop){dressDrop.style.transform=`scale(${.82+dn*.28}) rotate(${(1-dn)*-6}deg)`;}
       swEls.forEach((s,i)=>s.style.transform=`scale(${.5+dn*.5}) translateY(${(1-dn)*(i%2?14:-14)}px)`);
-      const tn=clamp((pos-2.35)/.6,0,1);
+      const tn=sd.tn;
       routePath.style.strokeDashoffset=RLEN*(1-tn);
       stops.forEach((s,i)=>s.classList.toggle("on",tn>=i/(stops.length-1)-.02));
       if(tn>.005&&tn<.995){bus.classList.add("on");
-        const bp=routePath.getPointAtLength(RLEN*tn),ah=routePath.getPointAtLength(Math.min(RLEN*tn+6,RLEN));
+        const bp=sd.bp,ah=sd.ah;
         bus.setAttribute("transform",`translate(${bp.x},${bp.y}) rotate(${Math.atan2(ah.y-bp.y,ah.x-bp.x)*180/Math.PI})`);
       } else bus.classList.remove("on");
-      const H=rect.height>0?innerHeight:innerHeight;
       BUBS.forEach(b=>{
-        const y=H*1.05-(p*b.sp+b.x)%1.25*H*1.25;
+        const y=innerHeight*1.05-(p*b.sp+b.x)%1.25*innerHeight*1.25;
         b.el.style.transform=`translate3d(${Math.sin(p*5+b.ph)*24}px,${y}px,0)`;
         b.el.style.opacity=(b.op*clamp(p*3,0,1)*clamp((1-p)*3,0,1)).toFixed(3);});}
 
