@@ -1006,6 +1006,7 @@ const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
 const isPhone=matchMedia("(max-width: 767px)").matches;
 const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
 const lerp=(a,b,t)=>a+(b-a)*t;
+const debounce=(fn,wait)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),wait);};};
 const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
 const mixRGB=(x,y,t)=>`rgb(${Math.round(lerp(x[0],y[0],t))},${Math.round(lerp(x[1],y[1],t))},${Math.round(lerp(x[2],y[2],t))})`;
 
@@ -1029,7 +1030,7 @@ if(!reduce){
     wsTarget=clamp(wsTarget+dy,0,wsMaxScroll());
     wsLastSet=scrollY;
     if(!wsTicking){wsTicking=true;wsLastT=0;requestAnimationFrame(wsTick);}},{passive:false});
-  addEventListener("resize",()=>{wsTarget=clamp(wsTarget,0,wsMaxScroll());},{passive:true});
+  addEventListener("resize",debounce(()=>{wsTarget=clamp(wsTarget,0,wsMaxScroll());},150),{passive:true});
 }
 const mix3=(a,b,c,t)=>t<.70?mixRGB(a,b,t/.70):mixRGB(b,c,(t-.70)/.30);
 const win=(p,a,b,f)=>clamp(Math.min((p-a)/f,(b-p)/f),0,1);
@@ -1297,7 +1298,7 @@ function updateSoonMaxScale(){
   soonDockScale=Math.max(.3,Math.min((innerWidth*.46)/w,(innerHeight*.22)/h));}
 updateSoonMaxScale();
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(updateSoonMaxScale);
-addEventListener("resize",updateSoonMaxScale,{passive:true});
+addEventListener("resize",debounce(updateSoonMaxScale,150),{passive:true});
 let soonZoneStart=0,soonZoneEnd=1;
 function updateSoonZone(){
   const rs=document.querySelector(".sc-records"),js=document.querySelector(".sc-journey");
@@ -1306,7 +1307,7 @@ function updateSoonZone(){
   soonZoneStart=rsRect.top+scrollY+(rs.offsetHeight-innerHeight);
   soonZoneEnd=jsRect.top+scrollY;}
 updateSoonZone();
-addEventListener("resize",updateSoonZone,{passive:true});
+addEventListener("resize",debounce(updateSoonZone,150),{passive:true});
 function applySoonFx(){
   if(!soonFx)return;
   if(scrollY<soonZoneStart-innerHeight*.5)soonPeakFoc=0;
@@ -1394,7 +1395,7 @@ function layoutTrail(){updateRailRect();const rr=railRect;
     const w=.7+n*2.1+n2*.5;
     s.el.style.width=w+"px";s.el.style.height=w+"px";
     s.el.style.left=(pt.x/100*rr.width)+"px";s.el.style.top=(pt.y/1000*rr.height)+"px";}}
-addEventListener("resize",layoutTrail,{passive:true});
+addEventListener("resize",debounce(layoutTrail,150),{passive:true});
 setTimeout(layoutTrail,60);
 
 const FWC=["#FFF3D6","#F0C070","#C9974A","#F6E6BE"];
@@ -1458,7 +1459,7 @@ for(let i=0;i<22;i++){
   RS_SPARKS.push({el:d,y:Math.random(),ph:Math.random()*6.28,sp:.5+Math.random()*.8});}
 
 let welH=welBig.offsetHeight,lastSky="";
-addEventListener("resize",()=>{welH=welBig.offsetHeight;},{passive:true});
+addEventListener("resize",debounce(()=>{welH=welBig.offsetHeight;},150),{passive:true});
 
 (function frame(now){
   const pageProg=clamp(scrollY/(document.body.scrollHeight-innerHeight),0,1);
