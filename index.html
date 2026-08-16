@@ -469,6 +469,26 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.1rem}
   background:radial-gradient(circle,rgba(248,236,203,.9) 0%,rgba(201,151,74,.5) 42%,transparent 72%);
   filter:blur(2px)}
 
+/* ══════ GALLERY ══════ */
+.sc-gallery{height:100dvh}
+.gallery-pin{flex-direction:column;gap:1.1rem;padding:0 6vw}
+.gallery-pin .eyebrow{margin:0}
+.g-stack{position:relative;width:min(94vw,460px);height:min(66dvh,660px);touch-action:pan-y;user-select:none;cursor:grab}
+.g-stack:active{cursor:grabbing}
+.g-card{position:absolute;left:50%;top:50%;width:100%;height:100%;border-radius:22px;overflow:hidden;
+  transform:translate(-50%,-50%);will-change:transform,opacity;
+  box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 0 1px rgba(242,239,233,.14)}
+.g-card img.real{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;-webkit-user-drag:none}
+.g-card.no-photo img.real{display:none}
+.g-card .g-fallback{position:absolute;inset:0;display:none;align-items:center;justify-content:center;
+  text-align:center;padding:2.4rem;background:linear-gradient(160deg,rgba(30,48,74,.55),rgba(10,18,32,.4));
+  color:var(--stone);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase}
+.g-card.no-photo .g-fallback{display:flex}
+.g-dots{display:flex;gap:.4rem;justify-content:center;z-index:5}
+.g-dot{width:6px;height:6px;border-radius:50%;background:rgba(242,239,233,.25);transition:background .3s ease,transform .3s ease}
+.g-dot.on{background:var(--gold);transform:scale(1.35)}
+.g-hint{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--stone);opacity:.65;margin:0;z-index:5}
+
 .sc-outro{height:210vh}
 @media (min-width:768px){.sc-outro{height:240vh}}
 .outro-pin{flex-direction:column;text-align:center;padding:0 var(--pad)}
@@ -847,6 +867,27 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.1rem}
  </div>
 </section>
 
+<section class="scene sc-gallery">
+  <div class="pin gallery-pin">
+    <p class="eyebrow" data-t="galleryEye">Our Gallery</p>
+    <div class="g-stack" id="gStack">
+      <div class="g-card"><img class="real" src="assets/photos/gallery-1.jpg" alt=""><div class="g-fallback" data-t="galleryPh">Photo coming soon</div></div>
+      <div class="g-card"><img class="real" src="assets/photos/gallery-2.jpg" alt=""><div class="g-fallback" data-t="galleryPh">Photo coming soon</div></div>
+      <div class="g-card"><img class="real" src="assets/photos/gallery-3.jpg" alt=""><div class="g-fallback" data-t="galleryPh">Photo coming soon</div></div>
+      <div class="g-card"><img class="real" src="assets/photos/gallery-4.jpg" alt=""><div class="g-fallback" data-t="galleryPh">Photo coming soon</div></div>
+      <div class="g-card"><img class="real" src="assets/photos/gallery-5.jpg" alt=""><div class="g-fallback" data-t="galleryPh">Photo coming soon</div></div>
+      <div class="g-card"><img class="real" src="assets/photos/gallery-6.jpg" alt=""><div class="g-fallback" data-t="galleryPh">Photo coming soon</div></div>
+      <div class="g-card"><img class="real" src="assets/photos/gallery-7.jpg" alt=""><div class="g-fallback" data-t="galleryPh">Photo coming soon</div></div>
+      <div class="g-card"><img class="real" src="assets/photos/gallery-8.jpg" alt=""><div class="g-fallback" data-t="galleryPh">Photo coming soon</div></div>
+    </div>
+    <div class="g-dots" id="gDots">
+      <span class="g-dot"></span><span class="g-dot"></span><span class="g-dot"></span><span class="g-dot"></span>
+      <span class="g-dot"></span><span class="g-dot"></span><span class="g-dot"></span><span class="g-dot"></span>
+    </div>
+    <p class="g-hint" data-t="galleryHint">Swipe to see more</p>
+  </div>
+</section>
+
 <section class="scene sc-outro" data-scene="outro">
   <div class="pin outro-pin">
     <div class="outro-in">
@@ -926,6 +967,7 @@ ja:{filmPh:"オープニングフィルムが再生されます",skip:"スキッ
  doneH:"ありがとうございます！",doneP:"ご回答を受け付けました。当日お会いできることを楽しみにしております！",
  rsNote:"内容の変更がございましたら、いつでもお気軽にご連絡ください。",
  calIcs:"カレンダーに追加",calNote:"タップするとお手持ちのカレンダーに登録できます。",
+ galleryEye:"ギャラリー",galleryHint:"スワイプしてもっと見る",galleryPh:"写真は近日公開",
  endEye:"これから",endHead:"その瞬間を、見届ける準備はできましたか？",
  endMsg:"私たちの歩みを温かく見守ってくださり心より感謝申し上げます。いよいよ迎えるその日を、皆様と一緒に迎えられることを楽しみにしております。",
  endSig:"愛を込めて<br>Htoo &amp; May",siteCredit:"Studio Eternelle デザイン・制作",
@@ -988,6 +1030,7 @@ my:{filmPh:"ဗီဒီယိုဖိုင်အား ဒီနေရာတ�
  doneH:"ကျေးဇူးတင်ရှိပါသည်။",doneP:"လူကြီးမင်း၏ အကြောင်းပြန်ချက်ကို ရရှိပါပြီ။ ပွဲနေ့တွင် ဆုံတွေ့ကြပါစို့။",
  rsNote:"အချက်အလက်များ ပြောင်းလဲလိုပါက အချိန်မရွေး ဆက်သွယ်နိုင်ပါသည်။",
  calIcs:"ပြက္ခဒိန်တွင် ထည့်သွင်းမည်",calNote:"ဖုန်းပြက္ခဒိန်တွင် မှတ်သားထားရန် နှိပ်ပါ။",
+ galleryEye:"ဓာတ်ပုံများ",galleryHint:"ဓာတ်ပုံများကို ကြည့်ရှုရန် ပွတ်ဆွဲပါ",galleryPh:"ဓာတ်ပုံ မကြာမီ တင်ပေးပါမည်",
  endEye:"နိဂုံး",endHead:"ဒီအခိုက်အတန့်ကို သက်သေခံဖို့ အသင့်ဖြစ်ပြီလား？",
  endMsg:"ကျွန်တော်တို့၏ ခရီးစဉ်လေးတွင် ပါဝင်ပေးမည့်အတွက် ကျေးဇူးအထူးတင်ရှိပါသည်။ အထူးနေ့လေးကို အားလုံးနှင့်အတူ ဆီးကြိုနိုင်ဖို့ စောင့်မျှော်နေပါတယ်။",
  endSig:"ချစ်ခြင်းမေတ္တာများစွာဖြင့်<br>Htoo &amp; May",siteCredit:"Studio Eternelle မှ ဒီဇိုင်းရေးဆွဲ ပြုလုပ်သည်",
@@ -1777,6 +1820,67 @@ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{welH=welB
     settleThenSnap(target);}
   cardsPin.addEventListener("pointerup",endTouchDrag);
   cardsPin.addEventListener("pointercancel",endTouchDrag);
+})();
+
+(function(){
+  const gStack=document.getElementById("gStack");
+  if(!gStack)return;
+  const gCards=[...gStack.querySelectorAll(".g-card")];
+  const gDots=[...document.querySelectorAll("#gDots .g-dot")];
+  const n=gCards.length;
+  if(!n)return;
+  gCards.forEach(c=>{
+    const img=c.querySelector("img.real");
+    const markFailed=()=>c.classList.add("no-photo");
+    if(img.complete){if(!img.naturalWidth)markFailed();}
+    else{img.addEventListener("error",markFailed,{once:true});
+      img.addEventListener("load",()=>{if(!img.naturalWidth)markFailed();},{once:true});}});
+
+  let gPos=0,gIndex=0,gAnim=null;
+  function renderGallery(){
+    const step=Math.min(innerWidth*.05,22);
+    gCards.forEach((c,i)=>{
+      const d=i-gPos,ad=Math.abs(d);
+      c.style.transform=`translate(-50%,-50%) translate3d(${d*step}px,${ad*10}px,0) rotate(${d*3.5}deg) scale(${clamp(1-ad*.06,.7,1)})`;
+      c.style.opacity=clamp(1-ad*.5,0,1);
+      c.style.zIndex=String(Math.round(50-ad*10));
+      c.style.pointerEvents=ad<.5?"auto":"none";});
+    gDots.forEach((d,i)=>d.classList.toggle("on",Math.round(gPos)===i));}
+  renderGallery();
+
+  function animateGalleryTo(target){
+    if(gAnim)cancelAnimationFrame(gAnim);
+    (function step(){
+      gPos+=(target-gPos)*.22;
+      if(Math.abs(target-gPos)<.002){gPos=target;renderGallery();gAnim=null;return;}
+      renderGallery();
+      gAnim=requestAnimationFrame(step);})();}
+
+  let gId=null,gAxis=null,gStartX=0,gStartY=0,gStartPos=0;
+  gStack.addEventListener("pointerdown",e=>{
+    if(gId!==null)return;
+    if(gAnim){cancelAnimationFrame(gAnim);gAnim=null;}
+    gId=e.pointerId;gAxis=null;gStartX=e.clientX;gStartY=e.clientY;gStartPos=gPos;
+    try{gStack.setPointerCapture(e.pointerId);}catch(err){}});
+  gStack.addEventListener("pointermove",e=>{
+    if(e.pointerId!==gId)return;
+    const dx=e.clientX-gStartX,dy=e.clientY-gStartY;
+    if(gAxis===null){
+      if(Math.abs(dx)<6&&Math.abs(dy)<6)return;
+      gAxis=Math.abs(dx)>Math.abs(dy)?"x":"y";}
+    if(gAxis!=="x")return;
+    e.preventDefault();
+    gPos=clamp(gStartPos-dx/130,0,n-1);
+    renderGallery();});
+  function endGalleryDrag(e){
+    if(e.pointerId!==gId)return;
+    gId=null;
+    const wasX=gAxis==="x";
+    gAxis=null;
+    if(wasX)gIndex=clamp(Math.round(gPos),0,n-1);
+    animateGalleryTo(gIndex);}
+  gStack.addEventListener("pointerup",endGalleryDrag);
+  gStack.addEventListener("pointercancel",endGalleryDrag);
 })();
 
 buildText();applyLang("en");
