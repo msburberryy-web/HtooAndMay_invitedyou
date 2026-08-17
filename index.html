@@ -6,6 +6,14 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#0D1712">
 <title>May &amp; Htoo — 16.10.2026</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="May &amp; Htoo — 16.10.2026">
+<meta property="og:description" content="Join us as we begin our forever — 16 October 2026.">
+<meta property="og:image" content="https://res.cloudinary.com/j3lgvkwu/video/upload/so_2,f_jpg,q_auto,w_1200,c_limit/intro_dkfc95.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="May &amp; Htoo — 16.10.2026">
+<meta name="twitter:description" content="Join us as we begin our forever — 16 October 2026.">
+<meta name="twitter:image" content="https://res.cloudinary.com/j3lgvkwu/video/upload/so_2,f_jpg,q_auto,w_1200,c_limit/intro_dkfc95.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,200..500&family=Noto+Sans+Myanmar:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400&family=Shippori+Mincho:wght@400;500&family=Alex+Brush&display=swap" rel="stylesheet">
@@ -538,7 +546,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.1rem}
 <audio id="bgm" loop preload="none"></audio>
 
 <div id="intro">
-  <video id="film" muted playsinline preload="auto"><source src="https://res.cloudinary.com/j3lgvkwu/video/upload/f_auto,q_auto/intro_dkfc95.mp4" type="video/mp4"></video>
+  <video id="film" muted playsinline preload="auto" poster="https://res.cloudinary.com/j3lgvkwu/video/upload/so_2,f_jpg,q_auto,w_1200,c_limit/intro_dkfc95.jpg"><source src="https://res.cloudinary.com/j3lgvkwu/video/upload/f_auto,q_auto/intro_dkfc95.mp4" type="video/mp4"></video>
   <div id="vidph"><p class="ph-label">Film</p>
     <p class="ph-title" data-t="filmPh">Your opening film plays here</p>
     <div class="bar"><i id="phbar"></i></div></div>
@@ -1194,12 +1202,18 @@ const intro=document.getElementById("intro"),film=document.getElementById("film"
 let ended=false;
 function endIntro(){if(ended)return;ended=true;intro.classList.add("gone");
   document.body.classList.remove("locked");monoSec.classList.add("drawn");
+  film.pause();film.removeAttribute("src");
+  film.querySelectorAll("source").forEach(s=>s.remove());
+  film.load();
   setTimeout(()=>intro.remove(),1300);}
 document.getElementById("skip").onclick=endIntro;
 if(film.querySelector("source")){
-  vidph.style.display="none";
   let started=false;
-  film.addEventListener("playing",()=>{started=true;},{once:true});
+  function updateBar(){
+    if(film.buffered.length&&film.duration){
+      phbar.style.width=(film.buffered.end(film.buffered.length-1)/film.duration*100)+"%";}}
+  film.addEventListener("progress",updateBar);
+  film.addEventListener("playing",()=>{started=true;vidph.style.display="none";},{once:true});
   film.addEventListener("ended",endIntro);
   film.addEventListener("error",endIntro);
   film.play().catch(endIntro);
