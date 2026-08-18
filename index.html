@@ -1096,8 +1096,10 @@ if(!reduce){
 }
 const mix3=(a,b,c,t)=>t<.70?mixRGB(a,b,t/.70):mixRGB(b,c,(t-.70)/.30);
 const win=(p,a,b,f)=>clamp(Math.min((p-a)/f,(b-p)/f),0,1);
-const vf=(el,t)=>{el.style.fontVariationSettings=`"opsz" ${lerp(12,60,t)},"wght" ${lerp(200,420,t)}`;
-  el.style.letterSpacing=lerp(.05,-.02,t)+"em";};
+const vf=(el,t)=>{const q=Math.round(t*80)/80;
+  if(el.__vfT===q)return;el.__vfT=q;
+  el.style.fontVariationSettings=`"opsz" ${lerp(12,60,q)},"wght" ${lerp(200,420,q)}`;
+  el.style.letterSpacing=lerp(.05,-.02,q)+"em";};
 
 let wipes=[];
 function buildText(){
@@ -1154,15 +1156,15 @@ document.querySelectorAll("[data-reveal]").forEach(el=>io.observe(el));
 const musicBtn=document.getElementById("music"),bgmEl=document.getElementById("bgm");
 let actx=null,musicTimer=null,seqIdx=0,musicOn=false,currentTrack="general",activeRec=null;
 const TRACKS={
-  general:{file:"assets/audio/piano.mp3",seq:[261.63,329.63,392.00,493.88,440.00,392.00,329.63,293.66]},
-  "first-meet":{file:"assets/audio/rec-first-meet.mp3",seq:[329.63,392.00,440.00,523.25,440.00,392.00]},
-  "first-date":{file:"assets/audio/rec-first-date.mp3",seq:[349.23,415.30,493.88,415.30,349.23,329.63]},
-  "first-trip":{file:"assets/audio/rec-first-trip.mp3",seq:[293.66,349.23,440.00,349.23,293.66,246.94]},
-  "meeting-family":{file:"assets/audio/rec-meeting-family.mp3",seq:[349.23,440.00,523.25,440.00,349.23,293.66]},
-  "proposal":{file:"assets/audio/rec-proposal.mp3",seq:[392.00,493.88,587.33,493.88,440.00,392.00]},
-  "public-announce":{file:"assets/audio/rec-public-announce.mp3",seq:[440.00,554.37,659.25,554.37,440.00,349.23]},
-  "nikkah":{file:"assets/audio/rec-nikkah.mp3",seq:[293.66,349.23,392.00,440.00,392.00,349.23]},
-  "side-wedding":{file:"assets/audio/rec-side-wedding.mp3",seq:[392.00,440.00,523.25,659.25,587.33,523.25]}};
+  general:{file:"audio/piano.mp3",seq:[261.63,329.63,392.00,493.88,440.00,392.00,329.63,293.66]},
+  "first-meet":{file:"audio/rec-first-meet.mp3",seq:[329.63,392.00,440.00,523.25,440.00,392.00]},
+  "first-date":{file:"audio/rec-first-date.mp3",seq:[349.23,415.30,493.88,415.30,349.23,329.63]},
+  "first-trip":{file:"audio/rec-first-trip.mp3",seq:[293.66,349.23,440.00,349.23,293.66,246.94]},
+  "meeting-family":{file:"audio/rec-meeting-family.mp3",seq:[349.23,440.00,523.25,440.00,349.23,293.66]},
+  "proposal":{file:"audio/rec-proposal.mp3",seq:[392.00,493.88,587.33,493.88,440.00,392.00]},
+  "public-announce":{file:"audio/rec-public-announce.mp3",seq:[440.00,554.37,659.25,554.37,440.00,349.23]},
+  "nikkah":{file:"audio/rec-nikkah.mp3",seq:[293.66,349.23,392.00,440.00,392.00,349.23]},
+  "side-wedding":{file:"audio/rec-side-wedding.mp3",seq:[392.00,440.00,523.25,659.25,587.33,523.25]}};
 function pianoNote(freq,startTime,dur,vol){
   const o=actx.createOscillator(),o2=actx.createOscillator(),g=actx.createGain(),g2=actx.createGain();
   o.type="sine";o.frequency.value=freq;
@@ -1240,12 +1242,16 @@ cdBox.innerHTML=UNITS.map(u=>`<div class="cd-unit">
 const rolls={},rings={};
 UNITS.forEach(u=>{rolls[u.k]=[...document.querySelectorAll(`#roll-${u.k} .roll-col i`)];
   rings[u.k]=document.getElementById(`ring-${u.k}`);});
+let cdVisible=true;
+if("IntersectionObserver" in window){
+  new IntersectionObserver(([e])=>{cdVisible=e.isIntersecting;},{rootMargin:"200px 0px"}).observe(cdBox);}
 (function cd(){const diff=TARGET-Date.now();
   if(diff<=0){cdBox.innerHTML='<p style="font-family:var(--serif);font-size:1.5rem;color:var(--gold)">—</p>';return;}
+  if(cdVisible){
   const v={d:Math.floor(diff/864e5),h:Math.floor(diff%864e5/36e5),m:Math.floor(diff%36e5/6e4),s:Math.floor(diff%6e4/1e3)};
   UNITS.forEach(u=>{const str=String(v[u.k]).padStart(u.digits,"0");
     rolls[u.k].forEach((col,i)=>col.style.transform=`translateY(-${+str[i]*1.72}em)`);
-    rings[u.k].style.strokeDashoffset=C*(1-(v[u.k]%u.max)/u.max);});
+    rings[u.k].style.strokeDashoffset=C*(1-(v[u.k]%u.max)/u.max);});}
   setTimeout(cd,1000);})();
 
 const CAL={start:"20261016T043000Z",end:"20261016T090000Z",title:"May & Htoo — Wedding",
