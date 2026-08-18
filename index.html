@@ -106,26 +106,24 @@ body.locked{overflow:hidden;height:100vh}
 .mono-sec{position:relative;min-height:100dvh;display:flex;flex-direction:column;align-items:center;
   justify-content:center;text-align:center;padding:6rem var(--pad) max(3rem,calc(env(safe-area-inset-bottom) + 2rem));
   overflow:hidden;gap:clamp(1.2rem,5dvh,2.8rem)}
-.mono-logo-stage{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.mono-inner{position:relative;z-index:3;width:100%}
-#monogram{width:min(38vw,150px);height:auto;will-change:transform;opacity:0;transition:opacity 1.4s ease 0.9s;display:block;
-  padding:14%;background:radial-gradient(ellipse 58% 55% at 50% 50%,var(--gold) 0%,#8B4A3A 42%,#C9924A 64%,transparent 84%);box-sizing:border-box}
-.drawn #monogram{opacity:1}
+.fc-eyebrow{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--greige);
+  line-height:1.6;margin:0;max-width:26ch}
+.mono-logo-stage{position:relative;z-index:2;width:min(72vw,320px);aspect-ratio:1/1;margin:0 auto;pointer-events:none}
+.lace-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity 1.6s ease .6s;
+  filter:drop-shadow(0 16px 32px rgba(62,48,36,.22))}
+.drawn .lace-bg{opacity:1}
 @keyframes draw{to{stroke-dashoffset:0}}
-.hero-names{display:flex;align-items:baseline;justify-content:center;gap:.55rem;
-  font-family:var(--serif);font-weight:600;font-size:clamp(2.1rem,9vw,3.4rem);
-  color:var(--bone);white-space:nowrap;margin:0 0 .4rem;letter-spacing:.005em;
-  }
-.hero-names .amp{color:var(--gold);font-weight:400;font-style:italic;font-size:.82em}
-.announce{font-family:var(--serif);font-weight:600;font-size:clamp(1.7rem,7.4vw,2.6rem);
-  line-height:1.28;margin:0 auto 1.2rem;max-width:22ch;}
-.announce-body{font-size:1.08rem;font-weight:500;color:var(--greige);max-width:34ch;margin:0 auto;
-  }
+.mono-badge2{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;width:64%}
+.hero-names{display:flex;align-items:baseline;justify-content:center;gap:.28rem;flex-wrap:wrap;
+  font-family:"Alex Brush",var(--serif);font-weight:400;font-size:clamp(2.1rem,10.5vw,3rem);
+  color:var(--gold);margin:.15rem 0;line-height:1}
+.hero-names .amp{color:var(--gold);font-size:.75em;margin:0 .04em}
+.announce-body{font-size:1.02rem;font-weight:500;color:var(--greige);max-width:34ch;margin:0 auto}
 .seq{opacity:0;transform:translateY(14px)}
 .drawn .seq{animation:up 1.15s var(--ease) forwards}
-.drawn .seq:nth-child(1){animation-delay:.85s}
-.drawn .seq:nth-child(2){animation-delay:1.15s}
-.drawn .seq:nth-child(3){animation-delay:1.4s}
+.drawn .fc-eyebrow.seq{animation-delay:.85s}
+.drawn .hero-names.seq{animation-delay:1.15s}
+.drawn .announce-body.seq{animation-delay:1.4s}
 @keyframes up{to{opacity:1;transform:none}}
 .countdown{display:flex;gap:clamp(.5rem,3.4vw,1.4rem);justify-content:center;margin-top:3rem}
 .wel-pin .countdown{opacity:0;will-change:transform,opacity}
@@ -568,13 +566,12 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.1rem}
 </div>
 
 <section class="mono-sec" id="monoSec">
+  <p class="fc-eyebrow seq" data-t="announce">We're getting married.</p>
   <div class="mono-logo-stage">
-    <img id="monogram" src="assets/photos/monogram.png" data-fx="monogram" alt="Htoo &amp; May monogram"></div>
-  <div class="mono-inner">
-    <p class="hero-names seq"><span id="heroNameL" data-t="nameMay">May</span><span class="amp">&amp;</span><span id="heroNameR" data-t="nameHtoo">Htoo</span></p>
-    <h1 class="announce seq" data-t="announce">We're getting married.</h1>
-    <p class="announce-body seq" data-t="announceBody" data-html>And we'd love for you to celebrate with us.</p>
+    <img class="lace-bg" src="assets/photos/lace-frame-round.png" alt="" aria-hidden="true">
+    <div class="mono-badge2"><h1 class="hero-names seq"><span id="heroNameL" data-t="nameMay">May</span><span class="amp">&amp;</span><span id="heroNameR" data-t="nameHtoo">Htoo</span></h1></div>
   </div>
+  <p class="announce-body seq" data-t="announceBody" data-html>And we'd love for you to celebrate with us.</p>
 </section>
 
 <section class="scene sc-welcome" data-scene="welcome">
