@@ -109,7 +109,7 @@ body.locked{overflow:hidden;height:100vh}
 .mono-logo-stage{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;pointer-events:none}
 .mono-inner{position:relative;z-index:3;width:100%}
 #monogram{width:min(38vw,150px);height:auto;will-change:transform;opacity:0;transition:opacity 1.4s ease 0.9s;display:block;
-  padding:14%;background:radial-gradient(ellipse 62% 58% at 50% 50%,var(--gold) 60%,transparent 78%);box-sizing:border-box}
+  padding:14%;background:radial-gradient(ellipse 58% 55% at 50% 50%,var(--gold) 0%,#8B4A3A 42%,#C9924A 64%,transparent 84%);box-sizing:border-box}
 .drawn #monogram{opacity:1}
 @keyframes draw{to{stroke-dashoffset:0}}
 .hero-names{display:flex;align-items:baseline;justify-content:center;gap:.55rem;
@@ -516,7 +516,7 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.1rem}
 .outro-pin{flex-direction:column;text-align:center;padding:0 var(--pad)}
 .outro-in{position:relative;z-index:4;width:100%;max-width:34rem}
 #endMono{width:min(34vw,140px);height:auto;margin:0 auto 2rem;display:block;opacity:0;will-change:transform,opacity;
-  padding:14%;background:radial-gradient(ellipse 62% 58% at 50% 50%,var(--gold) 60%,transparent 78%);box-sizing:border-box}
+  padding:14%;background:radial-gradient(ellipse 58% 55% at 50% 50%,var(--gold) 0%,#8B4A3A 42%,#C9924A 64%,transparent 84%);box-sizing:border-box}
 #endMono path,#endMono circle{fill:none;stroke:var(--gold);stroke-width:1.4}
 #endEyebrow{opacity:0}
 #endHead{font-family:var(--serif);font-weight:200;font-size:clamp(1.7rem,7.4vw,2.7rem);
@@ -643,19 +643,19 @@ textarea.rs-in{min-height:80px;resize:vertical;line-height:1.6;font-size:1.1rem}
 <section class="scene sc-journey" data-scene="journey">
   <div class="pin">
     <div id="jSky"></div><div id="jGlow"></div>
-    <div class="layer" data-depth="0.13" data-c0="197,203,160" data-c1="190,196,155" data-c2="172,178,138">
+    <div class="layer" data-depth="0.13" data-c0="168,178,120" data-c1="160,172,110" data-c2="140,155,95">
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMax slice">
         <path d="M0 500 Q180 380 400 450 T780 420 T1000 480 L1000 1000 L0 1000Z"/></svg></div>
-    <div class="layer" data-depth="0.24" data-c0="160,170,120" data-c1="155,165,115" data-c2="135,145,98">
+    <div class="layer" data-depth="0.24" data-c0="196,165,80" data-c1="188,158,78" data-c2="165,135,65">
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMax slice">
         <path d="M0 600 Q220 480 480 560 T880 530 T1000 590 L1000 1000 L0 1000Z"/></svg></div>
-    <div class="layer" data-depth="0.38" data-c0="130,140,90" data-c1="125,135,88" data-c2="108,115,72">
+    <div class="layer" data-depth="0.38" data-c0="200,120,55" data-c1="190,112,52" data-c2="165,92,45">
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMax slice">
         <path d="M0,720 L1000,596 L1000,1000 L0,1000 Z"/></svg></div>
-    <div class="layer" id="jVenue" data-depth="0.46" data-c0="110,70,65" data-c1="105,68,65" data-c2="88,52,50">
+    <div class="layer" id="jVenue" data-depth="0.46" data-c0="150,55,50" data-c1="140,50,48" data-c2="115,38,40">
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMax slice">
         <path transform="translate(0,90)" d="M0,840 C140,828 268,806 360,700 L360,682 L396,656 L396,612 L464,558 L464,480 L480,462 L500,426 L520,462 L536,480 L536,558 L604,612 L604,656 L640,682 L640,700 C732,806 860,828 1000,840 L1000,1000 L0,1000 Z"/></svg></div>
-    <div class="layer" data-depth="0.56" data-c0="80,25,35" data-c1="75,22,33" data-c2="60,15,25">
+    <div class="layer" data-depth="0.56" data-c0="95,20,35" data-c1="88,18,32" data-c2="65,12,24">
       <svg viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMax slice">
         <path d="M0,870 L1000,840 L1000,1000 L0,1000 Z"/></svg></div>
     <div id="jRail"><svg viewBox="0 0 100 1000" preserveAspectRatio="none">
@@ -1430,12 +1430,12 @@ const jLayers=[...document.querySelectorAll(".sc-journey .layer")].map(el=>({el,
   c1:el.dataset.c1.split(",").map(Number),c2:el.dataset.c2.split(",").map(Number),last:""}));
 const LAYER_REVEAL={.13:[0,.12],.24:[.06,.20],.38:[.14,.28],.56:[.24,.40]};
 
-const SKY=[{at:0,   top:[197,203,160],bot:[242,230,220]},
-           {at:.42, top:[168,178,120],bot:[197,203,160]},
-           {at:.66, top:[130,140,90], bot:[168,178,120]},
-           {at:.79, top:[130,70,65],  bot:[130,140,90]},
-           {at:.89, top:[92,26,46],   bot:[130,70,65]},
-           {at:1,   top:[50,10,22],   bot:[92,26,46]}];
+const SKY=[{at:0,   top:[168,178,120],bot:[220,222,180]},
+           {at:.35, top:[196,180,90], bot:[221,197,112]},
+           {at:.55, top:[214,144,58], bot:[199,182,92]},
+           {at:.72, top:[182,82,58],  bot:[214,144,58]},
+           {at:.87, top:[112,26,42],  bot:[182,82,58]},
+           {at:1,   top:[60,10,25],   bot:[112,26,42]}];
 function skyAt(p){let a=SKY[0],b=SKY[SKY.length-1];
   for(let i=0;i<SKY.length-1;i++){if(p>=SKY[i].at&&p<=SKY[i+1].at){a=SKY[i];b=SKY[i+1];break;}}
   const t=(p-a.at)/((b.at-a.at)||1);
