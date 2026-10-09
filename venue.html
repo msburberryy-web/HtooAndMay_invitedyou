@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Venue Reveal — Htoo &amp; May · 16.10.2026</title>
+
+  <!-- Same fonts as main site -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..500;1,6..72,200..500&family=Zen+Kaku+Gothic+New:wght@300;400&family=Shippori+Mincho:wght@400;500&family=Noto+Sans+Myanmar:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Design tokens (matches main site) ─────────────────────────────── */
+    :root {
+      --ink:   #0D1712;
+      --ink2:  #14211A;
+      --bone:  #F2EFE9;
+      --greige:#CFC9BB;
+      --stone: #8C9188;
+      --gold:  #C9974A;
+      --dim:   #42514A;
+      --line:  rgba(242,239,233,.14);
+      --serif: "Newsreader", Georgia, serif;
+      --sans:  "Zen Kaku Gothic New", system-ui, sans-serif;
+      --ease:  cubic-bezier(.4,0,.2,1);
+    }
+    html[lang="ja"] { --serif:"Shippori Mincho","Newsreader",serif; }
+    html[lang="my"] { --serif:"Noto Sans Myanmar",sans-serif; --sans:"Noto Sans Myanmar",sans-serif; }
+
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html { background:var(--ink); color:var(--bone); font-size:16px; }
+    body { font-family:var(--sans); min-height:100dvh; background:var(--ink); overflow-x:hidden; }
+
+    /* ── Particle canvas ────────────────────────────────────────────────── */
+    #particles {
+      position:fixed; inset:0; pointer-events:none; z-index:300;
+    }
+
+    /* ── Seal overlay ───────────────────────────────────────────────────── */
+    #overlay {
+      position:fixed; inset:0; z-index:200;
+      background:var(--ink);
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2.2rem;
+      transition:opacity .9s var(--ease), visibility .9s;
+    }
+    #overlay.gone { opacity:0; visibility:hidden; pointer-events:none; }
+
+    .seal-wrap {
+      cursor:pointer; user-select:none;
+      display:flex; flex-direction:column; align-items:center; gap:1.6rem;
+    }
+
+    .seal-svg {
+      width:min(56vw,230px); height:min(56vw,230px);
+      display:block;
+      filter:drop-shadow(0 6px 28px rgba(201,151,74,.28));
+      animation:sealGlow 3s ease-in-out infinite;
+      transition:transform .25s var(--ease);
+    }
+    .seal-wrap:active .seal-svg { transform:scale(.93); }
+
+    @keyframes sealGlow {
+      0%,100% { filter:drop-shadow(0 6px 28px rgba(201,151,74,.28)); }
+      50%      { filter:drop-shadow(0 6px 44px rgba(201,151,74,.52)); }
+    }
+    @keyframes sealBreak {
+      0%   { transform:scale(1) rotate(0deg); opacity:1; }
+      25%  { transform:scale(1.06) rotate(-4deg); }
+      55%  { transform:scale(.9)  rotate(3deg); opacity:.7; }
+      100% { transform:scale(1.5) rotate(-8deg); opacity:0; }
+    }
+    #overlay.breaking .seal-svg {
+      animation:sealBreak .65s var(--ease) forwards;
+    }
+    #overlay.breaking .seal-hint { opacity:0; transition:opacity .2s; }
+
+    .seal-hint {
+      font-family:var(--sans); font-weight:300;
+      font-size:.75rem; letter-spacing:.24em; text-transform:uppercase;
+      color:var(--stone);
+    }
+
+    /* ── Venue content ──────────────────────────────────────────────────── */
+    #venue {
+      min-height:100dvh;
+      padding:clamp(2.5rem,8vw,5rem) clamp(1.25rem,5vw,3rem) 4rem;
+      max-width:660px; margin:0 auto;
+      clip-path:circle(0% at 50% 44%);
+      transition:clip-path 1.1s cubic-bezier(.18,.85,.18,1);
+    }
+    #venue.revealed { clip-path:circle(160% at 50% 44%); }
+
+    /* Staggered fade-ups on reveal */
+    .fade { opacity:0; transform:translateY(14px); transition:opacity .8s, transform .8s; }
+    .revealed .fade { opacity:1; transform:none; }
+    .revealed .f1 { transition-delay:.35s; }
+    .revealed .f2 { transition-delay:.5s; }
+    .revealed .f3 { transition-delay:.65s; }
+    .revealed .f4 { transition-delay:.78s; }
+    .revealed .f5 { transition-delay:.9s; }
+    .revealed .f6 { transition-delay:1.02s; }
+    .revealed .f7 { transition-delay:1.14s; }
+    .revealed .f8 { transition-delay:1.24s; }
+    .revealed .f9 { transition-delay:1.34s; }
+
+    /* Greeting */
+    .greeting {
+      font-family:var(--serif); font-style:italic;
+      font-size:clamp(.95rem,2.8vw,1.2rem);
+      color:var(--stone); margin-bottom:2.2rem;
+    }
+
+    /* Eyebrow */
+    .eyebrow {
+      font-size:.7rem; letter-spacing:.26em; text-transform:uppercase;
+      color:var(--gold); margin-bottom:.75rem;
+    }
+
+    /* Venue name */
+    .venue-name {
+      font-family:var(--serif); font-weight:300;
+      font-size:clamp(2.8rem,10vw,5.2rem); line-height:1.08;
+      color:var(--bone); margin-bottom:.35rem;
+    }
+
+    /* Location sub-line */
+    .venue-sub {
+      font-size:.78rem; letter-spacing:.2em; text-transform:uppercase;
+      color:var(--stone); margin-bottom:1.6rem;
+    }
+
+    /* Gold rule */
+    .rule { border:none; border-top:1px solid rgba(201,151,74,.3); margin:1.6rem 0; }
+
+    /* Date chips */
+    .chips { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:2rem; }
+    .chip {
+      border:1px solid rgba(201,151,74,.35); border-radius:2rem;
+      padding:.3rem .95rem; font-size:.76rem; letter-spacing:.06em;
+      color:var(--greige);
+    }
+    .chip.hi { border-color:var(--gold); color:var(--gold); }
+
+    /* Address box */
+    .address-box {
+      background:rgba(255,255,255,.035);
+      border:1px solid rgba(201,151,74,.18); border-radius:6px;
+      padding:1.1rem 1.3rem; margin-bottom:1.6rem;
+    }
+    .box-label {
+      font-size:.66rem; letter-spacing:.22em; text-transform:uppercase;
+      color:var(--gold); margin-bottom:.55rem;
+    }
+    .address-box .en { font-size:.92rem; line-height:1.75; color:var(--greige); }
+    .address-box .jp { font-family:var(--serif); font-size:.85rem; color:var(--stone); margin-top:.3rem; }
+
+    /* Map */
+    .map-wrap {
+      border-radius:6px; overflow:hidden;
+      border:1px solid rgba(201,151,74,.18); margin-bottom:1.8rem;
+    }
+    .map-wrap iframe { width:100%; height:260px; border:none; display:block; }
+
+    /* Access section */
+    .section-title {
+      font-family:var(--serif); font-style:italic;
+      font-size:1.1rem; color:var(--bone); margin-bottom:1rem;
+    }
+    .access-rows { display:flex; flex-direction:column; gap:.8rem; margin-bottom:2rem; }
+    .access-row {
+      display:grid; grid-template-columns:90px 1fr; gap:.4rem 1rem;
+      align-items:baseline; font-size:.86rem;
+    }
+    .access-row .ak {
+      font-size:.66rem; letter-spacing:.14em; text-transform:uppercase;
+      color:var(--gold); padding-top:.15rem;
+    }
+    .access-row .av { color:var(--greige); line-height:1.6; }
+
+    /* Buttons */
+    .cta-row { display:flex; flex-wrap:wrap; gap:.7rem; margin-bottom:2.8rem; }
+    .btn {
+      display:inline-flex; align-items:center; gap:.4rem;
+      padding:.65rem 1.3rem;
+      border:1px solid var(--gold); border-radius:2rem;
+      font-family:var(--sans); font-size:.76rem; letter-spacing:.12em; text-transform:uppercase;
+      color:var(--gold); background:transparent; text-decoration:none;
+      cursor:pointer; transition:background .2s, color .2s;
+    }
+    .btn:hover { background:var(--gold); color:var(--ink); }
+    .btn.solid { background:var(--gold); color:var(--ink); }
+    .btn.solid:hover { background:#d4a84e; border-color:#d4a84e; }
+
+    /* Signature */
+    .sig {
+      font-family:var(--serif); font-style:italic;
+      font-size:1rem; color:var(--stone);
+      text-align:center; padding-bottom:2rem;
+    }
+
+    /* Back link */
+    .back-row { text-align:center; margin-bottom:1.5rem; }
+    .back-link {
+      font-size:.72rem; letter-spacing:.16em; text-transform:uppercase;
+      color:var(--dim); text-decoration:none;
+      transition:color .2s;
+    }
+    .back-link:hover { color:var(--stone); }
+  </style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<!-- ── Seal overlay ─────────────────────────────────────────────────────── -->
+<div id="overlay">
+  <div class="seal-wrap" id="sealBtn" role="button" tabindex="0" aria-label="Tap to reveal venue">
+    <svg class="seal-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <!-- Wax seal body -->
+      <circle cx="60" cy="60" r="57" fill="#6B1A1A"/>
+      <circle cx="60" cy="60" r="57" fill="url(#sealGrad)"/>
+      <!-- Outer gold ring -->
+      <circle cx="60" cy="60" r="55" fill="none" stroke="#C9974A" stroke-width="1.4"/>
+      <!-- Dashed inner ring -->
+      <circle cx="60" cy="60" r="46" fill="none" stroke="#C9974A" stroke-width=".7" stroke-dasharray="2.8 4.2"/>
+      <!-- Monogram -->
+      <text x="60" y="56" text-anchor="middle"
+            font-family="Georgia,serif" font-size="23" font-weight="300"
+            fill="#F2EFE9" letter-spacing="4">H&amp;M</text>
+      <!-- Year -->
+      <text x="60" y="73" text-anchor="middle"
+            font-family="Georgia,serif" font-size="9.5"
+            fill="#C9974A" letter-spacing="5">2026</text>
+      <!-- Bottom label -->
+      <text x="60" y="90" text-anchor="middle"
+            font-family="Georgia,serif" font-size="6"
+            fill="rgba(242,239,233,.45)" letter-spacing="5">WEDDING</text>
+      <defs>
+        <radialGradient id="sealGrad" cx="42%" cy="38%">
+          <stop offset="0%"   stop-color="#8B2020" stop-opacity=".6"/>
+          <stop offset="100%" stop-color="#3A0A0A" stop-opacity=".4"/>
+        </radialGradient>
+      </defs>
+    </svg>
+    <span class="seal-hint" id="sealHint">Tap to reveal</span>
+  </div>
+</div>
+
+<!-- ── Venue content ────────────────────────────────────────────────────── -->
+<div id="venue">
+
+  <p class="greeting fade f1" id="greeting"></p>
+
+  <p class="eyebrow fade f2" id="eyebrow">Your wedding venue</p>
+  <h1 class="venue-name fade f2">Amanda Hills</h1>
+  <p class="venue-sub fade f2">Atsugi · Kanagawa · Japan</p>
+
+  <hr class="rule fade f3">
+
+  <div class="chips fade f3">
+    <span class="chip hi" id="chipDate">Friday, 16 October 2026</span>
+    <span class="chip" id="chipTime">Ceremony 14:30</span>
+    <span class="chip" id="chipRecep">Reception from 13:30</span>
+  </div>
+
+  <!-- Address -->
+  <!-- TODO: Confirm exact postal address and update below -->
+  <div class="address-box fade f4">
+    <div class="box-label" id="addrLabel">Address</div>
+    <p class="en">Amanda Hills<br>Atsugi-shi, Kanagawa-ken<br>Japan</p>
+    <p class="jp">神奈川県厚木市 アマンダヒルズ</p>
+  </div>
+
+  <!-- Map -->
+  <!-- Uses coordinates 35.443333,139.378444 (Atsugi area) — update to exact venue pin if needed -->
+  <div class="map-wrap fade f5">
+    <iframe
+      title="Amanda Hills — Atsugi, Kanagawa"
+      src="https://maps.google.com/maps?q=35.443333,139.378444&z=15&output=embed"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+
+  <!-- Getting there -->
+  <p class="section-title fade f6" id="accessTitle">Getting There</p>
+  <div class="access-rows fade f6">
+    <div class="access-row">
+      <span class="ak" id="akBus">Shuttle</span>
+      <span class="av" id="avBus">Complimentary shuttle buses depart from Shinjuku, Tokyo Station, and Ikebukuro. Departure times will be confirmed with your RSVP.</span>
+    </div>
+    <div class="access-row">
+      <span class="ak" id="akTrain">By train</span>
+      <span class="av" id="avTrain">Odakyu Line to Hon-Atsugi Station (本厚木駅), approx. 60 min from Shinjuku. Taxi or venue shuttle from the station (~15 min).</span>
+    </div>
+    <div class="access-row">
+      <span class="ak" id="akCar">By car</span>
+      <span class="av" id="avCar">On-site parking available. Please note your plan when you RSVP so we can prepare space.</span>
+    </div>
+  </div>
+
+  <!-- CTAs -->
+  <div class="cta-row fade f7">
+    <a id="calBtn" class="btn solid" href="#" download="htoo-may-wedding.ics">+ Add to Calendar</a>
+    <a id="backBtn" class="btn" href="index.html">← Back to Invitation</a>
+  </div>
+
+  <p class="sig fade f9" id="sig">With love, Htoo &amp; May ♡</p>
+
+</div><!-- #venue -->
+
+<script>
+/* ── URL parameters ─────────────────────────────────────────────────────── */
+const params = new URLSearchParams(location.search);
+const GUEST  = (params.get("guest") || "").trim();
+const LANG   = (params.get("lang")  || "en").toLowerCase();
+const AUTO   = params.get("reveal") === "auto";   // ?reveal=auto skips the seal
+
+document.documentElement.lang = {ja:"ja", my:"my"}[LANG] || "en";
+
+/* ── Translations ───────────────────────────────────────────────────────── */
+const T = {
+  en: {
+    hint:"Tap to reveal",
+    greet: n => n ? `Dear ${n},` : "",
+    eyebrow:"Your wedding venue",
+    chipDate:"Friday, 16 October 2026",
+    chipTime:"Ceremony 14:30",
+    chipRecep:"Reception from 13:30",
+    addrLabel:"Address",
+    accessTitle:"Getting There",
+    akBus:"Shuttle", avBus:"Complimentary shuttle buses depart from Shinjuku, Tokyo Station, and Ikebukuro. Departure times will be confirmed with your RSVP.",
+    akTrain:"By train", avTrain:"Odakyu Line to Hon-Atsugi Station (本厚木駅), approx. 60 min from Shinjuku. Taxi or venue shuttle from the station (~15 min).",
+    akCar:"By car", avCar:"On-site parking available. Please note your plan when you RSVP so we can prepare space.",
+    calBtn:"+ Add to Calendar",
+    backBtn:"← Back to Invitation",
+    sig:"With love, Htoo &amp; May ♡",
+  },
+  ja: {
+    hint:"タップして会場を確認",
+    greet: n => n ? `${n} 様` : "",
+    eyebrow:"ご披露宴会場のご案内",
+    chipDate:"2026年10月16日（金）",
+    chipTime:"挙式 14:30〜",
+    chipRecep:"受付 13:30〜",
+    addrLabel:"住所",
+    accessTitle:"アクセス",
+    akBus:"シャトルバス", avBus:"新宿・東京駅・池袋からシャトルバスを運行いたします。出発時間はRSVP後にご案内いたします。",
+    akTrain:"電車", avTrain:"小田急線で本厚木駅まで（新宿より約60分）。駅からはタクシーまたは会場送迎バスで約15分です。",
+    akCar:"お車", avCar:"駐車場をご用意しております。ご来場の際はRSVP時にお知らせください。",
+    calBtn:"＋ カレンダーに追加",
+    backBtn:"← 招待状に戻る",
+    sig:"Htoo &amp; May より、心を込めて ♡",
+  },
+  my: {
+    hint:"နှိပ်၍ ကြည့်ပါ",
+    greet: n => n ? `ချစ်သော ${n}` : "",
+    eyebrow:"မင်္ဂလာဆောင် နေရာ",
+    chipDate:"၂၀၂၆ ခုနှစ်၊ အောက်တိုဘာ ၁၆ ရက် (သောကြာ)",
+    chipTime:"အခမ်းအနား ၁၄:၃၀",
+    chipRecep:"ဧည့်ခံ ၁၃:၃၀ မှ",
+    addrLabel:"လိပ်စာ",
+    accessTitle:"သွားရောက်နည်း",
+    akBus:"ဘတ်ကား", avBus:"Shinjuku၊ Tokyo Station နှင့် Ikebukuro မှ ဘတ်ကားများ ထွက်ခွာမည်ဖြစ်သည်။",
+    akTrain:"ရထား", avTrain:"Odakyu Line ဖြင့် Hon-Atsugi ဘူတာရုံသို့ (Shinjuku မှ ၆၀ မိနစ်ခန့်)။",
+    akCar:"ကားဖြင့်", avCar:"ကားပါ့ကင်ရှိသည်။ RSVP တွင် အကြောင်းကြားပေးပါ။",
+    calBtn:"+ ပြက္ခဒိန်တွင် ထည့်ပါ",
+    backBtn:"← ဖိတ်စာသို့ ပြန်သွားရန်",
+    sig:"Htoo &amp; May မှ ချစ်ခြင်းဖြင့် ♡",
+  }
+};
+const L = T[LANG] || T.en;
+
+/* ── Apply text ─────────────────────────────────────────────────────────── */
+document.getElementById("sealHint").textContent   = L.hint;
+document.getElementById("eyebrow").textContent    = L.eyebrow;
+document.getElementById("chipDate").textContent   = L.chipDate;
+document.getElementById("chipTime").textContent   = L.chipTime;
+document.getElementById("chipRecep").textContent  = L.chipRecep;
+document.getElementById("addrLabel").textContent  = L.addrLabel;
+document.getElementById("accessTitle").textContent= L.accessTitle;
+document.getElementById("akBus").textContent      = L.akBus;
+document.getElementById("avBus").textContent      = L.avBus;
+document.getElementById("akTrain").textContent    = L.akTrain;
+document.getElementById("avTrain").textContent    = L.avTrain;
+document.getElementById("akCar").textContent      = L.akCar;
+document.getElementById("avCar").textContent      = L.avCar;
+document.getElementById("calBtn").textContent     = L.calBtn;
+document.getElementById("backBtn").textContent    = L.backBtn;
+document.getElementById("sig").innerHTML          = L.sig;
+
+const greetEl = document.getElementById("greeting");
+const greetTxt = L.greet(GUEST);
+if (greetTxt) { greetEl.textContent = greetTxt; }
+else { greetEl.style.display = "none"; }
+
+/* ── Calendar .ics ─────────────────────────────────────────────────────── */
+const ICS = [
+  "BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Htoo & May Wedding//EN",
+  "BEGIN:VEVENT",
+  "UID:htoo-may-wedding-20261016@amandahills",
+  "DTSTART:20261016T043000Z",
+  "DTEND:20261016T083000Z",
+  "SUMMARY:Htoo & May Wedding 💍",
+  "LOCATION:Amanda Hills, Atsugi-shi, Kanagawa, Japan",
+  "DESCRIPTION:You are invited! Reception from 13:30 · Ceremony begins at 14:30 JST.",
+  "END:VEVENT","END:VCALENDAR"
+].join("\r\n");
+const calBlob = new Blob([ICS], {type:"text/calendar"});
+document.getElementById("calBtn").href = URL.createObjectURL(calBlob);
+
+/* ── Particle burst ────────────────────────────────────────────────────── */
+const cvs  = document.getElementById("particles");
+const ctx  = cvs.getContext("2d");
+const PAL  = ["#F2EFE9","#C9974A","#CFC9BB","#F6E6BE","#FFF3D6","#E0D2B4","#8C9188"];
+let W, H, pts = [];
+
+function resize(){ W = cvs.width = innerWidth; H = cvs.height = innerHeight; }
+window.addEventListener("resize", resize); resize();
+
+function burst(){
+  const cx = W/2, cy = H * .44;
+  for(let i = 0; i < 90; i++){
+    const a = Math.random() * Math.PI * 2;
+    const s = 2.5 + Math.random() * 7;
+    pts.push({x:cx, y:cy, vx:Math.cos(a)*s, vy:Math.sin(a)*s - 2.5,
+              r:1.5+Math.random()*3, c:PAL[Math.floor(Math.random()*PAL.length)],
+              a:1, d:.013+Math.random()*.018, g:.1});
+  }
+  tick();
+}
+function tick(){
+  ctx.clearRect(0,0,W,H);
+  pts = pts.filter(p => p.a > 0);
+  for(const p of pts){
+    p.x+=p.vx; p.y+=p.vy; p.vy+=p.g; p.vx*=.98; p.vy*=.98; p.a-=p.d;
+    ctx.globalAlpha = Math.max(0, p.a);
+    ctx.fillStyle = p.c;
+    ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2); ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+  if(pts.length) requestAnimationFrame(tick);
+}
+
+/* ── Reveal logic ──────────────────────────────────────────────────────── */
+let done = false;
+function reveal(){
+  if(done) return; done = true;
+  const ov = document.getElementById("overlay");
+  ov.classList.add("breaking");
+  burst();
+  setTimeout(() => {
+    ov.classList.add("gone");
+    document.getElementById("venue").classList.add("revealed");
+  }, 620);
+}
+
+document.getElementById("sealBtn").addEventListener("click", reveal);
+document.getElementById("sealBtn").addEventListener("keydown", e => {
+  if(e.key==="Enter" || e.key===" "){ e.preventDefault(); reveal(); }
+});
+
+// ?reveal=auto  →  skip seal, reveal immediately
+if(AUTO) reveal();
+</script>
+</body>
+</html>
